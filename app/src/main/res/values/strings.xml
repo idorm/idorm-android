@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">iDorm</string>
+    <!-- LoginFragment -->
+    <string name="loginText">로그인</string>
+    <string name="loginWithInuEmailText">인천대학교 이메일로 로그인해주세요.</string>
+    <string name="emailPlaceholder">이메일</string>
+    <string name="pwPlaceholder">비밀번호</string>
+    <string name="loginInteraction">로그인</string>
+    <string name="lostPasswordInteraction">비밀번호를 잊으셨나요?</string>
+    <string name="noAccountText">아직 계정이 없으신가요?</string>
+    <string name="registerInteraction">회원가입</string>
 </resources>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="loginViewModel"
+            type="org.appcenter.inudorm.presentation.LoginViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/onboard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="40dp"
+        tools:context=".presentation.ui.main.LoginFragment">
+
+        <ImageView
+            android:id="@+id/idorm_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_idorm_logo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/loginText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loginText"
+            app:layout_constraintStart_toStartOf="@id/idorm_logo"
+            app:layout_constraintTop_toBottomOf="@id/idorm_logo" />
+
+        <ImageView
+            android:id="@+id/inu_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_inu_logo"
+            app:layout_constraintStart_toStartOf="@id/loginText"
+            app:layout_constraintTop_toBottomOf="@+id/loginText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loginWithInuEmailText"
+            app:layout_constraintStart_toEndOf="@id/inu_logo"
+            app:layout_constraintTop_toTopOf="@id/inu_logo" />
+
+        <EditText
+            android:id="@+id/emailField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/emailPlaceholder"
+            android:inputType="textEmailAddress"
+            android:text="@={loginViewModel.email}"
+            app:layout_constraintStart_toStartOf="@id/inu_logo"
+            app:layout_constraintTop_toBottomOf="@+id/inu_logo" />
+
+        <EditText
+            android:id="@+id/passwordField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/pwPlaceholder"
+            android:inputType="textPassword"
+            android:text="@={loginViewModel.password}"
+            app:layout_constraintStart_toStartOf="@id/emailField"
+            app:layout_constraintTop_toBottomOf="@+id/emailField" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/loginButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> loginViewModel.tryToLoginWithInput()}"
+            android:text="@string/loginInteraction"
+            app:layout_constraintStart_toStartOf="@id/passwordField"
+            app:layout_constraintTop_toBottomOf="@id/passwordField" />
+
+        <!-- padding 5dp는 TextView 자체에 온클릭 이벤트 리스너를 걸었을 때 터치가 용이하게 위함입니다. -->
+        <TextView
+            android:id="@+id/changePasswordClickText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/lostPasswordInteraction"
+            app:layout_constraintEnd_toEndOf="@id/loginButton"
+            app:layout_constraintStart_toStartOf="@id/loginButton"
+            app:layout_constraintTop_toBottomOf="@id/loginButton" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/ask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/noAccountText"
+                app:layout_constraintEnd_toStartOf="@id/registerClickText"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/registerClickText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/registerInteraction"
+                app:layout_constraintStart_toEndOf="@id/ask"
+                app:layout_constraintTop_toTopOf="@id/ask" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
