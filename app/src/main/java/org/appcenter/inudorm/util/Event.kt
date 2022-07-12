@@ -1,12 +1,18 @@
 package org.appcenter.inudorm.util
 
+import android.app.AlertDialog
+import android.content.Context
+import android.content.DialogInterface
+import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
+import org.appcenter.inudorm.OnPromptDoneListener
 
 data class DialogButton(val text: String, val textColor: Int?, val onClick: () -> Unit)
 
@@ -43,4 +49,35 @@ open class ViewModelWithEvent : ViewModel() {
 
     fun mergeBundleWithPaging(key: String, data: Any) =
         event(Event.MergeBundleWithPaging(key, data))
+}
+
+fun eventHandler(context: Context, it:Event) {
+    Log.d("Fragment", it.toString())
+    when (it) {
+        is Event.ShowToast -> {
+            Toast.makeText(context, it.text, it.interval).show()
+        }
+        is Event.ShowDialog -> {
+            val dialog = AlertDialog.Builder(context)
+                .setMessage(it.text)
+            if (it.positiveButton != null) {
+                dialog.setPositiveButton(
+                    it.positiveButton.text,
+                    (DialogInterface.OnClickListener { _, _ -> it.positiveButton.onClick() })
+                )
+            }
+            if (it.negativeButton != null) {
+                dialog.setNegativeButton(
+                    it.negativeButton.text,
+                    (DialogInterface.OnClickListener { _, _ -> it.negativeButton.onClick() })
+                )
+            }
+            dialog.create().show()
+        }
+        is Event.MergeBundleWithPaging<*> -> {
+            val bundle = Bundle()
+            bundle.putString(it.key, it.data as String)
+            (context as OnPromptDoneListener).onPromptDone(bundle)
+        }
+    }
 }

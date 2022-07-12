@@ -18,6 +18,7 @@ import org.appcenter.inudorm.OnPromptDoneListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentEmailPromptBinding
 import org.appcenter.inudorm.util.Event
+import org.appcenter.inudorm.util.eventHandler
 
 class EmailPromptFragment : Fragment() {
 
@@ -42,34 +43,7 @@ class EmailPromptFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         lifecycleScope.launch {
             viewModel.eventFlow.collect {
-                Log.d("Fragment", it.toString())
-                when (it) {
-                    is Event.ShowToast -> {
-                        Toast.makeText(context, it.text, it.interval).show()
-                    }
-                    is Event.ShowDialog -> {
-                        val dialog = AlertDialog.Builder(context)
-                            .setMessage(it.text)
-                        if (it.positiveButton != null) {
-                            dialog.setPositiveButton(
-                                it.positiveButton.text,
-                                (DialogInterface.OnClickListener { _, _ -> it.positiveButton.onClick() })
-                            )
-                        }
-                        if (it.negativeButton != null) {
-                            dialog.setNegativeButton(
-                                it.negativeButton.text,
-                                (DialogInterface.OnClickListener { _, _ -> it.negativeButton.onClick() })
-                            )
-                        }
-                        dialog.create().show()
-                    }
-                    is Event.MergeBundleWithPaging<*> -> {
-                        val bundle = Bundle()
-                        bundle.putString(it.key, it.data as String)
-                        (context as OnPromptDoneListener).onPromptDone(bundle)
-                    }
-                }
+                eventHandler(requireContext(), it)
             }
         }
     }
