@@ -7,7 +7,7 @@ import org.appcenter.inudorm.util.ViewModelWithEvent
 
 
 class EmailPromptViewModel : ViewModelWithEvent() {
-    private val email = MutableLiveData("")
+    val email = MutableLiveData("")
 
     fun showNotValidDialog() {
         val okButton = DialogButton("확인", Color.CYAN) {
