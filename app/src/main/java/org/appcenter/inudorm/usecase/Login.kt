@@ -20,7 +20,7 @@ class Login(
     private val userRepository = UserRepository()
 
     // At the top level of your kotlin file:
-    override suspend fun onExecute(params: UserInputParams?): Flow<Boolean> {
+    override suspend fun onExecute(params: UserInputParams?): Boolean {
         return if (params != null) {
             loginWithInput(params)
         } else { // 입력이 없으면 (자동로그인 시도)
@@ -45,11 +45,11 @@ class Login(
         }
     }
 
-    private fun loginWithInput(params: UserInputParams?):Flow<Boolean> {
+    private suspend fun loginWithInput(params: UserInputParams?): Boolean {
         return userRepository.login(params)
     }
 
-    private suspend fun loginWithSavedCredentials() : Flow<Boolean> {
+    private suspend fun loginWithSavedCredentials() : Boolean {
         val storedUser = userFromStorage().first()
         return userRepository.login(storedUser)
     }

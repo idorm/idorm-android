@@ -21,7 +21,17 @@ class SplashActivity : AppCompatActivity() {
         val userRepository = UserRepository()
         lifecycleScope.launch {
             // Try to login
-            Login(dataStore).run {}
+            kotlin.runCatching {
+                Login(dataStore).run(null)
+            }.onSuccess { isSuccess ->
+                if (isSuccess) {
+                    // 기기에 있는 정보로 로그인 성공. MainActivity로 보냅니다.
+                } else {
+                    // 기기에 정보가 없거나 로그인에 실패. LoginActivity로 보냅니다.
+                }
+            }.onFailure {
+                // 기기에 정보가 없거나 로그인에 실패. LoginActivity로 보냅니다.
+            }
         }
     }
 }
