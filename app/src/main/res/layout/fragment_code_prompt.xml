@@ -56,12 +56,13 @@
                 android:id="@+id/resendCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/notosans_medium"
-                android:includeFontPadding="false"
+
 
                 android:onClick="@{() -> codeViewModel.resendCode()}"
                 android:padding="5dp"
                 android:text="인증번호 재요청"
+                android:fontFamily="@font/notosans_medium"
+                android:includeFontPadding="false"
                 android:textColor="@color/iDorm_gray_300"
                 android:textSize="12sp"
 
@@ -93,22 +94,27 @@
                 android:text="@={codeViewModel.code}"
                 android:textColorHint="@color/iDorm_gray_300"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toStartOf="@+id/textView"
+                app:layout_constraintEnd_toStartOf="@+id/remainTime"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/remainTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:text="03:00"
-                android:textColor="@color/red"
+                android:fontFamily="@font/notosans_medium"
+                android:textSize="14sp"
+                android:textColor="@color/iDorm_blue"
+                android:includeFontPadding="false"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!--        onclick 넣어주세요-->
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="53dp"
