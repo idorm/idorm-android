@@ -8,7 +8,8 @@ class PagerAdapter(fa:FragmentActivity, private var fragments:ArrayList<Fragment
     override fun getItemCount(): Int = fragments.size
     override fun createFragment(position: Int): Fragment = fragments[position]
 
-    fun addFragments(fragmentsToAdd: ArrayList<Fragment>) {
-        fragments.addAll(fragmentsToAdd)
+    fun addFragment(fragmentToAdd: Fragment) {
+        fragments.add(fragmentToAdd)
+        notifyItemInserted(itemCount)
     }
 }

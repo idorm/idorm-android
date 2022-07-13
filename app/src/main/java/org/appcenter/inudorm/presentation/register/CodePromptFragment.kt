@@ -1,24 +1,18 @@
 package org.appcenter.inudorm.presentation.register
 
-import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.appcenter.inudorm.OnPromptDoneListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentCodePromptBinding
-import org.appcenter.inudorm.databinding.FragmentEmailPromptBinding
-import org.appcenter.inudorm.util.Event
 import org.appcenter.inudorm.util.eventHandler
 
 class CodePromptFragment : Fragment() {
@@ -27,7 +21,7 @@ class CodePromptFragment : Fragment() {
         fun newInstance() = CodePromptFragment()
     }
 
-    private val viewModel: CodePromptViewModel by viewModels()
+    private lateinit var viewModel: CodePromptViewModel
     private lateinit var binding: FragmentCodePromptBinding
 
     override fun onCreateView(
@@ -36,6 +30,18 @@ class CodePromptFragment : Fragment() {
     ): View {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_code_prompt, container, false)
+        val bundle = this.arguments
+        var code : String
+        if (bundle != null) {
+            code = bundle.getString("encryptedCode", "none")
+            Log.d("[CodePromptFragment]", "I got $code" )
+        } else {
+            code = "none"
+        }
+        viewModel = ViewModelProvider(
+            viewModelStore,
+            CodePromptViewModelFactory(code)
+        )[CodePromptViewModel::class.java]
         binding.codeViewModel = viewModel
         return binding.root
     }

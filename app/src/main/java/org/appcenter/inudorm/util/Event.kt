@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.OnPromptDoneListener
 
-data class DialogButton(val text: String, val textColor: Int?, val onClick: () -> Unit)
+data class DialogButton(val text: String, val textColor: Int?, val onClick: (() -> Unit)?)
 
 
 // Event 클래스를 상속 받는 두 클래스를 만들어준다. sealed를 쓰면 when ... is 를 통해 이벤트에 따라 분기시킬 수 있다.
@@ -26,7 +26,7 @@ sealed class Event {
         val negativeButton: DialogButton?
     ) : Event()
 
-    data class MergeBundleWithPaging<T>(val key: String, val data: T) : Event()
+    data class MergeBundleWithPaging(val bundle: Bundle) : Event()
 }
 
 open class ViewModelWithEvent : ViewModel() {
@@ -47,8 +47,8 @@ open class ViewModelWithEvent : ViewModel() {
         negativeButton: DialogButton?
     ) = event(Event.ShowDialog(text, positiveButton, negativeButton))
 
-    fun mergeBundleWithPaging(key: String, data: Any) =
-        event(Event.MergeBundleWithPaging(key, data))
+    fun mergeBundleWithPaging(bundle: Bundle) =
+        event(Event.MergeBundleWithPaging(bundle))
 }
 
 fun eventHandler(context: Context, it:Event) {
@@ -63,21 +63,19 @@ fun eventHandler(context: Context, it:Event) {
             if (it.positiveButton != null) {
                 dialog.setPositiveButton(
                     it.positiveButton.text,
-                    (DialogInterface.OnClickListener { _, _ -> it.positiveButton.onClick() })
+                    (DialogInterface.OnClickListener { _, _ -> it.positiveButton.onClick })
                 )
             }
             if (it.negativeButton != null) {
                 dialog.setNegativeButton(
                     it.negativeButton.text,
-                    (DialogInterface.OnClickListener { _, _ -> it.negativeButton.onClick() })
+                    (DialogInterface.OnClickListener { _, _ -> it.negativeButton.onClick })
                 )
             }
             dialog.create().show()
         }
-        is Event.MergeBundleWithPaging<*> -> {
-            val bundle = Bundle()
-            bundle.putString(it.key, it.data as String)
-            (context as OnPromptDoneListener).onPromptDone(bundle)
+        is Event.MergeBundleWithPaging -> {
+            (context as OnPromptDoneListener).onPromptDone(it.bundle)
         }
     }
 }

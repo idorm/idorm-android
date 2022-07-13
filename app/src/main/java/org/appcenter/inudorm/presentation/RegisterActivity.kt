@@ -20,6 +20,7 @@ class RegisterActivity : AppCompatActivity(), OnPromptDoneListener {
     }
 
     private var registerBundle: Bundle = Bundle()
+    private lateinit var pagerAdapter: PagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,17 +31,16 @@ class RegisterActivity : AppCompatActivity(), OnPromptDoneListener {
         supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
         if (savedInstanceState == null) {
             // The pager adapter, which provides the pages to the view pager widget.
-            val initPages = ArrayList<Fragment>()
-            initPages.add(EmailPromptFragment())
-            initPages.add(CodePromptFragment())
+            val initPage = ArrayList<Fragment>()
+            initPage.add(EmailPromptFragment())
             binding.pager.isUserInputEnabled = false
-            addPages(initPages)
+            pagerAdapter = PagerAdapter(this, initPage)
+            binding.pager.adapter = pagerAdapter
         }
     }
 
-    private fun addPages(pages: ArrayList<Fragment>) {
-        val pagerAdapter = PagerAdapter(this, pages)
-        binding.pager.adapter = pagerAdapter
+    private fun addPage(page: Fragment) {
+        pagerAdapter.addFragment(page)
     }
 
     override fun onBackPressed() { // 스텝이 첫번째일 경우 원래 백버튼 이벤트 리스너 호출
@@ -71,7 +71,20 @@ class RegisterActivity : AppCompatActivity(), OnPromptDoneListener {
 
     override fun onPromptDone(data: Bundle) {
         registerBundle.putAll(data)
-        Toast.makeText(this, registerBundle.getString("email"), Toast.LENGTH_SHORT).show()
+        when (binding.pager.currentItem) {
+            0 -> {
+                Toast.makeText(this, "암호화된 코드를 갖고 프래그먼트 생성", Toast.LENGTH_SHORT).show()
+                val fragment = CodePromptFragment()
+                fragment.arguments = data
+                addPage(fragment)
+            }
+            1 -> {
+                Toast.makeText(this, "비밀번호 설정 프래그먼트 생성", Toast.LENGTH_SHORT).show()
+                val fragment = CodePromptFragment()
+                fragment.arguments = data
+                addPage(fragment)
+            }
+        }
         binding.pager.currentItem++
         setToolbarIcon()
     }

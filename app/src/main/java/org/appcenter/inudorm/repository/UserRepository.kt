@@ -17,4 +17,10 @@ class UserRepository {
             emit(true)
         }.first()
     }
+    suspend fun sendAuthCode(email: String) : String {
+        return flow {
+            delay(1000)
+            emit("22lZgsZGjJeaH5vUMFmTd1j0SMAlZYsQ76uyoBC6DHM=") // 432849
+        }.first()
+    }
 }
