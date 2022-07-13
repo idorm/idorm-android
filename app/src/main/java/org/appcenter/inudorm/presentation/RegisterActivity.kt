@@ -1,17 +1,22 @@
 package org.appcenter.inudorm.presentation
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.google.android.material.snackbar.Snackbar
 import org.appcenter.inudorm.OnPromptDoneListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityRegisterBinding
 import org.appcenter.inudorm.presentation.register.EmailPromptFragment
 import org.appcenter.inudorm.util.PagerAdapter
 
-class RegisterActivity : FragmentActivity(), OnPromptDoneListener {
+class RegisterActivity : AppCompatActivity(), OnPromptDoneListener {
 
     private val binding: ActivityRegisterBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_register)
@@ -22,6 +27,10 @@ class RegisterActivity : FragmentActivity(), OnPromptDoneListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+        setSupportActionBar(binding.toolbar)
+        supportActionBar!!.setDisplayShowTitleEnabled(false)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
         if (savedInstanceState == null) {
             // The pager adapter, which provides the pages to the view pager widget.
             val initPages = ArrayList<Fragment>()
@@ -37,6 +46,17 @@ class RegisterActivity : FragmentActivity(), OnPromptDoneListener {
             binding.pager.currentItem--
         }
     }
+    // 4.툴바 메뉴 버튼이 클릭 됐을 때 콜백
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // 클릭된 메뉴 아이템의 아이디 마다 when 구절로 클릭시 동작을 설정한다.
+        when(item.itemId){
+            android.R.id.home->{ // 메뉴 버튼
+               this.onBackPressed()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 
     override fun onPromptDone(data: Bundle) {
         registerBundle.putAll(data)
