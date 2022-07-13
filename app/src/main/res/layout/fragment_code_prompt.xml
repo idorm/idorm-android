@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="codeViewModel"
             type="org.appcenter.inudorm.presentation.register.CodePromptViewModel" />
@@ -13,15 +12,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="20dp"
+        android:paddingHorizontal="24dp"
+        android:paddingBottom="33dp"
         tools:context=".presentation.register.CodePromptFragment">
 
         <ImageView
-            android:id="@+id/image"
+            android:id="@+id/email"
+            android:src="@drawable/ic_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:src="@drawable/ic_email"
+
+            android:layout_marginTop="55dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -30,16 +31,22 @@
             android:id="@+id/resendArea"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+
+            android:layout_marginTop="44dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image">
+            app:layout_constraintTop_toBottomOf="@+id/email">
 
             <TextView
                 android:id="@+id/codeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:text="지금 이메일로 인증번호를 보내드렸어요!"
-                android:textColor="@color/black"
+                android:fontFamily="@font/notosans_medium"
+                android:textColor="@color/iDorm_gray_400"
+                android:textSize="12sp"
+                android:includeFontPadding="false"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -49,7 +56,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
+
                 android:text="인증번호 재요청"
+                android:fontFamily="@font/notosans_medium"
+                android:textColor="@color/iDorm_gray_300"
+                android:textSize="12sp"
+                android:includeFontPadding="false"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -59,15 +72,37 @@
         <EditText
             android:id="@+id/editText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="51dp"
+
             android:text="@={codeViewModel.code}"
+            android:fontFamily="@font/notosans_medium"
+            android:textSize="14sp"
+            android:includeFontPadding="false"
+
+            android:hint="@string/inputCertification"
+            android:textColorHint="@color/iDorm_gray_300"
+            android:inputType="textEmailAddress"
+
+            android:background="@drawable/edit_text_round_stroke_gray_400"
+            android:layout_marginTop="14dp"
+            android:paddingLeft="14dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/resendArea" />
 
+        <!--        onclick 넣어주세요-->
         <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="회원가입"
+            android:layout_height="53dp"
+            android:onClick="@{}"
+
+            android:text="인증 완료"
+            android:fontFamily="@font/notosans_medium"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:includeFontPadding="false"
+
+            android:background="@drawable/button_round_10"
+            android:layout_marginTop="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

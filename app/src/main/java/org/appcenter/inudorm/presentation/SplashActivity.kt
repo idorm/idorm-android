@@ -1,8 +1,10 @@
 package org.appcenter.inudorm.presentation
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -26,11 +28,27 @@ class SplashActivity : AppCompatActivity() {
             }.onSuccess { isSuccess ->
                 if (isSuccess) {
                     // 기기에 있는 정보로 로그인 성공. MainActivity로 보냅니다.
+                    Handler().postDelayed({
+                        //H** val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                        val intent = Intent(this@SplashActivity, RegisterActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }, 3000)
                 } else {
                     // 기기에 정보가 없거나 로그인에 실패. LoginActivity로 보냅니다.
+                    Handler().postDelayed({
+                        val intent = Intent(this@SplashActivity, LoginActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }, 3000)
                 }
             }.onFailure {
                 // 기기에 정보가 없거나 로그인에 실패. LoginActivity로 보냅니다.
+                Handler().postDelayed({
+                    val intent = Intent(this@SplashActivity, LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }, 3000)
             }
         }
     }
