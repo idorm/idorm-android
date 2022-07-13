@@ -17,114 +17,132 @@
         android:paddingBottom="33dp"
         tools:context=".presentation.register.CodePromptFragment">
 
-        <ImageView
-            android:id="@+id/email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="55dp"
-
-            android:src="@drawable/ic_email"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/resendArea"
+        <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:layout_marginTop="44dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/button3"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email">
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/codeText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                android:fontFamily="@font/notosans_medium"
-                android:includeFontPadding="false"
-                android:text="지금 이메일로 인증번호를 보내드렸어요!"
-                android:textColor="@color/iDorm_gray_400"
-                android:textSize="12sp"
+                <ImageView
+                    android:id="@+id/email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="55dp"
 
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                    android:src="@drawable/ic_email"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/resendCode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/notosans_medium"
-                android:includeFontPadding="false"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/resendArea"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
 
-                android:onClick="@{() -> codeViewModel.resendCode()}"
-                android:padding="5dp"
-                android:text="인증번호 재요청"
-                android:textColor="@color/iDorm_gray_300"
-                android:textSize="12sp"
+                    android:layout_marginTop="44dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/email">
 
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/codeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:fontFamily="@font/notosans_medium"
+                        android:includeFontPadding="false"
+                        android:text="지금 이메일로 인증번호를 보내드렸어요!"
+                        android:textColor="@color/iDorm_gray_400"
+                        android:textSize="12sp"
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:background="@drawable/edit_text_round_stroke_gray_400"
-            android:padding="14dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/resendArea">
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/editText"
-                android:layout_width="0dp"
-                android:layout_height="25dp"
-                android:layout_marginEnd="14dp"
-                android:background="@drawable/edit_text_no_borders"
-                android:fontFamily="@font/notosans_medium"
-                android:hint="@string/inputCertification"
-                android:includeFontPadding="false"
-                android:inputType="textEmailAddress"
-                android:text="@={codeViewModel.code}"
-                android:textColorHint="@color/iDorm_gray_300"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toStartOf="@+id/textView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/resendCode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosans_medium"
+                        android:includeFontPadding="false"
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="03:00"
-                android:textColor="@color/red"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:onClick="@{() -> codeViewModel.resendCode()}"
+                        android:padding="5dp"
+                        android:text="인증번호 재요청"
+                        android:textColor="@color/iDorm_gray_300"
+                        android:textSize="12sp"
+
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:background="@drawable/edit_text_round_stroke_gray_400"
+                    android:padding="14dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/resendArea">
+
+                    <EditText
+                        android:id="@+id/editText"
+                        android:layout_width="0dp"
+                        android:layout_height="25dp"
+                        android:layout_marginEnd="14dp"
+                        android:background="@drawable/edit_text_no_borders"
+                        android:fontFamily="@font/notosans_medium"
+                        android:hint="@string/inputCertification"
+                        android:includeFontPadding="false"
+                        android:inputType="number"
+                        android:maxLength="6"
+                        android:text="@={codeViewModel.code}"
+                        android:textColorHint="@color/iDorm_gray_300"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toStartOf="@+id/textView"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="03:00"
+                        android:textColor="@color/red"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
 
         <!--        onclick 넣어주세요-->
         <Button
+            android:id="@+id/button3"
+
             android:layout_width="match_parent"
             android:layout_height="53dp"
-            android:layout_marginTop="32dp"
-
             android:background="@drawable/button_round_10"
             android:fontFamily="@font/notosans_medium"
             android:includeFontPadding="false"
+
+
             android:onClick="@{() -> codeViewModel.submit()}"
             android:text="인증 완료"
-
-
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scrollView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
