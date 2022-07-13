@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+//font weight입니다. 나중에 커스텀으로 관리할 예정. 지금은 급하니까 스킵
+<!--    Thin(100)-->
+<!--    Light(300)-->
+<!--    Regular(400)-->
+<!--    Medium(500)-->
+<!--    Bold(700)-->
+<!--    Black(900)-->
+</font-family>

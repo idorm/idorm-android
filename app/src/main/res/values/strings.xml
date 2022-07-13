@@ -2,11 +2,26 @@
     <string name="app_name">iDorm</string>
     <!-- LoginFragment -->
     <string name="loginText">로그인</string>
-    <string name="loginWithInuEmailText">인천대학교 이메일로 로그인해주세요.</string>
-    <string name="emailPlaceholder">이메일</string>
-    <string name="pwPlaceholder">비밀번호</string>
     <string name="loginInteraction">로그인</string>
+
+    <string name="emailPlaceholder">이메일</string>
+    <string name="inputEmail">이메일을 입력해주세요.</string>
+    <string name="loginWithInuEmailText">인천대학교 이메일로 로그인해주세요.</string>
+    <string name="needInuEmailText">인천대학교 이메일(@inu.ac.kr)이 필요해요.</string>
+
+
+    <string name="pwPlaceholder">비밀번호</string>
+    <string name="inputPw">비밀번호를 입력해주세요.</string>
+    <string name="inputPwAgain">비밀번호를 한 번 더입력해주세요.</string>
     <string name="lostPasswordInteraction">비밀번호를 잊으셨나요?</string>
     <string name="noAccountText">아직 계정이 없으신가요?</string>
+
     <string name="registerInteraction">회원가입</string>
+    <string name="welcomeText">안녕하세요. 가입을 축하드려요.</string>
+    <string name="welcomeText2">로그인 후 인천대학교 기숙사 룸메이트 매칭을 위한 기본 정보를 알려주세요.</string>
+
+
+    <string name="inputCertification">인증번호를 입력해주세요.</string>
+
+
 </resources>
