@@ -7,21 +7,21 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import org.appcenter.inudorm.OnPromptDoneListener
 import org.appcenter.inudorm.R
-import org.appcenter.inudorm.databinding.ActivityOnboardBinding
+import org.appcenter.inudorm.databinding.ActivityRegisterBinding
 import org.appcenter.inudorm.presentation.register.EmailPromptFragment
 import org.appcenter.inudorm.util.PagerAdapter
 
 class RegisterActivity : FragmentActivity(), OnPromptDoneListener {
 
-    private val binding: ActivityOnboardBinding by lazy {
-        DataBindingUtil.setContentView(this, R.layout.activity_onboard)
+    private val binding: ActivityRegisterBinding by lazy {
+        DataBindingUtil.setContentView(this, R.layout.activity_register)
     }
 
     private var registerBundle:Bundle = Bundle()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_onboard)
+        setContentView(R.layout.activity_register)
         if (savedInstanceState == null) {
             // The pager adapter, which provides the pages to the view pager widget.
             val initPages = ArrayList<Fragment>()
