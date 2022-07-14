@@ -60,6 +60,24 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/welcomeText"/>
 
+        <Button
+            android:id="@+id/button3"
+
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:background="@drawable/button_round_28"
+            android:fontFamily="@font/notosans_medium"
+            android:includeFontPadding="false"
+
+            android:text="@string/startAfterLogin"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+
+            android:layout_marginHorizontal="21.5dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
 
 
 
