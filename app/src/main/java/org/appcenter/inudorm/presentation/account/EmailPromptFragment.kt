@@ -1,48 +1,55 @@
-package org.appcenter.inudorm.presentation.register
+package org.appcenter.inudorm.presentation.account
 
 import android.os.Bundle
+import android.os.Parcel
+import android.os.Parcelable
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
-import org.appcenter.inudorm.databinding.FragmentCodePromptBinding
+import org.appcenter.inudorm.databinding.FragmentEmailPromptBinding
 import org.appcenter.inudorm.util.eventHandler
 
-class CodePromptFragment : Fragment() {
+enum class EmailPromptPurpose  {
+    Register,
+    FindPass
+}
+
+class EmailPromptFragment : Fragment() {
 
     companion object {
-        fun newInstance() = CodePromptFragment()
+        fun newInstance() = EmailPromptFragment()
     }
 
-    private lateinit var viewModel: CodePromptViewModel
-    private lateinit var binding: FragmentCodePromptBinding
+    private lateinit var viewModel: EmailPromptViewModel
+    private lateinit var binding: FragmentEmailPromptBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_code_prompt, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.fragment_email_prompt, container, false)
         val bundle = this.arguments
-        var code : String
+        val purpose : EmailPromptPurpose
         if (bundle != null) {
-            code = bundle.getString("encryptedCode", "none")
-            Log.d("[CodePromptFragment]", "I got $code" )
+            purpose = bundle.getSerializable("purpose") as EmailPromptPurpose
+            Log.d("[EmilPromptFragment]", "I got $purpose" )
         } else {
-            code = "none"
+            purpose = EmailPromptPurpose.Register
         }
         viewModel = ViewModelProvider(
             viewModelStore,
-            CodePromptViewModelFactory(code)
-        )[CodePromptViewModel::class.java]
-        binding.codeViewModel = viewModel
+            EmailPromptViewModelFactory(purpose)
+        )[EmailPromptViewModel::class.java]
+        binding.emailViewModel = viewModel
         return binding.root
     }
 

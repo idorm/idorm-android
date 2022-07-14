@@ -7,7 +7,7 @@
 
         <variable
             name="codeViewModel"
-            type="org.appcenter.inudorm.presentation.register.CodePromptViewModel" />
+            type="org.appcenter.inudorm.presentation.account.CodePromptViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:paddingHorizontal="24dp"
         android:paddingBottom="33dp"
-        tools:context=".presentation.register.CodePromptFragment">
+        tools:context=".presentation.account.CodePromptFragment">
 
         <ScrollView
             android:id="@+id/scrollView"
@@ -116,7 +116,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:text="03:00"
+                        android:text="@{codeViewModel.timer}"
                         android:fontFamily="@font/notosans_medium"
                         android:textSize="14sp"
                         android:textColor="@color/iDorm_blue"

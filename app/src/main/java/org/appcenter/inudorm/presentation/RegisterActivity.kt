@@ -9,8 +9,10 @@ import androidx.fragment.app.Fragment
 import org.appcenter.inudorm.OnPromptDoneListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityRegisterBinding
-import org.appcenter.inudorm.presentation.register.CodePromptFragment
-import org.appcenter.inudorm.presentation.register.EmailPromptFragment
+import org.appcenter.inudorm.presentation.account.CodePromptFragment
+import org.appcenter.inudorm.presentation.account.EmailPromptFragment
+import org.appcenter.inudorm.presentation.account.EmailPromptPurpose
+import org.appcenter.inudorm.presentation.account.PasswordPromptFragment
 import org.appcenter.inudorm.util.PagerAdapter
 
 class RegisterActivity : AppCompatActivity(), OnPromptDoneListener {
@@ -48,6 +50,7 @@ class RegisterActivity : AppCompatActivity(), OnPromptDoneListener {
             super.onBackPressed()
         } else {
             binding.pager.currentItem--
+            pagerAdapter.deleteFragment(binding.pager.currentItem + 1)
             setToolbarIcon()
         }
     }
@@ -71,6 +74,7 @@ class RegisterActivity : AppCompatActivity(), OnPromptDoneListener {
 
     override fun onPromptDone(data: Bundle) {
         registerBundle.putAll(data)
+        if (binding.pager.currentItem == pagerAdapter.itemCount - 1)
         when (binding.pager.currentItem) {
             0 -> {
                 Toast.makeText(this, "암호화된 코드를 갖고 프래그먼트 생성", Toast.LENGTH_SHORT).show()
@@ -80,7 +84,9 @@ class RegisterActivity : AppCompatActivity(), OnPromptDoneListener {
             }
             1 -> {
                 Toast.makeText(this, "비밀번호 설정 프래그먼트 생성", Toast.LENGTH_SHORT).show()
-                val fragment = CodePromptFragment()
+                val bundle = Bundle()
+                bundle.putSerializable("purpose", EmailPromptPurpose.FindPass)
+                val fragment = PasswordPromptFragment()
                 fragment.arguments = data
                 addPage(fragment)
             }

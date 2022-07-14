@@ -1,8 +1,10 @@
-package org.appcenter.inudorm.presentation.register
+package org.appcenter.inudorm.presentation.account
 
 import android.graphics.Color
 import android.os.Bundle
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.repository.UserRepository
@@ -11,7 +13,7 @@ import org.appcenter.inudorm.util.ViewModelWithEvent
 import org.appcenter.inudorm.util.emailValidator
 
 
-class EmailPromptViewModel : ViewModelWithEvent() {
+class EmailPromptViewModel(private val purpose: EmailPromptPurpose) : ViewModelWithEvent() {
     val email = MutableLiveData("")
     private val userRepository = UserRepository()
 
@@ -27,7 +29,14 @@ class EmailPromptViewModel : ViewModelWithEvent() {
         if (emailValidator(mail)) {
             viewModelScope.launch {
                 kotlin.runCatching {
-                    userRepository.sendAuthCode(mail)
+                    when (purpose) {
+                        EmailPromptPurpose.Register -> {
+                            userRepository.sendAuthCode(mail)
+                        }
+                        EmailPromptPurpose.FindPass -> {
+                            userRepository.sendAuthCode(mail)
+                        }
+                    }
                 }.onSuccess {
                     val bundle = Bundle()
                     bundle.putString("email", mail)
@@ -43,3 +52,12 @@ class EmailPromptViewModel : ViewModelWithEvent() {
     }
 }
 
+class EmailPromptViewModelFactory(private val purpose: EmailPromptPurpose) :
+    ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(EmailPromptViewModel::class.java)) {
+            return EmailPromptViewModel(purpose) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}

@@ -6,14 +6,14 @@
     <data>
         <variable
             name="emailViewModel"
-            type="org.appcenter.inudorm.presentation.register.EmailPromptViewModel" />
+            type="org.appcenter.inudorm.presentation.account.EmailPromptViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="24dp"
-        tools:context=".presentation.register.EmailPromptFragment">
+        tools:context=".presentation.account.register.EmailPromptFragment">
 
         <TextView
             android:id="@+id/emailText"

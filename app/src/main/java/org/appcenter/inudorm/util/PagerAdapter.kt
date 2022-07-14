@@ -12,4 +12,9 @@ class PagerAdapter(fa:FragmentActivity, private var fragments:ArrayList<Fragment
         fragments.add(fragmentToAdd)
         notifyItemInserted(itemCount)
     }
+
+    fun deleteFragment(position: Int) {
+        fragments.removeAt(position)
+        notifyItemRemoved(position)
+    }
 }
