@@ -28,7 +28,7 @@ class EmailPromptFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_register_email_prompt, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.fragment_email_prompt, container, false)
         binding.emailViewModel = viewModel
         return binding.root
     }

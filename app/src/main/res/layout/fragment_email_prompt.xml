@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:text="이메일"
+            android:text="@string/emailText"
             android:fontFamily="@font/notosans_medium"
             android:textColor="@color/black"
             android:textSize="14sp"
@@ -41,7 +41,7 @@
             android:textSize="14sp"
             android:includeFontPadding="false"
 
-            android:hint="@string/inputEmail"
+            android:hint="@string/inputEmailPlaceholder"
             android:textColorHint="@color/iDorm_gray_300"
             android:inputType="textEmailAddress"
 
