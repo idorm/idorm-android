@@ -69,7 +69,7 @@
             android:fontFamily="@font/notosans_medium"
             android:includeFontPadding="false"
 
-            android:text="@string/startAfterLogin"
+            android:text="@string/loginToContinueInteraction"
             android:textColor="@color/white"
             android:textSize="14sp"
 

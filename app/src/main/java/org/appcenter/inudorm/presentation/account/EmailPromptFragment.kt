@@ -1,20 +1,26 @@
-package org.appcenter.inudorm.presentation.account
+package org.appcenter.inudorm.presentation.register
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import org.appcenter.inudorm.OnPromptDoneListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentEmailPromptBinding
+import org.appcenter.inudorm.presentation.account.EmailPromptViewModel
+import org.appcenter.inudorm.presentation.account.EmailPromptViewModelFactory
+import org.appcenter.inudorm.util.Event
 import org.appcenter.inudorm.util.eventHandler
 
 enum class EmailPromptPurpose  {
@@ -29,6 +35,7 @@ class EmailPromptFragment : Fragment() {
     }
 
     private lateinit var viewModel: EmailPromptViewModel
+
     private lateinit var binding: FragmentEmailPromptBinding
 
     override fun onCreateView(

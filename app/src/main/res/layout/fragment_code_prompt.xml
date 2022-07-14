@@ -57,7 +57,7 @@
 
                         android:fontFamily="@font/notosans_medium"
                         android:includeFontPadding="false"
-                        android:text="지금 이메일로 인증번호를 보내드렸어요!"
+                        android:text="@string/sendCertificationText"
                         android:textColor="@color/iDorm_gray_400"
                         android:textSize="12sp"
 
@@ -74,7 +74,7 @@
 
                         android:onClick="@{() -> codeViewModel.resendCode()}"
                         android:padding="5dp"
-                        android:text="인증번호 재요청"
+                        android:text="@string/sendCertificationAgainInteraction"
                         android:textColor="@color/iDorm_gray_300"
                         android:textSize="12sp"
 
@@ -97,10 +97,11 @@
                         android:id="@+id/editText"
                         android:layout_width="0dp"
                         android:layout_height="25dp"
+                        android:layout_marginTop="12dp"
                         android:layout_marginEnd="14dp"
                         android:background="@drawable/edit_text_no_borders"
                         android:fontFamily="@font/notosans_medium"
-                        android:hint="@string/inputCertification"
+                        android:hint="@string/inputCertificationText"
                         android:includeFontPadding="false"
                         android:inputType="number"
                         android:maxLength="6"
@@ -108,6 +109,7 @@
                         android:textColorHint="@color/iDorm_gray_300"
                         android:textSize="14sp"
                         app:layout_constraintEnd_toStartOf="@+id/remainTime"
+                        app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -141,7 +143,7 @@
 
 
             android:onClick="@{() -> codeViewModel.submit()}"
-            android:text="인증 완료"
+            android:text="@string/CertificationCompletedInteraction"
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
