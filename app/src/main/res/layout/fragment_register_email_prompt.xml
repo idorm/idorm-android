@@ -89,7 +89,7 @@
             android:layout_height="53dp"
             android:onClick="@{() -> emailViewModel.submit()}"
 
-            android:text="회원가입"
+            android:text="@string/registerInteraction"
             android:fontFamily="@font/notosans_medium"
             android:textSize="14sp"
             android:textColor="@color/white"
