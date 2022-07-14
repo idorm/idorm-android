@@ -15,22 +15,21 @@ import org.appcenter.inudorm.presentation.account.EmailPromptPurpose
 import org.appcenter.inudorm.presentation.account.PasswordPromptFragment
 import org.appcenter.inudorm.util.PagerAdapter
 
-class RegisterActivity : AppCompatActivity(), OnPromptDoneListener {
+class RegisterActivity : PromptActivity() {
 
     private val binding: ActivityRegisterBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_register)
     }
 
     private var registerBundle: Bundle = Bundle()
-    private lateinit var pagerAdapter: PagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
-        setUpActionBar()
+        setUpActionBar(binding.toolbar)
         if (savedInstanceState == null) {
             // The pager adapter, which provides the pages to the view pager widget.
-            setUpViewPager()
+            setUpViewPager(binding.pager)
         }
     }
 
@@ -57,7 +56,7 @@ class RegisterActivity : AppCompatActivity(), OnPromptDoneListener {
         setToolbarIcon()
     }
 
-
+/*
     private fun setUpActionBar() {
         setSupportActionBar(binding.toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
@@ -104,5 +103,5 @@ class RegisterActivity : AppCompatActivity(), OnPromptDoneListener {
         }
         return super.onOptionsItemSelected(item)
     }
-
+*/
 }
