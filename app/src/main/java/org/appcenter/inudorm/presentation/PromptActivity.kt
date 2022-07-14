@@ -19,9 +19,11 @@ abstract class PromptActivity : AppCompatActivity(), OnPromptDoneListener {
 
     fun setUpActionBar(toolbar: Toolbar) {
         setSupportActionBar(toolbar)
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
+        supportActionBar?.apply {
+            setDisplayShowTitleEnabled(false)
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
+        }
     }
 
     fun setUpViewPager(pagerToSetup: ViewPager2) {
