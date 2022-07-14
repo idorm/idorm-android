@@ -16,10 +16,6 @@ import org.appcenter.inudorm.util.eventHandler
 
 class PasswordPromptFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = PasswordPromptFragment()
-    }
-
     private val viewModel: PasswordPromptViewModel by viewModels()
     private lateinit var binding: FragmentPasswordPromptBinding
 

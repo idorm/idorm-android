@@ -17,12 +17,17 @@ import org.appcenter.inudorm.util.eventHandler
 
 class CodePromptFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = CodePromptFragment()
-    }
-
     private lateinit var viewModel: CodePromptViewModel
     private lateinit var binding: FragmentCodePromptBinding
+
+    private fun getCodeFromBundle() : String { // 야생의 번들을 잡았다! 코드내놔!
+        val bundle = this.arguments
+        return if (bundle != null) {
+            bundle.getString("encryptedCode", "none")
+        } else {
+            "none"
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,18 +35,15 @@ class CodePromptFragment : Fragment() {
     ): View {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_code_prompt, container, false)
-        val bundle = this.arguments
-        var code : String
-        if (bundle != null) {
-            code = bundle.getString("encryptedCode", "none")
-            Log.d("[CodePromptFragment]", "I got $code" )
-        } else {
-            code = "none"
-        }
+
+        val code = getCodeFromBundle()
+        Log.d("[CodePromptFragment]", "I got $code" )
+
         viewModel = ViewModelProvider(
             viewModelStore,
             CodePromptViewModelFactory(code)
         )[CodePromptViewModel::class.java]
+
         binding.codeViewModel = viewModel
         binding.lifecycleOwner = this
         return binding.root

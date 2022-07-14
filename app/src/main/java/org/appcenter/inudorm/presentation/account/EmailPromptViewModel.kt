@@ -17,16 +17,9 @@ class EmailPromptViewModel(private val purpose: EmailPromptPurpose) : ViewModelW
     val email = MutableLiveData("")
     private val userRepository = UserRepository()
 
-    fun showNotValidDialog() {
-        val okButton = DialogButton("확인", Color.CYAN) {
-            showToast("Toast Message")
-        }
-        showDialog("이메일이 올바르지 않습니다.", okButton, null)
-    }
-
     fun submit() {
         val mail = email.value!!
-        if (emailValidator(mail)) {
+        if (emailValidator(mail)) { // 올바른 메일인지 체크좀 할게요..
             viewModelScope.launch {
                 kotlin.runCatching {
                     when (purpose) {
