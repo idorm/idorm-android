@@ -35,17 +35,23 @@ class EmailPromptFragment : Fragment() {
         }
     }
 
+    private fun setView(purpose: EmailPromptPurpose) {
+        if (purpose == EmailPromptPurpose.FindPass) {
+            binding.emailText.text = getString(R.string.needEmailText)
+        }
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_email_prompt, container, false)
-
         val purpose = getPurposeFromBundle()
         Log.d("[EmilPromptFragment]", "I got $purpose" )
 
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_email_prompt, container, false)
+        setView(purpose)
         viewModel = ViewModelProvider(
             viewModelStore,
             EmailPromptViewModelFactory(purpose)

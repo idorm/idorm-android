@@ -10,6 +10,7 @@ import androidx.viewpager2.widget.ViewPager2
 import org.appcenter.inudorm.OnPromptDoneListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.presentation.account.EmailPromptFragment
+import org.appcenter.inudorm.presentation.account.EmailPromptPurpose
 import org.appcenter.inudorm.util.PagerAdapter
 
 abstract class PromptActivity : AppCompatActivity(), OnPromptDoneListener {
@@ -26,10 +27,14 @@ abstract class PromptActivity : AppCompatActivity(), OnPromptDoneListener {
         }
     }
 
-    fun setUpViewPager(pagerToSetup: ViewPager2) {
+    fun setUpViewPager(pagerToSetup: ViewPager2, purpose:EmailPromptPurpose) {
         pager = pagerToSetup
         val initPage = ArrayList<Fragment>()
-        initPage.add(EmailPromptFragment())
+        val fragment = EmailPromptFragment()
+        val bundle = Bundle()
+        bundle.putSerializable("purpose", EmailPromptPurpose.FindPass)
+        fragment.arguments = bundle
+        initPage.add(fragment)
         pager.isUserInputEnabled = false
         pagerAdapter = PagerAdapter(this, initPage)
         pager.adapter = pagerAdapter
