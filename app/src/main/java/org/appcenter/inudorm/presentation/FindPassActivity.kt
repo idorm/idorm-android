@@ -29,8 +29,18 @@ class FindPassActivity : PromptActivity() {
         setUpActionBar(binding.toolbar)
         if (savedInstanceState == null) {
             // The pager adapter, which provides the pages to the view pager widget.
-            setUpViewPager(binding.pager, EmailPromptPurpose.FindPass)
+            setUpViewPager(binding.pager, getInitPages())
         }
+    }
+
+    private fun getInitPages() : ArrayList<Fragment> {
+        val initPage = ArrayList<Fragment>()
+        val fragment = EmailPromptFragment()
+        val bundle = Bundle()
+        bundle.putSerializable("purpose", EmailPromptPurpose.FindPass)
+        fragment.arguments = bundle
+        initPage.add(fragment)
+        return initPage
     }
 
 

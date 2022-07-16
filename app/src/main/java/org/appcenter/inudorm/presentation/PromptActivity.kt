@@ -27,16 +27,10 @@ abstract class PromptActivity : AppCompatActivity(), OnPromptDoneListener {
         }
     }
 
-    fun setUpViewPager(pagerToSetup: ViewPager2, purpose:EmailPromptPurpose) {
+    fun setUpViewPager(pagerToSetup: ViewPager2, fragments:ArrayList<Fragment>) {
         pager = pagerToSetup
-        val initPage = ArrayList<Fragment>()
-        val fragment = EmailPromptFragment()
-        val bundle = Bundle()
-        bundle.putSerializable("purpose", EmailPromptPurpose.FindPass)
-        fragment.arguments = bundle
-        initPage.add(fragment)
         pager.isUserInputEnabled = false
-        pagerAdapter = PagerAdapter(this, initPage)
+        pagerAdapter = PagerAdapter(this, fragments)
         pager.adapter = pagerAdapter
     }
 
