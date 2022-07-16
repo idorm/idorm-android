@@ -45,7 +45,7 @@ class Login(
         }
     }
 
-    private suspend fun loginWithInput(params: UserInputParams?): Boolean {
+    private suspend fun loginWithInput(params: UserInputParams): Boolean {
         return userRepository.login(params)
     }
 

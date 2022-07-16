@@ -1,19 +1,26 @@
 package org.appcenter.inudorm.presentation
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityLoginBinding
 import org.appcenter.inudorm.repository.UserRepository
 import org.appcenter.inudorm.usecase.Login
+import org.appcenter.inudorm.util.CustomDialog
+import org.appcenter.inudorm.util.DialogButton
 import kotlin.coroutines.CoroutineContext
 
 class LoginActivity : AppCompatActivity() {
@@ -29,6 +36,23 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         binding.loginViewModel = viewModel
+        binding.lifecycleOwner = this
+
+        lifecycleScope.launch {
+            viewModel.loginResult.collect { result ->
+                if (result) {
+                    // Login Successful. Route to another page.
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    CustomDialog(
+                        "이메일/비밀번호 확인 후 다시 시도해주세요.",
+                        DialogButton("확인", null)
+                    ).show(this@LoginActivity)
+                }
+            }
+        }
     }
 
 
