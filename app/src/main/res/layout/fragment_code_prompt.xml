@@ -78,6 +78,7 @@
                         android:textColor="@color/iDorm_gray_300"
                         android:textSize="12sp"
 
+                        app:timerBehavior="@{codeViewModel.timer}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -107,6 +108,7 @@
                         android:text="@={codeViewModel.code}"
                         android:textColorHint="@color/iDorm_gray_300"
                         android:textSize="14sp"
+                        timerBehavior="@{codeViewModel.timer}"
                         app:layout_constraintEnd_toStartOf="@+id/remainTime"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
@@ -117,7 +119,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:text="@{codeViewModel.timer}"
+                        android:text="03:00"
+                        seconds="@{codeViewModel.timer}"
                         android:fontFamily="@font/notosans_medium"
                         android:textSize="14sp"
                         android:textColor="@color/iDorm_blue"

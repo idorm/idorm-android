@@ -20,14 +20,6 @@ class CodePromptFragment : Fragment() {
     private lateinit var viewModel: CodePromptViewModel
     private lateinit var binding: FragmentCodePromptBinding
 
-    private fun getCodeFromBundle() : String { // 야생의 번들을 잡았다! 코드내놔!
-        val bundle = this.arguments
-        return if (bundle != null) {
-            bundle.getString("encryptedCode", "none")
-        } else {
-            "none"
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,12 +28,15 @@ class CodePromptFragment : Fragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_code_prompt, container, false)
 
-        val code = getCodeFromBundle()
-        Log.d("[CodePromptFragment]", "I got $code" )
+        val bundle = this.arguments
 
         viewModel = ViewModelProvider(
             viewModelStore,
-            CodePromptViewModelFactory(code)
+            CodePromptViewModelFactory(
+                bundle?.getString("email", "none")!!,
+                bundle.getString("encryptedCode", "none"),
+                bundle.getSerializable("purpose") as EmailPromptPurpose
+            )
         )[CodePromptViewModel::class.java]
 
         binding.codeViewModel = viewModel
