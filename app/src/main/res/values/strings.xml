@@ -18,6 +18,7 @@
     <string name="sendCertificationAgainInteraction">인증번호 재요청</string>
     <string name="CertificationCompletedInteraction">인증 완료</string>
     <string name="lostPasswordInteraction">비밀번호를 잊으셨나요?</string>
+    <string name="EnterAuthCodeInteraction">인증번호 입력</string>
 
 
     <!-- LoginFragment -->
@@ -28,6 +29,10 @@
     <!--welcomeFragment-->
     <string name="welcomeText">안녕하세요. 가입을 축하드려요.</string>
     <string name="welcomeText2">로그인 후 인천대학교 기숙사 룸메이트 매칭을 위한 기본 정보를 알려주세요.</string>
+
+    <!-- CodeSentFragment -->
+    <string name="EmailSentText">지금 이메일로 인증번호를 보내드렸어요.🕊</string>
+
 
     <!--codePromptFragment-->
     <string name="sendCertificationText">지금 이메일로 인증번호를 보내드렸어요!</string>
@@ -44,18 +49,11 @@
     <!--registerEmailFragment-->
     <string name="emailText">이메일</string>
 
-
-
-
-
-
-
-
-
-
-
-
-
+    <!-- BaseInformationFragment -->
+    <string name="firstDormInteraction">제1기숙사</string>
+    <string name="secondDormInteraction">제2기숙사</string>
+    <string name="thirdDormIntercation">제3기숙사</string>
+    <string name="LetMeKnowBaseInfoForMatching">룸메이트 매칭을 위한 기본정보를 알려주세요!</string>
 
 
 </resources>
