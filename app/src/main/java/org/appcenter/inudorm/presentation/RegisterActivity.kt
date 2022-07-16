@@ -1,18 +1,23 @@
 package org.appcenter.inudorm.presentation
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import org.appcenter.inudorm.OnPromptDoneListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityRegisterBinding
-import org.appcenter.inudorm.presentation.account.CodePromptFragment
-import org.appcenter.inudorm.presentation.account.EmailPromptFragment
-import org.appcenter.inudorm.presentation.account.EmailPromptPurpose
-import org.appcenter.inudorm.presentation.account.PasswordPromptFragment
+import org.appcenter.inudorm.presentation.account.*
+import org.appcenter.inudorm.repository.UserRepository
+import org.appcenter.inudorm.usecase.Register
+import org.appcenter.inudorm.usecase.RegisterParams
 import org.appcenter.inudorm.util.PagerAdapter
 
 class RegisterActivity : PromptActivity() {
@@ -22,14 +27,25 @@ class RegisterActivity : PromptActivity() {
     }
 
     private var registerBundle: Bundle = Bundle()
+    private val userRepository = UserRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setUpActionBar(binding.toolbar)
         if (savedInstanceState == null) {
             // The pager adapter, which provides the pages to the view pager widget.
-            setUpViewPager(binding.pager, EmailPromptPurpose.Register)
+            setUpViewPager(binding.pager, getInitPages())
         }
+    }
+
+    private fun getInitPages() : ArrayList<Fragment> {
+        val initPage = ArrayList<Fragment>()
+        val fragment = EmailPromptFragment()
+        val bundle = Bundle()
+        bundle.putSerializable("purpose", EmailPromptPurpose.Register)
+        fragment.arguments = bundle
+        initPage.add(fragment)
+        return initPage
     }
 
     override fun onPromptDone(data: Bundle) { // Fragment에서 보내주신 소중한 이벤트를 갖고 와요..
@@ -37,22 +53,44 @@ class RegisterActivity : PromptActivity() {
         if (binding.pager.currentItem == pagerAdapter.itemCount - 1)
             when (binding.pager.currentItem) {
                 0 -> {
-                    Toast.makeText(this, "암호화된 코드를 갖고 프래그먼트 생성", Toast.LENGTH_SHORT).show()
-                    val fragment = CodePromptFragment()
-                    fragment.arguments = data
-                    addPage(fragment)
+                    Toast.makeText(this, "메일 전송 안내 프래그먼트 생성", Toast.LENGTH_SHORT).show()
+                    addPage(CodeSentFragment())
                 }
                 1 -> {
-                    Toast.makeText(this, "비밀번호 설정 프래그먼트 생성", Toast.LENGTH_SHORT).show()
-                    val bundle = Bundle()
-                    bundle.putSerializable("purpose", EmailPromptPurpose.Register)
-                    val fragment = PasswordPromptFragment()
-                    fragment.arguments = data
+                    Toast.makeText(this, "암호화된 코드를 갖고 프래그먼트 생성", Toast.LENGTH_SHORT).show()
+                    val fragment = CodePromptFragment()
+                    fragment.arguments = registerBundle
                     addPage(fragment)
+                }
+                2 -> {
+                    Toast.makeText(this, "비밀번호 설정 프래그먼트 생성", Toast.LENGTH_SHORT).show()
+                    addPage(PasswordPromptFragment())
+                }
+                3 -> {
+                    Toast.makeText(this, "회원가입 시도", Toast.LENGTH_SHORT).show()
+                    val email = registerBundle.getString("email", "none")
+                    val password = registerBundle.getString("password", "none")
+                    _register(email, password)
                 }
             }
         binding.pager.currentItem++
         setToolbarIcon()
+    }
+
+    private fun _register(email:String, password:String) {
+        lifecycleScope.launch {
+            kotlin.runCatching {
+                Register(userRepository).run(RegisterParams(email, password))
+            }.onSuccess { result ->
+                if (result) {
+                    // Register completed, change page
+                    val intent =
+                        Intent(this@RegisterActivity, WelcomeActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            }
+        }
     }
 
 }
