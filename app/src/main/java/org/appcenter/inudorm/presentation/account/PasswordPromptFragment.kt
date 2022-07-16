@@ -26,6 +26,7 @@ class PasswordPromptFragment : Fragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_password_prompt, container, false)
         binding.passwordViewModel = viewModel
+        binding.lifecycleOwner = this
         return binding.root
     }
 
