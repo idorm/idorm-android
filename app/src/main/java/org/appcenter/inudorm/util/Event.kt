@@ -13,8 +13,9 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.OnPromptDoneListener
+import org.appcenter.inudorm.R
 
-data class DialogButton(val text: String, val textColor: Int?, val onClick: (() -> Unit)?)
+data class DialogButton(val text: String,  val onClick: (() -> Unit)?, val textColor: Int? = R.color.iDorm_blue,)
 
 
 // Event 클래스를 상속 받는 두 클래스를 만들어준다. sealed를 쓰면 when ... is 를 통해 이벤트에 따라 분기시킬 수 있다.
@@ -58,21 +59,7 @@ fun eventHandler(context: Context, it:Event) {
             Toast.makeText(context, it.text, it.interval).show()
         }
         is Event.ShowDialog -> {
-            val dialog = AlertDialog.Builder(context)
-                .setMessage(it.text)
-            if (it.positiveButton != null) {
-                dialog.setPositiveButton(
-                    it.positiveButton.text,
-                    (DialogInterface.OnClickListener { _, _ -> it.positiveButton.onClick })
-                )
-            }
-            if (it.negativeButton != null) {
-                dialog.setNegativeButton(
-                    it.negativeButton.text,
-                    (DialogInterface.OnClickListener { _, _ -> it.negativeButton.onClick })
-                )
-            }
-            dialog.create().show()
+            CustomDialog(it.text, it.positiveButton, it.negativeButton).show(context)
         }
         is Event.MergeBundleWithPaging -> {
             (context as OnPromptDoneListener).onPromptDone(it.bundle)
