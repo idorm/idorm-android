@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingHorizontal="24dp"
-        android:paddingBottom="33dp"
+        android:paddingBottom="85dp"
         tools:context=".presentation.account.CodePromptFragment">
 
         <ScrollView
@@ -38,6 +38,10 @@
                     android:layout_height="wrap_content"
                     android:text="@string/EmailSentText"
                     android:fontFamily="@font/notosans_medium"
+                    android:textSize="14sp"
+                    android:textColor="@color/iDorm_gray_300"
+                    android:includeFontPadding="false"
+                    android:layout_marginTop="20dp"
                     app:layout_constraintTop_toBottomOf="@+id/email"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -53,24 +57,23 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <!-- Todo: 버튼 배경 화이트로 변경 -->
             <Button
                 android:id="@+id/openWebMail"
                 android:layout_width="match_parent"
                 android:layout_height="53dp"
                 android:layout_marginBottom="15dp"
-                android:background="@drawable/button_round_10"
+                android:background="@drawable/button_round_10_white"
+
+
                 android:fontFamily="@font/notosans_medium"
                 android:includeFontPadding="false"
-
                 android:text="인천대 웹메일 바로가기"
-                android:textColor="@color/white"
+                android:textColor="@color/iDorm_gray_400"
                 android:textSize="14sp"
 
                 app:layout_constraintBottom_toTopOf="@id/enterAuthCode"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
 
             <Button
                 android:id="@+id/enterAuthCode"
