@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -28,7 +29,7 @@ class SplashActivity : AppCompatActivity() {
             }.onSuccess { isSuccess ->
                 if (isSuccess) {
                     // 기기에 있는 정보로 로그인 성공. MainActivity로 보냅니다.
-                    Handler().postDelayed({
+                    Handler(Looper.getMainLooper()).postDelayed({
                         //H** val intent = Intent(this@SplashActivity, MainActivity::class.java)
                         val intent = Intent(this@SplashActivity, LoginActivity::class.java)
                         startActivity(intent)
@@ -36,7 +37,7 @@ class SplashActivity : AppCompatActivity() {
                     }, 3000)
                 } else {
                     // 기기에 정보가 없거나 로그인에 실패. LoginActivity로 보냅니다.
-                    Handler().postDelayed({
+                    Handler(Looper.getMainLooper()).postDelayed({
                         val intent = Intent(this@SplashActivity, LoginActivity::class.java)
                         startActivity(intent)
                         finish()
@@ -44,7 +45,7 @@ class SplashActivity : AppCompatActivity() {
                 }
             }.onFailure {
                 // 기기에 정보가 없거나 로그인에 실패. LoginActivity로 보냅니다.
-                Handler().postDelayed({
+                Handler(Looper.getMainLooper()).postDelayed({
                     val intent = Intent(this@SplashActivity, LoginActivity::class.java)
                     startActivity(intent)
                     finish()
