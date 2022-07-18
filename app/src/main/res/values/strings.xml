@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">iDorm</string>
+    <string name="title_activity_onboard">내 정보 입력</string>
 
     <!--PlaceHolder-->
     <string name="emailPlaceholder">이메일</string>

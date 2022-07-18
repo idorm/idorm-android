@@ -20,7 +20,7 @@
             android:name=".presentation.OnboardActivity"
             android:exported="false"
             android:label="@string/title_activity_onboard"
-            android:theme="@style/Theme.IDorm.NoActionBar" />
+            android:theme="@style/Theme.IDorm" />
         <activity
             android:name=".presentation.FindPassActivity"
             android:exported="true"></activity>
@@ -30,6 +30,7 @@
         <activity
             android:name=".presentation.account.WelcomeActivity"
             android:exported="true" />
+<!--        여기가 intent-->
         <activity
             android:name=".presentation.RegisterActivity"
             android:exported="true">
@@ -41,7 +42,10 @@
         </activity>
         <activity
             android:name=".presentation.LoginActivity"
-            android:exported="true"></activity>
+            android:exported="true">
+
+
+        </activity>
         <activity
             android:name=".presentation.MainActivity"
             android:exported="true" />

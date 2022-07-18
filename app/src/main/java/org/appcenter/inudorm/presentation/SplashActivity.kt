@@ -30,7 +30,7 @@ class SplashActivity : AppCompatActivity() {
                     // 기기에 있는 정보로 로그인 성공. MainActivity로 보냅니다.
                     Handler().postDelayed({
                         //H** val intent = Intent(this@SplashActivity, MainActivity::class.java)
-                        val intent = Intent(this@SplashActivity, RegisterActivity::class.java)
+                        val intent = Intent(this@SplashActivity, LoginActivity::class.java)
                         startActivity(intent)
                         finish()
                     }, 3000)
