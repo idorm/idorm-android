@@ -1,4 +1,4 @@
-package org.appcenter.inudorm.util
+package org.appcenter.inudorm.presentation.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

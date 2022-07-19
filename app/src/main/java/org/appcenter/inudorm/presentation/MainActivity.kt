@@ -17,5 +17,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.mainViewModel = mainViewModel
+        supportFragmentManager.beginTransaction().replace(R.id.container, MatchingFragment()).commit()
     }
 }
