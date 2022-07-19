@@ -30,7 +30,7 @@
         <activity
             android:name=".presentation.account.WelcomeActivity"
             android:exported="true" />
-<!--        여기가 intent-->
+
         <activity
             android:name=".presentation.RegisterActivity"
             android:exported="true">
