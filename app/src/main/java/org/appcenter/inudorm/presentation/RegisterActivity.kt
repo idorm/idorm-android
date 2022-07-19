@@ -2,23 +2,17 @@ package org.appcenter.inudorm.presentation
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
 import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
-import org.appcenter.inudorm.OnPromptDoneListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityRegisterBinding
 import org.appcenter.inudorm.presentation.account.*
 import org.appcenter.inudorm.repository.UserRepository
 import org.appcenter.inudorm.usecase.Register
 import org.appcenter.inudorm.usecase.RegisterParams
-import org.appcenter.inudorm.util.PagerAdapter
 
 class RegisterActivity : PromptActivity() {
 
