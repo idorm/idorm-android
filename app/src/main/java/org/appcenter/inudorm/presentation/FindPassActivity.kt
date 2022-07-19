@@ -1,20 +1,15 @@
 package org.appcenter.inudorm.presentation
 
 import android.os.Bundle
-import android.view.MenuItem
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import org.appcenter.inudorm.OnPromptDoneListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityFindPassBinding
-import org.appcenter.inudorm.databinding.ActivityRegisterBinding
 import org.appcenter.inudorm.presentation.account.CodePromptFragment
 import org.appcenter.inudorm.presentation.account.EmailPromptFragment
 import org.appcenter.inudorm.presentation.account.EmailPromptPurpose
 import org.appcenter.inudorm.presentation.account.PasswordPromptFragment
-import org.appcenter.inudorm.util.PagerAdapter
 
 class FindPassActivity : PromptActivity() {
 
