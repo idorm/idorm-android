@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Todo: Not prettified. not Frames. -->
+<?xml version="1.0" encoding="utf-8"?><!-- Todo: Not prettified. not Frames. -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="baseInfoViewModel"
             type="org.appcenter.inudorm.presentation.onboard.BaseInformationViewModel" />
@@ -22,31 +22,35 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/firstDorm"
-                android:layout_width="wrap_content"
+            <com.google.android.material.chip.ChipGroup
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/firstDormInteraction"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                >
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/secondDorm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="@string/secondDormInteraction"
-                app:layout_constraintStart_toEndOf="@+id/firstDorm"
-                app:layout_constraintTop_toTopOf="@id/firstDorm" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/firstDorm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/firstDormInteraction" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/thirdDorm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="@string/thirdDormIntercation"
-                app:layout_constraintStart_toEndOf="@id/secondDorm"
-                app:layout_constraintTop_toTopOf="@id/firstDorm" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/secondDorm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/secondDormInteraction" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/thirdDorm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/thirdDormIntercation" />
+
+
+            </com.google.android.material.chip.ChipGroup>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -55,24 +59,24 @@
             android:id="@+id/msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/labelButtons"
-            app:layout_constraintStart_toStartOf="parent"
-            android:text="@string/LetMeKnowBaseInfoForMatching"
             android:fontFamily="@font/notosans_bold"
+            android:text="@string/LetMeKnowBaseInfoForMatching"
             android:textColor="@color/iDorm_gray_300"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/labelButtons" />
+
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/recyclerDivider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            app:layout_constraintTop_toBottomOf="@id/msg"/>
+            app:layout_constraintTop_toBottomOf="@id/msg" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/baseInfoRecycler"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="@id/recyclerDivider"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@id/recyclerDivider" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

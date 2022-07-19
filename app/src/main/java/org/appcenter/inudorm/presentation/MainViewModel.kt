@@ -7,6 +7,12 @@ import org.appcenter.inudorm.repository.MainRepository
 
 class MainViewModel : ViewModel() {
 
+    /*
+    Todo: Notification data
+    Todo: Is user launches firstly?
+     */
+
+
     private val mainRepository = MainRepository()
 
     // 데이터를 캡슐화하여 외부(뷰)에서 접근할 수 없도록하고
