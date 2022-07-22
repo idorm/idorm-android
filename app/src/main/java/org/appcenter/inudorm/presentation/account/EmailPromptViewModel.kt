@@ -1,6 +1,5 @@
 package org.appcenter.inudorm.presentation.account
 
-import android.graphics.Color
 import android.os.Bundle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

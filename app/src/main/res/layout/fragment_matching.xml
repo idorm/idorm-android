@@ -109,7 +109,7 @@
             app:layout_constraintTop_toBottomOf="@id/cardStackView">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab1"
+                android:id="@+id/dislikeButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
@@ -123,28 +123,28 @@
                 app:tint="@color/red" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab2"
+                android:id="@+id/chatButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="30dp"
                 android:backgroundTint="@color/white"
                 app:borderWidth="0dp"
-                app:layout_constraintEnd_toStartOf="@+id/fab3"
-                app:layout_constraintStart_toEndOf="@id/fab1"
-                app:layout_constraintTop_toTopOf="@id/fab1"
+                app:layout_constraintEnd_toStartOf="@+id/likeButton"
+                app:layout_constraintStart_toEndOf="@id/dislikeButton"
+                app:layout_constraintTop_toTopOf="@id/dislikeButton"
                 app:rippleColor="@color/iDorm_gray_200"
                 app:srcCompat="@drawable/ic_chat"
                 app:tint="#ffc701" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab3"
+                android:id="@+id/likeButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:backgroundTint="@color/white"
                 app:borderWidth="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/fab1"
+                app:layout_constraintTop_toTopOf="@id/dislikeButton"
                 app:rippleColor="@color/iDorm_gray_200"
                 app:srcCompat="@drawable/ic_heart"
                 app:tint="#00ff57" />
