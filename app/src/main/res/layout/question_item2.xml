@@ -38,30 +38,7 @@
 
             <!-- Todo: 버튼 디자인, 눌렀을 때 색 -->
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/trueButton"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/button_none"
-                android:scaleType="center"
 
-                app:layout_constraintDimensionRatio="1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/falseButton"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/button_none"
-                android:scaleType="center"
-
-                app:layout_constraintDimensionRatio="1"
-                android:layout_marginLeft="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/trueButton"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/trueButton"
-                app:layout_constraintTop_toTopOf="@id/trueButton" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

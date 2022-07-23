@@ -13,30 +13,65 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="20dp"
         tools:context=".presentation.onboard.BaseInformationFragment">
+
+        <TextView
+            android:id="@+id/msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_bold"
+            android:textSize="12sp"
+            android:includeFontPadding="false"
+            android:text="@string/LetMeKnowBaseInfoForMatching"
+            android:textColor="@color/iDorm_gray_300"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/dorm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_medium"
+            android:textSize="16sp"
+            android:text="@string/dorm"
+            android:includeFontPadding="false"
+            android:textColor="@color/black"
+            android:layout_marginTop="14dp"
+            app:layout_constraintStart_toStartOf="@+id/msg"
+            app:layout_constraintTop_toBottomOf="@+id/msg" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/labelButtons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="@id/dorm"
+            app:layout_constraintTop_toBottomOf="@id/dorm">
 
             <com.google.android.material.chip.ChipGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:theme="@style/Widget.MaterialComponents.Chip.Choice"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 >
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/firstDorm"
+                    android:theme="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
+                    android:includeFontPadding="false"
+
+
                     android:text="@string/firstDormInteraction" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/secondDorm"
+                    android:theme="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -44,6 +79,7 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/thirdDorm"
+                    android:theme="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -55,21 +91,13 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/msg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/notosans_bold"
-            android:text="@string/LetMeKnowBaseInfoForMatching"
-            android:textColor="@color/iDorm_gray_300"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/labelButtons" />
+
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/recyclerDivider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            app:layout_constraintTop_toBottomOf="@id/msg" />
+            app:layout_constraintTop_toBottomOf="@id/labelButtons" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/baseInfoRecycler"

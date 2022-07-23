@@ -7,16 +7,16 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="20dp">
+        android:padding="15dp">
 
         <TextView
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/notosans_bold"
+            android:fontFamily="@font/notosans_medium"
             android:text="Button Text"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,6 +27,7 @@
             android:layout_marginTop="20dp"
             android:background="@null"
             android:fontFamily="@font/notosans_medium"
+            android:textSize="14sp"
             android:paddingHorizontal="10dp"
             android:text="확인"
             android:textColor="@color/iDorm_blue"

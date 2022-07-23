@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/ic_bottom_home"
+        android:title="홈"
+        android:enabled="true" />
+
+    <item
+        android:id="@+id/matching"
+        android:icon="@drawable/ic_bottom_matching"
+        android:title="룸메 매칭"
+        android:enabled="true"/>
+
+    <item
+        android:id="@+id/community"
+        android:icon="@drawable/ic_bottom_community"
+        android:title="커뮤니티"
+        android:enabled="true"/>
+
+    <item
+        android:id="@+id/calendar"
+        android:icon="@drawable/ic_bottom_calendar"
+        android:title="캘린더"
+        android:enabled="true"/>
+
+
+    <item
+        android:id="@+id/mypage"
+        android:icon="@drawable/ic_bottom_mypage"
+        android:title="마이페이지"
+        android:enabled="true"/>
+
+</menu>
