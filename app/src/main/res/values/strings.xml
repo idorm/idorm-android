@@ -63,6 +63,12 @@
     <string name="residencePeriod">입사 기간</string>
     <string name="sixteenWeeks">16주</string>
     <string name="twentyFourWeeks">24주</string>
+    <string name="habit">내 습관</string>
+    <string name="snoring">코골이</string>
+    <string name="grinding">이갈이</string>
+    <string name="smoking">흡연</string>
+    <string name="eatingInside">실내 음식 섭취 함</string>
+    <string name="wearEarphones">이어폰 착용 안 함</string>
 
 
 

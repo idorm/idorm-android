@@ -226,6 +226,93 @@
             app:layout_constraintTop_toBottomOf="@id/residencePeriodlabelButtons" />
 
 
+        <TextView
+            android:id="@+id/habit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_medium"
+            android:textSize="16sp"
+            android:text="@string/habit"
+            android:includeFontPadding="false"
+            android:textColor="@color/black"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@+id/divider_3"
+            app:layout_constraintTop_toBottomOf="@+id/divider_3" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/habitlabelButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            app:layout_constraintStart_toStartOf="@id/habit"
+            app:layout_constraintTop_toBottomOf="@id/habit">
+
+            <!--choice의 기본 margin값은 8dp입니다.-->
+
+            <com.google.android.material.chip.ChipGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                >
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/snoring"
+                    style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="@string/snoring" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/grinding"
+                    style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+
+                    android:text="@string/grinding" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/smoking"
+                    style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="@string/smoking" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/eatingInside"
+                    style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+
+                    android:text="@string/eatingInside" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/wearEarphones"
+                    style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+
+                    android:text="@string/wearEarphones" />
+
+
+            </com.google.android.material.chip.ChipGroup>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider_4"
+            android:layout_width="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_height="0.2dp"
+            app:layout_constraintTop_toBottomOf="@id/habitlabelButtons" />
+
+
 
 <!--        <androidx.recyclerview.widget.RecyclerView-->
 <!--            android:id="@+id/baseInfoRecycler"-->
