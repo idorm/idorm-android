@@ -43,13 +43,15 @@
             app:layout_constraintTop_toBottomOf="@+id/msg" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/labelButtons"
+            android:id="@+id/dormlabelButtons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             app:layout_constraintStart_toStartOf="@id/dorm"
             app:layout_constraintTop_toBottomOf="@id/dorm">
+
             <!--choice의 기본 margin값은 8dp입니다.-->
+
             <com.google.android.material.chip.ChipGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -96,14 +98,141 @@
             android:layout_width="match_parent"
             android:layout_marginTop="8dp"
             android:layout_height="0.2dp"
-            app:layout_constraintTop_toBottomOf="@id/labelButtons" />
+            app:layout_constraintTop_toBottomOf="@id/dormlabelButtons" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/baseInfoRecycler"
+
+        <TextView
+            android:id="@+id/gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_medium"
+            android:textSize="16sp"
+            android:text="@string/gender"
+            android:includeFontPadding="false"
+            android:textColor="@color/black"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@+id/divider_1"
+            app:layout_constraintTop_toBottomOf="@+id/divider_1" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/genderlabelButtons"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="@id/divider_1" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            app:layout_constraintStart_toStartOf="@id/gender"
+            app:layout_constraintTop_toBottomOf="@id/gender">
+
+            <!--choice의 기본 margin값은 8dp입니다.-->
+
+            <com.google.android.material.chip.ChipGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:singleSelection="true"
+                app:checkedChip="@id/man"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                >
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/man"
+                    style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+
+                    android:text="@string/man" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/woman"
+                    style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:text="@string/woman" />
+
+
+            </com.google.android.material.chip.ChipGroup>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider_2"
+            android:layout_width="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_height="0.2dp"
+            app:layout_constraintTop_toBottomOf="@id/genderlabelButtons" />
+
+        <TextView
+            android:id="@+id/residencePeriod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_medium"
+            android:textSize="16sp"
+            android:text="@string/residencePeriod"
+            android:includeFontPadding="false"
+            android:textColor="@color/black"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@+id/divider_2"
+            app:layout_constraintTop_toBottomOf="@+id/divider_2" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/residencePeriodlabelButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            app:layout_constraintStart_toStartOf="@id/residencePeriod"
+            app:layout_constraintTop_toBottomOf="@id/residencePeriod">
+
+            <!--choice의 기본 margin값은 8dp입니다.-->
+
+            <com.google.android.material.chip.ChipGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:singleSelection="true"
+                app:checkedChip="@id/sixteenWeeks"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                >
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/sixteenWeeks"
+                    style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+
+                    android:text="@string/sixteenWeeks" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/twentyFourWeeks"
+                    style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:text="@string/twentyFourWeeks" />
+
+
+            </com.google.android.material.chip.ChipGroup>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider_3"
+            android:layout_width="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_height="0.2dp"
+            app:layout_constraintTop_toBottomOf="@id/residencePeriodlabelButtons" />
+
+
+
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/baseInfoRecycler"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="@id/divider_1" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

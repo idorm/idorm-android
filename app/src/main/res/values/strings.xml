@@ -57,6 +57,13 @@
     <string name="thirdDormIntercation">제3기숙사</string>
     <string name="LetMeKnowBaseInfoForMatching">룸메이트 매칭을 위한 기본정보를 알려주세요!</string>
     <string name="noMoreRoomMates">더 볼 수 있는 룸메이트가 없어요&#128549;</string>
+    <string name="gender">성별</string>
+    <string name="man">남성</string>
+    <string name="woman">여성</string>
+    <string name="residencePeriod">입사 기간</string>
+    <string name="sixteenWeeks">16주</string>
+    <string name="twentyFourWeeks">24주</string>
+
 
 
 </resources>
