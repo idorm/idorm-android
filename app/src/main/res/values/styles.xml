@@ -8,13 +8,20 @@
     </style>
 
     <!--base_information_fragment 기숙사 선택-->
-    <style name="Widget.MaterialComponents.Chip.Choice"
-        parent="Widget.MaterialComponents.ChipGroup">
-        <item name="fontFamily">@font/notosans_regular</item>
+
+    <style name="Widget.DesignSystem.Chip.OutlinedBox.Choice" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.MyApp.Chip.Choice</item>
+        <item name="chipBackgroundColor">@color/idorm_outlined_choice_background_color</item>
+        <item name="chipStrokeColor">@color/idorm_outlined_choice_stroke</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="android:textColor">@color/idorm_outlined_choice_text_color</item>
+        <item name="fontFamily">@font/notosans_medium</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/iDorm_gray_300</item>
-        <item name="android:includeFontPadding">false</item>
-        <item name="backgroundColor">@color/white</item>
+
+    </style>
+
+    <style name="ThemeOverlay.MyApp.Chip.Choice" parent="">
+        <item name="elevationOverlayEnabled">false</item>
     </style>
 </resources>
 

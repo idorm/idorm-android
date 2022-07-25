@@ -46,43 +46,42 @@
             android:id="@+id/labelButtons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="2dp"
             app:layout_constraintStart_toStartOf="@id/dorm"
             app:layout_constraintTop_toBottomOf="@id/dorm">
-
+            <!--choice의 기본 margin값은 8dp입니다.-->
             <com.google.android.material.chip.ChipGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/Widget.MaterialComponents.Chip.Choice"
+                app:singleSelection="true"
+                app:checkedChip="@id/firstDorm"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 >
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/firstDorm"
-                    android:theme="@style/Widget.MaterialComponents.Chip.Choice"
+                    style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-                    android:includeFontPadding="false"
-
+                    android:checked="true"
 
                     android:text="@string/firstDormInteraction" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/secondDorm"
-                    android:theme="@style/Widget.MaterialComponents.Chip.Choice"
+                    style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="2dp"
                     android:text="@string/secondDormInteraction" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/thirdDorm"
-                    android:theme="@style/Widget.MaterialComponents.Chip.Choice"
+                    style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="2dp"
                     android:text="@string/thirdDormIntercation" />
 
 
@@ -92,11 +91,11 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
         <com.google.android.material.divider.MaterialDivider
-            android:id="@+id/recyclerDivider"
+            android:id="@+id/divider_1"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_height="0.2dp"
             app:layout_constraintTop_toBottomOf="@id/labelButtons" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -104,7 +103,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="@id/recyclerDivider" />
+            app:layout_constraintTop_toTopOf="@id/divider_1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
