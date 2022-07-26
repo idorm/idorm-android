@@ -58,10 +58,7 @@ class MatchingFragment : Fragment(), CardStackListener {
         dataSet.add("최경민")
         dataSet.add("최경민")
         dataSet.add("최경민")
-        binding.cardStackView.setOnDragListener { v, event ->
-            Log.d(TAG, event.x.toString())
-            true
-        }
+
         binding.cardStackView.layoutManager = layoutManager
         binding.cardStackView.adapter = RoomMateAdapter(dataSet)
     }

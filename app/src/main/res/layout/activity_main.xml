@@ -11,19 +11,16 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.MainActivity">
 
-        <TextView
-            android:id="@+id/textview"
-            android:text="@{mainViewModel.data}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
             app:layout_constraintTop_toTopOf="parent" />
-
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
@@ -39,7 +36,8 @@
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:menu="@menu/bottom_navigation"
-            tools:layout_editor_absoluteX="-16dp" />
+            />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
