@@ -21,7 +21,7 @@ class OnboardActivity : PromptActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setSupportActionBar(binding.toolbar)
+        setUpActionBar(binding.toolbar)
         if (savedInstanceState == null) {
             setUpViewPager(binding.pager, getInitPages())
         }
