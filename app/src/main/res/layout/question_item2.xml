@@ -9,37 +9,53 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginVertical="24dp">
-
-        <TextView
-            android:id="@+id/questionText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/notosans_medium"
+        android:layout_height="80dp"
+        android:layout_marginVertical="16dp">
 
 
-            android:includeFontPadding="false"
-            android:text="질문"
-            android:textColor="@color/iDorm_gray_400"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-
-            app:layout_constraintHorizontal_weight="2.4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="@+id/questionText"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/questionText">
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <!-- Todo: 버튼 디자인, 눌렀을 때 색 -->
 
+            <TextView
+                android:id="@+id/questionText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosans_medium"
+
+
+                android:includeFontPadding="false"
+                android:text="질문"
+                android:textColor="@color/iDorm_gray_400"
+                android:textSize="14sp"
+
+                app:layout_constraintHorizontal_weight="2.4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/required"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosans_regular"
+
+
+                android:includeFontPadding="false"
+                android:text="(필수)"
+                android:textColor="@color/iDorm_blue"
+                android:textSize="14sp"
+
+                android:layout_marginLeft="6dp"
+                app:layout_constraintStart_toEndOf="@id/questionText"
+                app:layout_constraintTop_toTopOf="@id/questionText"
+                app:layout_constraintBottom_toBottomOf="@+id/questionText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -47,6 +63,13 @@
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+
         />
 
 </LinearLayout>
