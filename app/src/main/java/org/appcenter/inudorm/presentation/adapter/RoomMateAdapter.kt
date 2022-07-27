@@ -12,9 +12,17 @@ import com.google.android.material.shape.CornerSize
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.yuyakaido.android.cardstackview.CardStackView
 import org.appcenter.inudorm.R
+import org.appcenter.inudorm.model.Mate
 
-class RoomMateAdapter(private val dataSet: ArrayList<String>) :
+class RoomMateAdapter(private val _dataSet: ArrayList<Mate>) :
     RecyclerView.Adapter<RoomMateAdapter.ViewHolder>() {
+
+    var dataSet: ArrayList<Mate>
+        get() = _dataSet
+        set(value) {
+            value
+        }
+
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
@@ -46,7 +54,7 @@ class RoomMateAdapter(private val dataSet: ArrayList<String>) :
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.textView.text = dataSet[position]
+        viewHolder.textView.text = dataSet[position].nickname
     }
 
     // Return the size of your dataset (invoked by the layout manager)

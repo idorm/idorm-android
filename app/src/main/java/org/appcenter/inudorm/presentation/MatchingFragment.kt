@@ -2,8 +2,10 @@ package org.appcenter.inudorm.presentation
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,29 +18,38 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
 import com.yuyakaido.android.cardstackview.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentMatchingBinding
+import org.appcenter.inudorm.model.Mate
 import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter
-
+import org.appcenter.inudorm.repository.RoomMateRepository
+import org.appcenter.inudorm.repository.testMate
+import org.appcenter.inudorm.util.CustomDialog
+import org.appcenter.inudorm.util.DialogButton
+import org.appcenter.inudorm.util.MatchingViewUtil
 
 class MatchingFragment : Fragment(), CardStackListener {
 
-    private val blue = Color.parseColor("#582FFF")
-    private val green = Color.parseColor("#00FF57")
-    private val yellow = Color.parseColor("#FFC701")
-    private val red = Color.parseColor("#FF0000")
     private val TAG = "MatchingFragment"
 
     companion object {
         fun newInstance() = MatchingFragment()
     }
 
-    private val viewModel: MatchingViewModel by viewModels()
+    private val roomMateRepository = RoomMateRepository()
+    private val viewModel: MatchingViewModel by viewModels {
+        MatchingViewModelFactory(roomMateRepository)
+    }
     private lateinit var binding: FragmentMatchingBinding
     private lateinit var layoutManager: CardStackLayoutManager
+    private lateinit var adapter: RoomMateAdapter
+    private val matchingViewUtil by lazy {
+        MatchingViewUtil(requireContext())
+    }
 
     private fun setupCardStackView() {
         val setting = SwipeAnimationSetting.Builder()
@@ -53,14 +64,10 @@ class MatchingFragment : Fragment(), CardStackListener {
             setVisibleCount(4)
         }
 
-        val dataSet = ArrayList<String>()
-        dataSet.add("지혜원")
-        dataSet.add("최경민")
-        dataSet.add("최경민")
-        dataSet.add("최경민")
+        adapter = RoomMateAdapter(ArrayList())
 
         binding.cardStackView.layoutManager = layoutManager
-        binding.cardStackView.adapter = RoomMateAdapter(dataSet)
+        binding.cardStackView.adapter = adapter
     }
 
     override fun onCreateView(
@@ -76,49 +83,58 @@ class MatchingFragment : Fragment(), CardStackListener {
         super.onActivityCreated(savedInstanceState)
         setupCardStackView()
         setupControlButton()
+        binding.matchingViewModel = viewModel
+        binding.lifecycleOwner = this
+        viewModel.getMates(10)
     }
 
-    private fun getSwipeAnimationSetting(direction: Direction): SwipeAnimationSetting =
-        SwipeAnimationSetting.Builder()
-            .setDirection(direction)
-            .setDuration(Duration.Normal.duration)
-            .setInterpolator(AccelerateInterpolator())
-            .build()
+    private fun animateColorAndRestore(color: Int, duration: Long) {
+        lifecycleScope.launch {
+            matchingViewUtil.animateToColor(binding.circle, color, duration)
+            matchingViewUtil.animateToColor(binding.circle, matchingViewUtil.blue, duration)
+        }
+    }
+
 
     private fun setupControlButton() {
         binding.dislikeButton.setOnClickListener {
-            layoutManager.setSwipeAnimationSetting(getSwipeAnimationSetting(Direction.Left))
+            layoutManager.setSwipeAnimationSetting(
+                matchingViewUtil.getSwipeAnimationSetting(
+                    Direction.Left
+                )
+            )
             binding.cardStackView.swipe()
-            lifecycleScope.launch {
-                animateToColor(red, 150)
-            }
-
+            animateColorAndRestore(matchingViewUtil.red, 150)
         }
         binding.chatButton.setOnClickListener {
-            lifecycleScope.launch {
-                animateToColor(yellow, 150)
-                animateToColor(blue, 150)
-            }
+            animateColorAndRestore(matchingViewUtil.yellow, 150)
+            // Todo: Add KakaoTalk Icon to button
+            CustomDialog(
+                text = "상대의 카카오톡 오픈채팅으로 이동합니다.",
+                positiveButton = DialogButton("카카오톡으로 이동", {
+                    val position = layoutManager.topPosition
+                    val link = adapter.dataSet[position].myInfo.chatLink
+                    if (link == null) {
+                        Toast.makeText(
+                            requireContext(),
+                            "카카오톡 오픈채팅 링크를 찾을 수 없어요.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+                        startActivity(intent)
+                    }
+                })
+            ).show(requireContext())
         }
         binding.likeButton.setOnClickListener {
-            layoutManager.setSwipeAnimationSetting(getSwipeAnimationSetting(Direction.Right))
+            layoutManager.setSwipeAnimationSetting(
+                matchingViewUtil.getSwipeAnimationSetting(
+                    Direction.Right
+                )
+            )
             binding.cardStackView.swipe()
-            lifecycleScope.launch { animateToColor(green, 150) }
-
-        }
-    }
-
-    private fun directionToColor(direction: Direction): Int {
-        return when (direction) {
-            Direction.Left -> {
-                red
-            }
-            Direction.Right -> {
-                green
-            }
-            else -> {
-                blue
-            }
+            animateColorAndRestore(matchingViewUtil.green, 150)
         }
     }
 
@@ -126,41 +142,17 @@ class MatchingFragment : Fragment(), CardStackListener {
     override fun onCardDragging(direction: Direction?, ratio: Float) {
         val rgbEval = ArgbEvaluator().evaluate(
             ratio,
-            blue,
-            directionToColor(direction!!)
+            matchingViewUtil.green,
+            matchingViewUtil.directionToColor(direction!!)
         ) as Int
         binding.circle.setBackgroundColor(rgbEval)
     }
 
-    // 추후 다른 곳에서 필요로 하면 다른 모듈로 뺄 예정. 지금은 코드의 복잡성을 줄이기 위해 빼놓음
-    private fun animateColors(
-        colorFrom: Int,
-        colorTo: Int,
-        duration: Long,
-        onValueUpdate: (value: Int) -> Unit
-    ) {
-        val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), colorFrom, colorTo)
-        colorAnimation.duration = duration // milliseconds
-
-        colorAnimation.addUpdateListener { animator -> onValueUpdate(animator.animatedValue as Int) }
-        colorAnimation.start()
-    }
-
-    private suspend fun animateToColor(
-        colorTo: Int,
-        duration: Long,
-    ) {
-        val colorFrom = (binding.circle.background as ColorDrawable).color
-        animateColors(colorFrom, colorTo, duration) {
-            binding.circle.setBackgroundColor(it)
-        }
-        delay(duration)
-    }
 
     override fun onCardSwiped(direction: Direction?) {
         Toast.makeText(requireContext(), direction.toString(), Toast.LENGTH_SHORT).show()
         lifecycleScope.launch {
-            animateToColor(blue, 250)
+            matchingViewUtil.animateToColor(binding.circle, matchingViewUtil.blue, 250)
         }
 
     }
@@ -168,8 +160,7 @@ class MatchingFragment : Fragment(), CardStackListener {
     override fun onCardRewound() {}
     override fun onCardCanceled() {
         lifecycleScope.launch {
-            animateToColor(blue, 150)
-
+            matchingViewUtil.animateToColor(binding.circle, matchingViewUtil.blue, 150)
         }
     }
 
