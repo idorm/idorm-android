@@ -15,11 +15,11 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:padding="20dp"
+            android:padding="24dp"
             app:layout_constraintBottom_toTopOf="@id/constraintLayout2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@mipmap/card_background">
+            android:background="@drawable/matching_card_background">
             <!-- 카드 내부 내용 -->
 
             <TextView
