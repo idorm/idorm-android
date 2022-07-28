@@ -6,11 +6,6 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.card.MaterialCardView
-import com.google.android.material.shape.CornerFamily
-import com.google.android.material.shape.CornerSize
-import com.google.android.material.shape.ShapeAppearanceModel
-import com.yuyakaido.android.cardstackview.CardStackView
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.model.Mate
 
@@ -43,7 +38,7 @@ class RoomMateAdapter(private val _dataSet: ArrayList<Mate>) :
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.matching_item, viewGroup, false)
+            .inflate(R.layout.item_matching, viewGroup, false)
 
 
         return ViewHolder(view)

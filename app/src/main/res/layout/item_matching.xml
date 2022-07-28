@@ -19,7 +19,7 @@
             app:layout_constraintBottom_toTopOf="@id/constraintLayout2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/matching_card_background">
+            android:background="@drawable/view_matching_card_background">
             <!-- 카드 내부 내용 -->
 
             <TextView
@@ -36,7 +36,7 @@
             android:id="@+id/constraintLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/matching_card_background_bottom"
+            android:background="@drawable/view_matching_card_background_bottom"
             android:padding="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

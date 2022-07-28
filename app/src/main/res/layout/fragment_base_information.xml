@@ -339,7 +339,7 @@
                 android:layout_width="42dp"
                 android:layout_height="33dp"
 
-                android:background="@drawable/edit_text_10_idorm_200"
+                android:background="@drawable/view_edit_text_10_idorm_200"
                 android:fontFamily="@font/notosans_medium"
                 android:includeFontPadding="false"
                 android:inputType="number"
@@ -357,7 +357,7 @@
                 android:layout_width="42dp"
                 android:layout_height="33dp"
 
-                android:background="@drawable/edit_text_10_idorm_200"
+                android:background="@drawable/view_edit_text_10_idorm_200"
                 android:fontFamily="@font/notosans_medium"
                 android:includeFontPadding="false"
                 android:inputType="number"
