@@ -8,7 +8,6 @@
     </style>
 
     <!--base_information_fragment 기숙사 선택-->
-
     <style name="Widget.DesignSystem.Chip.OutlinedBox.Choice" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="materialThemeOverlay">@style/ThemeOverlay.MyApp.Chip.Choice</item>
         <item name="chipBackgroundColor">@color/idorm_outlined_choice_background_color</item>
@@ -21,6 +20,17 @@
     </style>
 
     <style name="ThemeOverlay.MyApp.Chip.Choice" parent="">
+        <item name="elevationOverlayEnabled">false</item>
+    </style>
+
+    <!--question_item 질문들-->
+    <style name="Widget.DesignSystem.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.MyApp.TextInputLayout.OutlinedBox</item>
+        <item name="strokeWidth">5sp</item>
+
+    </style>
+
+    <style name="ThemeOverlay.MyApp.TextInputLayout.OutlinedBox" parent="">
         <item name="elevationOverlayEnabled">false</item>
     </style>
 </resources>
