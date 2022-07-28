@@ -26,6 +26,7 @@
         <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/layout/layout_dialog.xml" value="0.3619791666666667" />
         <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/layout/question_item.xml" value="0.3619791666666667" />
         <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/layout/question_item2.xml" value="0.25" />
+        <entry key="app/src/main/res/drawable/bottom_navigation.xml" value="0.168" />
         <entry key="app/src/main/res/drawable/button_round_10.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/button_round_10_white.xml" value="0.168" />
         <entry key="app/src/main/res/drawable/edit_text_no_borders.xml" value="0.103" />
@@ -37,6 +38,7 @@
         <entry key="app/src/main/res/drawable/ic_inu_logo.xml" value="0.24" />
         <entry key="app/src/main/res/drawable/ic_untitled_3.xml" value="0.102" />
         <entry key="app/src/main/res/drawable/matching_card_background.xml" value="0.126" />
+        <entry key="app/src/main/res/drawable/view_matching_card_background.xml" value="0.161" />
         <entry key="app/src/main/res/layout/activity_find_pass.xml" value="0.20742753623188406" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2730539957682292" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3159420289855073" />

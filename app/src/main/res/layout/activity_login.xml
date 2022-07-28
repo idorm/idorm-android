@@ -82,7 +82,7 @@
             android:textColorHint="@color/iDorm_gray_300"
             android:inputType="textEmailAddress"
 
-            android:background="@drawable/edit_text_round_gray_100"
+            android:background="@drawable/view_edit_text_round_gray_100"
             android:layout_marginTop="56dp"
             android:paddingLeft="16dp"
             app:layout_constraintStart_toStartOf="@id/inuLogo"
@@ -102,7 +102,7 @@
             android:textColorHint="@color/iDorm_gray_300"
             android:inputType="textPassword"
 
-            android:background="@drawable/edit_text_round_gray_100"
+            android:background="@drawable/view_edit_text_round_gray_100"
             android:layout_marginTop="10dp"
             android:paddingLeft="16dp"
             app:layout_constraintStart_toStartOf="@id/emailField"
@@ -116,7 +116,7 @@
             android:layout_height="40dp"
             android:layout_marginTop="32dp"
 
-            android:background="@drawable/button_round_12"
+            android:background="@drawable/view_button_round_12"
             android:fontFamily="@font/notosans_medium"
             android:includeFontPadding="false"
             android:onClick="@{() -> loginViewModel.tryToLoginWithInput()}"

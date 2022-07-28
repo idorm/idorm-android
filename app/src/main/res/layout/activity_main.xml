@@ -32,7 +32,7 @@
             android:layout_height="66dp"
             android:layout_gravity="bottom"
 
-            android:background="@drawable/bottom_navigation"
+            android:background="@drawable/view_bottom_navigation"
 
             app:itemTextAppearanceActive="@style/Widget.BottomNavigationView"
             app:itemTextAppearanceInactive="@style/Widget.BottomNavigationView"

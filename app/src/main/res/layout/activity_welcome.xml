@@ -63,7 +63,7 @@
 
             android:layout_width="match_parent"
             android:layout_height="53dp"
-            android:background="@drawable/button_round_28"
+            android:background="@drawable/view_button_round_28"
             android:fontFamily="@font/notosans_medium"
             android:includeFontPadding="false"
 

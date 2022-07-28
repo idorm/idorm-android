@@ -45,7 +45,7 @@
             android:textColorHint="@color/iDorm_gray_300"
             android:inputType="textEmailAddress"
 
-            android:background="@drawable/edit_text_round_stroke_gray_400"
+            android:background="@drawable/view_edit_text_round_stroke_gray_400"
             android:layout_marginTop="8dp"
             android:paddingLeft="9dp"
             app:layout_constraintStart_toStartOf="@id/emailText"
@@ -95,7 +95,7 @@
             android:textColor="@color/white"
             android:includeFontPadding="false"
 
-            android:background="@drawable/button_round_10"
+            android:background="@drawable/view_button_round_10"
             android:layout_marginTop="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
