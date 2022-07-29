@@ -25,13 +25,16 @@
 
     <!--question_item 질문들-->
     <style name="Widget.DesignSystem.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="materialThemeOverlay">@style/ThemeOverlay.MyApp.TextInputLayout.OutlinedBox</item>
-        <item name="strokeWidth">5sp</item>
+        <item name="boxStrokeColor">@color/idorm_outlined_textinput_stroke</item>
+
 
     </style>
 
     <style name="ThemeOverlay.MyApp.TextInputLayout.OutlinedBox" parent="">
         <item name="elevationOverlayEnabled">false</item>
+        <item name="errorEnabled">true</item>
+        <item name="boxStrokeErrorColor">@color/iDorm_red</item>
+
     </style>
 </resources>
 

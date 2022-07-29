@@ -48,21 +48,27 @@
             app:layout_constraintBottom_toBottomOf="@+id/questionText" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textField"
+            style="@style/Widget.DesignSystem.TextInputLayout.OutlinedBox"
+            app:passwordToggleEnabled="true"
             android:layout_width="match_parent"
-            android:layout_height="51dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             app:layout_constraintStart_toStartOf="@id/questionText"
             app:layout_constraintTop_toBottomOf="@id/questionText"
-            android:hint="@string/inputText">
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="51dp"
-
-                style="@style/Widget.DesignSystem.TextInputLayout.OutlinedBox"
-                android:background="@color/white"/>
+                android:textSize="14sp"
+                android:fontFamily="@font/notosans_medium"
+                android:includeFontPadding="false"
+                android:textColor="@color/black"
+                android:hint="@string/inputText"
+                android:inputType="textPassword"
+                />
         </com.google.android.material.textfield.TextInputLayout>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
