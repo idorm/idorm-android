@@ -21,6 +21,8 @@
             android:exported="true"
             android:label="@string/title_activity_onboard"
             android:theme="@style/Theme.IDorm">
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

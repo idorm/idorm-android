@@ -14,6 +14,7 @@ import org.appcenter.inudorm.model.MyInfo
 import org.appcenter.inudorm.repository.RoomMateRepository
 import org.appcenter.inudorm.repository.testMyInfo
 import org.appcenter.inudorm.usecase.GetRoomMates
+import java.util.*
 
 // Todo: Change Member type
 data class MatchingState(

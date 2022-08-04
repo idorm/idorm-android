@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:color="@color/iDorm_gray_300" android:state_enabled="true"/>
-    <item android:color="@color/iDorm_blue" android:state_enabled="true" android:state_activated="true"/>
+    <item android:color="@color/iDorm_gray_300" android:state_enabled="true" android:state_focused="false"/>
+    <item android:color="@color/iDorm_blue" android:state_enabled="true" android:state_focused="true"/>
     <item android:color="@color/iDorm_blue" android:state_enabled="true" android:state_active="true"/>
-    <item android:color="@color/iDorm_red" android:state_enabled="true" android:state_focused="true"/>
 </selector>

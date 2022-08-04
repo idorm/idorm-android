@@ -10,7 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_marginVertical="16dp">
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="20dp">
 
 
 
@@ -47,17 +48,20 @@
             app:layout_constraintTop_toTopOf="@id/questionText"
             app:layout_constraintBottom_toBottomOf="@+id/questionText" />
 
+        <!-- TODO : app:endIconMode="custom"으로 변경해서 더 많은 옵션 넣어야 함-->
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.DesignSystem.TextInputLayout.OutlinedBox"
-            app:passwordToggleEnabled="true"
+            app:endIconMode="clear_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="@id/questionText"
             app:layout_constraintTop_toBottomOf="@id/questionText"
+            app:hintEnabled="false"
             >
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/answer"
                 android:layout_width="match_parent"
                 android:layout_height="51dp"
                 android:textSize="14sp"
@@ -65,7 +69,6 @@
                 android:includeFontPadding="false"
                 android:textColor="@color/black"
                 android:hint="@string/inputText"
-                android:inputType="textPassword"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
