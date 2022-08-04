@@ -17,43 +17,52 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IDorm">
         <activity
+            android:name=".WritePostActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BoardPostDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ScheduleDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MateListAcitivty"
+            android:exported="false" />
+        <activity
+            android:name=".CommentListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PostListActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.OnboardActivity"
             android:exported="true"
             android:label="@string/title_activity_onboard"
             android:theme="@style/Theme.IDorm">
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".presentation.FindPassActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".presentation.SplashActivity"
             android:exported="true" />
         <activity
             android:name=".presentation.account.WelcomeActivity"
             android:exported="true" />
-
         <activity
             android:name=".presentation.RegisterActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".presentation.LoginActivity"
-            android:exported="true">
-
-
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".presentation.MainActivity"
-            android:exported="true" >
-
-        </activity>
+            android:exported="true" />
     </application>
 
 </manifest>
