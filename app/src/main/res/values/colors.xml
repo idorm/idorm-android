@@ -21,9 +21,10 @@
     <color name="iDorm_gray_400">#5B5B5B</color>
     <!--이건 매칭 바텀 네비게이션 컬러-->
     <color name="iDorm_matching_screen">#F8FDFF</color>
-    <!--이거 매칭 어디에 쓰느지 모르겠음-->
 
+    <!--이거 매칭 어디에 쓰느지 모르겠음. 보통 배경 색임-->
     <color name="iDorm_gray_EDEDED">#EDEDED</color>
+
     <!-- 기본 색상이지만 디자이너님께서 컬러 팔레트에 지정하신 색입니다. -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
