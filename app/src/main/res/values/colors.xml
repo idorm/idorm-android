@@ -11,11 +11,12 @@
     gray 숫자 클수록 진해집니다. -->
     <color name="iDorm_red">#FF6868</color>
     <color name="iDorm_yellow">#FACD5B</color>
+    <color name="iDorm_yellow2">#FFDD87</color>
     <color name="iDorm_green">#60D989</color>
     <color name="iDorm_blue">#71A1FE</color>
     <color name="iDorm_card">#A4CCFB</color>
 
-    <color name="iDorm_gray_100">#F4F2FA</color>
+    <color name="iDorm_gray_100">#F2F5FA</color>
     <color name="iDorm_gray_200">#E3E1EC</color>
     <color name="iDorm_gray_300">#9B9B9B</color>
     <color name="iDorm_gray_400">#5B5B5B</color>
