@@ -14,8 +14,11 @@
         <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/drawable/edit_text_round_gray_100.xml" value="0.2115" />
         <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/drawable/edit_text_round_stroke_gray_400.xml" value="0.2115" />
         <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/drawable/ic_bottom_calendar.xml" value="0.2335" />
+        <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/drawable/ic_multi_thumb.xml" value="0.334" />
+        <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/drawable/ic_no.xml" value="0.334" />
         <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/drawable/ic_radiobutton_checked.xml" value="0.324" />
         <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/drawable/ic_radiobutton_default.xml" value="0.324" />
+        <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/drawable/ic_thumb.xml" value="0.334" />
         <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/drawable/idorm_outlined_choice_background_color.xml" value="0.1" />
         <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/drawable/selector_radiobutton.xml" value="0.284" />
         <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/drawable/view_bottom_navigation.xml" value="0.284" />
@@ -32,13 +35,13 @@
         <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/drawable/view_matching_card_background.xml" value="0.284" />
         <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/drawable/view_matching_card_background_bottom.xml" value="0.284" />
         <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/font/fonts.xml" value="0.3861538461538462" />
-        <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/layout/activity_comment_list.xml" value="0.33" />
-        <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/layout/activity_filter.xml" value="0.17222222222222222" />
+        <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/layout/activity_comment_list.xml" value="0.1" />
+        <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/layout/activity_filter.xml" value="0.33" />
         <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/layout/activity_find_pass.xml" value="0.17603850050658562" />
         <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/layout/activity_mate_list_activity.xml" value="0.3619791666666667" />
-        <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/layout/activity_onboard.xml" value="0.18" />
+        <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/layout/activity_onboard.xml" value="0.25" />
         <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/layout/activity_post_detail.xml" value="0.3619791666666667" />
         <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/layout/activity_post_list.xml" value="0.3619791666666667" />
         <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/layout/activity_register.xml" value="0.25" />

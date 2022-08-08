@@ -55,11 +55,11 @@
             <com.google.android.material.chip.ChipGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:singleSelection="true"
                 app:checkedChip="@id/firstDorm"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                >
+                app:layout_constraintTop_toTopOf="parent"
+                app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/firstDorm"
@@ -127,11 +127,11 @@
             <com.google.android.material.chip.ChipGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:singleSelection="true"
                 app:checkedChip="@id/man"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                >
+                app:layout_constraintTop_toTopOf="parent"
+                app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/man"
@@ -159,8 +159,10 @@
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/divider_2"
             android:layout_width="match_parent"
-            android:layout_marginTop="8dp"
             android:layout_height="0.2dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/genderlabelButtons" />
 
         <TextView
@@ -189,11 +191,11 @@
             <com.google.android.material.chip.ChipGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:singleSelection="true"
                 app:checkedChip="@id/sixteenWeeks"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                >
+                app:layout_constraintTop_toTopOf="parent"
+                app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/sixteenWeeks"
@@ -221,8 +223,10 @@
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/divider_3"
             android:layout_width="match_parent"
-            android:layout_marginTop="8dp"
             android:layout_height="0.2dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/residencePeriodlabelButtons" />
 
 
@@ -252,9 +256,9 @@
             <com.google.android.material.chip.ChipGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                >
+                app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/snoring"
@@ -308,8 +312,10 @@
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/divider_4"
             android:layout_width="match_parent"
-            android:layout_marginTop="8dp"
             android:layout_height="0.2dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/habitlabelButtons" />
 
         <TextView
@@ -331,6 +337,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/age"
             app:layout_constraintTop_toBottomOf="@id/age">
 
@@ -344,10 +351,10 @@
                 android:includeFontPadding="false"
                 android:inputType="number"
                 android:maxLength="1"
-                android:textSize="14sp"
-                android:textColor="@color/iDorm_gray_400"
-                android:textAlignment="center"
                 android:nextFocusForward="@id/age_2"
+                android:textAlignment="center"
+                android:textColor="@color/iDorm_gray_400"
+                android:textSize="14sp"
 
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -358,51 +365,54 @@
                 android:layout_width="42dp"
                 android:layout_height="33dp"
 
+                android:layout_marginLeft="1dp"
                 android:background="@drawable/view_edit_text_10_idorm_200"
                 android:fontFamily="@font/notosans_medium"
                 android:includeFontPadding="false"
                 android:inputType="number"
                 android:maxLength="1"
-                android:textSize="14sp"
-                android:textColor="@color/iDorm_gray_400"
                 android:textAlignment="center"
+                android:textColor="@color/iDorm_gray_400"
 
-                android:layout_marginLeft="1dp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@id/age_1"
-                app:layout_constraintTop_toTopOf="@id/age_1"/>
+                app:layout_constraintTop_toTopOf="@id/age_1" />
 
             <TextView
                 android:id="@+id/ageText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:fontFamily="@font/notosans_medium"
-                android:textSize="12sp"
                 android:includeFontPadding="false"
                 android:text="@string/ageText"
                 android:textColor="@color/iDorm_gray_300"
 
 
-
-                android:layout_marginLeft="8dp"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/age_2"
                 app:layout_constraintStart_toEndOf="@id/age_2"
-                app:layout_constraintTop_toTopOf="@id/age_2"
-                app:layout_constraintBottom_toBottomOf="@+id/age_2"/>
+                app:layout_constraintTop_toTopOf="@id/age_2" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/divider_5"
             android:layout_width="match_parent"
-            android:layout_marginTop="16dp"
             android:layout_height="0.2dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/agelabelButtons" />
 
 
-                <androidx.recyclerview.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/baseInfoRecycler"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/divider_5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

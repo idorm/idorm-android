@@ -10,8 +10,8 @@
     <!--base_information_fragment 기숙사 선택-->
     <style name="Widget.DesignSystem.Chip.OutlinedBox.Choice" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="materialThemeOverlay">@style/ThemeOverlay.MyApp.Chip.Choice</item>
-        <item name="chipBackgroundColor">@color/selector_outlinedChoice_background_color</item>
-        <item name="chipStrokeColor">@color/selector_outlinedChoice_stroke</item>
+        <item name="chipBackgroundColor">@color/selector_outlined_choice_background_color</item>
+        <item name="chipStrokeColor">@color/selector_outlined_choice_stroke</item>
         <item name="chipStrokeWidth">1dp</item>
         <item name="android:textColor">@color/selector_outlined_choice_text_color</item>
         <item name="fontFamily">@font/notosans_medium</item>
