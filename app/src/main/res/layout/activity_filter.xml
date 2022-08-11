@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+        name="filterViewModel"
+        type="org.appcenter.inudorm.presentation.filterViewModel" />
 
     </data>
 
