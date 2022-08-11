@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.appcenter.inudorm.R
-import org.appcenter.inudorm.model.Mate
 import org.appcenter.inudorm.model.OnboardQuestion
 import java.util.*
 
@@ -21,7 +20,7 @@ class OnboardRVAdapter (private val _dataSet: ArrayList<OnboardQuestion>):
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.question_item, viewGroup, false)
+            .inflate(R.layout.item_question_list, viewGroup, false)
 
 
         return ViewHolder(view)

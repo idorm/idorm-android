@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IDorm">
         <activity
+            android:name=".TestActivity"
+            android:exported="false" />
+        <activity
             android:name=".WritePostActivity"
             android:exported="false" />
         <activity
