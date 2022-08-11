@@ -31,7 +31,7 @@ class OnboardActivity : PromptActivity() {
     private fun getInitPages() : ArrayList<Fragment> {
         val initPage = ArrayList<Fragment>()
         val baseFragment = BaseInformationFragment()
-        val additionalFragment = AdditionalInformationFragment()
+            val additionalFragment = AdditionalInformationFragment()
         initPage.add(baseFragment)
         initPage.add(additionalFragment)
         return initPage
