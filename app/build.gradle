@@ -49,9 +49,12 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 
-    // Third-Party Libraries
+    // Dependencies for Networking
     def retrofitVersion = "2.9.0"
-    implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+    def gsonVersion = "2.9.1"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.google.code.gson:gson:$gsonVersion"
 
     // Dependencies for MVVM
     def archLifecycleVersion = '2.3.0'
@@ -66,5 +69,6 @@ dependencies {
     implementation 'io.github.florent37:shapeofview:1.4.7'
 
     implementation 'com.google.android.material:material:1.2.0-alpha06'
+
 
 }

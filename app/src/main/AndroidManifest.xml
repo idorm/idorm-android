@@ -10,6 +10,7 @@
     </queries>
 
     <application
+        android:name="org.appcenter.inudorm.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -17,22 +18,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IDorm">
         <activity
-            android:name=".WritePostActivity"
+            android:name=".presentation.WritePostActivity"
             android:exported="false" />
         <activity
-            android:name=".BoardPostDetailActivity"
+            android:name=".presentation.PostDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".ScheduleDetailActivity"
+            android:name=".presentation.ScheduleDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".MateListAcitivty"
+            android:name=".presentation.MateListActivity"
             android:exported="false" />
         <activity
-            android:name=".CommentListActivity"
+            android:name=".presentation.CommentListActivity"
             android:exported="false" />
         <activity
-            android:name=".PostListActivity"
+            android:name=".presentation.PostListActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.OnboardActivity"
