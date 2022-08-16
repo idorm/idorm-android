@@ -20,29 +20,33 @@
             android:name=".TestActivity"
             android:exported="false" />
         <activity
-            android:name=".WritePostActivity"
+            android:name=".presentation.WritePostActivity"
             android:exported="false" />
         <activity
-            android:name=".BoardPostDetailActivity"
+            android:name=".presentation.PostDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".ScheduleDetailActivity"
+            android:name=".presentation.ScheduleDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".MateListAcitivty"
+            android:name=".presentation.MateListActivity"
             android:exported="false" />
         <activity
-            android:name=".CommentListActivity"
+            android:name=".presentation.CommentListActivity"
             android:exported="false" />
         <activity
-            android:name=".PostListActivity"
+            android:name=".presentation.PostListActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.OnboardActivity"
             android:exported="true"
             android:label="@string/title_activity_onboard"
             android:theme="@style/Theme.IDorm">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".presentation.FindPassActivity"
