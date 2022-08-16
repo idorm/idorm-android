@@ -22,6 +22,7 @@
     <string name="CertificationCompletedInteraction">인증 완료</string>
     <string name="lostPasswordInteraction">비밀번호를 잊으셨나요?</string>
     <string name="EnterAuthCodeInteraction">인증번호 입력</string>
+    <string name="checkPostInteraction">본문 확인</string>
 
 
     <!-- LoginFragment -->
@@ -77,11 +78,19 @@
 
     <string name="age">나이</string>
     <string name="ageText">살</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
-    <!--question_item-->
+    <!--filter-->
+    <string name="dislikes">불호 요소</string>
+    <string name="disleksGuideText">선택하신 요소를 가진 룸메이트는 나와 매칭되지 않아요.</string>
+    <string name="ageGuideText">선택하신 연령대의 룸메이트만 나와 매칭돼요.</string>
+
+
+    <!--comment/post ListActivity-->
+    <string name="myComment">내가 쓴 댓글</string>
+    <string name="myPost">내가 쓴 글</string>
+    <string name="latestOrder">최신순</string>
+    <string name="pastOrder">과거순</string>
 
 
 </resources>

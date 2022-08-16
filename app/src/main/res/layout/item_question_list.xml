@@ -51,7 +51,7 @@
         <!-- TODO : app:endIconMode="custom"으로 변경해서 더 많은 옵션 넣어야 함-->
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.DesignSystem.TextInputLayout.OutlinedBox"
-            app:endIconMode="clear_text"
+            app:endIconMode="custom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

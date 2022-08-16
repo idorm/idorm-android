@@ -1,13 +1,358 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+        name="filterViewModel"
+        type="org.appcenter.inudorm.presentation.filterViewModel" />
 
     </data>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:textAlignment="center"
+            android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleTextColor="@color/black">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="필터"
+                android:textColor="@color/black"
+
+                android:textSize="16sp" />
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <TextView
+            android:id="@+id/dorm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/notosans_medium"
+            android:includeFontPadding="false"
+            android:text="@string/dorm"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/dormlabelButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/dorm"
+            app:layout_constraintTop_toBottomOf="@id/dorm">
+
+            <!--choice의 기본 margin값은 8dp입니다.-->
+
+            <com.google.android.material.chip.ChipGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:checkedChip="@id/firstDorm"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/firstDorm"
+                    style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+
+                    android:text="@string/firstDormInteraction" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/secondDorm"
+                    style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:text="@string/secondDormInteraction" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/thirdDorm"
+                    style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:text="@string/thirdDormIntercation" />
+
+
+            </com.google.android.material.chip.ChipGroup>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider_1"
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dormlabelButtons" />
+
+        <TextView
+            android:id="@+id/residencePeriod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/notosans_medium"
+            android:includeFontPadding="false"
+            android:text="@string/residencePeriod"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/dorm"
+            app:layout_constraintTop_toBottomOf="@+id/divider_1" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/residencePeriodlabelButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="2dp"
+            app:layout_constraintStart_toStartOf="@+id/dorm"
+            app:layout_constraintTop_toBottomOf="@id/residencePeriod">
+
+            <!--choice의 기본 margin값은 8dp입니다.-->
+
+            <com.google.android.material.chip.ChipGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                app:checkedChip="@id/sixteenWeeks"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/sixteenWeeks"
+                    style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+
+                    android:text="@string/sixteenWeeks" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/twentyFourWeeks"
+                    style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:text="@string/twentyFourWeeks" />
+
+
+            </com.google.android.material.chip.ChipGroup>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider_3"
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/dorm"
+            app:layout_constraintTop_toBottomOf="@id/residencePeriodlabelButtons" />
+
+        <TextView
+            android:id="@+id/habit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/notosans_medium"
+            android:includeFontPadding="false"
+            android:text="@string/dislikes"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/dorm"
+            app:layout_constraintTop_toBottomOf="@+id/divider_3" />
+
+        <TextView
+            android:id="@+id/msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/notosans_bold"
+            android:includeFontPadding="false"
+            android:text="@string/disleksGuideText"
+            android:textColor="@color/iDorm_gray_300"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/habit" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/habitlabelButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="@id/habit"
+            app:layout_constraintTop_toBottomOf="@+id/msg">
+
+            <!--choice의 기본 margin값은 8dp입니다.-->
+
+            <com.google.android.material.chip.ChipGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/snoring"
+                    style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="@string/snoring" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/grinding"
+                    style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+
+                    android:text="@string/grinding" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/smoking"
+                    style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="@string/smoking" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/eatingInside"
+                    style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+
+                    android:text="@string/eatingInside" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/wearEarphones"
+                    style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+
+                    android:text="@string/wearEarphones" />
+
+
+            </com.google.android.material.chip.ChipGroup>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider_4"
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/habitlabelButtons" />
+
+
+        <TextView
+            android:id="@+id/age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/notosans_medium"
+            android:includeFontPadding="false"
+            android:text="@string/age"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/divider_4"
+            app:layout_constraintTop_toBottomOf="@+id/divider_4" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/notosans_bold"
+            android:includeFontPadding="false"
+            android:text="@string/ageGuideText"
+            android:textColor="@color/iDorm_gray_300"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/age" />
+
+        <com.jaygoo.widget.RangeSeekBar
+            android:id="@+id/partner_filter_ball_capability_range_sb"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textView10"
+            app:layout_constraintTop_toBottomOf="@+id/textView10"
+
+            app:rsb_max="40"
+            app:rsb_min="20"
+            app:rsb_progress_radius="15dp"
+            app:rsb_mode="range"
+            app:rsb_progress_height="11dp"
+            app:rsb_min_interval="1"
+
+            app:rsb_step_auto_bonding="true"
+            app:rsb_steps="1"
+            app:rsb_thumb_height="30dp"
+            app:rsb_thumb_width="30dp"
+            app:rsb_progress_color="@color/iDorm_blue"
+            app:rsb_thumb_drawable="@drawable/ic_radiobutton_checked"
+            app:rsb_tick_mark_text_size="0sp"/>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 </layout>

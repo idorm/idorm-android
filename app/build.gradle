@@ -49,12 +49,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 
-    // Dependencies for Networking
+    // Third-Party Libraries
     def retrofitVersion = "2.9.0"
-    def gsonVersion = "2.9.1"
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    implementation "com.google.code.gson:gson:$gsonVersion"
+    implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
 
     // Dependencies for MVVM
     def archLifecycleVersion = '2.3.0'
@@ -70,5 +67,8 @@ dependencies {
 
     implementation 'com.google.android.material:material:1.2.0-alpha06'
 
+    //Dependencies for Continuous slider
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'com.github.Jay-Goo:RangeSeekBar:v3.0.0'
 
 }
