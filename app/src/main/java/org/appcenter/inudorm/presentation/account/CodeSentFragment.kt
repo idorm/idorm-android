@@ -18,6 +18,8 @@ import org.appcenter.inudorm.OnPromptDoneListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentCodePromptBinding
 import org.appcenter.inudorm.databinding.FragmentCodeSentBinding
+import org.appcenter.inudorm.util.CustomDialog
+import org.appcenter.inudorm.util.DialogButton
 import org.appcenter.inudorm.util.eventHandler
 
 class CodeSentFragment : Fragment() {
@@ -48,13 +50,27 @@ class CodeSentFragment : Fragment() {
 
     private fun openWebMail() {
         Log.d(TAG, "trying to open webmail ...")
-        val intent = requireContext().packageManager.getLaunchIntentForPackage("com.mailplug.aeolos2")
-        if (intent == null) { // 메일플러그 앱 미설치. 포털로 패스
-            val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://webmail.inu.ac.kr/member/login?host_domain=inu.ac.kr"))
-            startActivity(webIntent)
-        }else {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(intent)
-        }
+        CustomDialog(
+            "Gmail 앱에 학교 메일이 등록되어 있으신가요?",
+            DialogButton("예", {
+                val intent =
+                    requireContext().packageManager.getLaunchIntentForPackage("com.google.android.gm")
+                if (intent == null) { // 지메일 앱 미설치. 포털로 패스
+                    openWebMail()
+                } else {
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                }
+            }),
+            DialogButton("아니오", { openMailWeb() })
+        )
+    }
+
+    private fun openMailWeb() {
+        val webIntent = Intent(
+            Intent.ACTION_VIEW,
+            Uri.parse("https://webmail.inu.ac.kr/member/login?host_domain=inu.ac.kr")
+        )
+        startActivity(webIntent)
     }
 }
