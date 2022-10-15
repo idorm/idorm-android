@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.repository.UserRepository
+import org.appcenter.inudorm.usecase.SendAuthCode
+import org.appcenter.inudorm.usecase.SendAuthCodeParams
 import org.appcenter.inudorm.util.DialogButton
 import org.appcenter.inudorm.util.ViewModelWithEvent
 import org.appcenter.inudorm.util.emailValidator
@@ -21,18 +23,11 @@ class EmailPromptViewModel(private val purpose: EmailPromptPurpose) : ViewModelW
         if (emailValidator(mail)) { // 올바른 메일인지 체크좀 할게요..
             viewModelScope.launch {
                 kotlin.runCatching {
-                    when (purpose) {
-                        EmailPromptPurpose.Register -> {
-                            userRepository.sendAuthCode(mail)
-                        }
-                        EmailPromptPurpose.FindPass -> {
-                            userRepository.sendAuthCode(mail)
-                        }
-                    }
+                    SendAuthCode(purpose).run(mail)
                 }.onSuccess {
                     val bundle = Bundle()
                     bundle.putString("email", mail)
-                    bundle.putString("encryptedCode", it)
+                    bundle.putSerializable("purpose", purpose)
                     mergeBundleWithPaging(bundle)
                 }.onFailure {
                     showToast("이메일 전송에 실패한 것 같습니다.")
