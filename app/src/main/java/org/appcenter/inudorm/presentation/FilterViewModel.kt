@@ -1,4 +1,6 @@
 package org.appcenter.inudorm.presentation
 
-class FilterViewModel {
+import androidx.lifecycle.ViewModel
+
+class FilterViewModel : ViewModel() {
 }
