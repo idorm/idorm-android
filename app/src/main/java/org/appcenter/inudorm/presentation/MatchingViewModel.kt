@@ -5,12 +5,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.model.Mate
-import org.appcenter.inudorm.model.Member
-import org.appcenter.inudorm.model.MyInfo
 import org.appcenter.inudorm.repository.RoomMateRepository
 import org.appcenter.inudorm.repository.testMyInfo
 import org.appcenter.inudorm.usecase.GetRoomMates

@@ -20,7 +20,7 @@ enum class JoinPeriod {
  * grinding: 이갈이 여부
  * member: 유저 식별자
  */
-data class MyInfo(
+data class MatchingInfo(
     val id: Long,
     val member: Long,
     val dormNum: Long,

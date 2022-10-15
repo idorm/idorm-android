@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.flow
 import org.appcenter.inudorm.model.*
 import java.util.*
 
-val testMyInfo = MyInfo(
+val testMyInfo = MatchingInfo(
     35345345,
     234234,
     4234324,
@@ -32,7 +32,7 @@ val testMate =  Mate(
 )
 
 class RoomMateRepository {
-    suspend fun fetchRoomMates(params: MyInfo): ArrayList<Mate> {
+    suspend fun fetchRoomMates(params: MatchingInfo): ArrayList<Mate> {
         return flow {
             kotlinx.coroutines.delay(3000)
             emit(
@@ -41,7 +41,7 @@ class RoomMateRepository {
                         234234,
                         "앱센터 병아리",
                         "https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png",
-                        MyInfo(
+                        MatchingInfo(
                             35345345,
                             234234,
                             4234324,
