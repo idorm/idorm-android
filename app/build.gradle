@@ -49,9 +49,12 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 
-    // Third-Party Libraries
+    // Dependencies for Networking
     def retrofitVersion = "2.9.0"
-    implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+    def gsonVersion = "2.9.1"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.google.code.gson:gson:$gsonVersion"
     implementation 'com.google.code.gson:gson:2.9.0'
 
     // Dependencies for MVVM
