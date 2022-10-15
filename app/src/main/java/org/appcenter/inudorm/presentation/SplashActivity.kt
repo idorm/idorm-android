@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.repository.UserRepository
 import org.appcenter.inudorm.usecase.Login
+import org.appcenter.inudorm.usecase.LoginResponseCode
 
 class SplashActivity : AppCompatActivity() {
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "User")
@@ -26,8 +27,8 @@ class SplashActivity : AppCompatActivity() {
             // Try to login
             kotlin.runCatching {
                 Login(dataStore).run(null)
-            }.onSuccess { isSuccess ->
-                if (isSuccess) {
+            }.onSuccess { res ->
+                if (res.responseCode == LoginResponseCode.SUCCESS) {
                     // 기기에 있는 정보로 로그인 성공. MainActivity로 보냅니다.
                     Handler(Looper.getMainLooper()).postDelayed({
                         //H** val intent = Intent(this@SplashActivity, MainActivity::class.java)

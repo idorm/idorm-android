@@ -11,7 +11,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.repository.UserRepository
 import org.appcenter.inudorm.usecase.Login
@@ -19,14 +21,16 @@ import org.appcenter.inudorm.usecase.UserInputParams
 import org.appcenter.inudorm.util.emailValidator
 import org.appcenter.inudorm.util.passwordValidator
 
+class LoginState(var success: Boolean, var message: String?)
+
 class LoginViewModel(private val dataStore: DataStore<Preferences>) : ViewModel() {
     private val TAG = "[LoginViewModel]"
 
     val email = MutableLiveData<String>("")
     val password = MutableLiveData<String>("")
-    private val _loginResult = MutableSharedFlow<Boolean>()
-    val loginResult : SharedFlow<Boolean>
-        get() = _loginResult
+    private val _loginState = MutableStateFlow(LoginState(false, null))
+    val loginState : StateFlow<LoginState>
+        get() = _loginState
 
     fun tryToLoginWithInput() {
         if (emailValidator(email.value!!) && passwordValidator(password.value!!)) // 이메일과 비밀번호가 입력 조건을 만족하면
@@ -36,10 +40,10 @@ class LoginViewModel(private val dataStore: DataStore<Preferences>) : ViewModel(
                     Login(dataStore).run(UserInputParams(email.value!!, password.value!!))
                 }.onSuccess {
                     Log.d(TAG, "로긘 성공")
-                    _loginResult.emit(true)
+                    _loginState.emit(LoginState(true, "로그인 성공"))
                 }.onFailure {
-                    Log.d(TAG, "로긘 실패")
-                    _loginResult.emit(false)
+                    Log.d(TAG, "Login Failed: ${it.message}")
+                    _loginState.emit(LoginState(false, it.message!!))
                 }
             }
     }

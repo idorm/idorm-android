@@ -3,6 +3,7 @@ package org.appcenter.inudorm
 import android.app.Application
 import android.content.Context
 import android.util.Log
+import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.first
@@ -16,7 +17,7 @@ private val Context.dataStore by preferencesDataStore(name = "prefs")
 
 class App : Application() {
     companion object {
-        lateinit var prefs: Prefs
+        var prefs: Prefs = Prefs(null)
     }
 
     override fun onCreate() {

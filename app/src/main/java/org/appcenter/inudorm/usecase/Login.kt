@@ -5,26 +5,35 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.*
+import org.appcenter.inudorm.networking.ResponseWrapper
 import org.appcenter.inudorm.repository.UserRepository
 import java.io.IOException
 
-abstract class LoginParams(val email: String)
-class UserInputParams(email: String, val password: String) : LoginParams(email)
-class StoredUser(email: String, val token: String) : LoginParams(email)
+abstract class LoginParams{
+    abstract val email:String
+}
+
+data class UserInputParams(override val email: String, val password: String) : LoginParams()
+class StoredUser(override val email: String, val token: String) : LoginParams()
+
+object LoginResponseCode {
+    const val SUCCESS = "SUCCESS"
+}
 
 class Login(
     private val userDataStore: DataStore<Preferences>,
-) : UseCase<UserInputParams?, Boolean>() {
+) : UseCase<UserInputParams?, ResponseWrapper<Nothing>>() {
     private val emailKey = stringPreferencesKey("USER_EMAIL")
     private val tokenKey = stringPreferencesKey("USER_TOKEN")
     private val userRepository = UserRepository()
 
     // At the top level of your kotlin file:
-    override suspend fun onExecute(params: UserInputParams?): Boolean {
+    override suspend fun onExecute(params: UserInputParams?): ResponseWrapper<Nothing> {
         return if (params != null) {
             loginWithInput(params)
-        } else { // 입력이 없으면 (자동로그인 시도)
-            loginWithSavedCredentials()
+        } else { // 입력이 없으면 (자동로그인 시도) Todo: 앱 실행시 토큰 검증 등 재확인 절차 존재 여부 및 방법 결정
+            //loginWithSavedCredentials()
+            ResponseWrapper("NOT_IMPLEMENTED", responseMessage = "적용되지 않은 기능입니다. 어떻게 들어오셨어요..?")
         }
     }
 
@@ -45,13 +54,13 @@ class Login(
         }
     }
 
-    private suspend fun loginWithInput(params: UserInputParams): Boolean {
+    private suspend fun loginWithInput(params: UserInputParams): ResponseWrapper<Nothing> {
         return userRepository.login(params)
     }
 
-    private suspend fun loginWithSavedCredentials() : Boolean {
-        val storedUser = userFromStorage().first()
-        return userRepository.login(storedUser)
-    }
+//    private suspend fun loginWithSavedCredentials() : Boolean {
+//        val storedUser = userFromStorage().first()
+//        return userRepository.login(storedUser)
+//    }
 
 }

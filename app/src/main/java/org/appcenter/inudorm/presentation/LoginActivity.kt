@@ -39,19 +39,23 @@ class LoginActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         lifecycleScope.launch {
-            viewModel.loginResult.collect { result ->
-                if (result) {
+            viewModel.loginState.collect { state ->
+                if (state.success) {
                     // Login Successful. Route to another page.
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
                     finish()
-                } else {
+                } else if (state.message != null) {
                     CustomDialog(
-                        "이메일/비밀번호 확인 후 다시 시도해주세요.",
+                        state.message!!,
                         DialogButton("확인", null)
                     ).show(this@LoginActivity)
                 }
             }
+        }
+        binding.registerClickText.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
         }
     }
 

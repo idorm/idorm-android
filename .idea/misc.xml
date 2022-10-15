@@ -3,7 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="../../../../layout/custom_preview.xml" value="0.1" />
+        <entry key="../../../../layout/custom_preview.xml" value="0.32432708740234373" />
         <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/drawable/button_none.xml" value="0.2335" />
         <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/drawable/button_round_10.xml" value="0.2335" />
         <entry key="..\:/hyewon/AppCenter/iDorm/idorm-android/app/src/main/res/drawable/button_round_10_white.xml" value="0.2335" />
@@ -38,16 +38,22 @@
         <entry key="app/src/main/res/drawable/ic_inu_logo.xml" value="0.24" />
         <entry key="app/src/main/res/drawable/ic_untitled_3.xml" value="0.102" />
         <entry key="app/src/main/res/drawable/matching_card_background.xml" value="0.126" />
+        <entry key="app/src/main/res/drawable/view_background_edittext.xml" value="0.1095" />
+        <entry key="app/src/main/res/drawable/view_edit_text_round_stroke_gray_400.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/view_matching_card_background.xml" value="0.161" />
+        <entry key="app/src/main/res/layout/activity_filter.xml" value="0.10081053698074975" />
         <entry key="app/src/main/res/layout/activity_find_pass.xml" value="0.20742753623188406" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.2730539957682292" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3159420289855073" />
         <entry key="app/src/main/res/layout/activity_onboard.xml" value="0.28165374677002586" />
+        <entry key="app/src/main/res/layout/activity_post_list.xml" value="0.25416666666666665" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.10112359550561797" />
         <entry key="app/src/main/res/layout/activity_schedule_detail.xml" value="0.29483695652173914" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.165" />
-        <entry key="app/src/main/res/layout/fragment_base_information.xml" value="0.5083038330078125" />
+        <entry key="app/src/main/res/layout/fragment_additional_information.xml" value="0.1526268115942029" />
+        <entry key="app/src/main/res/layout/fragment_base_information.xml" value="0.3508804321289062" />
         <entry key="app/src/main/res/layout/fragment_board.xml" value="0.1828774062816616" />
+        <entry key="app/src/main/res/layout/fragment_calendar.xml" value="0.1526268115942029" />
         <entry key="app/src/main/res/layout/fragment_code_prompt.xml" value="0.2228118896484375" />
         <entry key="app/src/main/res/layout/fragment_email_prompt.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_findpass_email_prompt.xml" value="0.1" />
