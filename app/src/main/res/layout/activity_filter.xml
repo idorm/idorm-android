@@ -14,6 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scrollIndicators="bottom"
         tools:context=".presentation.FilterActivity">
 
 
@@ -328,28 +329,39 @@
         <com.jaygoo.widget.RangeSeekBar
             android:id="@+id/partner_filter_ball_capability_range_sb"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+
             app:layout_constraintStart_toStartOf="@+id/textView10"
             app:layout_constraintTop_toBottomOf="@+id/textView10"
+            app:rsb_gravity="bottom"
+            app:rsb_indicator_arrow_size="0dp"
+            app:rsb_indicator_background_color="#FFFFFF"
+            app:rsb_indicator_height="18dp"
 
+
+            app:rsb_indicator_margin="6dp"
+            app:rsb_indicator_show_mode="alwaysShow"
+            app:rsb_indicator_text_color="#000000"
+            app:rsb_indicator_text_size="12sp"
             app:rsb_max="40"
             app:rsb_min="20"
-            app:rsb_progress_radius="15dp"
-            app:rsb_mode="range"
-            app:rsb_progress_height="11dp"
             app:rsb_min_interval="1"
-
+            app:rsb_mode="range"
+            app:rsb_tick_mark_mode="other"
+            app:rsb_progress_color="@color/iDorm_blue"
+            app:rsb_progress_height="11dp"
+            app:rsb_progress_radius="15dp"
+            app:rsb_steps="20"
             app:rsb_step_auto_bonding="true"
-            app:rsb_steps="1"
+            app:rsb_thumb_drawable="@drawable/ic_radiobutton_checked"
             app:rsb_thumb_height="30dp"
             app:rsb_thumb_width="30dp"
-            app:rsb_progress_color="@color/iDorm_blue"
-            app:rsb_thumb_drawable="@drawable/ic_radiobutton_checked"
-            app:rsb_tick_mark_text_size="0sp"/>
+            app:rsb_tick_mark_text_size="0sp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

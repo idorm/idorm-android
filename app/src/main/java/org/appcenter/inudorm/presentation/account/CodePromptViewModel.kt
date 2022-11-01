@@ -37,8 +37,10 @@ class CodePromptViewModel(private val email:String, private var authorizedCode: 
     private fun stopTimer() {
         if (::a.isInitialized) a.cancel()
     }
-
-
+    
+    //아래 함수 안 돼서 잠깐 막아 놓음. 이유 : 파라미터 자료형이 안 맞음
+    fun resendCode(){}
+/*
     fun resendCode() {
         // resend code
         if (_timer.value!! > 0) {
@@ -58,7 +60,7 @@ class CodePromptViewModel(private val email:String, private var authorizedCode: 
             }
         }
     }
-
+*/
     fun submit() {
         // check code and navigate
         Log.d(TAG, "$authorizedCode | ${encrypt(code.value!!)}")
