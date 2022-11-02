@@ -36,10 +36,6 @@ class MatchingFragment : Fragment(), CardStackListener {
 
     private val TAG = "MatchingFragment"
 
-    companion object {
-        fun newInstance() = MatchingFragment()
-    }
-
     private val roomMateRepository = RoomMateRepository()
     private val viewModel: MatchingViewModel by viewModels {
         MatchingViewModelFactory(roomMateRepository)
@@ -106,6 +102,9 @@ class MatchingFragment : Fragment(), CardStackListener {
             binding.cardStackView.swipe()
             animateColorAndRestore(matchingViewUtil.red, 150)
         }
+        binding.backButton.setOnClickListener {
+            binding.cardStackView.rewind()
+        }
         binding.chatButton.setOnClickListener {
             animateColorAndRestore(matchingViewUtil.yellow, 150)
             // Todo: Add KakaoTalk Icon to button
@@ -135,6 +134,11 @@ class MatchingFragment : Fragment(), CardStackListener {
             )
             binding.cardStackView.swipe()
             animateColorAndRestore(matchingViewUtil.green, 150)
+        }
+        binding.openFilterButton.setOnClickListener {
+            val intent = Intent(this@MatchingFragment.context, FilterActivity::class.java)
+            startActivity(intent, )
+
         }
     }
 
