@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.*
+import org.appcenter.inudorm.networking.Data
 import org.appcenter.inudorm.networking.ResponseWrapper
 import org.appcenter.inudorm.repository.UserRepository
 import java.io.IOException
@@ -22,18 +23,18 @@ object LoginResponseCode {
 
 class Login(
     private val userDataStore: DataStore<Preferences>,
-) : UseCase<UserInputParams?, ResponseWrapper<Nothing>>() {
+) : UseCase<UserInputParams?, Data<Boolean>>() {
     private val emailKey = stringPreferencesKey("USER_EMAIL")
     private val tokenKey = stringPreferencesKey("USER_TOKEN")
     private val userRepository = UserRepository()
 
     // At the top level of your kotlin file:
-    override suspend fun onExecute(params: UserInputParams?): ResponseWrapper<Nothing> {
+    override suspend fun onExecute(params: UserInputParams?): Data<Boolean> {
         return if (params != null) {
             loginWithInput(params)
         } else { // 입력이 없으면 (자동로그인 시도) Todo: 앱 실행시 토큰 검증 등 재확인 절차 존재 여부 및 방법 결정
             //loginWithSavedCredentials()
-            ResponseWrapper("NOT_IMPLEMENTED", responseMessage = "적용되지 않은 기능입니다. 어떻게 들어오셨어요..?")
+            Data(error = "적용되지 않은 기능입니다. 어떻게 들어오셨어요..?")
         }
     }
 
@@ -54,7 +55,7 @@ class Login(
         }
     }
 
-    private suspend fun loginWithInput(params: UserInputParams): ResponseWrapper<Nothing> {
+    private suspend fun loginWithInput(params: UserInputParams): Data<Boolean> {
         return userRepository.login(params)
     }
 

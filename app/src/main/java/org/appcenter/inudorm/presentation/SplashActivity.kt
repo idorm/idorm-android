@@ -27,8 +27,8 @@ class SplashActivity : AppCompatActivity() {
             // Try to login
             kotlin.runCatching {
                 Login(dataStore).run(null)
-            }.onSuccess { res ->
-                if (res.responseCode == LoginResponseCode.SUCCESS) {
+            }.onSuccess { loginResult ->
+                if (loginResult.data == true) {
                     // 기기에 있는 정보로 로그인 성공. MainActivity로 보냅니다.
                     Handler(Looper.getMainLooper()).postDelayed({
                         //H** val intent = Intent(this@SplashActivity, MainActivity::class.java)

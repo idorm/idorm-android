@@ -21,9 +21,7 @@ import org.appcenter.inudorm.util.encrypt
  * 1. 이메일과 메일 전송 목적을 받아 메일을 재전송할 수 있습니다.
  * 2. 인증번호 검증 요청을 서버에 보낼 수 있습니다.
  */
-class CodePromptViewModel(private val email: String, private val purpose: EmailPromptPurpose) :
-    ViewModelWithEvent() {
-    private val TAG = "[CodePromptViewModel]"
+class CodePromptViewModel(private val email: String, private val purpose: EmailPromptPurpose) : ViewModelWithEvent() {
     val code = MutableLiveData("")
     val userRepository = UserRepository()
     private var _timer = MutableLiveData(10) // Todo: 3분으로 수정
@@ -49,7 +47,7 @@ class CodePromptViewModel(private val email: String, private val purpose: EmailP
 
     fun resendCode() {
         if (_timer.value!! > 0) {
-            showDialog("인증번호가 만료되지 않았습니다.", DialogButton("확인", null, null), null)
+            showDialog("인증번호가 만료되지 않았습니다.", DialogButton("확인"))
         } else {
             viewModelScope.launch {
                 kotlin.runCatching {
@@ -60,7 +58,7 @@ class CodePromptViewModel(private val email: String, private val purpose: EmailP
                     code.value = ""
                 }.onFailure {
                     // Todo: Handle resend fail
-                    showDialog("이메일 재전송에 실패했습니다.", positiveButton = DialogButton("확인"))
+                    showDialog("이메일 재전송에 실패했습니다.", DialogButton("확인"))
                 }
             }
         }
@@ -82,9 +80,7 @@ class CodePromptViewModel(private val email: String, private val purpose: EmailP
                     this@CodePromptViewModel.mergeBundleWithPaging(bundle)
                 }.onFailure {
                     this@CodePromptViewModel.showDialog(
-                        "인증번호를 다시 확인해주세요.",
-                        DialogButton("확인", null, null),
-                        null
+                        "인증번호를 다시 확인해주세요.", DialogButton("확인")
                     )
                 }
             }

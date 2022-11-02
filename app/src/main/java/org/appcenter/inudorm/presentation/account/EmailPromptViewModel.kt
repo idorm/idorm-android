@@ -16,14 +16,13 @@ import org.appcenter.inudorm.util.emailValidator
 
 class EmailPromptViewModel(private val purpose: EmailPromptPurpose) : ViewModelWithEvent() {
     val email = MutableLiveData("")
-    private val userRepository = UserRepository()
 
     fun submit() {
         val mail = email.value!!
         if (emailValidator(mail)) { // 올바른 메일인지 체크좀 할게요..
             viewModelScope.launch {
                 kotlin.runCatching {
-                    SendAuthCode(purpose).run(mail)
+                    SendAuthCode().run(SendAuthCodeParams(purpose, email.value!!))
                 }.onSuccess {
                     val bundle = Bundle()
                     bundle.putString("email", mail)
