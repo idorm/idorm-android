@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="filterViewModel"
             type="org.appcenter.inudorm.presentation.FilterViewModel" />
@@ -350,9 +351,9 @@
             app:rsb_progress_height="11dp"
             app:rsb_progress_radius="15dp"
             app:rsb_step_auto_bonding="true"
-            app:rsb_steps="20"
             app:rsb_step_height="0dp"
             app:rsb_step_width="0dp"
+            app:rsb_steps="20"
             app:rsb_thumb_drawable="@drawable/ic_radiobutton_checked"
             app:rsb_thumb_height="30dp"
             app:rsb_thumb_width="30dp"
@@ -363,16 +364,16 @@
             android:id="@+id/ageValLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="4dp"
             android:fontFamily="@font/notosans_medium"
             android:includeFontPadding="false"
+
             android:text="20"
 
+
             android:textColor="@color/black"
-
-
             android:textSize="12sp"
-            android:layout_marginLeft="10dp"
             app:layout_constraintStart_toStartOf="@+id/ageDualSeekbar"
             app:layout_constraintTop_toBottomOf="@+id/ageDualSeekbar" />
 
@@ -381,41 +382,41 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:text="40+"
-            android:textSize="12sp"
+            android:layout_marginRight="10dp"
             android:fontFamily="@font/notosans_medium"
             android:includeFontPadding="false"
+            android:text="40+"
             android:textColor="@color/black"
-            android:layout_marginRight="10dp"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@+id/ageDualSeekbar"
             app:layout_constraintTop_toBottomOf="@+id/ageDualSeekbar" />
 
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/filterDoneButton"
-            android:layout_width="0dp"
+            android:layout_width="126dp"
             android:layout_height="52dp"
-            app:layout_constraintWidth_percent="0.3"
-
             android:layout_marginEnd="24dp"
+
             android:layout_marginBottom="20dp"
             android:background="@drawable/view_button_round_6"
-
             android:fontFamily="@font/notosans_medium"
+
             android:includeFontPadding="false"
             android:text="@string/filterDoneInteraction"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.3" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/initializationButton"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="52dp"
-            android:layout_marginStart="24dp"
 
             android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
 
             android:background="@drawable/view_button_round_6_gray_100"
 
@@ -425,15 +426,16 @@
             android:fontFamily="@font/notosans_medium"
             android:includeFontPadding="false"
             android:text="@string/initializationInteraction"
+            android:paddingHorizontal="20dp"
+            android:drawablePadding="10dp"
             android:textColor="@color/iDorm_gray_400"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintWidth_percent="0.5" />
+            app:layout_constraintEnd_toStartOf="@+id/filterDoneButton"
+            app:layout_constraintWidth_percent="0.6" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
 </layout>
