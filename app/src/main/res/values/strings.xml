@@ -84,6 +84,8 @@
     <string name="dislikes">불호 요소</string>
     <string name="disleksGuideText">선택하신 요소를 가진 룸메이트는 나와 매칭되지 않아요.</string>
     <string name="ageGuideText">선택하신 연령대의 룸메이트만 나와 매칭돼요.</string>
+    <string name="filterDoneInteraction">필터링 완료</string>
+    <string name="initializationInteraction">초기화</string>
 
 
     <!--comment/post ListActivity-->
