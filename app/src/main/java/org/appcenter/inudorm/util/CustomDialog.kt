@@ -15,7 +15,7 @@ import com.google.android.material.dialog.MaterialDialogs
 import org.appcenter.inudorm.R
 
 open class CustomDialog(
-    private val text: String, private val positiveButton: DialogButton?, private val negativeButton: DialogButton? = null
+    private val text: String, private val positiveButton: DialogButton? = null, private val negativeButton: DialogButton? = null
 ) {
     fun show(context: Context) {
 

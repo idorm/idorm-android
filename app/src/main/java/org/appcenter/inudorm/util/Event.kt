@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import org.appcenter.inudorm.OnPromptDoneListener
 import org.appcenter.inudorm.R
 
-data class DialogButton(val text: String,  val onClick: (() -> Unit)?, val textColor: Int? = R.color.iDorm_blue,)
+data class DialogButton(val text: String,  val onClick: (() -> Unit)? = null, val textColor: Int? = R.color.iDorm_blue,)
 
 
 // Event 클래스를 상속 받는 두 클래스를 만들어준다. sealed를 쓰면 when ... is 를 통해 이벤트에 따라 분기시킬 수 있다.
@@ -23,8 +23,8 @@ sealed class Event {
     data class ShowToast(val text: String, val interval: Int) : Event()
     data class ShowDialog(
         val text: String,
-        val positiveButton: DialogButton?,
-        val negativeButton: DialogButton?
+        val positiveButton: DialogButton? = null,
+        val negativeButton: DialogButton? = null,
     ) : Event()
 
     data class MergeBundleWithPaging(val bundle: Bundle) : Event()
@@ -44,8 +44,8 @@ open class ViewModelWithEvent : ViewModel() {
     fun showToast(text: String) = event(Event.ShowToast(text, 1000))
     fun showDialog(
         text: String,
-        positiveButton: DialogButton?,
-        negativeButton: DialogButton?
+        positiveButton: DialogButton? = null,
+        negativeButton: DialogButton? = null,
     ) = event(Event.ShowDialog(text, positiveButton, negativeButton))
 
     fun mergeBundleWithPaging(bundle: Bundle) =
