@@ -15,6 +15,7 @@ import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentCodePromptBinding
 import org.appcenter.inudorm.util.eventHandler
 
+
 class CodePromptFragment : Fragment() {
 
     private lateinit var viewModel: CodePromptViewModel
@@ -34,7 +35,6 @@ class CodePromptFragment : Fragment() {
             viewModelStore,
             CodePromptViewModelFactory(
                 bundle?.getString("email", "none")!!,
-                bundle.getString("encryptedCode", "none"),
                 bundle.getSerializable("purpose") as EmailPromptPurpose
             )
         )[CodePromptViewModel::class.java]

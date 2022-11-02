@@ -10,7 +10,10 @@ import org.appcenter.inudorm.App
 class AuthInterceptor : Interceptor {
     private val TAG = "[AuthInterceptor]"
     override fun intercept(chain: Interceptor.Chain): Response {
-        Log.d(TAG, "Send request to ${chain.request().url()} with token: ${App.prefs.savedUser?.token}")
+        Log.d(
+            TAG,
+            "Send request to ${chain.request().url()} with token: ${App.prefs.savedUser?.token}"
+        )
         var req =
             chain.request().newBuilder()
                 .addHeader("Authorization", App.prefs.savedUser?.token ?: "").build()
@@ -19,9 +22,11 @@ class AuthInterceptor : Interceptor {
     }
 }
 
+
+
 class ResponseInterceptor : Interceptor {
     private val TAG = "[ResponseInterceptor]"
-    private val networkErrorMessage = "네트워크 요청에 실패했습니다."
+    private val networkErrorMessage = "네트워크 요청에 알 수 없는 이유로 실패했습니다."
     override fun intercept(chain: Interceptor.Chain): Response {
         val gson = Gson()
         val request = chain.request()
@@ -31,26 +36,28 @@ class ResponseInterceptor : Interceptor {
         // Get raw json response
         val rawJsonResponse: String = response.body().toString()
 
+
         // Convert json to data object
         val type = object : TypeToken<ResponseWrapper<*>>() {}.type
         val res = try {
-            val result = gson.fromJson<ResponseWrapper<*>>(rawJsonResponse, type) // parsed ResponseWrapper
-                ?: throw JsonParseException("Failed to parse json")
-            ResponseWrapper(result.responseCode, result.data)
-        } catch (e: JsonParseException) {
-            ResponseWrapper(NetworkErrorCode.FAILED_TO_PARSE_JSON, null, networkErrorMessage)
-        } catch (t: Throwable) {
-            ResponseWrapper(NetworkErrorCode.UNKNOWN_ERROR, null, networkErrorMessage)
+            val result =
+                gson.fromJson<ResponseWrapper<*>>(rawJsonResponse, type) // parsed ResponseWrapper
+                    ?: throw JsonParseException("Failed to parse json")
+            if (response.isSuccessful) {
+                Data(data = result.data ?: true)
+            } else {
+                Data(error = result.responseMessage)
+            }
+        } catch (e: Throwable) {
+            Data<Nothing>(error = networkErrorMessage)
         }
 
-
         // Re-transform result to json and return
-        val resultJson = gson.toJson(res.data)
+        val resultJson = gson.toJson(res)
         val newResponse = response.newBuilder()
-            .message(res.responseMessage ?: response.message())
             .body(ResponseBody.create(MediaType.parse("application/json"), resultJson))
             .build()
-        Log.d(TAG, "${res.responseCode} | $newResponse")
+        Log.d(TAG, "${res.data} | $newResponse")
         return newResponse
     }
 }

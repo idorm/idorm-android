@@ -1,34 +1,23 @@
 package org.appcenter.inudorm.usecase
 
 import com.google.gson.Gson
+import org.appcenter.inudorm.networking.Data
 import org.appcenter.inudorm.networking.RetrofitInstance
 import org.appcenter.inudorm.networking.createJsonRequestBody
 import org.appcenter.inudorm.presentation.account.EmailPromptPurpose
 import org.appcenter.inudorm.repository.UserRepository
+import org.appcenter.inudorm.userRepository
+import kotlin.reflect.KSuspendFunction1
 
-data class SendAuthCodeParams(val email:String)
+data class SendAuthCodeParams(val codeType: EmailPromptPurpose, val email:String)
 
-class SendAuthCode(private val codeType: EmailPromptPurpose,) : UseCase<String, Boolean?>() {
-    val gson = Gson()
+private val sendRepos : Map<EmailPromptPurpose, KSuspendFunction1<String, Data<Boolean>>> = mapOf(
+    EmailPromptPurpose.Register to userRepository::sendRegisterAuthCode,
+    EmailPromptPurpose.FindPass to userRepository::sendPasswordAuthCode
+)
 
-    override suspend fun onExecute(params: String): Boolean {
-        return when (codeType) {
-            EmailPromptPurpose.Register -> sendForRegister(params)
-            EmailPromptPurpose.FindPass -> sendForFindAccount(params)
-        }
-    }
-
-    // Todo: 코드 전송 유형 별로 네트워크 요청 분기
-
-    private suspend fun sendForFindAccount(email: String): Boolean {
-        val body = gson.toJson({email})
-        val jsonBody = createJsonRequestBody(body)
-        return RetrofitInstance.service.sendForgotPWEmail(jsonBody).responseCode == "OK"
-    }
-
-    private suspend fun sendForRegister(email: String) : Boolean {
-        val body = gson.toJson({email})
-        val jsonBody = createJsonRequestBody(body)
-        return RetrofitInstance.service.sendRegisterEmail(jsonBody).responseCode == "OK"
+class SendAuthCode : UseCase<SendAuthCodeParams, Data<Boolean>>() {
+    override suspend fun onExecute(params: SendAuthCodeParams): Data<Boolean> {
+        return sendRepos[params.codeType]?.invoke(params.email)!!
     }
 }

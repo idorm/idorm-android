@@ -7,17 +7,26 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.repository.UserRepository
+import org.appcenter.inudorm.usecase.CheckIfCodeCorrect
+import org.appcenter.inudorm.usecase.CodeVerifyParams
+import org.appcenter.inudorm.usecase.SendAuthCode
+import org.appcenter.inudorm.usecase.SendAuthCodeParams
 import org.appcenter.inudorm.util.DialogButton
 import org.appcenter.inudorm.util.ViewModelWithEvent
 import org.appcenter.inudorm.util.addZeroToMakeLength
 import org.appcenter.inudorm.util.encrypt
 
-
-class CodePromptViewModel(private val email:String, private var authorizedCode: String, private val purpose: EmailPromptPurpose) : ViewModelWithEvent() {
+/**
+ * 사용된 UseCase
+ * 1. 이메일과 메일 전송 목적을 받아 메일을 재전송할 수 있습니다.
+ * 2. 인증번호 검증 요청을 서버에 보낼 수 있습니다.
+ */
+class CodePromptViewModel(private val email: String, private val purpose: EmailPromptPurpose) :
+    ViewModelWithEvent() {
     private val TAG = "[CodePromptViewModel]"
     val code = MutableLiveData("")
     val userRepository = UserRepository()
-    private var _timer = MutableLiveData<Int>(10) // Todo: 3분으로 수정
+    private var _timer = MutableLiveData(10) // Todo: 3분으로 수정
     private lateinit var a: Job
 
     val timer: LiveData<Int>
@@ -37,54 +46,61 @@ class CodePromptViewModel(private val email:String, private var authorizedCode: 
     private fun stopTimer() {
         if (::a.isInitialized) a.cancel()
     }
-    
-    //아래 함수 안 돼서 잠깐 막아 놓음. 이유 : 파라미터 자료형이 안 맞음
-    fun resendCode(){}
-/*
+
     fun resendCode() {
-        // resend code
         if (_timer.value!! > 0) {
             showDialog("인증번호가 만료되지 않았습니다.", DialogButton("확인", null, null), null)
         } else {
             viewModelScope.launch {
                 kotlin.runCatching {
-                    userRepository.sendAuthCode(email)
+                    SendAuthCode().run(SendAuthCodeParams(purpose, email))
                 }.onSuccess {
                     // Restart Timer
                     startTimer()
-                    authorizedCode = it
                     code.value = ""
                 }.onFailure {
                     // Todo: Handle resend fail
+                    showDialog("이메일 재전송에 실패했습니다.", positiveButton = DialogButton("확인"))
                 }
             }
         }
     }
-*/
+
     fun submit() {
-        // check code and navigate
-        Log.d(TAG, "$authorizedCode | ${encrypt(code.value!!)}")
         if (_timer.value!! < 0) {
-            this.showDialog("인증번호가 만료되었습니다.", DialogButton("확인", null, null), null)
+            this.showDialog("인증번호가 만료되었습니다.", DialogButton("확인"))
         } else {
-            if (authorizedCode == encrypt(code.value!!)) {
-                stopTimer()
-                val bundle = Bundle()
-                bundle.putBoolean("authorized", true)
-                this.mergeBundleWithPaging(bundle)
-            } else {
-                this.showDialog("인증번호를 다시 확인해주세요.", DialogButton("확인", null, null), null)
+            // check if code correct on server
+            viewModelScope.launch {
+                kotlin.runCatching {
+                    CheckIfCodeCorrect().run(CodeVerifyParams(purpose, email, code.value!!))
+                }.onSuccess {
+                    stopTimer()
+                    val bundle = Bundle()
+                    bundle.putBoolean("authorized", true)
+                    bundle.putString("authCode", code.value!!)
+                    this@CodePromptViewModel.mergeBundleWithPaging(bundle)
+                }.onFailure {
+                    this@CodePromptViewModel.showDialog(
+                        "인증번호를 다시 확인해주세요.",
+                        DialogButton("확인", null, null),
+                        null
+                    )
+                }
             }
         }
 
     }
 }
 
-class CodePromptViewModelFactory(private val email:String, private val authorizedCode: String, private val purpose: EmailPromptPurpose) :
+class CodePromptViewModelFactory(
+    private val email: String,
+    private val purpose: EmailPromptPurpose
+) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CodePromptViewModel::class.java)) {
-            return CodePromptViewModel(email, authorizedCode, purpose) as T
+            return CodePromptViewModel(email, purpose) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
