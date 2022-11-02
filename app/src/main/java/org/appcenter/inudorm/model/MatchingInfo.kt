@@ -1,15 +1,7 @@
 package org.appcenter.inudorm.model
 
 
-enum class Gender {
-    Male,
-    Female
-}
 
-enum class JoinPeriod {
-    Long,
-    Short
-}
 
 /**
  * 매칭을 위한 정보에 대한 데이터입니다.

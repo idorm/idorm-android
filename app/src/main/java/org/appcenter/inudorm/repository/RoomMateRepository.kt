@@ -32,7 +32,7 @@ val testMate =  Mate(
 )
 
 class RoomMateRepository {
-    suspend fun fetchRoomMates(params: MatchingInfo): ArrayList<Mate> {
+    suspend fun fetchRoomMates(params: RoomMateFilter): ArrayList<Mate> {
         return flow {
             kotlinx.coroutines.delay(3000)
             emit(
