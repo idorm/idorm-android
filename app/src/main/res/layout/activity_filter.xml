@@ -5,9 +5,8 @@
 
     <data>
         <variable
-        name="filterViewModel"
-        type="org.appcenter.inudorm.presentation.FilterViewModel" />
-
+            name="filterViewModel"
+            type="org.appcenter.inudorm.presentation.FilterViewModel" />
     </data>
 
 
@@ -329,7 +328,7 @@
             app:layout_constraintTop_toBottomOf="@+id/age" />
 
         <com.jaygoo.widget.RangeSeekBar
-            android:id="@+id/partner_filter_ball_capability_range_sb"
+            android:id="@+id/ageDualSeekbar"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginStart="24dp"
@@ -352,11 +351,44 @@
             app:rsb_progress_radius="15dp"
             app:rsb_step_auto_bonding="true"
             app:rsb_steps="20"
+            app:rsb_step_height="0dp"
+            app:rsb_step_width="0dp"
             app:rsb_thumb_drawable="@drawable/ic_radiobutton_checked"
             app:rsb_thumb_height="30dp"
             app:rsb_thumb_width="30dp"
             app:rsb_tick_mark_mode="other"
             app:rsb_tick_mark_text_size="0sp" />
+
+        <TextView
+            android:id="@+id/ageValLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/notosans_medium"
+            android:includeFontPadding="false"
+            android:text="20"
+
+            android:textColor="@color/black"
+
+
+            android:textSize="12sp"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintStart_toStartOf="@+id/ageDualSeekbar"
+            app:layout_constraintTop_toBottomOf="@+id/ageDualSeekbar" />
+
+        <TextView
+            android:id="@+id/ageValRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="40+"
+            android:textSize="12sp"
+            android:fontFamily="@font/notosans_medium"
+            android:includeFontPadding="false"
+            android:textColor="@color/black"
+            android:layout_marginRight="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/ageDualSeekbar"
+            app:layout_constraintTop_toBottomOf="@+id/ageDualSeekbar" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
