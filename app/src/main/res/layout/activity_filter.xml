@@ -336,13 +336,13 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="24dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
 
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/textView10"
             app:layout_constraintTop_toBottomOf="@+id/textView10"
+
+
             app:rsb_gravity="bottom"
-
-
             app:rsb_max="40"
             app:rsb_min="20"
             app:rsb_min_interval="1"
@@ -397,6 +397,7 @@
             android:layout_width="126dp"
             android:layout_height="52dp"
             android:layout_marginEnd="24dp"
+
 
             android:layout_marginBottom="20dp"
             android:background="@drawable/view_button_round_6"
