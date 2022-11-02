@@ -1,25 +1,17 @@
 package org.appcenter.inudorm.repository
 
+import org.appcenter.inudorm.model.Dorm
 import org.appcenter.inudorm.model.JoinPeriod
+import org.appcenter.inudorm.model.RoomMateFilter
 
-enum class Dorm(val code: String) {
-    First("DORM1"),
-    Second("DORM2"),
-    Third("DORM3"),
-}
-
-data class RoomMateFilter(
-    var dormNum: Dorm,
-    var isAllowedFood: Boolean? = null,
-    var isGrinding: Boolean? = null,
-    var isSmoking: Boolean? = null,
-    var isSnoring: Boolean? = null,
-    var isWearEarphones: Boolean? = null,
-    var joinPeriod: JoinPeriod,
-    var maxAge: Int,
-    var minAge: Int,
-)
-
+/**
+ * Filter, Matching에서 사용하는 Local Filter를 관리하는 Repository 입니다. :)
+ */
 class LocalFilterRepository {
-    var _roomMateFilter: RoomMateFilter? = null
+    var roomMateFilter: RoomMateFilter = RoomMateFilter(
+        dormNum = Dorm.First,
+        joinPeriod = JoinPeriod.Short,
+        minAge = 20,
+        maxAge = 40
+    )
 }

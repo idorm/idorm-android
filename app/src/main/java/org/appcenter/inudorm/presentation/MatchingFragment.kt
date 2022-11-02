@@ -2,6 +2,8 @@ package org.appcenter.inudorm.presentation
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -13,6 +15,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.constraintlayout.solver.widgets.analyzer.Direct
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -25,20 +30,21 @@ import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentMatchingBinding
 import org.appcenter.inudorm.model.Mate
+import org.appcenter.inudorm.model.RoomMateFilter
 import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter
 import org.appcenter.inudorm.repository.RoomMateRepository
 import org.appcenter.inudorm.repository.testMate
 import org.appcenter.inudorm.util.CustomDialog
 import org.appcenter.inudorm.util.DialogButton
 import org.appcenter.inudorm.util.MatchingViewUtil
+const val FILTER_RESULT_CODE = 1226
 
 class MatchingFragment : Fragment(), CardStackListener {
 
     private val TAG = "MatchingFragment"
 
-    private val roomMateRepository = RoomMateRepository()
     private val viewModel: MatchingViewModel by viewModels {
-        MatchingViewModelFactory(roomMateRepository)
+        MatchingViewModelFactory()
     }
     private lateinit var binding: FragmentMatchingBinding
     private lateinit var layoutManager: CardStackLayoutManager
@@ -46,6 +52,8 @@ class MatchingFragment : Fragment(), CardStackListener {
     private val matchingViewUtil by lazy {
         MatchingViewUtil(requireContext())
     }
+
+    private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
 
     private fun setupCardStackView() {
         val setting = SwipeAnimationSetting.Builder()
@@ -74,6 +82,10 @@ class MatchingFragment : Fragment(), CardStackListener {
         return binding.root
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        setupFilter()
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -84,13 +96,24 @@ class MatchingFragment : Fragment(), CardStackListener {
         viewModel.getMates(10)
     }
 
+    private fun setupFilter() {
+        activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            Log.i(TAG, "activity result: ${result.resultCode} ${result.data}")
+            if (result.resultCode == FILTER_RESULT_CODE) {
+                val intent = result.data
+                val filter = intent?.getParcelableExtra<RoomMateFilter>("filter")
+                viewModel.setFilter(filter!!)
+                Log.i(TAG, "result filter:  ${filter}")
+            }
+        }
+    }
+
     private fun animateColorAndRestore(color: Int, duration: Long) {
         lifecycleScope.launch {
             matchingViewUtil.animateToColor(binding.circle, color, duration)
             matchingViewUtil.animateToColor(binding.circle, matchingViewUtil.blue, duration)
         }
     }
-
 
     private fun setupControlButton() {
         binding.dislikeButton.setOnClickListener {
@@ -136,9 +159,9 @@ class MatchingFragment : Fragment(), CardStackListener {
             animateColorAndRestore(matchingViewUtil.green, 150)
         }
         binding.openFilterButton.setOnClickListener {
-            val intent = Intent(this@MatchingFragment.context, FilterActivity::class.java)
-            startActivity(intent, )
-
+            val intent = Intent(this@MatchingFragment.activity?.applicationContext, FilterActivity::class.java)
+            intent.putExtra("filter", viewModel.matchingState.value.filter)
+            activityResultLauncher.launch(intent)
         }
     }
 

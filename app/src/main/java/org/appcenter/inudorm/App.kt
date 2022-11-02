@@ -10,6 +10,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.model.SavedUser
+import org.appcenter.inudorm.repository.LocalFilterRepository
 import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.repository.RoomMateRepository
 import org.appcenter.inudorm.repository.UserRepository
@@ -21,8 +22,7 @@ val gson = Gson()
 
 val userRepository = UserRepository()
 val roomMateRepository = RoomMateRepository()
-
-
+val localFilterRepository = LocalFilterRepository()
 
 class App : Application() {
     companion object {

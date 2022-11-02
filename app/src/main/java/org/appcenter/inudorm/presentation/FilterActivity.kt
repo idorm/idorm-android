@@ -1,5 +1,6 @@
 package org.appcenter.inudorm.presentation
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
@@ -10,6 +11,9 @@ import com.jaygoo.widget.OnRangeChangedListener
 import com.jaygoo.widget.RangeSeekBar
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityFilterBinding
+import org.appcenter.inudorm.model.Dorm
+import org.appcenter.inudorm.model.JoinPeriod
+import org.appcenter.inudorm.model.RoomMateFilter
 
 class FilterActivity : AppCompatActivity() {
 
@@ -18,10 +22,22 @@ class FilterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFilterBinding
     private val filterViewModel: FilterViewModel by viewModels()
 
+    override fun onBackPressed() {
+        val intent = Intent(applicationContext, MatchingFragment::class.java)
+        intent.putExtra("filter", RoomMateFilter(dormNum = Dorm.Third, minAge = 25, maxAge = 26, joinPeriod = JoinPeriod.Long))
+        setResult(FILTER_RESULT_CODE, intent)
+        finish()
+        super.onBackPressed()
+
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_filter)
         binding.filterViewModel = filterViewModel
+
+        val filter = intent?.getParcelableExtra<RoomMateFilter>("filter")
+        Log.i(TAG, filter.toString())
 
         val ageDualSeekbar = binding.ageDualSeekbar
         var ageValLeft = binding.ageValLeft

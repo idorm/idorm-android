@@ -7,9 +7,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.appcenter.inudorm.localFilterRepository
+import org.appcenter.inudorm.model.Dorm
+import org.appcenter.inudorm.model.JoinPeriod
 import org.appcenter.inudorm.model.Mate
-import org.appcenter.inudorm.repository.RoomMateRepository
-import org.appcenter.inudorm.repository.testMyInfo
+import org.appcenter.inudorm.model.RoomMateFilter
 import org.appcenter.inudorm.usecase.GetRoomMates
 import java.util.*
 
@@ -18,10 +20,16 @@ data class MatchingState(
     var isLoading: Boolean = false,
     var errorMessage: String? = null,
     var mates: ArrayList<Mate> = ArrayList(),
+    var filter: RoomMateFilter
 )
 
-class MatchingViewModel(private val roomMateRepository: RoomMateRepository) : ViewModel() {
-    private val _matchingState: MutableStateFlow<MatchingState> = MutableStateFlow(MatchingState())
+class MatchingViewModel : ViewModel() {
+    private val _matchingState: MutableStateFlow<MatchingState> = MutableStateFlow(
+        MatchingState(
+            mates = arrayListOf(),
+            filter = localFilterRepository.roomMateFilter
+        )
+    )
     val matchingState: StateFlow<MatchingState>
         get() = _matchingState
 
@@ -31,13 +39,12 @@ class MatchingViewModel(private val roomMateRepository: RoomMateRepository) : Vi
     */
     // TODO: Implement the ViewModel
     fun getMates(size: Int) {
-        val currentMates = _matchingState.value.mates
         _matchingState.update {
             it.copy(isLoading = true)
         }
         viewModelScope.launch {
             kotlin.runCatching {
-                GetRoomMates(roomMateRepository).run(testMyInfo)
+                GetRoomMates().run(matchingState.value.filter)
             }.onSuccess { mates ->
                 _matchingState.update {
                     it.copy(
@@ -55,13 +62,21 @@ class MatchingViewModel(private val roomMateRepository: RoomMateRepository) : Vi
             }
         }
     }
+
+    fun setFilter(filter: RoomMateFilter) {
+        _matchingState.update {
+            it.copy(
+                filter = filter
+            )
+        }
+    }
 }
 
-class MatchingViewModelFactory(private val roomMateRepository: RoomMateRepository) :
+class MatchingViewModelFactory :
     ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MatchingViewModel::class.java)) {
-            return MatchingViewModel(roomMateRepository) as T
+            return MatchingViewModel() as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
