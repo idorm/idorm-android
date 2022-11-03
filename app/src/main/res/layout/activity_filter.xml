@@ -73,6 +73,7 @@
             <!--choice의 기본 margin값은 8dp입니다.-->
 
             <com.google.android.material.chip.ChipGroup
+                selectedDorm="@={filterViewModel.filterState.dormNum}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:checkedChip="@id/firstDorm"
@@ -148,6 +149,7 @@
             <!--choice의 기본 margin값은 8dp입니다.-->
 
             <com.google.android.material.chip.ChipGroup
+                selectedJoinPeriod="@={filterViewModel.filterState.joinPeriod}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
@@ -165,7 +167,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-
                     android:text="@string/sixteenWeeks" />
 
                 <com.google.android.material.chip.Chip
@@ -329,7 +330,7 @@
             app:layout_constraintTop_toBottomOf="@+id/age" />
 
         <com.jaygoo.widget.RangeSeekBar
-            android:id="@+id/ageDualSeekbar"
+            android:id="@+id/ageRangeSeekbar"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginStart="24dp"
@@ -361,7 +362,7 @@
             app:rsb_tick_mark_text_size="0sp" />
 
         <TextView
-            android:id="@+id/ageValLeft"
+            android:id="@+id/ageFrom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -371,14 +372,13 @@
 
             android:text="20"
 
-
             android:textColor="@color/black"
             android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/ageDualSeekbar"
-            app:layout_constraintTop_toBottomOf="@+id/ageDualSeekbar" />
+            app:layout_constraintStart_toStartOf="@+id/ageRangeSeekbar"
+            app:layout_constraintTop_toBottomOf="@+id/ageRangeSeekbar" />
 
         <TextView
-            android:id="@+id/ageValRight"
+            android:id="@+id/ageTo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
@@ -388,8 +388,8 @@
             android:text="40+"
             android:textColor="@color/black"
             android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@+id/ageDualSeekbar"
-            app:layout_constraintTop_toBottomOf="@+id/ageDualSeekbar" />
+            app:layout_constraintEnd_toEndOf="@+id/ageRangeSeekbar"
+            app:layout_constraintTop_toBottomOf="@+id/ageRangeSeekbar" />
 
 
         <androidx.appcompat.widget.AppCompatButton
@@ -397,7 +397,6 @@
             android:layout_width="126dp"
             android:layout_height="52dp"
             android:layout_marginEnd="24dp"
-
 
             android:layout_marginBottom="20dp"
             android:background="@drawable/view_button_round_6"
@@ -416,19 +415,19 @@
             android:layout_width="wrap_content"
             android:layout_height="52dp"
 
-            android:layout_marginBottom="20dp"
             android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
 
             android:background="@drawable/view_button_round_6_gray_100"
 
             android:drawableLeft="@drawable/ic_initialization"
 
 
+            android:drawablePadding="10dp"
             android:fontFamily="@font/notosans_medium"
             android:includeFontPadding="false"
-            android:text="@string/initializationInteraction"
             android:paddingHorizontal="20dp"
-            android:drawablePadding="10dp"
+            android:text="@string/initializationInteraction"
             android:textColor="@color/iDorm_gray_400"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
