@@ -16,7 +16,6 @@
         <item name="android:textColor">@color/selector_outlined_choice_text_color</item>
         <item name="fontFamily">@font/notosans_medium</item>
         <item name="android:textSize">14sp</item>
-
     </style>
 
     <style name="ThemeOverlay.MyApp.Chip.Choice" parent="">
@@ -26,12 +25,13 @@
     <!--question_item 질문들-->
     <style name="Widget.DesignSystem.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/selector_outlined_textinput_stroke</item>
-
         <item name="elevationOverlayEnabled">false</item>
         <item name="errorEnabled">true</item>
         <item name="boxStrokeErrorColor">@color/iDorm_red</item>
+    </style>
 
-
+    <style name="Widget.DesignSystem.AppCompatButton.blue" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/selector_button_blue_background_color</item>
     </style>
 </resources>
 
