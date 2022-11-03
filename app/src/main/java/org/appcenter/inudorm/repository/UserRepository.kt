@@ -9,6 +9,7 @@ import org.appcenter.inudorm.networking.RetrofitInstance
 import org.appcenter.inudorm.networking.createJsonRequestBody
 import org.appcenter.inudorm.usecase.CodeVerifyParams
 import org.appcenter.inudorm.usecase.RegisterParams
+import org.appcenter.inudorm.usecase.SendAuthCodeParams
 import org.appcenter.inudorm.usecase.UserInputParams
 
 class UserRepository {
@@ -17,12 +18,12 @@ class UserRepository {
         return RetrofitInstance.service.login(createJsonRequestBody(str))
     }
 
-    suspend fun sendRegisterAuthCode(params: String): Data<Boolean> {
+    suspend fun sendRegisterAuthCode(params: SendAuthCodeParams): Data<Boolean> {
         val str = gson.toJson(params)
         return RetrofitInstance.service.sendRegisterEmail(createJsonRequestBody(str))
     }
 
-    suspend fun sendPasswordAuthCode(params: String): Data<Boolean> {
+    suspend fun sendPasswordAuthCode(params: SendAuthCodeParams): Data<Boolean> {
         val str = gson.toJson(params)
         return RetrofitInstance.service.sendForgotPWEmail(createJsonRequestBody(str))
     }

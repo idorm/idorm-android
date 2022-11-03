@@ -16,6 +16,7 @@ import org.appcenter.inudorm.util.ViewModelWithEvent
 import org.appcenter.inudorm.util.addZeroToMakeLength
 import org.appcenter.inudorm.util.encrypt
 
+private const val initialTime = 60 * 3
 /**
  * 사용된 UseCase
  * 1. 이메일과 메일 전송 목적을 받아 메일을 재전송할 수 있습니다.
@@ -24,7 +25,7 @@ import org.appcenter.inudorm.util.encrypt
 class CodePromptViewModel(private val email: String, private val purpose: EmailPromptPurpose) : ViewModelWithEvent() {
     val code = MutableLiveData("")
     val userRepository = UserRepository()
-    private var _timer = MutableLiveData(10) // Todo: 3분으로 수정
+    private var _timer = MutableLiveData(initialTime) // Todo: 3분으로 수정
     private lateinit var a: Job
 
     val timer: LiveData<Int>
@@ -32,7 +33,7 @@ class CodePromptViewModel(private val email: String, private val purpose: EmailP
 
     fun startTimer() {
         if (::a.isInitialized) a.cancel()
-        _timer.value = 10 // Todo: 3분으로 수정
+        _timer.value = initialTime // Todo: 3분으로 수정
         a = viewModelScope.launch {
             while (_timer.value!! > 0) {
                 _timer.value = _timer.value!!.minus(1)
