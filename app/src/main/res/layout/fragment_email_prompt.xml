@@ -84,7 +84,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"
             android:layout_height="53dp"
             android:onClick="@{() -> emailViewModel.submit()}"

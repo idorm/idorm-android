@@ -63,7 +63,7 @@ class CodeSentFragment : Fragment() {
                 }
             }),
             DialogButton("아니오", { openMailWeb() })
-        )
+        ).show(this.requireContext())
     }
 
     private fun openMailWeb() {

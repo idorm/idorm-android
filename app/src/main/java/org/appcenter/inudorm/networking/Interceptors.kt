@@ -6,13 +6,17 @@ import com.google.gson.JsonParseException
 import com.google.gson.reflect.TypeToken
 import okhttp3.*
 import org.appcenter.inudorm.App
+import java.nio.Buffer
 
 class AuthInterceptor : Interceptor {
     private val TAG = "[AuthInterceptor]"
     override fun intercept(chain: Interceptor.Chain): Response {
-        Log.d(
+        val copy = chain.request()
+        val buffer = okio.Buffer()
+        copy.body()?.writeTo(buffer);
+        Log.i(
             TAG,
-            "Send request to ${chain.request().url()} with token: ${App.prefs.savedUser?.token}"
+            "Send ${chain.request().method()} request to ${chain.request().url()} with\ntoken: ${App.prefs.savedUser?.token},\nbody: ${buffer.readUtf8()},\n"
         )
         var req =
             chain.request().newBuilder()
@@ -32,10 +36,9 @@ class ResponseInterceptor : Interceptor {
         val request = chain.request()
         // Request
         val response = chain.proceed(request)
-        Log.d(TAG, response.toString())
+
         // Get raw json response
         val rawJsonResponse: String = response.body().toString()
-
 
         // Convert json to data object
         val type = object : TypeToken<ResponseWrapper<*>>() {}.type
