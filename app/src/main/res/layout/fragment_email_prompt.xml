@@ -36,18 +36,19 @@
             android:layout_width="match_parent"
             android:layout_height="51dp"
 
-            android:text="@={emailViewModel.email}"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/view_edit_text_round_stroke_gray_400"
             android:fontFamily="@font/notosans_medium"
-            android:textSize="14sp"
-            android:includeFontPadding="false"
 
             android:hint="@string/inputEmailPlaceholder"
-            android:textColorHint="@color/iDorm_gray_300"
+            android:includeFontPadding="false"
             android:inputType="textEmailAddress"
 
-            android:background="@drawable/view_edit_text_round_stroke_gray_400"
-            android:layout_marginTop="8dp"
             android:paddingLeft="9dp"
+            android:text="@={emailViewModel.email}"
+            android:textColorHint="@color/iDorm_gray_300"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/emailText"
             app:layout_constraintTop_toBottomOf="@id/emailText" />
 
@@ -87,17 +88,17 @@
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"
             android:layout_height="53dp"
-            android:onClick="@{() -> emailViewModel.submit()}"
-
-            android:text="@string/registerInteraction"
-            android:fontFamily="@font/notosans_medium"
-            android:textSize="14sp"
-            android:textColor="@color/white"
-            android:includeFontPadding="false"
 
             android:background="@drawable/view_button_round_10"
-            android:layout_marginTop="32dp"
+            android:fontFamily="@font/notosans_medium"
+            android:includeFontPadding="false"
+            android:onClick="@{() -> emailViewModel.submit()}"
+            android:text="@string/getCodeInteraction"
+
+            android:textColor="@color/white"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
