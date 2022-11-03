@@ -1,12 +1,23 @@
 package org.appcenter.inudorm.model
 
+import org.appcenter.inudorm.R
+
 /**
  * First: 1긱, ...
  */
-enum class Dorm(val code: String) {
-    First("DORM1"),
-    Second("DORM2"),
-    Third("DORM3"),
+enum class Dorm(val code: String, val elementId: Int) {
+    First("DORM1", R.id.firstDorm),
+    Second("DORM2", R.id.secondDorm),
+    Third("DORM3", R.id.thirdDorm);
+
+    companion object {
+        private val elementIdToDorm = values().associateBy { it.elementId }
+
+        /**
+         * layout id를 이용해 Dorm을 가져옵니다.
+         */
+        infix fun fromElementId(value: Int) = elementIdToDorm[value]
+    }
 }
 
 enum class Gender {
@@ -14,7 +25,16 @@ enum class Gender {
     Female
 }
 
-enum class JoinPeriod {
-    Long,
-    Short
+enum class JoinPeriod(val elementId: Int) {
+    Short(R.id.sixteenWeeks),
+    Long(R.id.twentyFourWeeks);
+
+    companion object {
+        private val elementIdToJoinPeriod = values().associateBy { it.elementId }
+
+        /**
+         * layout id를 이용해 JoinPeriod 를 가져옵니다.
+         */
+        infix fun fromElementId(value: Int) = elementIdToJoinPeriod[value]
+    }
 }
