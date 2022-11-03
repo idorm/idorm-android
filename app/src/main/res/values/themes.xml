@@ -11,4 +11,16 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <!-- white -->
+    <style name="Theme.IDorm.White" parent="Theme.IDorm">
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <!-- white -->
+    <style name="Theme.IDorm.Blue" parent="Theme.IDorm">
+        <item name="android:statusBarColor">@color/iDorm_blue</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
 </resources>
