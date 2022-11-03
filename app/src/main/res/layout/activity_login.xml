@@ -110,6 +110,7 @@
 
 
         <!-- padding 5dp는 TextView 자체에 온클릭 이벤트 리스너를 걸었을 때 터치가 용이하게 위함입니다. -->
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/loginButton"
             android:layout_width="match_parent"
@@ -117,6 +118,8 @@
             android:layout_marginTop="32dp"
 
             android:background="@drawable/view_button_round_12"
+            style="@style/Widget.DesignSystem.AppCompatButton.blue"
+
             android:fontFamily="@font/notosans_medium"
             android:includeFontPadding="false"
             android:onClick="@{() -> loginViewModel.tryToLoginWithInput()}"
