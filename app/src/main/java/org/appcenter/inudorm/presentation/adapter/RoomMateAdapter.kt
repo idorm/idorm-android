@@ -29,7 +29,7 @@ class RoomMateAdapter(private val _dataSet: ArrayList<Mate>) :
 
         init {
             // Define click listener for the ViewHolder's View.
-            textView = view.findViewById(R.id.textView)
+            textView = view.findViewById(R.id.dormText)
             card = view.findViewById(R.id.card)
 
         }

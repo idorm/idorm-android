@@ -220,8 +220,8 @@
                     android:layout_marginTop="8dp"
                     android:elevation="3dp"
                     android:text="@string/cleaningCardText"
-                    app:layout_constraintEnd_toEndOf="wakeUpTime"
-                    app:layout_constraintStart_toStartOf="wakeUpTime"
+                    app:layout_constraintEnd_toEndOf="@+id/wakeUpTime"
+                    app:layout_constraintStart_toStartOf="@+id/wakeUpTime"
                     app:layout_constraintTop_toBottomOf="@+id/wakeUpTime" />
 
                 <com.google.android.material.chip.Chip
@@ -232,8 +232,8 @@
                 android:layout_marginTop="8dp"
                 android:elevation="3dp"
                 android:text="@string/showerTimeCardText"
-                app:layout_constraintEnd_toEndOf="cleaningCardText"
-                app:layout_constraintStart_toStartOf="cleaningCardText"
+                app:layout_constraintEnd_toEndOf="@+id/cleaningCardText"
+                app:layout_constraintStart_toStartOf="@+id/cleaningCardText"
                 app:layout_constraintTop_toBottomOf="@+id/cleaningCardText" />
 
                 <com.google.android.material.chip.Chip
@@ -244,8 +244,8 @@
                     android:layout_marginTop="8dp"
                     android:elevation="3dp"
                     android:text="@string/mbtiCardText"
-                    app:layout_constraintEnd_toEndOf="showerTimeCardText"
-                    app:layout_constraintStart_toStartOf="showerTimeCardText"
+                    app:layout_constraintEnd_toEndOf="@+id/showerTimeCardText"
+                    app:layout_constraintStart_toStartOf="@+id/showerTimeCardText"
                     app:layout_constraintTop_toBottomOf="@+id/showerTimeCardText" />
 
                 <TextView

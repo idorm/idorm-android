@@ -65,6 +65,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="51dp"
                 android:textSize="14sp"
+
+
                 android:fontFamily="@font/notosans_medium"
                 android:includeFontPadding="false"
                 android:textColor="@color/black"
