@@ -97,5 +97,22 @@
     <string name="latestOrder">최신순</string>
     <string name="pastOrder">과거순</string>
 
+    <!--item matching-->
+    <string name="dormCardNum">3</string>
+    <string name="dormCardText">기숙사</string>
+    <string name="periodCardText">24</string>
+    <string name="periodUnitCardText">주</string>
+
+    <string name="genderCardText">성별</string>
+    <string name="ageCardText">24</string>
+    <string name="ageCardUnit">세</string>
+    <string name="mbtiCardText">MBTI</string>
+
+    <string name="snoringCardText">코골이 없음</string>
+    <string name="grindingCardText">이갈이 없음</string>
+    <string name="smokingCardText">흡연 안 함</string>
+    <string name="eatingInsideCardText">실내 음식 불가능</string>
+    <string name="wearEarphonesCardText">이어폰 착용 가능</string>
+
 
 </resources>
