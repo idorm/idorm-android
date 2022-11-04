@@ -17,7 +17,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.IDorm">
+        android:theme="@style/Theme.IDorm.White">
         <activity
             android:name=".presentation.WritePostActivity"
             android:exported="false"
@@ -53,7 +53,7 @@
             android:exported="true"
             android:label="@string/title_activity_onboard"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.IDorm"
+            android:theme="@style/Theme.IDorm.White"
             tools:ignore="LockedOrientationActivity">
 
         </activity>
@@ -61,48 +61,56 @@
             android:name=".presentation.FindPassActivity"
             android:exported="true"
             android:screenOrientation="portrait"
+            android:theme="@style/Theme.IDorm.White"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".presentation.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"
+            android:theme="@style/Theme.IDorm.Blue"
             tools:ignore="LockedOrientationActivity">
+
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
 
         </activity>
         <activity
             android:name=".presentation.account.WelcomeActivity"
             android:exported="true"
             android:screenOrientation="portrait"
+            android:theme="@style/Theme.IDorm.White"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".presentation.RegisterActivity"
             android:exported="true"
             android:screenOrientation="portrait"
+            android:theme="@style/Theme.IDorm.White"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".presentation.LoginActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/Theme.IDorm.White"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".presentation.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"
-            >
+            android:theme="@style/Theme.IDorm.White"
+            tools:ignore="LockedOrientationActivity">
 
         </activity>
         <activity
             android:name=".presentation.FilterActivity"
             android:exported="true"
             android:screenOrientation="portrait"
+            android:theme="@style/Theme.IDorm.White"
             tools:ignore="LockedOrientationActivity">
-
 
 
         </activity>

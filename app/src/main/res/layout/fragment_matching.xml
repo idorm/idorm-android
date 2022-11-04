@@ -80,13 +80,21 @@
                 android:indeterminate="true"
                 android:layout_gravity="center" />
 
+
+
             <TextView
                 matchingState="@{matchingViewModel.matchingState}"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:textSize="12sp"
                 android:text="@string/noMoreRoomMates"
                 android:textAlignment="center" />
+
+
         </FrameLayout>
 
         <LinearLayout

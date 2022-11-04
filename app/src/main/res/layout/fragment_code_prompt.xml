@@ -30,25 +30,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="55dp"
-
-                    android:src="@drawable/ic_email"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/resendArea"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
-                    android:layout_marginTop="44dp"
+                    android:layout_marginTop="49dp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/email">
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
                         android:id="@+id/codeText"
@@ -78,10 +68,10 @@
                         android:textColor="@color/iDorm_gray_300"
                         android:textSize="12sp"
 
-                        app:timerBehavior="@{codeViewModel.timer}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:timerBehavior="@{codeViewModel.timer}" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -91,11 +81,13 @@
                     android:layout_marginTop="14dp"
                     android:background="@drawable/view_edit_text_round_stroke_gray_400"
                     android:padding="14dp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/resendArea">
 
                     <EditText
                         android:id="@+id/editText"
+                        timerBehavior="@{codeViewModel.timer}"
                         android:layout_width="0dp"
                         android:layout_height="25dp"
                         android:layout_marginEnd="14dp"
@@ -108,7 +100,6 @@
                         android:text="@={codeViewModel.code}"
                         android:textColorHint="@color/iDorm_gray_300"
                         android:textSize="14sp"
-                        timerBehavior="@{codeViewModel.timer}"
                         app:layout_constraintEnd_toStartOf="@+id/remainTime"
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
@@ -116,15 +107,15 @@
 
                     <TextView
                         android:id="@+id/remainTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:text="03:00"
                         seconds="@{codeViewModel.timer}"
+                        android:layout_width="wrap_content"
+
+                        android:layout_height="wrap_content"
                         android:fontFamily="@font/notosans_medium"
-                        android:textSize="14sp"
-                        android:textColor="@color/iDorm_blue"
                         android:includeFontPadding="false"
+                        android:text="03:00"
+                        android:textColor="@color/iDorm_blue"
+                        android:textSize="14sp"
 
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -134,21 +125,22 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button3"
 
             android:layout_width="match_parent"
             android:layout_height="53dp"
             android:background="@drawable/view_button_round_10"
             android:fontFamily="@font/notosans_medium"
+
+
             android:includeFontPadding="false"
-
-
             android:onClick="@{() -> codeViewModel.submit()}"
             android:text="@string/CertificationCompletedInteraction"
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/scrollView" />
 
