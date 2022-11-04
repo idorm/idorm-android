@@ -18,13 +18,13 @@
         <item name="android:textSize">14sp</item>
     </style>
 
-    <!--item_matching outlined chip 선택-->
+    <!--item_matching outlined chip 선택1-->
     <style name="Widget.DesignSystem.Chip.OutlinedBox.Choice2" parent="Widget.MaterialComponents.Chip.Choice">
+
         <item name="materialThemeOverlay">@style/ThemeOverlay.MyApp.Chip.Choice</item>
         <item name="chipBackgroundColor">@color/white</item>
         <item name="chipStrokeColor">@color/white</item>
         <item name="chipStrokeWidth">1dp</item>
-        <item name="elevation">8dp</item>\
 
         <item name="android:textColor">@color/black</item>
         <item name="fontFamily">@font/notosans_medium</item>
@@ -32,7 +32,25 @@
 
         <item name="chipMinTouchTargetSize">33dp</item>
         <item name="chipMinHeight">29dp</item>
+        <item name="textStartPadding">4dp</item>
+        <item name="textEndPadding">4dp</item>
+    </style>
 
+    <!--item_matching outlined chip 선택2-->
+    <style name="Widget.DesignSystem.Chip.OutlinedBox.Choice3" parent="Widget.MaterialComponents.Chip.Choice">
+
+        <item name="materialThemeOverlay">@style/ThemeOverlay.MyApp.Chip.Choice</item>
+        <item name="chipBackgroundColor">@color/white</item>
+        <item name="chipStrokeColor">@color/white</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="cornerRadius">16dp</item>
+
+        <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/notosans_bold</item>
+        <item name="android:textSize">14sp</item>
+
+        <item name="chipMinTouchTargetSize">29dp</item>
+        <item name="chipMinHeight">29dp</item>
         <item name="textStartPadding">4dp</item>
         <item name="textEndPadding">4dp</item>
     </style>

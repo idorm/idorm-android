@@ -81,6 +81,7 @@
                 android:layout_gravity="center" />
 
 
+
             <TextView
                 matchingState="@{matchingViewModel.matchingState}"
                 android:layout_width="wrap_content"
