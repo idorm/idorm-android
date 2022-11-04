@@ -1,9 +1,9 @@
 package org.appcenter.inudorm.util
 
-import android.text.TextUtils
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.widget.Button
 
 import android.widget.EditText
 import android.widget.TextView
@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 
 
-object TimerBinding {
+object CodePromptBinding {
     @JvmStatic
     @BindingAdapter("timerBehavior")
     fun setTimerBehavior(view: View, seconds: Int?) {
@@ -35,4 +35,5 @@ object TimerBinding {
         val sec = addZeroToMakeLength(seconds % 60, 2)
         view.text = "$min:$sec"
     }
+
 }

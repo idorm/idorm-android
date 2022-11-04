@@ -1,6 +1,7 @@
 package org.appcenter.inudorm.presentation.account
 
 import android.os.Bundle
+import android.telephony.PhoneNumberFormattingTextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -52,5 +53,6 @@ class CodePromptFragment : Fragment() {
                 eventHandler(requireContext(), it)
             }
         }
+        binding.editText.addTextChangedListener(PhoneNumberFormattingTextWatcher())
     }
 }
