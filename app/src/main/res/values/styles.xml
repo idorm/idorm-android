@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--하단 네비게이션 바 스타일-->
-    <style name="Widget.BottomNavigationView"
-        parent="Widget.Design.BottomNavigationView">
+    <style name="Widget.BottomNavigationView"  parent="Widget.Design.BottomNavigationView">
         <item name="fontFamily">@font/notosans_regular</item>
         <item name="android:textSize">10sp</item>
     </style>

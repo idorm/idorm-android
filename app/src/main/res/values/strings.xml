@@ -119,5 +119,11 @@
     <string name="showerTimeCardText">샤워시간</string>
     <string name="moreCardText">우하하하하하하하우하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하우하하하하하하하하하하하하하하하하하하하하하하하하하하하하</string>
 
+    <!--HomeFragment-->
+    <string name="semesterNum">1</string>
+    <string name="semesterText">학기</string>
+    <string name="roommateMatchingText">룸메이트 매칭</string>
+    <string name="withIdormText">아이돔과 함께해요.</string>
+    <string name="RoomMateMatchingInteraction">룸메이트 매칭 시작하기</string>
 
 </resources>

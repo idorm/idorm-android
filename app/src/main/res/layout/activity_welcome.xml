@@ -19,7 +19,7 @@
             android:layout_marginHorizontal="10dp"
 
 
-            android:src="@drawable/ic_welcome"
+            android:src="@drawable/ic_character_welcome"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.473"

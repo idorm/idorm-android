@@ -36,7 +36,9 @@
             android:layout_gravity="bottom"
 
             android:background="@drawable/view_bottom_navigation"
-
+            app:itemIconTint="@color/selector_bottom_navigation_icon_color"
+            app:itemTextColor="@color/selector_bottom_navigation_text_color"
+            app:itemRippleColor="@color/selector_bottom_navigation_ripple"
             app:itemTextAppearanceActive="@style/Widget.BottomNavigationView"
             app:itemTextAppearanceInactive="@style/Widget.BottomNavigationView"
 
