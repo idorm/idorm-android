@@ -126,4 +126,11 @@
     <string name="withIdormText">아이돔과 함께해요.</string>
     <string name="RoomMateMatchingInteraction">룸메이트 매칭 시작하기</string>
 
+    <!--MyPageFragment-->
+    <string name="nicknameMyPageText">닉네임닉네임닉네임</string>
+    <string name="matchingManageText">닉네임닉네임닉네임</string>
+    <string name="matchingManageInteraction">매칭 이미지 관리</string>
+    <string name="likedmateManageInteraction">좋아요한 룸메</string>
+    <string name="showMyImageSwitch">내 이미지 매칭페이지에 공개하기</string>
+
 </resources>
