@@ -1,4 +1,4 @@
-package org.appcenter.inudorm.util
+package org.appcenter.inudorm.util.bindingadapter
 
 import android.content.res.ColorStateList
 import android.text.TextUtils
@@ -13,6 +13,8 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.textfield.TextInputLayout.*
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.presentation.account.PasswordState
+import org.appcenter.inudorm.util.passwordCharacterValidator
+import org.appcenter.inudorm.util.passwordValidator
 
 object ValidatorBinding {
 

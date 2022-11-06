@@ -53,6 +53,5 @@ class CodePromptFragment : Fragment() {
                 eventHandler(requireContext(), it)
             }
         }
-        binding.editText.addTextChangedListener(PhoneNumberFormattingTextWatcher())
     }
 }

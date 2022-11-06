@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import org.appcenter.inudorm.repository.UserRepository
 import org.appcenter.inudorm.usecase.SendAuthCode
 import org.appcenter.inudorm.usecase.SendAuthCodeParams
 import org.appcenter.inudorm.util.DialogButton

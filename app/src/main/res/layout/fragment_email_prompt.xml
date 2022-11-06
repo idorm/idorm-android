@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="emailViewModel"
             type="org.appcenter.inudorm.presentation.account.EmailPromptViewModel" />
@@ -20,37 +21,45 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:text="@string/emailText"
-            android:fontFamily="@font/notosans_medium"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            android:includeFontPadding="false"
-
             android:layout_marginTop="67dp"
+            android:fontFamily="@font/notosans_medium"
+            android:includeFontPadding="false"
+            android:text="@string/emailText"
+            android:textColor="@color/black"
+
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="51dp"
-
             android:layout_marginTop="8dp"
-            android:background="@drawable/view_edit_text_round_stroke_gray_400"
-            android:fontFamily="@font/notosans_medium"
-
-            android:hint="@string/inputEmailPlaceholder"
-            android:includeFontPadding="false"
-            android:inputType="textEmailAddress"
-
-            android:paddingLeft="9dp"
-            android:text="@={emailViewModel.email}"
-            android:textColorHint="@color/iDorm_gray_300"
-            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/emailText"
-            app:layout_constraintTop_toBottomOf="@id/emailText" />
+            app:layout_constraintTop_toBottomOf="@id/emailText"
+            app:hintEnabled="false"
+            style="@style/Widget.DesignSystem.TextInputLayout.OutlinedBox"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:fontFamily="@font/notosans_medium"
+
+                android:hint="@string/inputEmailPlaceholder"
+                android:includeFontPadding="false"
+                android:inputType="textEmailAddress"
+
+                android:paddingLeft="9dp"
+                android:text=""
+                email="@={emailViewModel.email}"
+                android:textColorHint="@color/iDorm_gray_300"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
@@ -61,11 +70,11 @@
 
             <ImageView
                 android:id="@+id/inuLogo"
-                android:src="@drawable/ic_inu_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_marginTop="10dp"
+
+                android:src="@drawable/ic_inu_logo"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -73,13 +82,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:text="@string/needInuEmailText"
-                android:fontFamily="@font/notosans_regular"
-                android:textColor="@color/iDorm_gray_400"
-                android:textSize="12sp"
-                android:includeFontPadding="false"
-
                 android:layout_marginLeft="6dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="@string/needInuEmailText"
+                android:textColor="@color/iDorm_gray_400"
+
+                android:textSize="12sp"
                 app:layout_constraintStart_toEndOf="@id/inuLogo"
                 app:layout_constraintTop_toTopOf="@id/inuLogo" />
 

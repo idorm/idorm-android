@@ -1,4 +1,4 @@
-package org.appcenter.inudorm.util
+package org.appcenter.inudorm.util.bindingadapter
 
 import android.text.TextUtils
 import android.util.Log

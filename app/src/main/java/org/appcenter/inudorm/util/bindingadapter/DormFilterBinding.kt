@@ -1,4 +1,4 @@
-package org.appcenter.inudorm.util
+package org.appcenter.inudorm.util.bindingadapter
 
 import android.util.Log
 import androidx.databinding.*
