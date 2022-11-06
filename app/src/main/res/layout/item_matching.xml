@@ -204,6 +204,7 @@
                     android:id="@+id/wakeUpTime"
                     style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice3"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:elevation="3dp"
 
                     android:text="@string/wakeUpTimeCardText"
@@ -215,6 +216,7 @@
                     android:id="@+id/cleaningCardText"
                     style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice3"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
 
                     android:layout_marginTop="8dp"
                     android:elevation="3dp"
