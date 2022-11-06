@@ -57,7 +57,7 @@ class FilterActivity : AppCompatActivity() {
             ) {
 
                 ageFrom.text = checkSeekVal(leftValue)
-                ageFrom.text = checkSeekVal(rightValue)
+                ageTo.text = checkSeekVal(rightValue)
 
                 //현재 seekBar 퍼센트 계산
                 var leftPercent = (leftValue.toInt() - 20) * 5 * 0.01

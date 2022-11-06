@@ -347,7 +347,7 @@
             app:rsb_gravity="bottom"
             app:rsb_max="40"
             app:rsb_min="20"
-            app:rsb_min_interval="1"
+            app:rsb_min_interval="0"
             app:rsb_mode="range"
             app:rsb_progress_color="@color/iDorm_blue"
             app:rsb_progress_height="11dp"
