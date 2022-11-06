@@ -50,10 +50,10 @@
 
     <!--passwordPromptFragment-->
     <string name="passwordText">비밀번호</string>
-    <string name="checkPasswordText">비밀번호 확인.</string>
+    <string name="checkPasswordText">비밀번호 확인</string>
     <string name="needInuEmailText">인천대학교 이메일(@inu.ac.kr)이 필요해요.</string>
-    <string name="moreEightCharactersText">8자 이상 입력</string>
-    <string name="passwordConditionsText">영문 소문자/숫자/특수 문자 조합</string>
+    <string name="moreEightCharactersText">•  8자 이상 입력</string>
+    <string name="passwordConditionsText">•  영문 소문자/숫자/특수 문자 조합</string>
 
     <!--registerEmailFragment-->
     <string name="emailText">이메일</string>

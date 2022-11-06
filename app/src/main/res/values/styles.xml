@@ -63,8 +63,10 @@
     <style name="Widget.DesignSystem.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/selector_outlined_textinput_stroke</item>
         <item name="elevationOverlayEnabled">false</item>
-        <item name="errorEnabled">true</item>
         <item name="boxStrokeErrorColor">@color/iDorm_red</item>
+        <item name="errorIconTint">@color/iDorm_red</item>
+        <item name="hintEnabled">false</item>
+        <item name="errorEnabled">false</item>
     </style>
 
     <style name="Widget.DesignSystem.AppCompatButton.blue" parent="Widget.Material3.Button">

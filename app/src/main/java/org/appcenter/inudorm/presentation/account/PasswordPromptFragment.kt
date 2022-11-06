@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentPasswordPromptBinding
@@ -36,6 +36,12 @@ class PasswordPromptFragment : Fragment() {
             viewModel.eventFlow.collect {
                 eventHandler(requireContext(), it)
             }
+        }
+        binding.passwordField.addTextChangedListener {
+            viewModel.setPasswordState(PasswordChange(it.toString()))
+        }
+        binding.passwordCheckField.addTextChangedListener {
+            viewModel.setPasswordState(PasswordCheckChange(it.toString()))
         }
     }
 }
