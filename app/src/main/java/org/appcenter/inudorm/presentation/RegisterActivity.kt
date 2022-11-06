@@ -13,6 +13,7 @@ import org.appcenter.inudorm.presentation.account.*
 import org.appcenter.inudorm.repository.UserRepository
 import org.appcenter.inudorm.usecase.Register
 import org.appcenter.inudorm.usecase.RegisterParams
+import org.appcenter.inudorm.util.IDormLogger
 
 class RegisterActivity : PromptActivity() {
 
@@ -74,9 +75,10 @@ class RegisterActivity : PromptActivity() {
     private fun _register(email:String, password:String) {
         lifecycleScope.launch {
             kotlin.runCatching {
-                Register(userRepository).run(RegisterParams(email, password))
+                Register().run(RegisterParams(email, password))
             }.onSuccess { result ->
-                if (result) {
+                IDormLogger.i(this, result.toString())
+                if (result.data == true) {
                     // Register completed, change page
                     val intent =
                         Intent(this@RegisterActivity, WelcomeActivity::class.java)

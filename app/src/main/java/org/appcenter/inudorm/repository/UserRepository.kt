@@ -3,6 +3,7 @@ package org.appcenter.inudorm.repository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
+import okhttp3.RequestBody
 import org.appcenter.inudorm.gson
 import org.appcenter.inudorm.networking.Data
 import org.appcenter.inudorm.networking.RetrofitInstance
@@ -38,10 +39,8 @@ class UserRepository {
         return RetrofitInstance.service.verifyForgotPWEmail(params.email, createJsonRequestBody(str))
     }
 
-    suspend fun register(params: RegisterParams): Boolean {
-        return flow {
-            delay(1000)
-            emit(true)
-        }.first()
+    suspend fun register(params: RegisterParams): Data<Boolean> {
+        val str = gson.toJson(params)
+        return RetrofitInstance.service.register(createJsonRequestBody(str))
     }
 }

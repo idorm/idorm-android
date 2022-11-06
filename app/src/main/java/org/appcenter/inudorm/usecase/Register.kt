@@ -1,14 +1,13 @@
 package org.appcenter.inudorm.usecase
 
-import org.appcenter.inudorm.repository.UserRepository
+import org.appcenter.inudorm.networking.Data
+import org.appcenter.inudorm.userRepository
 import java.lang.Exception
 
 data class RegisterParams(val email: String, val password: String)
 
-class Register(
-    private val userRepository: UserRepository,
-) : UseCase<RegisterParams, Boolean>() {
-    override suspend fun onExecute(params: RegisterParams): Boolean {
+class Register : UseCase<RegisterParams, Data<Boolean>>() {
+    override suspend fun onExecute(params: RegisterParams): Data<Boolean> {
         if (params.email != "none" && params.password != "none")
             return userRepository.register(params)
         else
