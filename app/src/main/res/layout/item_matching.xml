@@ -5,8 +5,7 @@
     android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
- >
+    android:layout_margin="20dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,7 +17,7 @@
             android:layout_height="396dp"
             android:background="@drawable/view_matching_card_background"
             android:padding="13dp"
-            app:layout_constraintBottom_toTopOf="@id/constraintLayout2"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -205,9 +204,9 @@
                     android:id="@+id/wakeUpTime"
                     style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice3"
                     android:layout_width="match_parent"
-                    android:text="@string/wakeUpTimeCardText"
-
                     android:elevation="3dp"
+
+                    android:text="@string/wakeUpTimeCardText"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -225,22 +224,23 @@
                     app:layout_constraintTop_toBottomOf="@+id/wakeUpTime" />
 
                 <com.google.android.material.chip.Chip
-                android:id="@+id/showerTimeCardText"
-                style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice3"
-                android:layout_width="match_parent"
+                    android:id="@+id/showerTimeCardText"
+                    style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
 
-                android:layout_marginTop="8dp"
-                android:elevation="3dp"
-                android:text="@string/showerTimeCardText"
-                app:layout_constraintEnd_toEndOf="@+id/cleaningCardText"
-                app:layout_constraintStart_toStartOf="@+id/cleaningCardText"
-                app:layout_constraintTop_toBottomOf="@+id/cleaningCardText" />
+                    android:layout_marginTop="8dp"
+                    android:elevation="3dp"
+                    android:text="@string/showerTimeCardText"
+                    app:layout_constraintEnd_toEndOf="@+id/cleaningCardText"
+                    app:layout_constraintStart_toStartOf="@+id/cleaningCardText"
+                    app:layout_constraintTop_toBottomOf="@+id/cleaningCardText" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/mbtiCardText"
                     style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice3"
                     android:layout_width="match_parent"
-
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:elevation="3dp"
                     android:text="@string/mbtiCardText"
@@ -254,13 +254,12 @@
                     android:layout_height="104dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/view_button_round_6_white"
-                    android:padding="10dp"
-
-                    android:text="@string/moreCardText"
                     android:fontFamily="@font/notosans_medium"
                     android:includeFontPadding="false"
-                    android:textSize="14sp"
+                    android:padding="10dp"
+                    android:text="@string/moreCardText"
                     android:textColor="@color/iDorm_gray_400"
+                    android:textSize="14sp"
 
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -306,7 +305,7 @@
                 android:textColor="@color/iDorm_gray_400"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/image"
+                app:layout_constraintStart_toEndOf="@+id/image"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -321,7 +320,7 @@
                 android:textSize="12sp"
 
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/gender"
+                app:layout_constraintStart_toEndOf="@+id/gender"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -352,7 +351,7 @@
                 android:textColor="@color/iDorm_gray_400"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/age"
+                app:layout_constraintStart_toEndOf="@+id/age"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -381,7 +380,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
