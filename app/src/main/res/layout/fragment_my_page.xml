@@ -35,7 +35,8 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:background="@drawable/view_layout_my_page_background"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout8">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout8"
+        tools:layout_editor_absoluteX="0dp">
 
 
         <ImageView
@@ -69,7 +70,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="223dp"
+        android:layout_height="wrap_content"
         android:layout_margin="24dp"
         android:layout_marginStart="72dp"
         android:layout_marginTop="180dp"
@@ -97,8 +98,9 @@
             android:id="@+id/constraintLayout10"
             android:layout_width="0dp"
             android:layout_height="114dp"
+            android:layout_marginStart="1dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/view_button_round_12_gray_100"
+            android:background="@drawable/selector_my_page_card"
             android:paddingVertical="18dp"
             app:layout_constraintEnd_toStartOf="@+id/constraintLayout11"
             app:layout_constraintHorizontal_bias="0.5"
@@ -141,7 +143,7 @@
             android:layout_height="114dp"
             android:layout_marginStart="35dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/view_button_round_12_gray_100"
+            android:background="@drawable/selector_my_page_card"
             android:paddingVertical="18dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -179,24 +181,22 @@
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/switchBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="21dp"
+            style="@style/Widget.DesignSystem.Switch"
+
+            android:layout_marginStart="2dp"
+
             android:layout_marginTop="16dp"
             android:checked="false"
-
             android:fontFamily="@font/notosans_medium"
             android:gravity="center"
             android:includeFontPadding="false"
             android:text="@string/showMyImageSwitch"
+
             android:textColor="@color/iDorm_gray_400"
             android:textSize="14sp"
-
-            android:thumb="@drawable/view_switch_thumb"
-            app:switchPadding="12dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout10"
-            app:switchMinWidth="40dp"
-            app:track="@drawable/selector_switch_track" />
+            app:trackTintMode="src_in" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
