@@ -7,6 +7,6 @@ import org.appcenter.inudorm.R
 class MateListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_mate_list_activity)
+        setContentView(R.layout.activity_liked_mate_list_activity)
     }
 }

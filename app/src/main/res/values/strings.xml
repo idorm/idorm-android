@@ -133,5 +133,11 @@
     <string name="dislikedmateManageInteraction">싫어요한 룸메</string>
     <string name="likedmateManageInteraction">좋아요한 룸메</string>
     <string name="showMyImageSwitch">내 이미지 매칭페이지에 공개하기</string>
+    
+    <!--liked_mate_list_activity-->
+    <string name="likedMateList">좋아요한 룸메</string>
+
+    <!--disliked_mate_list_activity-->
+    <string name="dislikedMateList">싫어요한 룸메</string>
 
 </resources>
