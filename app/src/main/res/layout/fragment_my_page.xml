@@ -36,7 +36,7 @@
         android:layout_height="150dp"
         android:background="@drawable/view_layout_my_page_background"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout8"
-        tools:layout_editor_absoluteX="0dp">
+        android:elevation="4dp">
 
 
         <ImageView
@@ -77,6 +77,7 @@
         android:background="@drawable/view_layout_my_page_card_background"
         android:paddingHorizontal="20dp"
         android:paddingVertical="16dp"
+        android:elevation="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout9">
 
@@ -95,87 +96,97 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout10"
-            android:layout_width="0dp"
-            android:layout_height="114dp"
+            android:id="@+id/constraintLayout_2"
+            android:layout_width="match_parent"
+            android:layout_height="102dp"
             android:layout_marginStart="1dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/selector_my_page_card"
-            android:paddingVertical="18dp"
-            app:layout_constraintEnd_toStartOf="@+id/constraintLayout11"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/roommateMatchingText"
             app:layout_constraintTop_toBottomOf="@+id/roommateMatchingText">
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/appCompatButton2"
+                android:layout_width="84dp"
+                android:layout_height="102dp"
+                android:background="@drawable/view_button_round_12_gray_100"
+                android:drawableTop="@drawable/ic_matching_image_setting"
+                android:drawablePadding="8dp"
 
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@color/iDorm_gray_100"
-                android:src="@drawable/ic_matching_image_setting"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/roommateMatchingText2"
-                android:layout_width="wrap_content"
-                android:layout_height="18dp"
-
-                android:layout_marginTop="8dp"
+                android:elevation="4dp"
                 android:fontFamily="@font/notosans_regular"
-                android:gravity="center"
                 android:includeFontPadding="false"
+                android:paddingVertical="12dp"
+                android:shadowColor="@color/iDorm_shadow"
+
+                android:shadowDy="2"
+                android:shadowRadius="4"
                 android:text="@string/matchingManageInteraction"
                 android:textColor="@color/black"
+
                 android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/appCompatButton3"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageButton" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/appCompatButton3"
+                android:layout_width="84dp"
+                android:layout_height="102dp"
+                android:background="@drawable/view_button_round_12_gray_100"
+                android:drawableTop="@drawable/ic_disliked_mate_setting"
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout11"
-            android:layout_width="0dp"
-            android:layout_height="114dp"
-            android:layout_marginStart="35dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/selector_my_page_card"
-            android:paddingVertical="18dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@+id/constraintLayout10"
-            app:layout_constraintTop_toBottomOf="@+id/roommateMatchingText">
 
-            <ImageButton
-                android:id="@+id/imageButton2"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@color/iDorm_gray_100"
-                android:src="@drawable/ic_liked_mate_setting"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/roommateMatchingText3"
-                android:layout_width="wrap_content"
-                android:layout_height="18dp"
-
-                android:layout_marginTop="8dp"
+                android:drawablePadding="8dp"
+                android:elevation="4dp"
                 android:fontFamily="@font/notosans_regular"
-                android:gravity="center"
                 android:includeFontPadding="false"
-                android:text="@string/likedmateManageInteraction"
+                android:paddingVertical="12dp"
+
+                android:shadowColor="@color/iDorm_shadow"
+                android:shadowDy="2"
+                android:shadowRadius="4"
+                android:text="@string/dislikedmateManageInteraction"
+
                 android:textColor="@color/black"
                 android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/appCompatButton4"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/appCompatButton2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/appCompatButton4"
+                android:layout_width="84dp"
+                android:layout_height="102dp"
+                android:background="@drawable/view_button_round_12_gray_100"
+                android:drawableTop="@drawable/ic_liked_mate_setting"
+
+
+                android:drawablePadding="8dp"
+                android:elevation="4dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:paddingVertical="12dp"
+
+                android:shadowColor="@color/iDorm_shadow"
+                android:shadowDy="2"
+                android:shadowRadius="4"
+                android:text="@string/likedmateManageInteraction"
+
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageButton2" />
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/appCompatButton3"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -184,19 +195,19 @@
             style="@style/Widget.DesignSystem.Switch"
 
             android:layout_marginStart="2dp"
-
             android:layout_marginTop="16dp"
             android:checked="false"
             android:fontFamily="@font/notosans_medium"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:text="@string/showMyImageSwitch"
 
+            android:text="@string/showMyImageSwitch"
             android:textColor="@color/iDorm_gray_400"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout10"
-            app:trackTintMode="src_in" />
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout_2" />
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

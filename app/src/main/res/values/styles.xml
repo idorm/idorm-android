@@ -81,6 +81,9 @@
 
         <item name="track">@drawable/selector_switch_track</item>
         <item name="trackTint">@color/selector_switch_thumb_track_tint</item>
+
+
+
     </style>
 
     <style name="Widget.DesignSystem.AppCompatButton.blue" parent="Widget.Material3.Button">
