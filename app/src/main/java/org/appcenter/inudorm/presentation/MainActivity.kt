@@ -34,14 +34,14 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.container, MatchingFragment()).commit()
             }
-            R.id.community -> {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, BoardFragment()).commit()
-            }
-            R.id.calendar -> {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, CalendarFragment()).commit()
-            }
+//            R.id.community -> {
+//                supportFragmentManager.beginTransaction()
+//                    .replace(R.id.container, BoardFragment()).commit()
+//            }
+//            R.id.calendar -> {
+//                supportFragmentManager.beginTransaction()
+//                    .replace(R.id.container, CalendarFragment()).commit()
+//            }
             R.id.mypage -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.container, MyPageFragment()).commit()

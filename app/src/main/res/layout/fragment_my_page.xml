@@ -8,10 +8,11 @@
     tools:context=".presentation.MyPageFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout8"
+        android:id="@+id/constraintLayout9"
         android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:background="@color/iDorm_blue"
+        android:layout_height="189dp"
+        android:background="@drawable/view_layout_my_page_background"
+        android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -21,29 +22,17 @@
             android:id="@+id/imageView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="22dp"
             android:src="@drawable/ic_setting"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout9"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:background="@drawable/view_layout_my_page_background"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout8"
-        android:elevation="4dp">
-
 
         <ImageView
             android:id="@+id/imageView8"
             android:layout_width="68dp"
             android:layout_height="68dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="68dp"
             android:elevation="10dp"
             android:src="@drawable/ic_profile"
             app:layout_constraintEnd_toEndOf="parent"
@@ -106,8 +95,9 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/appCompatButton2"
-                android:layout_width="84dp"
+                android:layout_width="0dp"
                 android:layout_height="102dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/view_button_round_12_gray_100"
                 android:drawableTop="@drawable/ic_matching_image_setting"
                 android:drawablePadding="8dp"
@@ -129,14 +119,16 @@
                 app:layout_constraintEnd_toStartOf="@+id/appCompatButton3"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/appCompatButton3"
-                android:layout_width="84dp"
+                android:layout_width="0dp"
                 android:layout_height="102dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/view_button_round_12_gray_100"
                 android:drawableTop="@drawable/ic_disliked_mate_setting"
 
@@ -157,13 +149,15 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/appCompatButton4"
                 app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintStart_toEndOf="@+id/appCompatButton2"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/appCompatButton4"
-                android:layout_width="84dp"
+                android:layout_width="0dp"
                 android:layout_height="102dp"
+                app:layout_constraintHorizontal_weight="1"
                 android:background="@drawable/view_button_round_12_gray_100"
                 android:drawableTop="@drawable/ic_liked_mate_setting"
 
