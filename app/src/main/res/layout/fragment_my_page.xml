@@ -34,7 +34,7 @@
             android:layout_height="68dp"
             android:layout_marginTop="68dp"
             android:elevation="10dp"
-            android:src="@drawable/ic_profile"
+            android:src="@drawable/ic_profile_my_page"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -195,7 +195,7 @@
             android:gravity="center"
             android:includeFontPadding="false"
 
-            android:text="@string/showMyImageSwitch"
+            android:text="@string/showMyImageSwitchText"
             android:textColor="@color/iDorm_gray_400"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"

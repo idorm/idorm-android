@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.MateListActivity">
+    tools:context=".presentation.LikedMateListActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -25,7 +25,7 @@
             android:fontFamily="@font/notosans_regular"
             android:includeFontPadding="false"
             android:textSize="16sp"
-            android:text="@string/dislikedMateList"
+            android:text="@string/dislikedMateListText"
             android:textColor="@color/black" />
     </androidx.appcompat.widget.Toolbar>
 
