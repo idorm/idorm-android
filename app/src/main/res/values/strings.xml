@@ -160,7 +160,7 @@
     <string name="nickNameMaxLengthText">9</string>
     <string name="useEnterLengthText">n</string>
     <!--<string name="userNickNameText">user 닉네임</string>-->
-    
+
     <!--NotificationSettingActivity-->
     <!--<string name="notificationSettingText">알림 설정</string>-->
     <string name="allNotificationSettingText">전체 알림 설정</string>
@@ -169,6 +169,19 @@
     <string name="commentNotiText">커뮤니티 댓글 알림 받기</string>
     <string name="nestedCommentNotiText">커뮤니티 답글 알림 받기</string>
     <string name="appInfoNotiText">어플 정보 알림 받기</string>
-
-
+    
+    <!--WithdrawalActivity-->
+    <!--<string name="withdrawalText">회원 탈퇴</string>-->
+    <string name="withdrawalConfirmText">idorm과 이별을 원하시나요?\n너무 슬퍼요 😥</string>
+    <string name="withdrawalQuText">회원님이 탈퇴하시려는 이유가 궁금해요.</string>
+    <string name="answerTooMuchText">너무 많이 이용해요.</string>
+    <string name="answerDoNotUsingText">idorm 을 잘 이용하지 않아요.</string>
+    <string name="answerNoTechText">원하는 기능이 많지 않아요.</string>
+    <string name="answerBadUserText">불쾌감을 주는 사용자가 있어요.</string>
+    <string name="etcText">기타</string>
+    <string name="withdrawalCationText">idorm 탈퇴 전 알아두셔야 해요!</string>
+    
+    <string name="caution1">📌 idorm 탈퇴 후에도 커뮤니티 내에는\n작성하신 글과 댓글은 남아 있어요.</string>
+    <string name="caution2">📌 프로필과 내 정보 데이터가 사라지며\n다시 복구할 수 없어요.</string>
+    <string name="caution3">그 밖의...</string>
 </resources>

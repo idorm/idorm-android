@@ -94,13 +94,14 @@
         <entry key="..\:/hyewon/capstone/idorm-android/app/src/main/res/layout/activity_login.xml" value="0.3619791666666667" />
         <entry key="..\:/hyewon/capstone/idorm-android/app/src/main/res/layout/activity_main.xml" value="0.3619791666666667" />
         <entry key="..\:/hyewon/capstone/idorm-android/app/src/main/res/layout/activity_mate_list_activity.xml" value="0.36614583333333334" />
-        <entry key="..\:/hyewon/capstone/idorm-android/app/src/main/res/layout/activity_my_information_setting.xml" value="0.5" />
+        <entry key="..\:/hyewon/capstone/idorm-android/app/src/main/res/layout/activity_my_information_setting.xml" value="0.2" />
         <entry key="..\:/hyewon/capstone/idorm-android/app/src/main/res/layout/activity_notification_setting.xml" value="0.3619791666666667" />
         <entry key="..\:/hyewon/capstone/idorm-android/app/src/main/res/layout/activity_onboard.xml" value="0.36614583333333334" />
-        <entry key="..\:/hyewon/capstone/idorm-android/app/src/main/res/layout/activity_post_list.xml" value="0.25679347826086957" />
+        <entry key="..\:/hyewon/capstone/idorm-android/app/src/main/res/layout/activity_post_list.xml" value="0.67" />
         <entry key="..\:/hyewon/capstone/idorm-android/app/src/main/res/layout/activity_register.xml" value="0.36614583333333334" />
         <entry key="..\:/hyewon/capstone/idorm-android/app/src/main/res/layout/activity_splash.xml" value="0.36614583333333334" />
         <entry key="..\:/hyewon/capstone/idorm-android/app/src/main/res/layout/activity_welcome.xml" value="0.25" />
+        <entry key="..\:/hyewon/capstone/idorm-android/app/src/main/res/layout/activity_withdrawal.xml" value="0.40401785714285715" />
         <entry key="..\:/hyewon/capstone/idorm-android/app/src/main/res/layout/activity_write_post.xml" value="0.3619791666666667" />
         <entry key="..\:/hyewon/capstone/idorm-android/app/src/main/res/layout/fragment_additional_information.xml" value="0.36614583333333334" />
         <entry key="..\:/hyewon/capstone/idorm-android/app/src/main/res/layout/fragment_base_information.xml" value="0.36614583333333334" />
@@ -112,8 +113,9 @@
         <entry key="..\:/hyewon/capstone/idorm-android/app/src/main/res/layout/fragment_matching.xml" value="0.3648148148148148" />
         <entry key="..\:/hyewon/capstone/idorm-android/app/src/main/res/layout/fragment_my_page.xml" value="0.5" />
         <entry key="..\:/hyewon/capstone/idorm-android/app/src/main/res/layout/fragment_password_prompt.xml" value="0.39814814814814814" />
+        <entry key="..\:/hyewon/capstone/idorm-android/app/src/main/res/layout/item_comment_list.xml" value="0.25" />
         <entry key="..\:/hyewon/capstone/idorm-android/app/src/main/res/layout/item_matching.xml" value="0.5" />
-        <entry key="..\:/hyewon/capstone/idorm-android/app/src/main/res/layout/item_post_list.xml" value="0.683105981112277" />
+        <entry key="..\:/hyewon/capstone/idorm-android/app/src/main/res/layout/item_post_list.xml" value="0.4830393487109905" />
         <entry key="..\:/hyewon/capstone/idorm-android/app/src/main/res/layout/item_question_list.xml" value="0.36614583333333334" />
         <entry key="..\:/hyewon/capstone/idorm-android/app/src/main/res/layout/layout_dialog.xml" value="0.3619791666666667" />
         <entry key="..\:/hyewon/capstone/idorm-android/app/src/main/res/menu/bottom_navigation.xml" value="0.3619791666666667" />
