@@ -2,16 +2,22 @@ package org.appcenter.inudorm.usecase
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.*
+import org.appcenter.inudorm.App.Companion.userRepository
+import org.appcenter.inudorm.model.SavedUser
+import org.appcenter.inudorm.model.User
 import org.appcenter.inudorm.networking.Data
 import org.appcenter.inudorm.networking.ResponseWrapper
+import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.repository.UserRepository
+import org.appcenter.inudorm.util.IDormLogger
 import java.io.IOException
 
-abstract class LoginParams{
-    abstract val email:String
+abstract class LoginParams {
+    abstract val email: String
 }
 
 data class UserInputParams(override val email: String, val password: String) : LoginParams()
@@ -21,47 +27,30 @@ object LoginResponseCode {
     const val SUCCESS = "SUCCESS"
 }
 
-class Login(
-    private val userDataStore: DataStore<Preferences>,
-) : UseCase<UserInputParams?, Data<Boolean>>() {
-    private val emailKey = stringPreferencesKey("USER_EMAIL")
-    private val tokenKey = stringPreferencesKey("USER_TOKEN")
-    private val userRepository = UserRepository()
+class Login(private val prefsRepository: PrefsRepository) : UseCase<UserInputParams, Data<Boolean>>() {
 
     // At the top level of your kotlin file:
-    override suspend fun onExecute(params: UserInputParams?): Data<Boolean> {
-        return if (params != null) {
-            loginWithInput(params)
-        } else { // 입력이 없으면 (자동로그인 시도) Todo: 앱 실행시 토큰 검증 등 재확인 절차 존재 여부 및 방법 결정
-            //loginWithSavedCredentials()
-            Data(error = "적용되지 않은 기능입니다. 어떻게 들어오셨어요..?")
-        }
-    }
-
-    private suspend fun userFromStorage(): Flow<StoredUser?> {
-        return userDataStore.data.catch { exception ->
-            if (exception is IOException) {
-                emit(emptyPreferences())
-            } else {
-                throw exception
-            }
-        }.map {
-            // Todo: 유저 정보를 어떻게 저장할지 나오면 반영.
-            if (it[emailKey] == null || it[tokenKey] == null) {
-                null
-            } else {
-                StoredUser(it[emailKey]!!, it[tokenKey]!!)
-            }
-        }
+    override suspend fun onExecute(params: UserInputParams): Data<Boolean> {
+        return loginWithInput(params)
     }
 
     private suspend fun loginWithInput(params: UserInputParams): Data<Boolean> {
-        return userRepository.login(params)
+        val user = userRepository.login(params)
+        val token = user.data?.loginToken
+        // Todo: 토큰 저장
+        IDormLogger.i(this, "token: $token")
+        return if (token != null) {
+            prefsRepository.setUserToken(token)
+            Data(data = true)
+        } else {
+            Data(data = false)
+        }
     }
+}
 
-//    private suspend fun loginWithSavedCredentials() : Boolean {
-//        val storedUser = userFromStorage().first()
-//        return userRepository.login(storedUser)
-//    }
+class LoginRefresh : UseCase<Nothing?, Data<User>>() {
+    override suspend fun onExecute(params: Nothing?): Data<User> {
+        return userRepository.loginRefresh()
+    }
 
 }

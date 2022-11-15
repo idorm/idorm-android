@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -17,6 +18,9 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityLoginBinding
+import org.appcenter.inudorm.presentation.account.EmailPromptViewModel
+import org.appcenter.inudorm.presentation.account.EmailPromptViewModelFactory
+import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.repository.UserRepository
 import org.appcenter.inudorm.usecase.Login
 import org.appcenter.inudorm.util.CustomDialog
@@ -25,15 +29,19 @@ import kotlin.coroutines.CoroutineContext
 
 class LoginActivity : AppCompatActivity() {
 
-    private val TAG = "[LoginActivity]"
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "User")
-    private val viewModel: LoginViewModel by viewModels {
-        LoginViewModelFactory(dataStore)
-    }
+    private lateinit var prefsRepository: PrefsRepository
+    private lateinit var viewModel : LoginViewModel
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        prefsRepository = PrefsRepository(applicationContext)
+        viewModel = ViewModelProvider(
+            viewModelStore,
+            LoginViewModelFactory(prefsRepository)
+        )[LoginViewModel::class.java]
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         binding.loginViewModel = viewModel
         binding.lifecycleOwner = this

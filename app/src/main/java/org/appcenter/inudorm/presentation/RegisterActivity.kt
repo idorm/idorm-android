@@ -9,10 +9,14 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityRegisterBinding
+import org.appcenter.inudorm.networking.ErrorMessage
 import org.appcenter.inudorm.presentation.account.*
 import org.appcenter.inudorm.repository.UserRepository
 import org.appcenter.inudorm.usecase.Register
 import org.appcenter.inudorm.usecase.RegisterParams
+import org.appcenter.inudorm.util.CustomDialog
+import org.appcenter.inudorm.util.DialogButton
+import org.appcenter.inudorm.util.Event
 import org.appcenter.inudorm.util.IDormLogger
 
 class RegisterActivity : PromptActivity() {
@@ -22,7 +26,6 @@ class RegisterActivity : PromptActivity() {
     }
 
     private var registerBundle: Bundle = Bundle()
-    private val userRepository = UserRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,6 +88,8 @@ class RegisterActivity : PromptActivity() {
                     startActivity(intent)
                     finish()
                 }
+            }.onFailure {
+                CustomDialog(ErrorMessage.message(it, ErrorMessage::Register), DialogButton("확인")).show(this@RegisterActivity)
             }
         }
     }

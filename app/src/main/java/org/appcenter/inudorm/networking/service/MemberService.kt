@@ -1,6 +1,7 @@
 package org.appcenter.inudorm.networking.service
 
 import okhttp3.RequestBody
+import org.appcenter.inudorm.model.User
 import org.appcenter.inudorm.networking.Data
 import retrofit2.http.*
 import java.lang.reflect.Member
@@ -12,8 +13,16 @@ interface MemberService{
      * @param body {email:String, password:String} Json RequestBody object
      * @return data가 빈 Data
      */
+    @GET("member")
+    suspend fun loginRefresh(): Data<User>
+
+    /**
+     * 로그인 API
+     * @param body {email:String, password:String} Json RequestBody object
+     * @return data가 빈 Data
+     */
     @POST("login")
-    suspend fun login(@Body body: RequestBody): Data<Boolean>
+    suspend fun login(@Body body: RequestBody): Data<User>
 
     /**
      * 회원가입 API
@@ -21,7 +30,7 @@ interface MemberService{
      * @return data가 빈 Data
      */
     @POST("register")
-    suspend fun register(@Body body: RequestBody): Data<Boolean>
+    suspend fun register(@Body body: RequestBody): Data<User>
 
     /**
      * 로그인 후 토큰을 이용해 정보를 가져오는 API
