@@ -15,7 +15,7 @@
         <item name="android:textColor">@color/selector_outlined_choice_text_color</item>
         <item name="fontFamily">@font/notosans_medium</item>
         <item name="android:textSize">14sp</item>
-        <item name="textAppearanceLabelLarge"></item>
+        <item name="rippleColor">@color/iDorm_blue</item>
     </style>
 
     <!--item_matching outlined chip 선택1-->
@@ -69,6 +69,20 @@
         <item name="errorEnabled">false</item>
     </style>
 
+    <!--switch 커스텀 디자인-->
+    <style name="Widget.DesignSystem.Switch" parent="Widget.Material3.CompoundButton.Switch">
+        <item name="android:layout_height">21dp</item>
+        <item name="android:layout_width">wrap_content</item>
+
+        <item name="switchMinWidth">40dp</item>
+
+        <item name="android:thumb">@drawable/view_switch_thumb</item>
+        <item name="thumbTint">@color/white</item>
+
+        <item name="track">@drawable/selector_switch_track</item>
+        <item name="trackTint">@color/selector_switch_thumb_track_tint</item>
+    </style>
+
     <style name="Widget.DesignSystem.TextInputLayout.FilledBox" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="elevationOverlayEnabled">false</item>
         <item name="boxStrokeErrorColor">@color/iDorm_red</item>
@@ -76,7 +90,6 @@
         <item name="hintEnabled">false</item>
         <item name="errorEnabled">false</item>
         <item name="background">@drawable/view_edit_text_round_gray_100</item>
-
     </style>
 
     <style name="Widget.DesignSystem.AppCompatButton.blue" parent="Widget.MaterialComponents.Button">

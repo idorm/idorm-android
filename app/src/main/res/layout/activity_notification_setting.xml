@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/iDorm_gray_100"
+    tools:context=".presentation.NotificationSettingActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:textAlignment="center"
+        android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="4dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:textSize="16sp"
+            android:text="@string/notificationSettingText"
+            android:textColor="@color/black" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@color/white"
+        android:padding="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <TextView
+            android:id="@+id/allNotiText"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="@string/allNotificationSettingText"
+            android:textColor="@color/iDorm_gray_400"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/pushNotiText"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="@string/pushNotificationSettingText"
+            android:textColor="@color/iDorm_gray_300"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/allNotiText" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchBtn"
+            style="@style/Widget.DesignSystem.Switch"
+            android:layout_width="wrap_content"
+            android:layout_height="21dp"
+            android:checked="true"
+
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/pushNotiText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/pushNotiText" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@color/white"
+        android:padding="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout13">
+
+        <TextView
+            android:id="@+id/appNotiText"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="@string/allNotificationSettingText"
+            android:textColor="@color/iDorm_gray_400"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/calNotiText"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="@string/calNotiText"
+            android:textColor="@color/iDorm_gray_300"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appNotiText" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchBtn2"
+            style="@style/Widget.DesignSystem.Switch"
+            android:layout_width="wrap_content"
+            android:layout_height="21dp"
+            android:checked="true"
+
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/calNotiText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/calNotiText" />
+
+
+        <TextView
+            android:id="@+id/commentNotiText"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="@string/commentNotiText"
+            android:textColor="@color/iDorm_gray_300"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/calNotiText" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchBtn3"
+            style="@style/Widget.DesignSystem.Switch"
+            android:layout_width="wrap_content"
+            android:layout_height="21dp"
+            android:checked="true"
+
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/commentNotiText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/commentNotiText" />
+
+        <TextView
+            android:id="@+id/nestedCommentNotiText"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="@string/nestedCommentNotiText"
+            android:textColor="@color/iDorm_gray_300"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/commentNotiText" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchBtn4"
+            style="@style/Widget.DesignSystem.Switch"
+            android:layout_width="wrap_content"
+            android:layout_height="21dp"
+            android:checked="true"
+
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/nestedCommentNotiText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/nestedCommentNotiText" />
+
+        <TextView
+            android:id="@+id/appinfoNotiText"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="@string/appInfoNotiText"
+            android:textColor="@color/iDorm_gray_300"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nestedCommentNotiText" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchBtn5"
+            style="@style/Widget.DesignSystem.Switch"
+            android:layout_width="wrap_content"
+            android:layout_height="21dp"
+            android:checked="true"
+
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/appinfoNotiText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/appinfoNotiText" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

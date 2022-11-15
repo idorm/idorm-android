@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/iDorm_gray_100"
-    tools:context=".presentation.PostListActivity">
+    tools:context=".presentation.LikedMateListActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -26,7 +25,7 @@
             android:fontFamily="@font/notosans_regular"
             android:includeFontPadding="false"
             android:textSize="16sp"
-            android:text="@string/myPost"
+            android:text="@string/likedMateListText"
             android:textColor="@color/black" />
     </androidx.appcompat.widget.Toolbar>
 

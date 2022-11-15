@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/iDorm_blue_0">
+    android:color="@color/iDorm_gray_200">
     <item>
         <shape android:shape="rectangle">
             <stroke android:width = "4dp" android:color = "@color/iDorm_shadow"/>
@@ -9,7 +9,7 @@
     </item>
 
     <item
-        android:bottom="4dp"
+        android:bottom="0dp"
         android:left="0dp"
         android:right="0dp"
         android:top="0dp">

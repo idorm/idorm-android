@@ -199,7 +199,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="6dp"
-        android:background="@color/iDorm_gray_EDEDED">
+        android:background="@color/iDorm_gray_100">
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

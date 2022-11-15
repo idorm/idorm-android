@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import org.appcenter.inudorm.R
 
-class MateListActivity : AppCompatActivity() {
+class ChangeNickNameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_mate_list_activity)
+        setContentView(R.layout.activity_change_nick_name)
     }
 }

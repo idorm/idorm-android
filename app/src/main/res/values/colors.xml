@@ -2,7 +2,7 @@
 
 <resources>
     <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_700">#FF3700B3</color>
+    <color name="purple_700">#71A1FE</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
 
@@ -19,7 +19,7 @@
     <color name="iDorm_gray_200">#E3E1EC</color>
     <color name="iDorm_gray_300">#9B9B9B</color>
     <color name="iDorm_gray_400">#5B5B5B</color>
-    <color name="iDorm_shadow">#1A000000</color>
+    <color name="iDorm_shadow">#1C000000</color>
 
     <!-- 버튼 클릭 시(Hover) 색상 : iDorm_blue_200 은 커뮤니티 글쓰기 버튼, iDorm_blue_0 : 그 외 버튼-->
     <color name="iDorm_blue_200">#3357E2</color>
