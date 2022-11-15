@@ -146,7 +146,7 @@
     <string name="nickNameText">닉네임</string>
     <string name="userNickNameText">user 닉네임</string>
     <string name="changePasswordText">비밀번호 변경</string>
-    <string name="alarmSettingText">알림 설정</string>
+    <string name="notificationSettingText">알림 설정</string>
     <!--<string name="emailText">이메일</string>-->
     <string name="userEmailText">abcdefg@inu.ac.kr</string>
     <string name="serviceAgreeText">서비스 약관 동의</string>
@@ -160,6 +160,15 @@
     <string name="nickNameMaxLengthText">9</string>
     <string name="useEnterLengthText">n</string>
     <!--<string name="userNickNameText">user 닉네임</string>-->
+    
+    <!--NotificationSettingActivity-->
+    <!--<string name="notificationSettingText">알림 설정</string>-->
+    <string name="allNotificationSettingText">전체 알림 설정</string>
+    <string name="pushNotificationSettingText">푸시 알림 설정</string>
+    <string name="calNotiText">캘린더 일정 알림 받기</string>
+    <string name="commentNotiText">커뮤니티 댓글 알림 받기</string>
+    <string name="nestedCommentNotiText">커뮤니티 답글 알림 받기</string>
+    <string name="appInfoNotiText">어플 정보 알림 받기</string>
 
 
 </resources>

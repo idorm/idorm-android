@@ -19,10 +19,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IDorm.White">
         <activity
+            android:name=".NotificationSettingActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.ChangeNickNameActivity"
-            android:exported="false"
+            android:exported="true"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            android:theme="@style/Theme.IDorm.White"
+            tools:ignore="LockedOrientationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".presentation.WritePostActivity"
             android:exported="false"
@@ -100,18 +110,12 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
-            tools:ignore="LockedOrientationActivity"></activity>
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".presentation.MyInfoSettingActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".presentation.FilterActivity"
             android:exported="true"

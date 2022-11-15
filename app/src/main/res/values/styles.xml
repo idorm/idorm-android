@@ -73,7 +73,7 @@
     <style name="Widget.DesignSystem.Switch" parent="Widget.Material3.CompoundButton.Switch">
         <item name="android:layout_height">21dp</item>
         <item name="android:layout_width">wrap_content</item>
-        <item name="switchPadding">8dp</item>
+
         <item name="switchMinWidth">40dp</item>
 
         <item name="android:thumb">@drawable/view_switch_thumb</item>
