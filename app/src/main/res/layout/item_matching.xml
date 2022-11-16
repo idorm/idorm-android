@@ -255,7 +255,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="104dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/view_button_round_6_white"
+                    android:background="@drawable/view_layout_item_matiching_background"
                     android:fontFamily="@font/notosans_medium"
                     android:includeFontPadding="false"
                     android:padding="10dp"

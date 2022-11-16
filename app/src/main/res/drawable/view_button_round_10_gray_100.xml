@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/iDorm_gray_200">
 
     <item>
         <shape android:shape="rectangle">
@@ -20,4 +21,4 @@
                 android:radius="10dp"/>
         </shape>
     </item>
-</layer-list>
+</ripple>
