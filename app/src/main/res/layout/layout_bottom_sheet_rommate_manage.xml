@@ -11,7 +11,7 @@
     android:background="@drawable/view_bottom_sheet_round_24_white"
     android:elevation="31dp"
     app:behavior_hideable="true"
-    app:behavior_peekHEight="113dp"
+    app:behavior_peekHeight="208dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <androidx.appcompat.widget.AppCompatImageButton
@@ -26,10 +26,11 @@
         android:id="@+id/constraintLayout22"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@color/selector_bottom_sheet_background_color"
+        android:paddingLeft="10dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:paddingLeft="10dp"
-        android:background="@color/selector_bottom_sheet_background_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appCompatImageButton">
@@ -112,6 +113,7 @@
         android:paddingLeft="10dp"
         android:paddingTop="5dp"
         android:paddingBottom="10dp"
+        android:background="@color/selector_bottom_sheet_background_color"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout23"
         tools:layout_editor_absoluteX="22dp">
 

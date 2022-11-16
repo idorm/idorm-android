@@ -11,7 +11,7 @@
     android:background="@drawable/view_bottom_sheet_round_24_white"
     android:elevation="31dp"
     app:behavior_hideable="true"
-    app:behavior_peekHEight="113dp"
+    app:behavior_peekHeight="208dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <androidx.appcompat.widget.AppCompatImageButton
@@ -22,37 +22,49 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/appCompatTextView"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-
-        android:fontFamily="@font/notosans_medium"
-        android:includeFontPadding="false"
-        android:text="@string/declarationInteraction"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-
         android:background="@color/selector_bottom_sheet_background_color"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatImageButton" />
+        app:layout_constraintTop_toBottomOf="@+id/appCompatImageButton">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
 
-        android:fontFamily="@font/notosans_medium"
-        android:includeFontPadding="false"
-        android:text="@string/declarationReason"
-        android:textColor="@color/iDorm_gray_400"
-        android:textSize="14sp"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/appCompatTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView" />
+            android:background="@color/selector_bottom_sheet_background_color"
+            android:fontFamily="@font/notosans_medium"
+            android:includeFontPadding="false"
+            android:text="@string/declarationInteraction"
+            android:textColor="@color/black"
+
+            android:textSize="20sp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:fontFamily="@font/notosans_medium"
+            android:includeFontPadding="false"
+            android:text="@string/declarationReason"
+            android:textColor="@color/iDorm_gray_400"
+            android:textSize="14sp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
