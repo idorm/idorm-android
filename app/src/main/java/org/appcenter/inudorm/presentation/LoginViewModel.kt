@@ -15,45 +15,56 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import org.appcenter.inudorm.networking.ErrorMessage
+import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.repository.UserRepository
 import org.appcenter.inudorm.usecase.Login
 import org.appcenter.inudorm.usecase.UserInputParams
+import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.emailValidator
 import org.appcenter.inudorm.util.passwordValidator
 
 class LoginState(var success: Boolean, var message: String?)
 
-class LoginViewModel(private val dataStore: DataStore<Preferences>) : ViewModel() {
+class LoginViewModel(private val prefsRepository: PrefsRepository) : ViewModel() {
     private val TAG = "[LoginViewModel]"
 
     val email = MutableLiveData<String>("")
     val password = MutableLiveData<String>("")
     private val _loginState = MutableStateFlow(LoginState(false, null))
-    val loginState : StateFlow<LoginState>
+    val loginState: StateFlow<LoginState>
         get() = _loginState
 
     fun tryToLoginWithInput() {
-        if (emailValidator(email.value!!) && passwordValidator(password.value!!)) // 이메일과 비밀번호가 입력 조건을 만족하면
-            Log.d(TAG, "입력조건충족")
+        // 이메일과 비밀번호가 입력 조건을 만족하면
+        if (emailValidator(email.value!!) && passwordValidator(password.value!!)) {
+            IDormLogger.i(this, "입력조건충족")
             viewModelScope.launch {
                 kotlin.runCatching {
-                    Login(dataStore).run(UserInputParams(email.value!!, password.value!!))
+                    Login(prefsRepository).run(UserInputParams(email.value!!, password.value!!))
                 }.onSuccess {
-                    Log.d(TAG, "로긘 성공")
+                    IDormLogger.i(this, "로긘 성공!")
                     _loginState.emit(LoginState(true, "로그인 성공"))
                 }.onFailure {
-                    Log.d(TAG, "Login Failed: ${it.message}")
-                    _loginState.emit(LoginState(false, it.message!!))
+                    IDormLogger.i(this, "로그인 실패,,,")
+                    _loginState.emit(
+                        LoginState(
+                            false,
+                            message = ErrorMessage.message(it, ErrorMessage::Login)
+                        )
+                    )
                 }
             }
+        }
+
     }
 }
 
-class LoginViewModelFactory(private val dataStore: DataStore<Preferences>) :
+class LoginViewModelFactory(private val prefsRepository: PrefsRepository) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
-            return LoginViewModel(dataStore) as T
+            return LoginViewModel(prefsRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

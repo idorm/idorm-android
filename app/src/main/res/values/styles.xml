@@ -81,12 +81,18 @@
 
         <item name="track">@drawable/selector_switch_track</item>
         <item name="trackTint">@color/selector_switch_thumb_track_tint</item>
-
-
-
     </style>
 
-    <style name="Widget.DesignSystem.AppCompatButton.blue" parent="Widget.Material3.Button">
+    <style name="Widget.DesignSystem.TextInputLayout.FilledBox" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="elevationOverlayEnabled">false</item>
+        <item name="boxStrokeErrorColor">@color/iDorm_red</item>
+        <item name="errorIconTint">@color/iDorm_red</item>
+        <item name="hintEnabled">false</item>
+        <item name="errorEnabled">false</item>
+        <item name="background">@drawable/view_edit_text_round_gray_100</item>
+    </style>
+
+    <style name="Widget.DesignSystem.AppCompatButton.blue" parent="Widget.MaterialComponents.Button">
         <item name="backgroundTint">@color/selector_button_blue_background_color</item>
     </style>
 </resources>

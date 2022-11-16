@@ -1,6 +1,7 @@
 package org.appcenter.inudorm.networking.service
 
 import okhttp3.RequestBody
+import org.appcenter.inudorm.model.EmailVerifyResponseDto
 import org.appcenter.inudorm.networking.Data
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -30,7 +31,7 @@ interface EmailService {
      * @return data가 빈 Data
      */
     @POST("verifyCode/{email}")
-    suspend fun verifyRegisterCode(@Path("email") email:String, @Body body: RequestBody) : Data<Boolean>
+    suspend fun verifyRegisterCode(@Path("email") email:String, @Body body: RequestBody) : Data<EmailVerifyResponseDto>
 
     /**
      * 비밀번호 변경 시에 인증코드 검증을 위한 API
@@ -39,5 +40,5 @@ interface EmailService {
      * @return data가 빈 Data
      */
     @POST("verifyCode/password/{email}")
-    suspend fun verifyForgotPWEmail(@Path("email") email:String, @Body body: RequestBody) : Data<Boolean>
+    suspend fun verifyForgotPWEmail(@Path("email") email:String, @Body body: RequestBody) : Data<EmailVerifyResponseDto>
 }

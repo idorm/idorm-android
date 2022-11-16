@@ -12,6 +12,7 @@ class LocalFilterRepository {
         dormNum = Dorm.First,
         joinPeriod = JoinPeriod.Short,
         minAge = 20,
-        maxAge = 40
+        maxAge = 40,
+        disAllowedFeatures = emptyList()
     )
 }

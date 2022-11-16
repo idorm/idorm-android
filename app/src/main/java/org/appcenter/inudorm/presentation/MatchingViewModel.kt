@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.appcenter.inudorm.localFilterRepository
+import org.appcenter.inudorm.App.Companion.localFilterRepository
 import org.appcenter.inudorm.model.Dorm
 import org.appcenter.inudorm.model.JoinPeriod
 import org.appcenter.inudorm.model.Mate

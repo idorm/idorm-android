@@ -5,52 +5,94 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import org.appcenter.inudorm.App
 import org.appcenter.inudorm.R
+import org.appcenter.inudorm.networking.ErrorMessage
+import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.repository.UserRepository
 import org.appcenter.inudorm.usecase.Login
+import org.appcenter.inudorm.usecase.LoginRefresh
 import org.appcenter.inudorm.usecase.LoginResponseCode
+import org.appcenter.inudorm.util.IDormLogger
+import retrofit2.HttpException
+import java.io.IOException
 
 class SplashActivity : AppCompatActivity() {
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "User")
+
+    private lateinit var prefsRepository: PrefsRepository
+
+    private fun loginRefresh() = flow {
+        IDormLogger.d(this, "로그인 리프레시 진입")
+
+        // 토큰을 가져오면서 block!
+        App.token = prefsRepository.getUserToken().first()
+        IDormLogger.d(this, App.token ?: "토큰 없어 떼잉")
+        if (App.token != null) {
+            // 토큰을 가져와 앱 상태에 저장된 후에 실행.
+            val loginRefreshResult = LoginRefresh().run(null)
+            if (loginRefreshResult.error == null && loginRefreshResult.data != null) {
+                App.savedUser = loginRefreshResult.data
+                emit(true)
+            } else {
+                emit(false)
+            }
+        } else {
+            emit(false)
+        }
+    }
+
+    private fun goLogin() {
+        Handler(Looper.getMainLooper()).postDelayed({
+            //H** val intent = Intent(this@SplashActivity, MainActivity::class.java)
+            val intent = Intent(this@SplashActivity, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }, 1000)
+    }
+
+    private fun goHome() {
+        Handler(Looper.getMainLooper()).postDelayed({
+            val intent = Intent(this@SplashActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }, 1000)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        val userRepository = UserRepository()
+
+        prefsRepository = PrefsRepository(applicationContext)
+
         lifecycleScope.launch {
-            // Try to login
-            kotlin.runCatching {
-                Login(dataStore).run(null)
-            }.onSuccess { loginResult ->
-                if (loginResult.data == true) {
-                    // 기기에 있는 정보로 로그인 성공. MainActivity로 보냅니다.
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        //H** val intent = Intent(this@SplashActivity, MainActivity::class.java)
-                        val intent = Intent(this@SplashActivity, LoginActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    }, 3000)
+            loginRefresh().catch { exception ->
+                Log.e("Error reading preferences: ", exception.toString())
+                emit(false)
+            }.collect { isSuccess ->
+                IDormLogger.i(this, "성공여부: $isSuccess")
+                if (isSuccess) {
+                    IDormLogger.i(this, "${App.savedUser} loaded!!!")
+                    if (App.savedUser != null) {
+                        goHome()
+                    } else {
+                        goLogin()
+                    }
                 } else {
-                    // 기기에 정보가 없거나 로그인에 실패. LoginActivity로 보냅니다.
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        val intent = Intent(this@SplashActivity, LoginActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    }, 3000)
+                    goLogin()
                 }
-            }.onFailure {
-                // 기기에 정보가 없거나 로그인에 실패. LoginActivity로 보냅니다.
-                Handler(Looper.getMainLooper()).postDelayed({
-                    val intent = Intent(this@SplashActivity, LoginActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }, 3000)
             }
         }
     }

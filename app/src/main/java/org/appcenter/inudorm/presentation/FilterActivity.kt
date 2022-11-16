@@ -13,14 +13,18 @@ import org.appcenter.inudorm.databinding.ActivityFilterBinding
 import org.appcenter.inudorm.model.Dorm
 import org.appcenter.inudorm.model.JoinPeriod
 import org.appcenter.inudorm.model.RoomMateFilter
+import org.appcenter.inudorm.util.IDormLogger
 
 val defaultFilter =
-    RoomMateFilter(dormNum = Dorm.First, joinPeriod = JoinPeriod.Short, minAge = 20, maxAge = 40)
+    RoomMateFilter(
+        dormNum = Dorm.First,
+        joinPeriod = JoinPeriod.Short,
+        minAge = 20,
+        maxAge = 40,
+        disAllowedFeatures = emptyList()
+    )
 
 class FilterActivity : AppCompatActivity() {
-
-    private val TAG = "[FilterActivity]"
-
     private lateinit var binding: ActivityFilterBinding
 
     override fun onBackPressed() {
@@ -91,7 +95,7 @@ class FilterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val filter = intent?.getParcelableExtra<RoomMateFilter>("filter")
-        Log.i(TAG, filter.toString())
+        IDormLogger.i(this, filter.toString())
 
         viewModel = ViewModelProvider(
             viewModelStore,
@@ -112,6 +116,4 @@ class FilterActivity : AppCompatActivity() {
 
     //seekBar의 val값이 40인지 확인하는 함수
     private fun checkSeekVal(v: Float): String = if (v >= 40) "40+" else v.toInt().toString()
-
-
 }

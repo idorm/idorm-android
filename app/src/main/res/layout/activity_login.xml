@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="loginViewModel"
             type="org.appcenter.inudorm.presentation.LoginViewModel" />
@@ -20,9 +21,9 @@
 
         <ImageView
             android:id="@+id/idormLogoGray"
-            android:src="@drawable/ic_idorm_logo_gray"
             android:layout_width="54dp"
             android:layout_height="wrap_content"
+            android:src="@drawable/ic_idorm_logo_gray"
 
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -33,24 +34,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:text="@string/loginText"
-            android:fontFamily="@font/notosans_bold"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:includeFontPadding="false"
-
             android:layout_marginTop="60dp"
+            android:fontFamily="@font/notosans_bold"
+            android:includeFontPadding="false"
+            android:text="@string/loginText"
+            android:textColor="@color/black"
+
+            android:textSize="24sp"
             app:layout_constraintStart_toStartOf="@id/idormLogoGray"
             app:layout_constraintTop_toBottomOf="@+id/idormLogoGray" />
 
 
         <ImageView
             android:id="@+id/inuLogo"
-            android:src="@drawable/ic_inu_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_marginTop="10dp"
+
+            android:src="@drawable/ic_inu_logo"
             app:layout_constraintStart_toStartOf="@id/loginText"
             app:layout_constraintTop_toBottomOf="@+id/loginText" />
 
@@ -58,67 +59,77 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:text="@string/loginWithInuEmailText"
+            android:layout_marginStart="6dp"
             android:fontFamily="@font/notosans_regular"
-            android:textColor="@color/iDorm_gray_400"
-            android:textSize="12sp"
             android:includeFontPadding="false"
+            android:text="@string/loginWithInuEmailText"
+            android:textColor="@color/iDorm_gray_400"
 
-            android:layout_marginLeft="6dp"
+            android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@id/inuLogo"
             app:layout_constraintTop_toTopOf="@id/inuLogo" />
 
-        <EditText
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/emailField"
+            style="@style/Widget.DesignSystem.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="54dp"
-
-            android:text="@={loginViewModel.email}"
-            android:fontFamily="@font/notosans_medium"
-            android:textSize="14sp"
-            android:includeFontPadding="false"
-
-            android:hint="@string/emailPlaceholder"
-            android:textColorHint="@color/iDorm_gray_300"
-            android:inputType="textEmailAddress"
-
-            android:background="@drawable/view_edit_text_round_gray_100"
             android:layout_marginTop="56dp"
-            android:paddingLeft="16dp"
             app:layout_constraintStart_toStartOf="@id/inuLogo"
-            app:layout_constraintTop_toBottomOf="@+id/inuLogo" />
+            app:layout_constraintTop_toBottomOf="@+id/inuLogo">
 
-        <EditText
+            <com.google.android.material.textfield.TextInputEditText
+                email="@={loginViewModel.email}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/view_edit_text_round_gray_100"
+                android:fontFamily="@font/notosans_medium"
+                android:hint="@string/emailPlaceholder"
+                android:includeFontPadding="false"
+                android:inputType="textEmailAddress"
+                android:paddingStart="16dp"
+                android:text=""
+                android:textColorHint="@color/iDorm_gray_300"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passwordField"
+            style="@style/Widget.DesignSystem.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="54dp"
-
-            android:text="@={loginViewModel.password}"
-            android:fontFamily="@font/notosans_medium"
-            android:textSize="14sp"
-            android:includeFontPadding="false"
-
-            android:hint="@string/pwPlaceholder"
-            android:textColorHint="@color/iDorm_gray_300"
-            android:inputType="textPassword"
-
-            android:background="@drawable/view_edit_text_round_gray_100"
             android:layout_marginTop="10dp"
-            android:paddingLeft="16dp"
             app:layout_constraintStart_toStartOf="@id/emailField"
-            app:layout_constraintTop_toBottomOf="@+id/emailField" />
+            app:layout_constraintTop_toBottomOf="@+id/emailField">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/view_edit_text_round_gray_100"
+                android:fontFamily="@font/notosans_medium"
+
+                android:hint="@string/pwPlaceholder"
+                android:includeFontPadding="false"
+                android:inputType="textPassword"
+                android:paddingStart="16dp"
+
+                android:text="@={loginViewModel.password}"
+                android:textColorHint="@color/iDorm_gray_300"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-        <!-- padding 5dp는 TextView 자체에 온클릭 이벤트 리스너를 걸었을 때 터치가 용이하게 위함입니다. -->
+        <!--        &lt;!&ndash; padding 5dp는 TextView 자체에 온클릭 이벤트 리스너를 걸었을 때 터치가 용이하게 위함입니다. &ndash;&gt;-->
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/loginButton"
+            style="@style/Widget.DesignSystem.AppCompatButton.blue"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="32dp"
 
+            android:layout_marginTop="32dp"
             android:background="@drawable/view_button_round_12"
-            style="@style/Widget.DesignSystem.AppCompatButton.blue"
 
             android:fontFamily="@font/notosans_medium"
             android:includeFontPadding="false"
@@ -134,14 +145,14 @@
             android:id="@+id/changePasswordClickText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-
-            android:text="@string/lostPasswordInteraction"
-            android:fontFamily="@font/notosans_medium"
-            android:textSize="12sp"
-            android:includeFontPadding="false"
-
             android:layout_marginTop="10dp"
+
+            android:fontFamily="@font/notosans_medium"
+            android:includeFontPadding="false"
+            android:padding="5dp"
+            android:text="@string/lostPasswordInteraction"
+
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@id/loginButton"
             app:layout_constraintStart_toStartOf="@id/loginButton"
             app:layout_constraintTop_toBottomOf="@id/loginButton" />
@@ -174,13 +185,13 @@
                 android:id="@+id/registerClickText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-
-                android:text="@string/registerInteraction"
                 android:fontFamily="@font/notosans_medium"
-                android:textSize="12sp"
-                android:textColor="@color/iDorm_blue"
+
                 android:includeFontPadding="false"
+                android:padding="5dp"
+                android:text="@string/registerInteraction"
+                android:textColor="@color/iDorm_blue"
+                android:textSize="12sp"
 
                 app:layout_constraintStart_toEndOf="@id/ask"
                 app:layout_constraintTop_toTopOf="@id/ask" />

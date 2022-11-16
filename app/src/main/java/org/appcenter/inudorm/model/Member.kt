@@ -1,5 +1,7 @@
 package org.appcenter.inudorm.model
 
+import com.google.gson.annotations.SerializedName
+
 // Todo: Complete Member class
 
 /**
@@ -18,6 +20,17 @@ abstract class Member(
     val comment: String? = null,
     val subComment: String? = null,
 )
+
+
+data class User(
+    val email: String,
+    val nickname: String,
+    val profilePhotoUrl: String?,
+    @SerializedName("matchingInfoId")
+    val matchingInfo: MatchingInfo?,
+    var loginToken: String?
+)
+
 
 /**
  * Member 클래스를 상속받은 Mate 클래스입니다.

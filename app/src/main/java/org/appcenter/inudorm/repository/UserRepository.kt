@@ -4,7 +4,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import okhttp3.RequestBody
-import org.appcenter.inudorm.gson
+import org.appcenter.inudorm.App.Companion.gson
+import org.appcenter.inudorm.model.EmailVerifyResponseDto
+import org.appcenter.inudorm.model.User
 import org.appcenter.inudorm.networking.Data
 import org.appcenter.inudorm.networking.RetrofitInstance
 import org.appcenter.inudorm.networking.createJsonRequestBody
@@ -14,9 +16,13 @@ import org.appcenter.inudorm.usecase.SendAuthCodeParams
 import org.appcenter.inudorm.usecase.UserInputParams
 
 class UserRepository {
-    suspend fun login(params: UserInputParams?): Data<Boolean> {
+    suspend fun login(params: UserInputParams?): Data<User> {
         val str = gson.toJson(params)
         return RetrofitInstance.service.login(createJsonRequestBody(str))
+    }
+
+    suspend fun loginRefresh() : Data<User> {
+        return RetrofitInstance.service.loginRefresh()
     }
 
     suspend fun sendRegisterAuthCode(params: SendAuthCodeParams): Data<Boolean> {
@@ -29,17 +35,17 @@ class UserRepository {
         return RetrofitInstance.service.sendForgotPWEmail(createJsonRequestBody(str))
     }
 
-    suspend fun verifyRegisterCode(params: CodeVerifyParams): Data<Boolean> {
+    suspend fun verifyRegisterCode(params: CodeVerifyParams): Data<EmailVerifyResponseDto> {
         val str = gson.toJson(params)
         return RetrofitInstance.service.verifyRegisterCode(params.email, createJsonRequestBody(str))
     }
 
-    suspend fun verifyPasswordAuthCode(params: CodeVerifyParams): Data<Boolean> {
+    suspend fun verifyPasswordAuthCode(params: CodeVerifyParams): Data<EmailVerifyResponseDto> {
         val str = gson.toJson(params)
         return RetrofitInstance.service.verifyForgotPWEmail(params.email, createJsonRequestBody(str))
     }
 
-    suspend fun register(params: RegisterParams): Data<Boolean> {
+    suspend fun register(params: RegisterParams): Data<User> {
         val str = gson.toJson(params)
         return RetrofitInstance.service.register(createJsonRequestBody(str))
     }
