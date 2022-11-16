@@ -1,11 +1,11 @@
 package org.appcenter.inudorm.usecase
 
+import org.appcenter.inudorm.App.Companion.userRepository
 import org.appcenter.inudorm.model.EmailVerifyResponseDto
 import org.appcenter.inudorm.networking.Data
 import org.appcenter.inudorm.networking.ResponseWrapper
 import org.appcenter.inudorm.networking.createJsonRequestBody
 import org.appcenter.inudorm.presentation.account.EmailPromptPurpose
-import org.appcenter.inudorm.userRepository
 import kotlin.reflect.KSuspendFunction1
 
 data class CodeVerifyParams(

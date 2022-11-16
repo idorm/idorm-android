@@ -1,7 +1,7 @@
 package org.appcenter.inudorm.usecase
 
+import org.appcenter.inudorm.App.Companion.userRepository
 import org.appcenter.inudorm.networking.Data
-import org.appcenter.inudorm.userRepository
 import java.lang.Exception
 
 data class RegisterParams(val email: String, val password: String)
