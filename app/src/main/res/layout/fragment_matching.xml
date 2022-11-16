@@ -155,7 +155,7 @@
                 app:layout_constraintStart_toEndOf="@id/backButton"
                 app:layout_constraintTop_toTopOf="@id/dislikeButton"
                 app:rippleColor="@color/iDorm_gray_200"
-                app:srcCompat="@drawable/ic_chat"
+                app:srcCompat="@drawable/ic_chat_yellow"
                 app:tint="@color/iDorm_yellow" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton

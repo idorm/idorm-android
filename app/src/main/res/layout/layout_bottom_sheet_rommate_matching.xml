@@ -9,6 +9,7 @@
     android:paddingTop="10dp"
     android:paddingBottom="24dp"
     android:background="@drawable/view_bottom_sheet_round_24_white"
+    android:elevation="31dp"
     app:behavior_hideable="true"
     app:behavior_peekHEight="113dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
@@ -32,6 +33,8 @@
         android:text="@string/declarationInteraction"
         android:textColor="@color/black"
         android:textSize="20sp"
+
+        android:background="@color/selector_bottom_sheet_background_color"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
