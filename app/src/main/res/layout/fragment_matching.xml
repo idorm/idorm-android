@@ -125,7 +125,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:rippleColor="@color/iDorm_gray_200"
-                app:srcCompat="@drawable/ic_no"
+                app:srcCompat="@drawable/ic_no_red"
                 app:tint="@color/iDorm_red" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton

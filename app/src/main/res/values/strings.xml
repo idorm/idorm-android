@@ -187,4 +187,9 @@
 
     <string name="withdrawalCancelInteraction">다시 생각해볼래요❤</string>
     <string name="withdrawalDoneInteraction">탈퇴</string>
+    
+    
+    <!--BottomSheetRoommateMatchingDialogue-->
+    <string name="declarationInteraction">신고하기</string>
+    <string name="declarationReason">idorm 가이드라인에 위배되는 매칭 프로필 이미지</string>
 </resources>
