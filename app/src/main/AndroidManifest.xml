@@ -20,9 +20,6 @@
         android:theme="@style/Theme.IDorm.White">
         <activity
             android:name=".presentation.WithdrawalActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.NotificationSettingActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
@@ -32,6 +29,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".presentation.NotificationSettingActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.IDorm.White"
+            tools:ignore="LockedOrientationActivity">
+
+
         </activity>
         <activity
             android:name=".presentation.ChangeNickNameActivity"

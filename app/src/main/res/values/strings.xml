@@ -183,5 +183,8 @@
     
     <string name="caution1">📌 idorm 탈퇴 후에도 커뮤니티 내에는\n작성하신 글과 댓글은 남아 있어요.</string>
     <string name="caution2">📌 프로필과 내 정보 데이터가 사라지며\n다시 복구할 수 없어요.</string>
-    <string name="caution3">그 밖의...</string>
+    <string name="caution3">📌 그 밖의 사항들</string>
+
+    <string name="withdrawalCancelInteraction">다시 생각해볼래요❤</string>
+    <string name="withdrawalDoneInteraction">탈퇴</string>
 </resources>
