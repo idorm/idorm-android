@@ -160,6 +160,9 @@
     <string name="nickNameMaxLengthText">9</string>
     <string name="useEnterLengthText">n</string>
     <!--<string name="userNickNameText">user 닉네임</string>-->
+    <string name="nickNameLengthCaution">•  최소 2글자에서 8글자를 입력해주세요.</string>
+    <string name="nickNameWithoutBlankCaution">•  공백없이 입력해주세요.</string>
+    <string name="nickNameInputLangCaution">•  영문, 한글, 숫자만 입력할 수 있어요.</string>
 
     <!--NotificationSettingActivity-->
     <!--<string name="notificationSettingText">알림 설정</string>-->
