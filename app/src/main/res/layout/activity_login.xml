@@ -74,21 +74,23 @@
             android:id="@+id/emailField"
             style="@style/Widget.DesignSystem.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="56dp"
             app:layout_constraintStart_toStartOf="@id/inuLogo"
             app:layout_constraintTop_toBottomOf="@+id/inuLogo">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:theme="@style/Widget.DesignSystem.TextInputEditText.FilledBox.Inside"
                 email="@={loginViewModel.email}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/view_edit_text_round_gray_100"
-                android:fontFamily="@font/notosans_medium"
+
+                android:fontFamly="@font/notosans_medium"
                 android:hint="@string/emailPlaceholder"
                 android:includeFontPadding="false"
                 android:inputType="textEmailAddress"
-                android:paddingStart="16dp"
+
                 android:text=""
                 android:textColorHint="@color/iDorm_gray_300"
                 android:textSize="14sp" />
@@ -98,12 +100,13 @@
             android:id="@+id/passwordField"
             style="@style/Widget.DesignSystem.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="@id/emailField"
             app:layout_constraintTop_toBottomOf="@+id/emailField">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:theme="@style/Widget.DesignSystem.TextInputEditText.FilledBox.Inside"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/view_edit_text_round_gray_100"
@@ -126,7 +129,7 @@
             android:id="@+id/loginButton"
             style="@style/Widget.DesignSystem.AppCompatButton.blue"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
 
             android:layout_marginTop="32dp"
             android:background="@drawable/view_button_round_12"
@@ -189,7 +192,7 @@
 
                 android:includeFontPadding="false"
                 android:padding="5dp"
-                android:text="@string/registerInteraction"
+                android:text="@string/signUpInteraction"
                 android:textColor="@color/iDorm_blue"
                 android:textSize="12sp"
 

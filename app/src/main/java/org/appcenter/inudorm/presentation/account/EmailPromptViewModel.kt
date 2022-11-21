@@ -32,7 +32,7 @@ class EmailPromptViewModel(private val purpose: EmailPromptPurpose) : ViewModelW
                 }
             }
         } else {
-            showDialog("이메일이 올바르지 않습니다.", DialogButton("확인", null, null), null)
+            showDialog("이메일 형식을 확인해 주세요.", DialogButton("확인", null, null), null)
         }
     }
 }

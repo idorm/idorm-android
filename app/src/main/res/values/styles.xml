@@ -83,6 +83,7 @@
         <item name="trackTint">@color/selector_switch_thumb_track_tint</item>
     </style>
 
+    <!--TextInputLayout-->
     <style name="Widget.DesignSystem.TextInputLayout.FilledBox" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="elevationOverlayEnabled">false</item>
         <item name="boxStrokeErrorColor">@color/iDorm_red</item>
@@ -90,6 +91,16 @@
         <item name="hintEnabled">false</item>
         <item name="errorEnabled">false</item>
         <item name="background">@drawable/view_edit_text_round_gray_100</item>
+    </style>
+
+    <!--TextInoutEditText-->
+    <style name="Widget.DesignSystem.TextInputEditText.FilledBox.Inside" parent="Widget.Material3.TextInputEditText.FilledBox">
+        <item name="colorControlNormal">@color/iDorm_blue</item>
+        <item name="colorControlActivated">@color/iDorm_blue</item>
+        <item name="colorControlHighlight">@color/iDorm_blue</item>
+        <item name="colorAccent">@color/iDorm_blue</item>
+        <item name="android:cursorVisible">true</item>
+        <item name="paddingStart">16dp</item>
     </style>
 
     <style name="Widget.DesignSystem.AppCompatButton.blue" parent="Widget.MaterialComponents.Button">

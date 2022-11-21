@@ -78,7 +78,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.DesignSystem.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="14dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -90,6 +90,7 @@
                     >
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:theme="@style/Widget.DesignSystem.TextInputEditText.FilledBox.Inside"
                         android:id="@+id/editText"
                         code="@={codeViewModel.code}"
                         android:layout_width="match_parent"

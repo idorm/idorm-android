@@ -33,6 +33,7 @@
     <string name="loginText">로그인</string>
     <string name="loginWithInuEmailText">인천대학교 이메일로 로그인해주세요.</string>
     <string name="noAccountText">아직 계정이 없으신가요?</string>
+    <string name="signUpInteraction">회원 가입</string>
 
     <!--welcomeFragment-->
     <string name="welcomeText">안녕하세요. 가입을 축하드려요.</string>
