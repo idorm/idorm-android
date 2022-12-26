@@ -86,7 +86,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/view_edit_text_round_gray_100"
 
-                android:fontFamly="@font/notosans_medium"
+                android:fontFamily="@font/notosans_medium"
                 android:hint="@string/emailPlaceholder"
                 android:includeFontPadding="false"
                 android:inputType="textEmailAddress"

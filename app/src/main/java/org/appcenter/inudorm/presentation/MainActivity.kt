@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.mainViewModel = mainViewModel
         binding.bottomNavigation.setOnNavigationItemSelectedListener(this)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, HomeFragment()).commit()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
