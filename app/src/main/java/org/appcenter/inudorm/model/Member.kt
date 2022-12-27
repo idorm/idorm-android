@@ -27,7 +27,7 @@ data class User(
     val nickname: String,
     val profilePhotoUrl: String?,
     @SerializedName("matchingInfoId")
-    val matchingInfo: MatchingInfo?,
+    val matchingInfo: Int?,
     var loginToken: String?
 )
 

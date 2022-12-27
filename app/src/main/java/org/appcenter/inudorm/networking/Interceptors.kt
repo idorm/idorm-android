@@ -7,8 +7,9 @@ import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
 import okhttp3.*
 import org.appcenter.inudorm.App
+import org.appcenter.inudorm.model.ErrorResponse
 import org.appcenter.inudorm.util.IDormLogger
-import java.nio.Buffer
+import java.io.IOException
 
 class AuthInterceptor : Interceptor {
     private val TAG = "[AuthInterceptor]"
@@ -32,6 +33,9 @@ class AuthInterceptor : Interceptor {
 
 
 class ResponseInterceptor : Interceptor {
+    inline fun <reified T : Enum<T>> String.asEnumOrDefault(defaultValue: T? = null): T? =
+        enumValues<T>().firstOrNull { it.name.equals(this, ignoreCase = true) } ?: defaultValue
+
     private val TAG = "[ResponseInterceptor]"
     private val networkErrorMessage = "네트워크 요청에 알 수 없는 이유로 실패했습니다."
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -50,24 +54,35 @@ class ResponseInterceptor : Interceptor {
         )
 
         // Convert json to data object
-        val type = object : TypeToken<ResponseWrapper<*>>() {}.type
         val res = try {
-            val result =
-                gson.fromJson<ResponseWrapper<*>>(rawJsonResponse, type) // parsed ResponseWrapper
-                    ?: throw JsonParseException("Failed to parse json")
-            IDormLogger.i(this, result.toString())
+            // 성공한 경우
             if (response.isSuccessful) {
-                Data(data = result.data ?: true)
+                val type = object : TypeToken<ResponseWrapper<*>>() {}.type
+                val result =
+                    gson.fromJson<ResponseWrapper<*>>(
+                        rawJsonResponse,
+                        type
+                    ) // parsed ResponseWrapper
+                        ?: throw JsonParseException("Failed to parse json")
+                IDormLogger.i(this, result.toString())
+                result.data
             } else {
-                Data(error = result.responseMessage)
+                // 정상적으로 실패한 경우
+                val type = object : TypeToken<ErrorResponse>() {}.type
+                val result =
+                    gson.fromJson<ErrorResponse>(rawJsonResponse, type) // parsed ResponseWrapper
+                        ?: throw JsonParseException("Failed to parse json")
+                throw IDormError((result.code.asEnumOrDefault<ErrorCode>(null) ?: ErrorCode.UNKNOWN_ERROR))
             }
         } catch (e: JsonSyntaxException) {
+            // JSON 문법 오류인 경우
             IDormLogger.i(this, "JSON 문법 오류. 바디가 문자열 같습니다.")
-            Data(data = true)
-
+            throw IOException("Failed to parse json")
+        } catch (e: IDormError) {
+            throw e
         } catch (e: Throwable) {
-            IDormLogger.i(this, e.toString())
-            Data<Nothing>(error = networkErrorMessage)
+            IDormLogger.e(this, e.toString())
+            throw IOException(e.message)
         }
 
         // Re-transform result to json and return
@@ -75,7 +90,7 @@ class ResponseInterceptor : Interceptor {
         val newResponse = response.newBuilder()
             .body(ResponseBody.create(MediaType.parse("application/json"), resultJson))
             .build()
-        Log.d(TAG, "${res.data} | $newResponse")
+        Log.d(TAG, "$res | $newResponse")
         return newResponse
     }
 }

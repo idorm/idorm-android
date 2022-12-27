@@ -15,7 +15,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import org.appcenter.inudorm.networking.ErrorMessage
+import org.appcenter.inudorm.networking.ErrorCode
+import org.appcenter.inudorm.networking.IDormError
 import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.repository.UserRepository
 import org.appcenter.inudorm.usecase.Login
@@ -23,6 +24,40 @@ import org.appcenter.inudorm.usecase.UserInputParams
 import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.emailValidator
 import org.appcenter.inudorm.util.passwordValidator
+import java.net.UnknownHostException
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
+import kotlin.reflect.KFunction1
+
+@OptIn(ExperimentalContracts::class)
+inline fun <T> Result<T>.onError(
+    action: (Throwable) -> Unit,
+): Result<T> {
+    contract {
+        callsInPlace(action, InvocationKind.AT_MOST_ONCE)
+    }
+    exceptionOrNull()?.let {
+        if (it !is IDormError)
+            action(it)
+    }
+    return this
+}
+
+@OptIn(ExperimentalContracts::class)
+inline fun <T> Result<T>.onExpectedError(
+    action: (IDormError) -> Unit,
+): Result<T> {
+    contract {
+        callsInPlace(action, InvocationKind.AT_MOST_ONCE)
+    }
+    exceptionOrNull()?.let {
+        if (it is IDormError)
+            action(it)
+    }
+    return this
+}
+
 
 class LoginState(var success: Boolean, var message: String?)
 
@@ -35,6 +70,7 @@ class LoginViewModel(private val prefsRepository: PrefsRepository) : ViewModel()
     val loginState: StateFlow<LoginState>
         get() = _loginState
 
+
     fun tryToLoginWithInput() {
         // 이메일과 비밀번호가 입력 조건을 만족하면
         if (emailValidator(email.value!!) && passwordValidator(password.value!!)) {
@@ -45,12 +81,19 @@ class LoginViewModel(private val prefsRepository: PrefsRepository) : ViewModel()
                 }.onSuccess {
                     IDormLogger.i(this, "로긘 성공!")
                     _loginState.emit(LoginState(true, "로그인 성공"))
-                }.onFailure {
-                    IDormLogger.i(this, "로그인 실패,,,")
+                }.onError {
                     _loginState.emit(
                         LoginState(
                             false,
-                            message = ErrorMessage.message(it, ErrorMessage::Login)
+                            message = it.message
+                        )
+                    )
+                    IDormLogger.i(this, "로그인 실패,,,")
+                }.onExpectedError {
+                    _loginState.emit(
+                        LoginState(
+                            false,
+                            message = it.message
                         )
                     )
                 }

@@ -1,34 +1,21 @@
 package org.appcenter.inudorm.presentation
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.emptyPreferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import org.appcenter.inudorm.App
 import org.appcenter.inudorm.R
-import org.appcenter.inudorm.networking.ErrorMessage
 import org.appcenter.inudorm.repository.PrefsRepository
-import org.appcenter.inudorm.repository.UserRepository
-import org.appcenter.inudorm.usecase.Login
 import org.appcenter.inudorm.usecase.LoginRefresh
-import org.appcenter.inudorm.usecase.LoginResponseCode
 import org.appcenter.inudorm.util.IDormLogger
-import retrofit2.HttpException
-import java.io.IOException
 
 class SplashActivity : AppCompatActivity() {
 
@@ -42,13 +29,25 @@ class SplashActivity : AppCompatActivity() {
         IDormLogger.d(this, App.token ?: "토큰 없어 떼잉")
         if (App.token != null) {
             // 토큰을 가져와 앱 상태에 저장된 후에 실행.
-            val loginRefreshResult = LoginRefresh().run(null)
-            if (loginRefreshResult.error == null && loginRefreshResult.data != null) {
-                App.savedUser = loginRefreshResult.data
+            kotlin.runCatching {
+                LoginRefresh().run(null)
+            }.onSuccess {
+                App.savedUser = it
                 emit(true)
-            } else {
+            }.onError {
+                emit(false)
+            }.onExpectedError {
                 emit(false)
             }
+
+            /*
+                val loginRefreshResult = LoginRefresh().run(null)
+                if (loginRefreshResult.loginToken != null) {
+                    emit(true)
+                } else {
+                    emit(false)
+                }
+*/
         } else {
             emit(false)
         }

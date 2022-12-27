@@ -1,7 +1,6 @@
 package org.appcenter.inudorm.networking.service
 
 import okhttp3.RequestBody
-import org.appcenter.inudorm.networking.Data
 import retrofit2.http.Body
 import retrofit2.http.POST
 
@@ -12,5 +11,5 @@ interface MatchingInfoService{
      * @return data가 빈 Data
      */
     @POST("matchinginfo")
-    suspend fun saveMatchingInfo(@Body body: RequestBody) : Data<Nothing>
+    suspend fun saveMatchingInfo(@Body body: RequestBody) : Nothing
 }

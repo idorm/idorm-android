@@ -14,5 +14,8 @@ class IDormLogger {
         @JvmStatic fun v(currentScope: Any, message: String) {
             Log.v("$prefix${currentScope::class.simpleName}]", message)
         }
+        @JvmStatic fun e(currentScope: Any, message: String) {
+            Log.e("$prefix${currentScope::class.simpleName}]", message)
+        }
     }
 }

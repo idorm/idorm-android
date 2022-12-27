@@ -6,7 +6,7 @@ import androidx.lifecycle.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.appcenter.inudorm.networking.ErrorMessage
+import org.appcenter.inudorm.networking.IDormError
 import org.appcenter.inudorm.repository.UserRepository
 import org.appcenter.inudorm.usecase.CheckIfCodeCorrect
 import org.appcenter.inudorm.usecase.CodeVerifyParams
@@ -75,21 +75,26 @@ class CodePromptViewModel(private val email: String, private val purpose: EmailP
                 kotlin.runCatching {
                     CheckIfCodeCorrect().run(CodeVerifyParams(purpose, email, code.value!!))
                 }.onSuccess {
-                    if (it.data == true) {
-                        stopTimer()
-                        val bundle = Bundle()
-                        bundle.putBoolean("authorized", true)
-                        bundle.putString("authCode", code.value!!)
-                        this@CodePromptViewModel.mergeBundleWithPaging(bundle)
-                    } else {
-                        this@CodePromptViewModel.showDialog(
-                            it.error ?: ErrorMessage.unknownError, DialogButton("확인")
-                        )
-                    }
+                    stopTimer()
+                    val bundle = Bundle()
+                    bundle.putBoolean("authorized", true)
+                    bundle.putString("authCode", code.value!!)
+                    this@CodePromptViewModel.mergeBundleWithPaging(bundle)
                 }.onFailure {
-                    this@CodePromptViewModel.showDialog(
-                        ErrorMessage.message(it, ErrorMessage.EmailVerify[purpose]!!), DialogButton("확인")
-                    )
+                    // 네트워크 관련 에러만 대응 피룡.
+                    when (it) {
+                        is IDormError -> this@CodePromptViewModel.showDialog(
+                            it.message,
+                            DialogButton("확인")
+                        )
+                        else -> {
+                            IDormLogger.e(this@CodePromptViewModel, it.toString())
+                            this@CodePromptViewModel.showDialog(
+                                it.toString(),
+                                DialogButton("확인")
+                            )
+                        }
+                    }
                 }
             }
         }

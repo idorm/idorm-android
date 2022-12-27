@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityRegisterBinding
-import org.appcenter.inudorm.networking.ErrorMessage
+import org.appcenter.inudorm.networking.IDormError
 import org.appcenter.inudorm.presentation.account.*
 import org.appcenter.inudorm.repository.UserRepository
 import org.appcenter.inudorm.usecase.Register
@@ -36,7 +36,7 @@ class RegisterActivity : PromptActivity() {
         }
     }
 
-    private fun getInitPages() : ArrayList<Fragment> {
+    private fun getInitPages(): ArrayList<Fragment> {
         val initPage = ArrayList<Fragment>()
         val fragment = EmailPromptFragment()
         val bundle = Bundle()
@@ -75,21 +75,31 @@ class RegisterActivity : PromptActivity() {
         setToolbarIcon()
     }
 
-    private fun _register(email:String, password:String) {
+    private fun _register(email: String, password: String) {
         lifecycleScope.launch {
             kotlin.runCatching {
                 Register().run(RegisterParams(email, password))
             }.onSuccess { result ->
                 IDormLogger.i(this, result.toString())
-                if (result.data == true) {
+                if (result) {
                     // Register completed, change page
                     val intent =
                         Intent(this@RegisterActivity, WelcomeActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
-            }.onFailure {
-                CustomDialog(ErrorMessage.message(it, ErrorMessage::Register), DialogButton("확인")).show(this@RegisterActivity)
+            }.onError {
+                // 네트워크 관련 에러만 대응 피룡.
+                IDormLogger.e(this@RegisterActivity, it.toString())
+                CustomDialog(
+                    it.toString(),
+                    DialogButton("확인")
+                ).show(this@RegisterActivity)
+            }.onExpectedError {
+                CustomDialog(
+                    it.message,
+                    DialogButton("확인")
+                ).show(this@RegisterActivity)
             }
         }
     }

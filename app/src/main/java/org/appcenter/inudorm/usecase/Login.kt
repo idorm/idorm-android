@@ -1,20 +1,9 @@
 package org.appcenter.inudorm.usecase
 
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.emptyPreferences
-import androidx.datastore.preferences.core.stringPreferencesKey
-import kotlinx.coroutines.flow.*
 import org.appcenter.inudorm.App.Companion.userRepository
-import org.appcenter.inudorm.model.SavedUser
 import org.appcenter.inudorm.model.User
-import org.appcenter.inudorm.networking.Data
-import org.appcenter.inudorm.networking.ResponseWrapper
 import org.appcenter.inudorm.repository.PrefsRepository
-import org.appcenter.inudorm.repository.UserRepository
 import org.appcenter.inudorm.util.IDormLogger
-import java.io.IOException
 
 abstract class LoginParams {
     abstract val email: String
@@ -27,29 +16,29 @@ object LoginResponseCode {
     const val SUCCESS = "SUCCESS"
 }
 
-class Login(private val prefsRepository: PrefsRepository) : UseCase<UserInputParams, Data<Boolean>>() {
+class Login(private val prefsRepository: PrefsRepository) : UseCase<UserInputParams, Boolean>() {
 
     // At the top level of your kotlin file:
-    override suspend fun onExecute(params: UserInputParams): Data<Boolean> {
+    override suspend fun onExecute(params: UserInputParams): Boolean {
         return loginWithInput(params)
     }
 
-    private suspend fun loginWithInput(params: UserInputParams): Data<Boolean> {
+    private suspend fun loginWithInput(params: UserInputParams) : Boolean {
         val user = userRepository.login(params)
-        val token = user.data?.loginToken
+        val token = user.loginToken
         // Todo: 토큰 저장
         IDormLogger.i(this, "token: $token")
         return if (token != null) {
             prefsRepository.setUserToken(token)
-            Data(data = true)
+            true
         } else {
-            Data(data = false)
+            false
         }
     }
 }
 
-class LoginRefresh : UseCase<Nothing?, Data<User>>() {
-    override suspend fun onExecute(params: Nothing?): Data<User> {
+class LoginRefresh : UseCase<Nothing?, User>() {
+    override suspend fun onExecute(params: Nothing?): User {
         return userRepository.loginRefresh()
     }
 
