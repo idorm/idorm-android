@@ -1,17 +1,20 @@
 package org.appcenter.inudorm.presentation.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import org.appcenter.inudorm.BR
 import org.appcenter.inudorm.R
+import org.appcenter.inudorm.databinding.ItemMatchingBinding
 import org.appcenter.inudorm.model.Mate
 import java.util.*
 
 class RoomMateAdapter(private val _dataSet: ArrayList<Mate>) :
-    RecyclerView.Adapter<RoomMateAdapter.ViewHolder>() {
+    RecyclerView.Adapter<RoomMateAdapter.RoomMateViewHolder>() {
 
     var dataSet: ArrayList<Mate>
         get() = _dataSet
@@ -19,38 +22,28 @@ class RoomMateAdapter(private val _dataSet: ArrayList<Mate>) :
             value
         }
 
-    /**
-     * Provide a reference to the type of views that you are using
-     * (custom ViewHolder).
-     */
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textView: TextView
-        val card: FrameLayout
+    inner class RoomMateViewHolder(var viewBinding: ItemMatchingBinding) : RecyclerView.ViewHolder(viewBinding.root) {}
 
-        init {
-            // Define click listener for the ViewHolder's View.
-            textView = view.findViewById(R.id.dormText)
-            card = view.findViewById(R.id.card)
-
-        }
-    }
 
     // Create new views (invoked by the layout manager)
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RoomMateViewHolder {
         // Create a new view, which defines the UI of the list item
-        val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.item_matching, viewGroup, false)
+        val binding = DataBindingUtil.inflate<ItemMatchingBinding>(
+            LayoutInflater.from(viewGroup.context),
+            R.layout.item_matching,
+            viewGroup,
+            false
+        )
 
-
-        return ViewHolder(view)
+        return RoomMateViewHolder(binding)
     }
 
     // Replace the contents of a view (invoked by the layout manager)
-    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
-        viewHolder.textView.text = dataSet[position].nickname
+    override fun onBindViewHolder(viewHolder: RoomMateViewHolder, position: Int) {
+        _dataSet[position].let {
+            viewHolder.viewBinding.mate = it
+            viewHolder.viewBinding.executePendingBindings()
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
