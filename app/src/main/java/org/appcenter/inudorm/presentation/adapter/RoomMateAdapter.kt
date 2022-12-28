@@ -10,13 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import org.appcenter.inudorm.BR
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ItemMatchingBinding
+import org.appcenter.inudorm.model.MatchingInfo
 import org.appcenter.inudorm.model.Mate
 import java.util.*
 
-class RoomMateAdapter(private val _dataSet: ArrayList<Mate>) :
+class RoomMateAdapter(private val _dataSet: ArrayList<MatchingInfo>) :
     RecyclerView.Adapter<RoomMateAdapter.RoomMateViewHolder>() {
 
-    var dataSet: ArrayList<Mate>
+    var dataSet: ArrayList<MatchingInfo>
         get() = _dataSet
         set(value) {
             value

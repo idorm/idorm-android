@@ -108,7 +108,7 @@
     <string name="genderCardText">성별</string>
     <string name="ageCardText">24</string>
     <string name="ageCardUnit">세</string>
-    <string name="mbtiCardText">MBTI</string>
+    <string name="mbtiCardText">MBTI⠀</string>
 
     <string name="snoringCardText">코골이 없음</string>
     <string name="grindingCardText">이갈이 없음</string>
@@ -116,9 +116,9 @@
     <string name="eatingInsideCardText">실내 음식 불가능</string>
     <string name="wearEarphonesCardText">이어폰 착용 가능</string>
 
-    <string name="wakeUpTimeCardText">기상시간</string>
-    <string name="cleaningCardText">정리정돈</string>
-    <string name="showerTimeCardText">샤워시간</string>
+    <string name="wakeUpTimeCardText">기상시간⠀</string>
+    <string name="cleaningCardText">정리정돈⠀</string>
+    <string name="showerTimeCardText">샤워시간⠀</string>
     <string name="moreCardText">우하하하하하하하우하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하우하하하하하하하하하하하하하하하하하하하하하하하하하하하하</string>
 
     <!--HomeFragment-->

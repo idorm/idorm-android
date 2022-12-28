@@ -9,8 +9,8 @@ import org.appcenter.inudorm.model.RoomMateFilter
  */
 class LocalFilterRepository {
     var roomMateFilter: RoomMateFilter = RoomMateFilter(
-        dormNum = Dorm.First,
-        joinPeriod = JoinPeriod.Short,
+        dormNum = Dorm.DORM1,
+        joinPeriod = JoinPeriod.WEEK16,
         minAge = 20,
         maxAge = 40,
         disAllowedFeatures = emptyList()

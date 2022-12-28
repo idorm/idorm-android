@@ -8,10 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.App.Companion.localFilterRepository
-import org.appcenter.inudorm.model.Dorm
-import org.appcenter.inudorm.model.JoinPeriod
-import org.appcenter.inudorm.model.Mate
-import org.appcenter.inudorm.model.RoomMateFilter
+import org.appcenter.inudorm.model.*
 import org.appcenter.inudorm.usecase.GetRoomMates
 import java.util.*
 
@@ -19,7 +16,7 @@ import java.util.*
 data class MatchingState(
     var isLoading: Boolean = false,
     var errorMessage: String? = null,
-    var mates: ArrayList<Mate> = ArrayList(),
+    var mates: ArrayList<MatchingInfo> = ArrayList(),
     var filter: RoomMateFilter
 )
 

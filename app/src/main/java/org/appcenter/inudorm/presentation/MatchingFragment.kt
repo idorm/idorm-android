@@ -135,7 +135,7 @@ class MatchingFragment : Fragment(), CardStackListener {
                 text = "상대의 카카오톡 오픈채팅으로 이동합니다.",
                 positiveButton = DialogButton("카카오톡으로 이동", {
                     val position = layoutManager.topPosition
-                    val link = adapter.dataSet[position].myInfo.chatLink
+                    val link = adapter.dataSet[position].openKakaoLink
                     if (link == null) {
                         Toast.makeText(
                             requireContext(),

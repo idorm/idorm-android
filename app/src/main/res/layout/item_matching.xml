@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="mate"
-            type="org.appcenter.inudorm.model.Mate" />
+            type="org.appcenter.inudorm.model.MatchingInfo" />
     </data>
 
     <FrameLayout
@@ -52,7 +53,7 @@
                         android:shadowDy="1"
 
                         android:shadowRadius="4"
-                        android:text="@{mate.myInfo.dormNum}"
+                        android:text="@{mate.dormNum.text}"
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -100,7 +101,7 @@
                         android:shadowColor="#1C000000"
                         android:shadowDy="1"
                         android:shadowRadius="4"
-                        android:text="@string/periodCardText"
+                        android:text="@{mate.joinPeriod.text}"
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -215,7 +216,7 @@
                         android:layout_height="wrap_content"
                         android:elevation="3dp"
 
-                        android:text="@string/wakeUpTimeCardText"
+                        android:text="@{@string/wakeUpTimeCardText +mate.wakeUpTime}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -228,7 +229,7 @@
 
                         android:layout_marginTop="8dp"
                         android:elevation="3dp"
-                        android:text="@string/cleaningCardText"
+                        android:text="@{@string/cleaningCardText +mate.cleanUpStatus}"
                         app:layout_constraintEnd_toEndOf="@+id/wakeUpTime"
                         app:layout_constraintStart_toStartOf="@+id/wakeUpTime"
                         app:layout_constraintTop_toBottomOf="@+id/wakeUpTime" />
@@ -241,7 +242,7 @@
 
                         android:layout_marginTop="8dp"
                         android:elevation="3dp"
-                        android:text="@string/showerTimeCardText"
+                        android:text="@{@string/showerTimeCardText +mate.showerTime}"
                         app:layout_constraintEnd_toEndOf="@+id/cleaningCardText"
                         app:layout_constraintStart_toStartOf="@+id/cleaningCardText"
                         app:layout_constraintTop_toBottomOf="@+id/cleaningCardText" />
@@ -253,7 +254,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:elevation="3dp"
-                        android:text="@string/mbtiCardText"
+                        android:text="@{@string/mbtiCardText +mate.mbti}"
                         app:layout_constraintEnd_toEndOf="@+id/showerTimeCardText"
                         app:layout_constraintStart_toStartOf="@+id/showerTimeCardText"
                         app:layout_constraintTop_toBottomOf="@+id/showerTimeCardText" />

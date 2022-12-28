@@ -3,26 +3,29 @@ package org.appcenter.inudorm.repository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import org.appcenter.inudorm.model.*
+import org.appcenter.inudorm.networking.RetrofitInstance
+import org.appcenter.inudorm.networking.service.ReqBody
+import org.appcenter.inudorm.util.IDormLogger
 import java.util.*
 
 val testMyInfo = MatchingInfo(
     35345345,
     234234,
-    4234324,
-    JoinPeriod.Short,
+    Dorm.DORM1,
+    JoinPeriod.WEEK16,
     Gender.Male,
     20,
-    snoring = true,
-    smoking = false,
-    grinding = false,
-    wearEarphones = true,
-    allowedFood = true,
+    isSnoring = true,
+    isSmoking = false,
+    isGrinding = false,
+    isWearEarphones = true,
+    isAllowedFood = true,
     wakeUpTime = "9~10시 기상하는 것 같아여",
     cleanUpStatus = "더러운게 눈에 띄면 청소하는 편이에요",
     showerTime = "아침/저녁 랜덤으로 10분 안에서 끝내려 하지만 피곤하면 정줄놓고 20분씩 있기도 해요",
     mbti = "INTJ",
     wishText = "휫바람을 불거나 하는 잡소음을 유발하지 않았으면.. 제발.. 정신 나갈 것 같아요",
-    chatLink = "http://google.com"
+    openKakaoLink = "http://google.com"
 )
 val testMate =  Mate(
     234234,
@@ -32,8 +35,9 @@ val testMate =  Mate(
 )
 
 class RoomMateRepository {
-    suspend fun fetchRoomMates(params: RoomMateFilter): ArrayList<Mate> {
-        return flow {
+    suspend fun fetchRoomMates(params: RoomMateFilter): ArrayList<MatchingInfo> {
+        return RetrofitInstance.service.filterMatchingInfo(ReqBody(params))
+        /*return flow {
             kotlinx.coroutines.delay(3000)
             emit(
                 arrayListOf(
@@ -65,6 +69,6 @@ class RoomMateRepository {
                     testMate
                 )
             )
-        }.first()
+        }.first()*/
     }
 }

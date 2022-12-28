@@ -33,6 +33,7 @@ interface MemberService{
 
     /**
      * 로그인 후 토큰을 이용해 정보를 가져오는 API
+     * FIXME: loginRefresh와 겹침.
      * @return data가 사용자 정보인 Data
      */
     @GET("member")

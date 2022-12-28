@@ -5,10 +5,10 @@ import org.appcenter.inudorm.R
 /**
  * First: 1긱, ...
  */
-enum class Dorm(val code: String, val elementId: Int) {
-    First("DORM1", R.id.firstDorm),
-    Second("DORM2", R.id.secondDorm),
-    Third("DORM3", R.id.thirdDorm);
+enum class Dorm(val text: String, val elementId: Int) {
+    DORM1("1", R.id.firstDorm),
+    DORM2("2", R.id.secondDorm),
+    DORM3("3", R.id.thirdDorm);
 
     companion object {
         private val elementIdToDorm = values().associateBy { it.elementId }
@@ -25,9 +25,9 @@ enum class Gender {
     Female
 }
 
-enum class JoinPeriod(val elementId: Int) {
-    Short(R.id.sixteenWeeks),
-    Long(R.id.twentyFourWeeks);
+enum class JoinPeriod(val text:String, val elementId: Int) {
+    WEEK16("16", R.id.sixteenWeeks),
+    WEEK24("24", R.id.twentyFourWeeks);
 
     companion object {
         private val elementIdToJoinPeriod = values().associateBy { it.elementId }
