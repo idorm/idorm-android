@@ -83,7 +83,7 @@ class MatchingFragment : Fragment(), CardStackListener {
         setupControlButton()
         binding.matchingViewModel = viewModel
         binding.lifecycleOwner = this
-        viewModel.getMates(10)
+        viewModel.getMates(LoadMode.Update, size=10)
     }
 
     private fun setupFilter() {
@@ -92,7 +92,7 @@ class MatchingFragment : Fragment(), CardStackListener {
             if (result.resultCode == FILTER_RESULT_CODE) {
                 val intent = result.data
                 val filter = intent?.getParcelableExtra<RoomMateFilter>("filter")
-                viewModel.setFilter(filter!!)
+                viewModel.getMates(LoadMode.Update, filter ?: viewModel.matchingState.value.filter, 10)
                 Log.i(TAG, "result filter:  ${filter}")
             }
         }

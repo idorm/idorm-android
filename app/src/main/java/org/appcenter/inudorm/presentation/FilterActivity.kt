@@ -28,10 +28,10 @@ val defaultFilter =
 class FilterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFilterBinding
 
-    override fun onBackPressed() {
+    /*override fun onBackPressed() {
         submit(viewModel.filterState.value)
         super.onBackPressed()
-    }
+    }*/
 
     private fun submit(filter: RoomMateFilter) {
         // disallowedFeatures를 변경.

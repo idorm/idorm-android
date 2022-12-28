@@ -18,6 +18,7 @@ import org.appcenter.inudorm.util.addZeroToMakeLength
 
 
 object CodePromptBinding {
+    // Todo: 위험요소. 코드 프롬포트를 두번 이상 열었을 때 기존 값이 남아 있을 가능성 존재.
     var textBeforeChanged : String? = null
 
     @JvmStatic

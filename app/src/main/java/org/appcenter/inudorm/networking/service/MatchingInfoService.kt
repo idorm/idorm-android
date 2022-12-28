@@ -1,5 +1,6 @@
 package org.appcenter.inudorm.networking.service
 
+import androidx.annotation.Nullable
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import okio.BufferedSink

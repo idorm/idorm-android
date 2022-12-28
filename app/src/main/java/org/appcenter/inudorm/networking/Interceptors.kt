@@ -57,15 +57,19 @@ class ResponseInterceptor : Interceptor {
         val res = try {
             // 성공한 경우
             if (response.isSuccessful) {
-                val type = object : TypeToken<ResponseWrapper<*>>() {}.type
-                val result =
-                    gson.fromJson<ResponseWrapper<*>>(
-                        rawJsonResponse,
-                        type
-                    ) // parsed ResponseWrapper
-                        ?: throw JsonParseException("Failed to parse json")
-                IDormLogger.i(this, result.toString())
-                result.data
+                if (response.code() == 204) {
+                    emptyList<Any>()
+                } else {
+                    val type = object : TypeToken<ResponseWrapper<*>>() {}.type
+                    val result =
+                        gson.fromJson<ResponseWrapper<*>>(
+                            rawJsonResponse,
+                            type
+                        ) // parsed ResponseWrapper
+                            ?: throw JsonParseException("Failed to parse json")
+                    IDormLogger.i(this, result.toString())
+                    result.data
+                }
             } else {
                 // 정상적으로 실패한 경우
                 val type = object : TypeToken<ErrorResponse>() {}.type
@@ -87,8 +91,10 @@ class ResponseInterceptor : Interceptor {
 
         // Re-transform result to json and return
         val resultJson = gson.toJson(res)
+        IDormLogger.i(this, resultJson)
         val newResponse = response.newBuilder()
             .body(ResponseBody.create(MediaType.parse("application/json"), resultJson))
+            .code(200)
             .build()
         Log.d(TAG, "$res | $newResponse")
         return newResponse

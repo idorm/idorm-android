@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.yuyakaido.android.cardstackview.CardStackView
 import org.appcenter.inudorm.R
+import org.appcenter.inudorm.presentation.LoadMode
 import org.appcenter.inudorm.presentation.MatchingState
 import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter
+import org.appcenter.inudorm.util.IDormLogger
 
 object MatchingBinding {
     private val TAG = "MatchingBinding"
@@ -25,9 +27,17 @@ object MatchingBinding {
                 val a = adapter as RoomMateAdapter
                 // 리스트에 추가하고
                 val start = a.itemCount
-                a.dataSet.addAll(uiState.mates.subList(start, uiState.mates.size))
-                // 추가됐다고 알려주기!
-                a.notifyItemRangeInserted(start, uiState.mates.size - start)
+                IDormLogger.i(this@MatchingBinding, "state mutated")
+                if (uiState.loadMode == LoadMode.Paging) {
+                    a.dataSet.addAll(uiState.mates.subList(start, uiState.mates.size))
+                    // 추가됐다고 알려주기!
+                    a.notifyItemRangeInserted(start, uiState.mates.size - start)
+                } else if (uiState.loadMode == LoadMode.Update) {
+                    a.dataSet.clear()
+                    a.dataSet.addAll(uiState.mates)
+                    a.notifyDataSetChanged()
+                }
+
             }
     }
 
