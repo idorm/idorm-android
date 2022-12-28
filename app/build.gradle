@@ -77,5 +77,6 @@ dependencies {
     //Dependencies for Continuous slider
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'com.github.Jay-Goo:RangeSeekBar:v3.0.0'
+    implementation "org.jetbrains.kotlin:kotlin-reflect"
 
 }

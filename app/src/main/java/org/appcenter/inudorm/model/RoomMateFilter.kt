@@ -17,5 +17,5 @@ data class RoomMateFilter(
     var joinPeriod: JoinPeriod,
     var maxAge: Int,
     var minAge: Int,
-    var disAllowedFeatures: List<Int>,
+    var disAllowedFeatures: MutableList<Int>,
 ) : Parcelable

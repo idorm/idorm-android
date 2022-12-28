@@ -1,8 +1,6 @@
 package org.appcenter.inudorm.model
 
 
-
-
 /**
  * 매칭을 위한 정보에 대한 데이터입니다.
  * dormNum: 기숙사 식별자

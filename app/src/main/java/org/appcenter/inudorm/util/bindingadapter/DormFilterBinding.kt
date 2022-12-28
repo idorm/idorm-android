@@ -1,30 +1,15 @@
 package org.appcenter.inudorm.util.bindingadapter
 
-import android.os.Parcel
-import android.os.Parcelable
 import android.util.Log
 import androidx.databinding.*
 import com.google.android.material.chip.ChipGroup
-import org.appcenter.inudorm.model.Dorm
-import org.appcenter.inudorm.model.JoinPeriod
-import org.appcenter.inudorm.model.Taste
+import org.appcenter.inudorm.model.*
 import org.appcenter.inudorm.util.IDormLogger
 
 /**
  * 특정 도메인에 종속되는 친구들은 따로 빼줘야합니다.
  */
 object DormFilterBinding {
-
-    /**
-     * ChipGroup에 범용적으로 쓰는 이벤트 핸들러입니다.
-     */
-    @JvmStatic
-    @BindingAdapter(value = ["android:onCheckedAttrChanged"], requireAll = false)
-    fun ChipGroup.setEventListener(attrChanged: InverseBindingListener?) {
-        setOnCheckedStateChangeListener { group, checkedIds ->
-            attrChanged?.onChange()
-        }
-    }
 
     @JvmStatic
     @BindingAdapter("selectedDorm")
@@ -51,6 +36,7 @@ object DormFilterBinding {
     fun ChipGroup.getJoinPeriod(): JoinPeriod? {
         return JoinPeriod.fromElementId(checkedChipId)
     }
+
 }
 
 object ChipBinding {
@@ -77,6 +63,9 @@ object ChipBinding {
     @JvmStatic
     @InverseBindingAdapter(attribute = "selectedValues", event = "android:onCheckedAttrChanged")
     fun ChipGroup.getSelectedValues(): List<Int> = checkedChipIds
+
+
+
 
 
 }

@@ -13,6 +13,7 @@ import org.appcenter.inudorm.databinding.ActivityFilterBinding
 import org.appcenter.inudorm.model.Dorm
 import org.appcenter.inudorm.model.JoinPeriod
 import org.appcenter.inudorm.model.RoomMateFilter
+import org.appcenter.inudorm.model.Taste
 import org.appcenter.inudorm.util.IDormLogger
 
 val defaultFilter =
@@ -21,7 +22,7 @@ val defaultFilter =
         joinPeriod = JoinPeriod.WEEK16,
         minAge = 20,
         maxAge = 40,
-        disAllowedFeatures = emptyList()
+        disAllowedFeatures = mutableListOf()
     )
 
 class FilterActivity : AppCompatActivity() {
@@ -33,6 +34,14 @@ class FilterActivity : AppCompatActivity() {
     }
 
     private fun submit(filter: RoomMateFilter) {
+        // disallowedFeatures를 변경.
+
+        Taste.values().forEach {
+            val field =
+                RoomMateFilter::class.java.declaredFields.find { field -> field.name == it.key }
+            field?.isAccessible = true
+            field?.set(filter, filter.disAllowedFeatures.contains(it.elementId))
+        }
         val intent = Intent(applicationContext, MatchingFragment::class.java)
             .putExtra("filter", filter)
         setResult(FILTER_RESULT_CODE, intent)
@@ -94,12 +103,23 @@ class FilterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val filter = intent?.getParcelableExtra<RoomMateFilter>("filter")
+        val filter = intent?.getParcelableExtra("filter") ?: defaultFilter
         IDormLogger.i(this, filter.toString())
+        Taste.values().forEach {
+            RoomMateFilter::class.java.declaredFields.forEach { field ->
+                if (field.name == it.key) {
+                    field.isAccessible = true
+                    if (field.getBoolean(filter))
+                        filter.disAllowedFeatures.add(
+                            it.elementId
+                        )
+                }
+            }
+        }
 
         viewModel = ViewModelProvider(
             viewModelStore,
-            FilterViewModelFactory(filter ?: defaultFilter)
+            FilterViewModelFactory(filter)
         )[FilterViewModel::class.java]
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_filter)
