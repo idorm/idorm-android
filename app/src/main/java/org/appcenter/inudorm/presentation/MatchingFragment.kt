@@ -1,6 +1,7 @@
 package org.appcenter.inudorm.presentation
 
 import android.animation.ArgbEvaluator
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -25,6 +26,7 @@ import org.appcenter.inudorm.model.RoomMateFilter
 import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter
 import org.appcenter.inudorm.util.CustomDialog
 import org.appcenter.inudorm.util.DialogButton
+import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.MatchingViewUtil
 
 const val FILTER_RESULT_CODE = 1226
@@ -126,15 +128,16 @@ class MatchingFragment : Fragment(), CardStackListener {
                 positiveButton = DialogButton("카카오톡으로 이동", {
                     val position = layoutManager.topPosition
                     val link = adapter.dataSet[position].openKakaoLink
-                    if (link == null) {
-                        Toast.makeText(
-                            requireContext(),
-                            "카카오톡 오픈채팅 링크를 찾을 수 없어요.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    } else {
+                    IDormLogger.i(this, "Open link: $link")
+                    try {
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
                         startActivity(intent)
+                    } catch (_: ActivityNotFoundException) {
+                        Toast.makeText(
+                            requireContext(),
+                            "카카오톡 오픈채팅 링크를 찾을 수 없거나 올바르지 않아요.",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 })
             ).show(requireContext())

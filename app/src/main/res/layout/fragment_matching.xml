@@ -126,7 +126,9 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:rippleColor="@color/iDorm_gray_200"
                 app:srcCompat="@drawable/ic_no_red"
-                app:tint="@color/iDorm_red" />
+                app:tint="@color/iDorm_red"
+                android:enabled="@{!matchingViewModel.matchingState.loading}"
+                />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/backButton"
@@ -141,7 +143,10 @@
                 app:layout_constraintTop_toTopOf="@id/dislikeButton"
                 app:rippleColor="@color/iDorm_gray_200"
                 app:srcCompat="@drawable/ic_back"
-                app:tint="@color/iDorm_blue" />
+                app:tint="@color/iDorm_blue"
+                android:enabled="@{!matchingViewModel.matchingState.loading}"
+
+                />
 
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -156,7 +161,10 @@
                 app:layout_constraintTop_toTopOf="@id/dislikeButton"
                 app:rippleColor="@color/iDorm_gray_200"
                 app:srcCompat="@drawable/ic_chat_yellow"
-                app:tint="@color/iDorm_yellow" />
+                app:tint="@color/iDorm_yellow"
+                android:enabled="@{!matchingViewModel.matchingState.loading}"
+
+                />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/likeButton"
@@ -169,7 +177,10 @@
                 app:layout_constraintTop_toTopOf="@id/dislikeButton"
                 app:rippleColor="@color/iDorm_gray_200"
                 app:srcCompat="@drawable/ic_heart"
-                app:tint="@color/iDorm_green" />
+                app:tint="@color/iDorm_green"
+                android:enabled="@{!matchingViewModel.matchingState.loading}"
+
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
