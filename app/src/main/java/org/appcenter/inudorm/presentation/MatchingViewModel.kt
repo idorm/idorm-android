@@ -63,19 +63,20 @@ class MatchingViewModel : ViewModel() {
                         loadMode = loadMode,
                     )
                 }
-            }.onFailure {
-                IDormLogger.i(this@MatchingViewModel, it.toString())
-
+            }.onFailure { err ->
+                IDormLogger.i(this@MatchingViewModel, err.toString())
                 _matchingState.update {
                     it.copy(
                         isLoading = false,
-                        errorMessage = it.errorMessage,
+                        errorMessage = err.message,
                         loadMode = loadMode
                     )
                 }
             }
         }
     }
+
+
 }
 
 class MatchingViewModelFactory :

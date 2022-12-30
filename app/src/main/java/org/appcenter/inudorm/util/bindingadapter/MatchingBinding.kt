@@ -1,13 +1,8 @@
 package org.appcenter.inudorm.util.bindingadapter
 
-import android.text.TextUtils
-import android.util.Log
 import android.view.View
-import android.widget.EditText
 import android.widget.TextView
-import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.yuyakaido.android.cardstackview.CardStackView
 import org.appcenter.inudorm.R

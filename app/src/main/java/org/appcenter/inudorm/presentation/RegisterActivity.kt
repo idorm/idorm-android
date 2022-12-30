@@ -9,14 +9,11 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityRegisterBinding
-import org.appcenter.inudorm.networking.IDormError
 import org.appcenter.inudorm.presentation.account.*
-import org.appcenter.inudorm.repository.UserRepository
 import org.appcenter.inudorm.usecase.Register
 import org.appcenter.inudorm.usecase.RegisterParams
 import org.appcenter.inudorm.util.CustomDialog
 import org.appcenter.inudorm.util.DialogButton
-import org.appcenter.inudorm.util.Event
 import org.appcenter.inudorm.util.IDormLogger
 
 class RegisterActivity : PromptActivity() {

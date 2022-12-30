@@ -1,34 +1,22 @@
 package org.appcenter.inudorm.presentation
 
-import android.content.Context
-import android.util.Log
-import android.widget.Toast
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import org.appcenter.inudorm.networking.ErrorCode
 import org.appcenter.inudorm.networking.IDormError
 import org.appcenter.inudorm.repository.PrefsRepository
-import org.appcenter.inudorm.repository.UserRepository
 import org.appcenter.inudorm.usecase.Login
 import org.appcenter.inudorm.usecase.UserInputParams
 import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.emailValidator
 import org.appcenter.inudorm.util.passwordValidator
-import java.net.UnknownHostException
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
-import kotlin.reflect.KFunction1
 
 @OptIn(ExperimentalContracts::class)
 inline fun <T> Result<T>.onError(
