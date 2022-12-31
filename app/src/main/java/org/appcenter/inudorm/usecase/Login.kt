@@ -1,5 +1,6 @@
 package org.appcenter.inudorm.usecase
 
+import org.appcenter.inudorm.App
 import org.appcenter.inudorm.App.Companion.userRepository
 import org.appcenter.inudorm.model.User
 import org.appcenter.inudorm.repository.PrefsRepository
@@ -30,6 +31,7 @@ class Login(private val prefsRepository: PrefsRepository) : UseCase<UserInputPar
         IDormLogger.i(this, "token: $token")
         return if (token != null) {
             prefsRepository.setUserToken(token)
+            App.token = token
             true
         } else {
             false

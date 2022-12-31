@@ -3,13 +3,14 @@ package org.appcenter.inudorm.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.yuyakaido.android.cardstackview.Direction
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.App.Companion.localFilterRepository
 import org.appcenter.inudorm.model.*
-import org.appcenter.inudorm.usecase.GetRoomMates
+import org.appcenter.inudorm.usecase.*
 import org.appcenter.inudorm.util.IDormLogger
 import java.util.*
 
@@ -19,7 +20,7 @@ data class MatchingState(
     var errorMessage: String? = null,
     var mates: ArrayList<MatchingInfo> = ArrayList(),
     var filter: RoomMateFilter,
-    var loadMode: LoadMode = LoadMode.Prepare
+    var loadMode: LoadMode = LoadMode.Prepare,
 )
 
 enum class LoadMode {
@@ -37,6 +38,10 @@ class MatchingViewModel : ViewModel() {
     )
     val matchingState: StateFlow<MatchingState>
         get() = _matchingState
+
+    private val _swipeState: MutableStateFlow<Direction?> = MutableStateFlow(null)
+    val swipeState: StateFlow<Direction?>
+        get() = _swipeState
 
     /*
     * Todo: Persons Data (for matching)
@@ -76,6 +81,45 @@ class MatchingViewModel : ViewModel() {
         }
     }
 
+    /*
+        Todo: 좋아요/싫어요된 카드는 fill 해주기
+        Todo: 좋아요/싫어요 할떄는 지우기
+     */
+
+    fun addLikedMate(id: Int) {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                AddLikedMatchingInfo().run(id)
+            }.onSuccess {
+                _swipeState.emit(Direction.Right)
+            }
+        }
+    }
+    fun deleteLikedMate(id: Int) {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                DeleteLikedMatchingInfo().run(id)
+            }.onSuccess {
+            }
+        }
+    }
+    fun addDislikedMate(id:Int) {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                AddDislikedMatchingInfo().run(id)
+            }.onSuccess {
+                _swipeState.emit(Direction.Left)
+            }
+        }
+    }
+    fun deleteDislikedMate(id:Int) {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                DeleteDislikedMatchingInfo().run(id)
+            }.onSuccess {
+            }
+        }
+    }
 
 }
 

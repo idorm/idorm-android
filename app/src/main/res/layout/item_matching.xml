@@ -372,7 +372,7 @@
 
                     android:fontFamily="@font/notosans_bold"
                     android:includeFontPadding="false"
-                    android:text="@string/mbtiCardText"
+                    android:text="@{mate.mbti}"
                     android:textAllCaps="true"
 
                     android:textColor="@color/iDorm_gray_300"

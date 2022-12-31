@@ -31,7 +31,7 @@
 
         </io.github.florent37.shapeofview.shapes.ArcView>
 
-        <!-- 홈, 필터설정, 되돌리기 버튼이 있는 조작부입니다. 각각은 ImageView로 구현했습니다. -->
+        <!-- 필터설정버튼이 있는 조작부입니다. -->
         <LinearLayout
             android:id="@+id/controls"
             android:layout_width="match_parent"
@@ -51,12 +51,15 @@
                     android:layout_height="0dp"
                     android:layout_weight="1" />
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/openFilterButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:src="@drawable/ic_prefs" />
+                    android:src="@drawable/ic_prefs"
+                    android:padding="10dp"
+                    android:background="@android:color/transparent"
+                    />
 
             </LinearLayout>
 
