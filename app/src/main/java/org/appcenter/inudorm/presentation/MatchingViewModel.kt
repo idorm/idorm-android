@@ -1,16 +1,17 @@
 package org.appcenter.inudorm.presentation
 
+import android.os.Bundle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.yuyakaido.android.cardstackview.Direction
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.App.Companion.localFilterRepository
 import org.appcenter.inudorm.model.*
 import org.appcenter.inudorm.usecase.*
+import org.appcenter.inudorm.util.DialogButton
+import org.appcenter.inudorm.util.Event
 import org.appcenter.inudorm.util.IDormLogger
 import java.util.*
 
@@ -29,6 +30,13 @@ enum class LoadMode {
     Update
 }
 
+sealed class UserPreferenceEvent {
+    data class AddLikedMatchingInfo(val id: Int, val success: Boolean) :
+        UserPreferenceEvent();
+    data class AddDislikedMatchingInfo(val id: Int, val success: Boolean) :
+        UserPreferenceEvent();
+}
+
 class MatchingViewModel : ViewModel() {
     private val _matchingState: MutableStateFlow<MatchingState> = MutableStateFlow(
         MatchingState(
@@ -39,16 +47,20 @@ class MatchingViewModel : ViewModel() {
     val matchingState: StateFlow<MatchingState>
         get() = _matchingState
 
-    private val _swipeState: MutableStateFlow<Direction?> = MutableStateFlow(null)
-    val swipeState: StateFlow<Direction?>
-        get() = _swipeState
+    private val _userPreferenceEvent: MutableSharedFlow<UserPreferenceEvent> = MutableSharedFlow()
+    val userPreferenceEvent: SharedFlow<UserPreferenceEvent>
+        get() = _userPreferenceEvent
 
     /*
     * Todo: Persons Data (for matching)
     * Todo: Pass and Like feature
     */
     // TODO: Implement the ViewModel
-    fun getMates(loadMode: LoadMode, filter: RoomMateFilter = _matchingState.value.filter, size: Int) {
+    fun getMates(
+        loadMode: LoadMode,
+        filter: RoomMateFilter = _matchingState.value.filter,
+        size: Int
+    ) {
         _matchingState.update {
             it.copy(
                 isLoading = true,
@@ -91,10 +103,16 @@ class MatchingViewModel : ViewModel() {
             kotlin.runCatching {
                 AddLikedMatchingInfo().run(id)
             }.onSuccess {
-                _swipeState.emit(Direction.Right)
+                _userPreferenceEvent.emit(
+                    UserPreferenceEvent.AddLikedMatchingInfo(
+                        id,
+                        true,
+                    )
+                )
             }
         }
     }
+
     fun deleteLikedMate(id: Int) {
         viewModelScope.launch {
             kotlin.runCatching {
@@ -103,16 +121,23 @@ class MatchingViewModel : ViewModel() {
             }
         }
     }
-    fun addDislikedMate(id:Int) {
+
+    fun addDislikedMate(id: Int) {
         viewModelScope.launch {
             kotlin.runCatching {
                 AddDislikedMatchingInfo().run(id)
             }.onSuccess {
-                _swipeState.emit(Direction.Left)
+                _userPreferenceEvent.emit(
+                    UserPreferenceEvent.AddDislikedMatchingInfo(
+                        id,
+                        true,
+                    )
+                )
             }
         }
     }
-    fun deleteDislikedMate(id:Int) {
+
+    fun deleteDislikedMate(id: Int) {
         viewModelScope.launch {
             kotlin.runCatching {
                 DeleteDislikedMatchingInfo().run(id)

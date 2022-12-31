@@ -47,6 +47,20 @@ class MatchingFragment : Fragment(), CardStackListener {
 
     private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
 
+    fun CardStackView.swipeTo(direction: Direction) {
+        (this.layoutManager as CardStackLayoutManager).setSwipeAnimationSetting(
+            matchingViewUtil.getSwipeAnimationSetting(
+                direction
+            )
+        )
+        binding.cardStackView.swipe()
+        when (direction) {
+            Direction.Left -> animateColorAndRestore(matchingViewUtil.red, 150)
+            Direction.Right -> animateColorAndRestore(matchingViewUtil.green, 150)
+            else -> {}
+        }
+    }
+
     private fun setupCardStackView() {
         val setting = SwipeAnimationSetting.Builder()
             .setDirection(Direction.Right)
@@ -85,19 +99,38 @@ class MatchingFragment : Fragment(), CardStackListener {
         setupControlButton()
         binding.matchingViewModel = viewModel
         binding.lifecycleOwner = this
-        viewModel.getMates(LoadMode.Update, size=10)
+        viewModel.getMates(LoadMode.Update, size = 10)
+        lifecycleScope.launch {
+            viewModel.userPreferenceEvent.collect { state ->
+                when (state) {
+                    is UserPreferenceEvent.AddLikedMatchingInfo -> {
+                        if (!state.success)
+                            binding.cardStackView.rewind()
+                    }
+                    is UserPreferenceEvent.AddDislikedMatchingInfo -> {
+                        if (!state.success)
+                            binding.cardStackView.rewind()
+                    }
+                }
+            }
+        }
     }
 
     private fun setupFilter() {
-        activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            Log.i(TAG, "activity result: ${result.resultCode} ${result.data}")
-            if (result.resultCode == FILTER_RESULT_CODE) {
-                val intent = result.data
-                val filter = intent?.getParcelableExtra<RoomMateFilter>("filter")
-                viewModel.getMates(LoadMode.Update, filter ?: viewModel.matchingState.value.filter, 10)
-                Log.i(TAG, "result filter:  ${filter}")
+        activityResultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                Log.i(TAG, "activity result: ${result.resultCode} ${result.data}")
+                if (result.resultCode == FILTER_RESULT_CODE) {
+                    val intent = result.data
+                    val filter = intent?.getParcelableExtra<RoomMateFilter>("filter")
+                    viewModel.getMates(
+                        LoadMode.Update,
+                        filter ?: viewModel.matchingState.value.filter,
+                        10
+                    )
+                    Log.i(TAG, "result filter:  ${filter}")
+                }
             }
-        }
     }
 
     private fun animateColorAndRestore(color: Int, duration: Long) {
@@ -109,14 +142,13 @@ class MatchingFragment : Fragment(), CardStackListener {
 
     private fun setupControlButton() {
         binding.dislikeButton.setOnClickListener {
-            layoutManager.setSwipeAnimationSetting(
-                matchingViewUtil.getSwipeAnimationSetting(
-                    Direction.Left
-                )
-            )
-            binding.cardStackView.swipe()
-            animateColorAndRestore(matchingViewUtil.red, 150)
+            binding.cardStackView.swipeTo(Direction.Left)
         }
+        binding.likeButton.setOnClickListener {
+            binding.cardStackView.swipeTo(Direction.Right)
+        }
+
+
         binding.backButton.setOnClickListener {
             binding.cardStackView.rewind()
         }
@@ -142,17 +174,11 @@ class MatchingFragment : Fragment(), CardStackListener {
                 })
             ).show(requireContext())
         }
-        binding.likeButton.setOnClickListener {
-            layoutManager.setSwipeAnimationSetting(
-                matchingViewUtil.getSwipeAnimationSetting(
-                    Direction.Right
-                )
-            )
-            binding.cardStackView.swipe()
-            animateColorAndRestore(matchingViewUtil.green, 150)
-        }
         binding.openFilterButton.setOnClickListener {
-            val intent = Intent(this@MatchingFragment.activity?.applicationContext, FilterActivity::class.java)
+            val intent = Intent(
+                this@MatchingFragment.activity?.applicationContext,
+                FilterActivity::class.java
+            )
             intent.putExtra("filter", viewModel.matchingState.value.filter)
             activityResultLauncher.launch(intent)
         }
@@ -174,7 +200,13 @@ class MatchingFragment : Fragment(), CardStackListener {
         lifecycleScope.launch {
             matchingViewUtil.animateToColor(binding.circle, matchingViewUtil.blue, 250)
         }
-
+        val position = layoutManager.topPosition
+        IDormLogger.i(this, "current pos: $position")
+        when (direction) {
+            Direction.Left -> viewModel.addDislikedMate(adapter.dataSet[position-1].memberId)
+            Direction.Right -> viewModel.addLikedMate(adapter.dataSet[position-1].memberId)
+            else -> {}
+        }
     }
 
     override fun onCardRewound() {}
