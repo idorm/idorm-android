@@ -15,6 +15,7 @@ import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityMainBinding
 import org.appcenter.inudorm.presentation.HomeFragment
 import org.appcenter.inudorm.presentation.MainViewModel
+import org.appcenter.inudorm.presentation.matching.MatchingFragment
 import org.appcenter.inudorm.presentation.mypage.MyPageFragment
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener, OnSnackBarCallListener {

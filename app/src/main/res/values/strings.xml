@@ -201,4 +201,5 @@
     <string name="refreshInteraction">새로고침</string>
 
     <string name="noNetworkConnection">앗, 네트워크 연결을 다시 확인해주세요! 😲</string>
+    <string name="close">닫기</string>
 </resources>

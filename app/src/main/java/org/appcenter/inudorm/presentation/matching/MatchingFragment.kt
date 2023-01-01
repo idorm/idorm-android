@@ -1,5 +1,6 @@
 package org.appcenter.inudorm.presentation.matching
 
+import SelectItem
 import android.animation.ArgbEvaluator
 import android.content.ActivityNotFoundException
 import android.content.Context
@@ -27,10 +28,7 @@ import org.appcenter.inudorm.OnSnackBarCallListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentMatchingBinding
 import org.appcenter.inudorm.model.RoomMateFilter
-import org.appcenter.inudorm.presentation.LoadMode
-import org.appcenter.inudorm.presentation.MatchingViewModel
-import org.appcenter.inudorm.presentation.MatchingViewModelFactory
-import org.appcenter.inudorm.presentation.UserPreferenceEvent
+import org.appcenter.inudorm.presentation.*
 import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter
 import org.appcenter.inudorm.util.CustomDialog
 import org.appcenter.inudorm.util.DialogButton
@@ -82,7 +80,25 @@ class MatchingFragment : Fragment(), CardStackListener {
             setVisibleCount(4)
         }
 
-        adapter = RoomMateAdapter(ArrayList())
+        adapter = RoomMateAdapter(ArrayList()) {
+            val modalBottomSheet = ListBottomSheet(
+                arrayListOf(
+                    SelectItem(
+                        "신고하기",
+                        "report",
+                        desc = getString(R.string.declarationReason)
+                    )
+                )
+            ) {
+                if (it.value == "report") {
+                    // Todo: 신고하기
+                }
+            }
+            modalBottomSheet.show(
+                requireActivity().supportFragmentManager,
+                ListBottomSheet.TAG
+            )
+        }
 
         binding.cardStackView.layoutManager = layoutManager
         binding.cardStackView.adapter = adapter
@@ -120,7 +136,8 @@ class MatchingFragment : Fragment(), CardStackListener {
                     is UserPreferenceEvent.AddDislikedMatchingInfo -> {
                         if (!state.success)
                             binding.cardStackView.rewind()
-                    } else -> {}
+                    }
+                    else -> {}
                 }
             }
         }
