@@ -12,7 +12,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.textfield.TextInputLayout.*
 import org.appcenter.inudorm.R
-import org.appcenter.inudorm.presentation.account.PasswordState
+import org.appcenter.inudorm.presentation.account.prompt.PasswordState
 import org.appcenter.inudorm.util.passwordCharacterValidator
 import org.appcenter.inudorm.util.passwordValidator
 

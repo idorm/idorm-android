@@ -1,10 +1,6 @@
 package org.appcenter.inudorm.networking
 
-import org.appcenter.inudorm.presentation.account.EmailPromptPurpose
-import org.appcenter.inudorm.util.IDormLogger
-import retrofit2.HttpException
 import java.io.IOException
-import kotlin.reflect.KProperty0
 
 
 enum class StatusCode(private val code:Int)  {

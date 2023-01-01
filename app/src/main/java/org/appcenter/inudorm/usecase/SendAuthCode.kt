@@ -1,7 +1,7 @@
 package org.appcenter.inudorm.usecase
 
 import org.appcenter.inudorm.App.Companion.userRepository
-import org.appcenter.inudorm.presentation.account.EmailPromptPurpose
+import org.appcenter.inudorm.presentation.account.prompt.EmailPromptPurpose
 import kotlin.reflect.KSuspendFunction1
 
 data class SendAuthCodeParams(val codeType: EmailPromptPurpose, val email:String)

@@ -7,7 +7,7 @@
 
         <variable
             name="loginViewModel"
-            type="org.appcenter.inudorm.presentation.LoginViewModel" />
+            type="org.appcenter.inudorm.presentation.account.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

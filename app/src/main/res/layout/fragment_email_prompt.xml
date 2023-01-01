@@ -7,7 +7,7 @@
 
         <variable
             name="emailViewModel"
-            type="org.appcenter.inudorm.presentation.account.EmailPromptViewModel" />
+            type="org.appcenter.inudorm.presentation.account.prompt.EmailPromptViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

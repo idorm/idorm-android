@@ -7,7 +7,7 @@
 
         <variable
             name="codeViewModel"
-            type="org.appcenter.inudorm.presentation.account.CodePromptViewModel" />
+            type="org.appcenter.inudorm.presentation.account.prompt.CodePromptViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:paddingHorizontal="24dp"
         android:paddingBottom="33dp"
-        tools:context=".presentation.account.CodePromptFragment">
+        tools:context=".presentation.account.prompt.CodePromptFragment">
 
         <ScrollView
             android:id="@+id/scrollView"

@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:paddingHorizontal="24dp"
         android:paddingBottom="85dp"
-        tools:context=".presentation.account.CodePromptFragment">
+        tools:context=".presentation.account.prompt.CodePromptFragment">
 
         <ScrollView
             android:id="@+id/scrollView"

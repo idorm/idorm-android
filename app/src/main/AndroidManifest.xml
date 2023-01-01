@@ -19,70 +19,70 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IDorm.White">
         <activity
-            android:name=".presentation.WithdrawalActivity"
+            android:name=".presentation.account.WithdrawalActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
             tools:ignore="LockedOrientationActivity">
         </activity>
         <activity
-            android:name=".presentation.NotificationSettingActivity"
+            android:name=".presentation.mypage.NotificationSettingActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
             tools:ignore="LockedOrientationActivity">
         </activity>
         <activity
-            android:name=".presentation.ChangeNickNameActivity"
+            android:name=".presentation.mypage.ChangeNickNameActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
             tools:ignore="LockedOrientationActivity">
         </activity>
         <activity
-            android:name=".presentation.WritePostActivity"
+            android:name=".presentation.board.WritePostActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".presentation.PostDetailActivity"
+            android:name=".presentation.board.PostDetailActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".presentation.ScheduleDetailActivity"
+            android:name=".presentation.calendar.ScheduleDetailActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".presentation.LikedMateListActivity"
+            android:name=".presentation.mypage.LikedMateListActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".presentation.DisikedMateListActivity"
+            android:name=".presentation.mypage.DisikedMateListActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".presentation.CommentListActivity"
+            android:name=".presentation.mypage.CommentListActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".presentation.PostListActivity"
+            android:name=".presentation.board.PostListActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".presentation.OnboardActivity"
+            android:name=".presentation.account.OnboardActivity"
             android:exported="true"
             android:label="@string/title_activity_onboard"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".presentation.FindPassActivity"
+            android:name=".presentation.account.FindPassActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
@@ -106,25 +106,25 @@
             android:theme="@style/Theme.IDorm.White"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".presentation.RegisterActivity"
+            android:name=".presentation.account.RegisterActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".presentation.LoginActivity"
+            android:name=".presentation.account.LoginActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".presentation.MainActivity"
+            android:name=".presentation.account.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".presentation.MyInfoSettingActivity"
+            android:name=".presentation.mypage.MyInfoSettingActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
