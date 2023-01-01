@@ -2,6 +2,8 @@ package org.appcenter.inudorm.presentation
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -127,11 +129,31 @@ class FilterActivity : AppCompatActivity() {
             filterViewModel = viewModel
             lifecycleOwner = this@FilterActivity
         }
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.title = ""
+
         initSeekbar()
         binding.filterDoneButton.setOnClickListener {
             submit(viewModel.filterState.value)
         }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.single_close, menu)
+        return true
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.close -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 
     //seekBar의 val값이 40인지 확인하는 함수
     private fun checkSeekVal(v: Float): String = if (v >= 40) "40+" else v.toInt().toString()

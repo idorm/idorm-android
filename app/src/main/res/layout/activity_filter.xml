@@ -29,7 +29,9 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:titleTextColor="@color/black">
+            app:titleTextColor="@color/black"
+            app:menu="@menu/single_close"
+            >
 
             <TextView
                 android:layout_width="wrap_content"
