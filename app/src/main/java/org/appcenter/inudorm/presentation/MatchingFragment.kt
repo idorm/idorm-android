@@ -122,9 +122,10 @@ class MatchingFragment : Fragment(), CardStackListener {
         }
         lifecycleScope.launch {
             viewModel.matchingState.collect {
+                // Todo: ⚠️ 네트워크 오류로 퉁치지 말고 꼭!! 상황별 에러 대응하게 처리할 것!!!
                 if (it.errorMessage != null) {
                     (requireContext() as OnSnackBarCallListener).onSnackBarCalled(
-                        "앗, 네트워크 연결을 다시 확인해주세요! \uD83D\uDE32",
+                        getString(R.string.noNetworkConnection),
                         Snackbar.LENGTH_LONG
                     )
                 }

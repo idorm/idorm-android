@@ -199,4 +199,6 @@
     <string name="chatToMateInteraction">룸메이트와 채팅하기</string>
     <string name="deleteLikedMateInteraction">좋아요한 룸메이트 삭제하기</string>
     <string name="refreshInteraction">새로고침</string>
+
+    <string name="noNetworkConnection">앗, 네트워크 연결을 다시 확인해주세요! 😲</string>
 </resources>
