@@ -2,6 +2,7 @@ package org.appcenter.inudorm.util
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
+import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -15,7 +16,7 @@ import com.yuyakaido.android.cardstackview.SwipeAnimationSetting
 import kotlinx.coroutines.delay
 import org.appcenter.inudorm.R
 
-class MatchingViewUtil(context: Context) {
+class MatchingViewUtil(val context: Activity) {
     val blue = ContextCompat.getColor(context, R.color.iDorm_blue)
     val green = ContextCompat.getColor(context, R.color.iDorm_green)
     val yellow = ContextCompat.getColor(context, R.color.iDorm_yellow)
@@ -65,6 +66,7 @@ class MatchingViewUtil(context: Context) {
         val colorFrom = (circle.background as ColorDrawable).color
         animateColors(colorFrom, colorTo, duration) {
             circle.setBackgroundColor(it)
+            context.window.statusBarColor = it
         }
         delay(duration)
     }

@@ -53,23 +53,22 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/refreshButton"
+                    style="@style/Widget.DesignSystem.Chip.FlatBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:padding="10dp"
-                    style="@style/Widget.DesignSystem.Chip.FlatBox"
-                    android:text="@string/refreshInteraction"
                     android:onClick="@{() -> matchingViewModel.refresh()}"
-                    />
+                    android:padding="10dp"
+                    android:text="@string/refreshInteraction" />
+
                 <ImageButton
                     android:id="@+id/openFilterButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:src="@drawable/ic_prefs"
-                    android:padding="10dp"
                     android:background="@android:color/transparent"
-                    />
+                    android:padding="10dp"
+                    android:src="@drawable/ic_prefs" />
 
             </LinearLayout>
 
@@ -81,18 +80,17 @@
             android:id="@+id/endOfItems"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="66dp"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@id/stackViewControl"
-            app:layout_constraintTop_toBottomOf="@id/controls"
-            >
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/controls">
+
 
             <com.google.android.material.progressindicator.CircularProgressIndicator
                 matchingState="@{matchingViewModel.matchingState}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:indeterminate="true"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:indeterminate="true" />
 
             <TextView
                 matchingState="@{matchingViewModel.matchingState}"
@@ -102,99 +100,114 @@
 
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
-                android:textSize="12sp"
                 android:text="@string/noMoreRoomMates"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textSize="12sp" />
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="0dp"
+                android:elevation="10dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@id/stackViewControl"
+                app:layout_constraintTop_toBottomOf="@id/controls">
+
+                <com.yuyakaido.android.cardstackview.CardStackView
+                    android:id="@+id/cardStackView"
+                    matchingState="@{matchingViewModel.matchingState}"
+                    android:layout_width="match_parent"
+                    android:layout_height="500sp"
+                    android:layout_marginVertical="0dp"
+                    android:elevation="10dp"
+                    tools:listitem="@layout/item_matching" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/stackViewControl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1">
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/dislikeButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:backgroundTint="@color/white"
+                        android:enabled="@{!matchingViewModel.matchingState.loading}"
+                        app:borderWidth="0dp"
+                        app:fabCustomSize="60sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:rippleColor="@color/iDorm_gray_200"
+                        app:srcCompat="@drawable/ic_no_red"
+                        app:tint="@color/iDorm_red" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/backButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginEnd="18dp"
+                        android:backgroundTint="@color/white"
+
+                        android:enabled="@{!matchingViewModel.matchingState.loading}"
+                        app:borderWidth="0dp"
+                        app:fabCustomSize="60sp"
+                        app:layout_constraintEnd_toStartOf="@+id/chatButton"
+                        app:layout_constraintStart_toEndOf="@id/dislikeButton"
+                        app:layout_constraintTop_toTopOf="@id/dislikeButton"
+                        app:rippleColor="@color/iDorm_gray_200"
+                        app:srcCompat="@drawable/ic_back"
+                        app:tint="@color/iDorm_blue"
+
+                        />
+
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/chatButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="18dp"
+                        android:backgroundTint="@color/white"
+                        android:enabled="@{!matchingViewModel.matchingState.loading}"
+                        app:borderWidth="0dp"
+                        app:fabCustomSize="60sp"
+                        app:layout_constraintEnd_toStartOf="@+id/likeButton"
+                        app:layout_constraintStart_toEndOf="@id/backButton"
+                        app:layout_constraintTop_toTopOf="@id/dislikeButton"
+                        app:rippleColor="@color/iDorm_gray_200"
+                        app:srcCompat="@drawable/ic_chat_yellow"
+                        app:tint="@color/iDorm_yellow"
+
+                        />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/likeButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:backgroundTint="@color/white"
+                        android:enabled="@{!matchingViewModel.matchingState.loading}"
+                        app:borderWidth="0dp"
+                        app:fabCustomSize="60sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/dislikeButton"
+                        app:rippleColor="@color/iDorm_gray_200"
+                        app:srcCompat="@drawable/ic_heart"
+                        app:tint="@color/iDorm_green"
+
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
         </FrameLayout>
 
-        <com.yuyakaido.android.cardstackview.CardStackView
-            android:id="@+id/cardStackView"
-            matchingState="@{matchingViewModel.matchingState}"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginVertical="0dp"
-            android:elevation="10dp"
-            app:layout_constraintBottom_toTopOf="@id/stackViewControl"
-            app:layout_constraintTop_toBottomOf="@id/controls"
-            />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/stackViewControl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/dislikeButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:backgroundTint="@color/white"
-                app:borderWidth="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:rippleColor="@color/iDorm_gray_200"
-                app:srcCompat="@drawable/ic_no_red"
-                app:tint="@color/iDorm_red"
-                android:enabled="@{!matchingViewModel.matchingState.loading}"
-                />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/backButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginEnd="18dp"
-                android:backgroundTint="@color/white"
-                app:borderWidth="0dp"
-                app:layout_constraintEnd_toStartOf="@+id/chatButton"
-                app:layout_constraintStart_toEndOf="@id/dislikeButton"
-                app:layout_constraintTop_toTopOf="@id/dislikeButton"
-                app:rippleColor="@color/iDorm_gray_200"
-                app:srcCompat="@drawable/ic_back"
-                app:tint="@color/iDorm_blue"
-                android:enabled="@{!matchingViewModel.matchingState.loading}"
-
-                />
-
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/chatButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="18dp"
-                android:backgroundTint="@color/white"
-                app:borderWidth="0dp"
-                app:layout_constraintEnd_toStartOf="@+id/likeButton"
-                app:layout_constraintStart_toEndOf="@id/backButton"
-                app:layout_constraintTop_toTopOf="@id/dislikeButton"
-                app:rippleColor="@color/iDorm_gray_200"
-                app:srcCompat="@drawable/ic_chat_yellow"
-                app:tint="@color/iDorm_yellow"
-                android:enabled="@{!matchingViewModel.matchingState.loading}"
-
-                />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/likeButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:backgroundTint="@color/white"
-                app:borderWidth="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/dislikeButton"
-                app:rippleColor="@color/iDorm_gray_200"
-                app:srcCompat="@drawable/ic_heart"
-                app:tint="@color/iDorm_green"
-                android:enabled="@{!matchingViewModel.matchingState.loading}"
-
-                />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

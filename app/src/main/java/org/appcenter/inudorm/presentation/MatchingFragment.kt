@@ -4,6 +4,7 @@ import android.animation.ArgbEvaluator
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +15,7 @@ import android.view.animation.AccelerateInterpolator
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -42,12 +44,12 @@ class MatchingFragment : Fragment(), CardStackListener {
     private lateinit var layoutManager: CardStackLayoutManager
     private lateinit var adapter: RoomMateAdapter
     private val matchingViewUtil by lazy {
-        MatchingViewUtil(requireContext())
+        MatchingViewUtil(requireActivity())
     }
 
     private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
 
-    fun CardStackView.swipeTo(direction: Direction) {
+    private fun CardStackView.swipeTo(direction: Direction) {
         (this.layoutManager as CardStackLayoutManager).setSwipeAnimationSetting(
             matchingViewUtil.getSwipeAnimationSetting(
                 direction
@@ -90,6 +92,7 @@ class MatchingFragment : Fragment(), CardStackListener {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.iDorm_blue)
         setupFilter()
     }
 
@@ -192,6 +195,7 @@ class MatchingFragment : Fragment(), CardStackListener {
             matchingViewUtil.directionToColor(direction!!)
         ) as Int
         binding.circle.setBackgroundColor(rgbEval)
+        requireActivity().window.statusBarColor = rgbEval
     }
 
 
@@ -218,5 +222,10 @@ class MatchingFragment : Fragment(), CardStackListener {
 
     override fun onCardAppeared(view: View?, position: Int) {}
     override fun onCardDisappeared(view: View?, position: Int) {}
+
+    override fun onDetach() {
+        requireActivity().window.statusBarColor = Color.WHITE
+        super.onDetach()
+    }
 
 }

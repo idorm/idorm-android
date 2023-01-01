@@ -20,9 +20,9 @@ enum class Dorm(val text: String, val elementId: Int) {
     }
 }
 
-enum class Gender {
-    Male,
-    Female
+enum class Gender(val text:String) {
+    MALE("남성"),
+    FEMALE("여성")
 }
 
 enum class JoinPeriod(val text:String, val elementId: Int) {

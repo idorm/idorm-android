@@ -13,7 +13,7 @@
     <FrameLayout
         android:id="@+id/card"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="20dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -268,7 +268,7 @@
                         android:fontFamily="@font/notosans_medium"
                         android:includeFontPadding="false"
                         android:padding="10dp"
-                        android:text="@string/moreCardText"
+                        android:text="@{mate.wishText}"
                         android:textColor="@color/iDorm_gray_400"
                         android:textSize="14sp"
 
@@ -311,7 +311,7 @@
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/notosans_bold"
                     android:includeFontPadding="false"
-                    android:text="@string/genderCardText"
+                    android:text="@{mate.gender.text}"
 
                     android:textColor="@color/iDorm_gray_400"
                     android:textSize="12sp"
