@@ -20,8 +20,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
 import com.yuyakaido.android.cardstackview.*
 import kotlinx.coroutines.launch
+import org.appcenter.inudorm.OnSnackBarCallListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentMatchingBinding
 import org.appcenter.inudorm.model.RoomMateFilter
@@ -92,7 +94,8 @@ class MatchingFragment : Fragment(), CardStackListener {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), R.color.iDorm_blue)
+        requireActivity().window.statusBarColor =
+            ContextCompat.getColor(requireContext(), R.color.iDorm_blue)
         setupFilter()
     }
 
@@ -117,6 +120,18 @@ class MatchingFragment : Fragment(), CardStackListener {
                 }
             }
         }
+        lifecycleScope.launch {
+            viewModel.matchingState.collect {
+                if (it.errorMessage != null) {
+                    (requireContext() as OnSnackBarCallListener).onSnackBarCalled(
+                        "앗, 네트워크 연결을 다시 확인해주세요! \uD83D\uDE32",
+                        Snackbar.LENGTH_LONG
+                    )
+                }
+            }
+        }
+
+
     }
 
     private fun setupFilter() {
@@ -150,7 +165,6 @@ class MatchingFragment : Fragment(), CardStackListener {
         binding.likeButton.setOnClickListener {
             binding.cardStackView.swipeTo(Direction.Right)
         }
-
 
         binding.backButton.setOnClickListener {
             binding.cardStackView.rewind()
@@ -207,8 +221,8 @@ class MatchingFragment : Fragment(), CardStackListener {
         val position = layoutManager.topPosition
         IDormLogger.i(this, "current pos: $position")
         when (direction) {
-            Direction.Left -> viewModel.addDislikedMate(adapter.dataSet[position-1].memberId)
-            Direction.Right -> viewModel.addLikedMate(adapter.dataSet[position-1].memberId)
+            Direction.Left -> viewModel.addDislikedMate(adapter.dataSet[position - 1].memberId)
+            Direction.Right -> viewModel.addLikedMate(adapter.dataSet[position - 1].memberId)
             else -> {}
         }
     }

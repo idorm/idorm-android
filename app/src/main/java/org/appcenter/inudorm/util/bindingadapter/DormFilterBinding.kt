@@ -2,6 +2,7 @@ package org.appcenter.inudorm.util.bindingadapter
 
 import android.util.Log
 import androidx.databinding.*
+import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import org.appcenter.inudorm.model.*
 import org.appcenter.inudorm.util.IDormLogger
@@ -25,7 +26,6 @@ object DormFilterBinding {
     fun ChipGroup.getDorm(): Dorm? {
         return Dorm.fromElementId(checkedChipId)
     }
-
 
     @JvmStatic
     @BindingAdapter("selectedJoinPeriod")
@@ -63,7 +63,6 @@ object ChipBinding {
     @JvmStatic
     @InverseBindingAdapter(attribute = "selectedValues", event = "android:onCheckedAttrChanged")
     fun ChipGroup.getSelectedValues(): List<Int> = checkedChipIds
-
 
 
 

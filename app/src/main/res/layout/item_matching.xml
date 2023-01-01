@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="mate"
             type="org.appcenter.inudorm.model.MatchingInfo" />
+
+        <import type="org.appcenter.inudorm.util.bindingadapter.MatchingBinding" />
+
+        <import type="android.graphics.Color" />
+
+
     </data>
 
     <FrameLayout
@@ -152,12 +157,13 @@
                             style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
                             android:elevation="3dp"
                             android:includeFontPadding="false"
                             android:text="@string/snoringCardText"
                             app:chipEndPadding="4dp"
                             app:chipIconVisible="false"
+                            app:feature='@{"isSnoring"}'
+                            app:have="@{mate.snoring}"
                             app:textStartPadding="4dp" />
 
                         <com.google.android.material.chip.Chip
@@ -165,36 +171,40 @@
                             style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
                             android:elevation="3dp"
-                            android:text="@string/grindingCardText" />
+                            android:text="@string/grindingCardText"
+                            app:feature='@{"isGrinding"}'
+                            app:have="@{mate.grinding}" />
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/smoking"
                             style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
                             android:elevation="3dp"
-                            android:text="@string/smokingCardText" />
+                            android:text="@string/smokingCardText"
+                            app:feature='@{"isSmoking"}'
+                            app:have="@{mate.smoking}" />
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/eatingInside"
                             style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
                             android:elevation="3dp"
-                            android:text="@string/eatingInsideCardText" />
+                            android:text="@string/eatingInsideCardText"
+                            app:feature='@{"isAllowedFood"}'
+                            app:have="@{mate.allowedFood}" />
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/wearEarphones"
                             style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
                             android:elevation="3dp"
-                            android:text="@string/wearEarphonesCardText" />
+                            android:text="@string/wearEarphonesCardText"
+                            app:feature='@{"isWearEarphones"}'
+                            app:have="@{mate.wearEarphones}" />
 
 
                     </com.google.android.material.chip.ChipGroup>
@@ -215,8 +225,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:elevation="3dp"
-
-                        android:text="@{@string/wakeUpTimeCardText +mate.wakeUpTime}"
+                        android:text="@{MatchingBinding.buildCardText(@string/wakeUpTimeCardText, mate.wakeUpTime, Color.BLACK)}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -226,10 +235,9 @@
                         style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
                         android:layout_marginTop="8dp"
                         android:elevation="3dp"
-                        android:text="@{@string/cleaningCardText +mate.cleanUpStatus}"
+                        android:text="@{MatchingBinding.buildCardText(@string/cleaningCardText, mate.cleanUpStatus, Color.BLACK)}"
                         app:layout_constraintEnd_toEndOf="@+id/wakeUpTime"
                         app:layout_constraintStart_toStartOf="@+id/wakeUpTime"
                         app:layout_constraintTop_toBottomOf="@+id/wakeUpTime" />
@@ -239,10 +247,9 @@
                         style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
                         android:layout_marginTop="8dp"
                         android:elevation="3dp"
-                        android:text="@{@string/showerTimeCardText +mate.showerTime}"
+                        android:text="@{MatchingBinding.buildCardText(@string/showerTimeCardText, mate.showerTime, Color.BLACK)}"
                         app:layout_constraintEnd_toEndOf="@+id/cleaningCardText"
                         app:layout_constraintStart_toStartOf="@+id/cleaningCardText"
                         app:layout_constraintTop_toBottomOf="@+id/cleaningCardText" />
@@ -254,7 +261,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:elevation="3dp"
-                        android:text="@{@string/mbtiCardText +mate.mbti}"
+                        android:text="@{MatchingBinding.buildCardText(@string/mbtiCardText, mate.mbti, Color.BLACK)}"
                         app:layout_constraintEnd_toEndOf="@+id/showerTimeCardText"
                         app:layout_constraintStart_toStartOf="@+id/showerTimeCardText"
                         app:layout_constraintTop_toBottomOf="@+id/showerTimeCardText" />
@@ -342,7 +349,7 @@
                     android:layout_marginStart="4dp"
                     android:fontFamily="@font/notosans_bold"
                     android:includeFontPadding="false"
-                    android:text="@string/ageCardText"
+                    android:text="@{String.valueOf(mate.age)}"
 
                     android:textColor="@color/iDorm_gray_400"
                     android:textSize="12sp"

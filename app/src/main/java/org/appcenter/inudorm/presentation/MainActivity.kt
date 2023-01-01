@@ -2,16 +2,24 @@ package org.appcenter.inudorm.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Layout.Alignment
 import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.core.view.marginBottom
+import androidx.core.view.setPadding
 import androidx.databinding.DataBindingUtil
+import com.google.android.material.R.id.snackbar_text
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
+import org.appcenter.inudorm.OnSnackBarCallListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener, OnSnackBarCallListener {
     private val TAG = "[MainActivity]"
 
     private lateinit var binding: ActivityMainBinding
@@ -24,6 +32,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         binding.bottomNavigation.setOnNavigationItemSelectedListener(this)
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, HomeFragment()).commit()
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -50,6 +59,15 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
         }
         return true
+    }
+
+    override fun onSnackBarCalled(message:String, duration:Int) {
+        Snackbar.make(binding.container, message, duration)
+            .apply {
+                anchorView = binding.bottomNavigation
+                view.findViewById<TextView>(snackbar_text).textAlignment = View.TEXT_ALIGNMENT_CENTER
+            }
+            .show()
     }
 
 }

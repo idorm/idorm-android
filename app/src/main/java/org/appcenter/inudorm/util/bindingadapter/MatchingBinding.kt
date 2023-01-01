@@ -1,11 +1,19 @@
 package org.appcenter.inudorm.util.bindingadapter
 
+import android.graphics.Color
+import android.text.SpannableStringBuilder
 import android.view.View
 import android.widget.TextView
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
+import androidx.core.text.bold
+import androidx.core.text.color
 import androidx.databinding.BindingAdapter
+import com.google.android.material.chip.Chip
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.yuyakaido.android.cardstackview.CardStackView
 import org.appcenter.inudorm.R
+import org.appcenter.inudorm.model.Taste
 import org.appcenter.inudorm.presentation.LoadMode
 import org.appcenter.inudorm.presentation.MatchingState
 import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter
@@ -64,4 +72,42 @@ object MatchingBinding {
             }
     }
 
+    @JvmStatic
+    @BindingAdapter(value = ["feature", "have"], requireAll = true)
+    fun Chip.setDislikedFeature(feature: String?, have: Boolean?) {
+        if (feature != null && have != null) {
+            val taste = Taste.fromKey(feature)
+            val red = ContextCompat.getColor(context, R.color.iDorm_red)
+            val blue = ContextCompat.getColor(context, R.color.iDorm_blue)
+            val booleanText = if (have) taste?.isFit?.trueText else taste?.isFit?.falseText
+            val alteredHave = if (feature == "isWearEarphones") !have else have
+            val booleanColor = if (alteredHave) red else blue
+
+            text = buildCardText(taste?._name!!, booleanText!!, booleanColor)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["field", "fieldContent"], requireAll = true)
+    fun Chip.setMyInfo(
+        field: String?,
+        fieldContent: String?
+    ) {
+        if (field != null && fieldContent != null) {
+            //val fieldString = context?.getString(field)!!
+            text = buildCardText(field, fieldContent, Color.BLACK)
+        }
+    }
+
+    @JvmStatic
+    fun buildCardText(
+        name: String,
+        value: String,
+        valueColor: Int = Color.BLACK
+    ): SpannableStringBuilder {
+        return SpannableStringBuilder()
+            .bold { append(name) }
+            .color(valueColor) { append(" $value") }
+    }
 }
+
