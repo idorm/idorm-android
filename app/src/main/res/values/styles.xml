@@ -18,6 +18,16 @@
         <item name="rippleColor">@color/iDorm_blue</item>
     </style>
 
+    <!-- 테두리 없는 흰색 배경 Chip -->
+    <style name="Widget.DesignSystem.Chip.FlatBox" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.MyApp.Chip.Choice</item>
+        <item name="chipBackgroundColor">@color/white</item>
+        <item name="chipStrokeWidth">0dp</item>
+        <item name="android:textColor">@color/iDorm_blue</item>
+        <item name="fontFamily">@font/notosans_medium</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <!--item_matching outlined chip 선택1-->
     <style name="Widget.DesignSystem.Chip.OutlinedBox.Choice2" parent="Widget.MaterialComponents.Chip.Choice">
 

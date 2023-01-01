@@ -86,6 +86,10 @@ class LoginViewModel(private val prefsRepository: PrefsRepository) : ViewModel()
                     )
                 }
             }
+        } else {
+            viewModelScope.launch {
+                _loginState.emit(LoginState(false, "비밀번호의 형식이 올바르지 않습니다."))
+            }
         }
 
     }

@@ -198,4 +198,5 @@
     <string name="declarationReason">idorm 가이드라인에 위배되는 매칭 프로필 이미지</string>
     <string name="chatToMateInteraction">룸메이트와 채팅하기</string>
     <string name="deleteLikedMateInteraction">좋아요한 룸메이트 삭제하기</string>
+    <string name="refreshInteraction">새로고침</string>
 </resources>

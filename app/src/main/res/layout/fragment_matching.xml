@@ -31,7 +31,7 @@
 
         </io.github.florent37.shapeofview.shapes.ArcView>
 
-        <!-- 필터설정버튼이 있는 조작부입니다. -->
+        <!-- 필터설정, 새로고침 버튼이 있는 조작부입니다. -->
         <LinearLayout
             android:id="@+id/controls"
             android:layout_width="match_parent"
@@ -51,6 +51,16 @@
                     android:layout_height="0dp"
                     android:layout_weight="1" />
 
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/refreshButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:padding="10dp"
+                    style="@style/Widget.DesignSystem.Chip.FlatBox"
+                    android:text="@string/refreshInteraction"
+                    android:onClick="@{() -> matchingViewModel.refresh()}"
+                    />
                 <ImageButton
                     android:id="@+id/openFilterButton"
                     android:layout_width="wrap_content"

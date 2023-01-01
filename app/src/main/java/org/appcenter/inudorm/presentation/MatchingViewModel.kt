@@ -51,6 +51,11 @@ class MatchingViewModel : ViewModel() {
     val userPreferenceEvent: SharedFlow<UserPreferenceEvent>
         get() = _userPreferenceEvent
 
+    fun refresh() {
+        getMates(LoadMode.Update, size=10)
+    }
+
+
     /*
     * Todo: Persons Data (for matching)
     * Todo: Pass and Like feature
