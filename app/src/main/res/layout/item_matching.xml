@@ -225,7 +225,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:elevation="3dp"
-                        android:text="@{MatchingBinding.buildCardText(@string/wakeUpTimeCardText, mate.wakeUpTime, Color.BLACK)}"
+                        android:text="@{MatchingBinding.buildCardText(@string/wakeUpTimeCardText, mate.wakeUpTime, Color.BLACK, false)}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -237,7 +237,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:elevation="3dp"
-                        android:text="@{MatchingBinding.buildCardText(@string/cleaningCardText, mate.cleanUpStatus, Color.BLACK)}"
+                        android:text="@{MatchingBinding.buildCardText(@string/cleaningCardText, mate.cleanUpStatus, Color.BLACK, false)}"
                         app:layout_constraintEnd_toEndOf="@+id/wakeUpTime"
                         app:layout_constraintStart_toStartOf="@+id/wakeUpTime"
                         app:layout_constraintTop_toBottomOf="@+id/wakeUpTime" />
@@ -249,7 +249,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:elevation="3dp"
-                        android:text="@{MatchingBinding.buildCardText(@string/showerTimeCardText, mate.showerTime, Color.BLACK)}"
+                        android:text="@{MatchingBinding.buildCardText(@string/showerTimeCardText, mate.showerTime, Color.BLACK, false)}"
                         app:layout_constraintEnd_toEndOf="@+id/cleaningCardText"
                         app:layout_constraintStart_toStartOf="@+id/cleaningCardText"
                         app:layout_constraintTop_toBottomOf="@+id/cleaningCardText" />
@@ -261,7 +261,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:elevation="3dp"
-                        android:text="@{MatchingBinding.buildCardText(@string/mbtiCardText, mate.mbti, Color.BLACK)}"
+                        android:text="@{MatchingBinding.buildCardText(@string/mbtiCardText, mate.mbti, Color.BLACK, false)}"
                         app:layout_constraintEnd_toEndOf="@+id/showerTimeCardText"
                         app:layout_constraintStart_toStartOf="@+id/showerTimeCardText"
                         app:layout_constraintTop_toBottomOf="@+id/showerTimeCardText" />

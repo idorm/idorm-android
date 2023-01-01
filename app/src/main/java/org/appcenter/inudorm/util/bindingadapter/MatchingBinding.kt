@@ -80,22 +80,11 @@ object MatchingBinding {
             val red = ContextCompat.getColor(context, R.color.iDorm_red)
             val blue = ContextCompat.getColor(context, R.color.iDorm_blue)
             val booleanText = if (have) taste?.isFit?.trueText else taste?.isFit?.falseText
-            val alteredHave = if (feature == "isWearEarphones") !have else have
+            val alteredHave =
+                if (feature == "isWearEarphones" || feature == "isAllowedFood") !have else have
             val booleanColor = if (alteredHave) red else blue
 
-            text = buildCardText(taste?._name!!, booleanText!!, booleanColor)
-        }
-    }
-
-    @JvmStatic
-    @BindingAdapter(value = ["field", "fieldContent"], requireAll = true)
-    fun Chip.setMyInfo(
-        field: String?,
-        fieldContent: String?
-    ) {
-        if (field != null && fieldContent != null) {
-            //val fieldString = context?.getString(field)!!
-            text = buildCardText(field, fieldContent, Color.BLACK)
+            text = buildCardText(taste?._name!!, booleanText!!, booleanColor, true)
         }
     }
 
@@ -103,11 +92,12 @@ object MatchingBinding {
     fun buildCardText(
         name: String,
         value: String,
-        valueColor: Int = Color.BLACK
+        valueColor: Int = Color.BLACK,
+        bold: Boolean
     ): SpannableStringBuilder {
         return SpannableStringBuilder()
             .bold { append(name) }
-            .color(valueColor) { append(" $value") }
+            .color(valueColor) { if (bold) bold { append(" $value") } else append(" $value") }
     }
 }
 
