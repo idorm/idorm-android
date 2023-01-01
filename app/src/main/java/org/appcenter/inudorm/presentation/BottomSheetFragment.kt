@@ -18,7 +18,7 @@ import org.appcenter.inudorm.util.IDormLogger
 
 class ListBottomSheet(private val items: ArrayList<SelectItem>, private val onClick: (SelectItem) -> Unit) : BottomSheetDialogFragment() {
 
-    private lateinit var listBottomSheetBinding: FragmentBottomSheetBinding
+    private lateinit var binding: FragmentBottomSheetBinding
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var adapter: BottomSheetListAdapter
 
@@ -27,9 +27,9 @@ class ListBottomSheet(private val items: ArrayList<SelectItem>, private val onCl
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        listBottomSheetBinding =
+        binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_bottom_sheet, container, false)
-        return listBottomSheetBinding.root
+        return binding.root
     }
 
     override fun onStart() {
@@ -39,9 +39,10 @@ class ListBottomSheet(private val items: ArrayList<SelectItem>, private val onCl
             // Todo: dismiss 되어도 리사이클러가 살아남아 메모리 누수가 발생허가나 의도치 않은 동작을 할 가능성은?
             onClick(menu)
         }
-        listBottomSheetBinding.itemRecyclerView.adapter = adapter
+        binding.imageButton.setOnClickListener { dismiss() }
+        binding.itemRecyclerView.adapter = adapter
         layoutManager = LinearLayoutManager(requireContext())
-        listBottomSheetBinding.itemRecyclerView.layoutManager = layoutManager
+        binding.itemRecyclerView.layoutManager = layoutManager
         layoutManager.orientation = LinearLayoutManager.VERTICAL
 
     }
