@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityLoginBinding
+import org.appcenter.inudorm.presentation.MainActivity
 import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.util.CustomDialog
 import org.appcenter.inudorm.util.DialogButton

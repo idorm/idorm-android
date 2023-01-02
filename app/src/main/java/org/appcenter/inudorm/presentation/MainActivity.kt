@@ -1,4 +1,4 @@
-package org.appcenter.inudorm.presentation.account
+package org.appcenter.inudorm.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,11 +10,10 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.R.id.snackbar_text
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
+import io.sentry.Sentry
 import org.appcenter.inudorm.OnSnackBarCallListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityMainBinding
-import org.appcenter.inudorm.presentation.HomeFragment
-import org.appcenter.inudorm.presentation.MainViewModel
 import org.appcenter.inudorm.presentation.matching.MatchingFragment
 import org.appcenter.inudorm.presentation.mypage.MyPageFragment
 

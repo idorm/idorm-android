@@ -18,27 +18,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.IDorm.White">
+        <meta-data
+            android:name="io.sentry.dsn"
+            android:value="@string/SENTRY_DSN" />
+        <!-- Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+           We recommend adjusting this value in production. -->
+        <meta-data
+            android:name="io.sentry.traces.sample-rate"
+            android:value="1.0" />
+        <!-- Enable user interaction tracing to capture transactions for various UI events (such as clicks or scrolls). -->
+        <meta-data
+            android:name="io.sentry.traces.user-interaction.enable"
+            android:value="true" />
+
         <activity
             android:name=".presentation.account.WithdrawalActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
-            tools:ignore="LockedOrientationActivity">
-        </activity>
+            tools:ignore="LockedOrientationActivity"></activity>
         <activity
             android:name=".presentation.mypage.NotificationSettingActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
-            tools:ignore="LockedOrientationActivity">
-        </activity>
+            tools:ignore="LockedOrientationActivity"></activity>
         <activity
             android:name=".presentation.mypage.ChangeNickNameActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
-            tools:ignore="LockedOrientationActivity">
-        </activity>
+            tools:ignore="LockedOrientationActivity"></activity>
         <activity
             android:name=".presentation.board.WritePostActivity"
             android:exported="false"
@@ -118,7 +128,7 @@
             android:theme="@style/Theme.IDorm.White"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".presentation.account.MainActivity"
+            android:name=".presentation.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"

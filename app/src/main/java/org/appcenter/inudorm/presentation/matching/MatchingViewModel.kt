@@ -1,24 +1,20 @@
-package org.appcenter.inudorm.presentation
+package org.appcenter.inudorm.presentation.matching
 
-import android.os.Bundle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.yuyakaido.android.cardstackview.Direction
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.App.Companion.localFilterRepository
 import org.appcenter.inudorm.model.*
 import org.appcenter.inudorm.usecase.*
-import org.appcenter.inudorm.util.DialogButton
-import org.appcenter.inudorm.util.Event
 import org.appcenter.inudorm.util.IDormLogger
 import java.util.*
 
 // Todo: Change Member type
 data class MatchingState(
     var isLoading: Boolean = false,
-    var errorMessage: String? = null,
+    var error: Throwable? = null,
     var mates: ArrayList<MatchingInfo> = ArrayList(),
     var filter: RoomMateFilter,
     var loadMode: LoadMode = LoadMode.Prepare,
@@ -90,7 +86,7 @@ class MatchingViewModel : ViewModel() {
                 _matchingState.update {
                     it.copy(
                         isLoading = false,
-                        errorMessage = err.message,
+                        error = err,
                         loadMode = loadMode
                     )
                 }

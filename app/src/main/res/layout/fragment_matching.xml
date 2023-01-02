@@ -7,7 +7,7 @@
 
         <variable
             name="matchingViewModel"
-            type="org.appcenter.inudorm.presentation.MatchingViewModel" />
+            type="org.appcenter.inudorm.presentation.matching.MatchingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

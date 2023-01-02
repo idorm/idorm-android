@@ -28,12 +28,19 @@ import org.appcenter.inudorm.OnSnackBarCallListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentMatchingBinding
 import org.appcenter.inudorm.model.RoomMateFilter
+import org.appcenter.inudorm.networking.ErrorCode
+import org.appcenter.inudorm.networking.IDormError
+import org.appcenter.inudorm.networking.UIErrorHandler
 import org.appcenter.inudorm.presentation.*
 import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter
 import org.appcenter.inudorm.util.CustomDialog
 import org.appcenter.inudorm.util.DialogButton
 import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.MatchingViewUtil
+import java.net.ConnectException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
+import javax.net.ssl.SSLHandshakeException
 
 const val FILTER_RESULT_CODE = 1226
 
@@ -144,11 +151,17 @@ class MatchingFragment : Fragment(), CardStackListener {
         lifecycleScope.launch {
             viewModel.matchingState.collect {
                 // Todo: ⚠️ 네트워크 오류로 퉁치지 말고 꼭!! 상황별 에러 대응하게 처리할 것!!!
-                if (it.errorMessage != null) {
-                    (requireContext() as OnSnackBarCallListener).onSnackBarCalled(
-                        getString(R.string.noNetworkConnection),
-                        Snackbar.LENGTH_LONG
-                    )
+                if (it.error != null) {
+                    UIErrorHandler.handle(requireContext(), it.error!!) { err ->
+                        when(err.error) {
+                            ErrorCode.DUPLICATE_DISLIKED_MEMBER -> {}
+                            ErrorCode.DUPLICATE_LIKED_MEMBER -> {}
+                            ErrorCode.ILLEGAL_STATEMENT_MATCHING_INFO_NON_PUBLIC -> {
+                                // Todo: 매칭정보 비공개. 다이얼로그 띄워서 온보딩으로 연결
+                            }
+                            else -> {}
+                        }
+                    }
                 }
             }
         }

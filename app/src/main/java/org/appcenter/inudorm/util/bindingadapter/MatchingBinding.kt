@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.text.SpannableStringBuilder
 import android.view.View
 import android.widget.TextView
-import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.core.text.bold
 import androidx.core.text.color
@@ -14,8 +13,8 @@ import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.yuyakaido.android.cardstackview.CardStackView
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.model.Taste
-import org.appcenter.inudorm.presentation.LoadMode
-import org.appcenter.inudorm.presentation.MatchingState
+import org.appcenter.inudorm.presentation.matching.LoadMode
+import org.appcenter.inudorm.presentation.matching.MatchingState
 import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter
 import org.appcenter.inudorm.util.IDormLogger
 
@@ -26,7 +25,7 @@ object MatchingBinding {
     @BindingAdapter("matchingState")
     fun CardStackView.bindData(uiState: MatchingState?) {
         if (uiState != null)
-            if (adapter is RoomMateAdapter && !uiState.isLoading && uiState.errorMessage == null) {
+            if (adapter is RoomMateAdapter && !uiState.isLoading && uiState.error == null) {
                 val a = adapter as RoomMateAdapter
                 // 리스트에 추가하고
                 val start = a.itemCount
@@ -53,8 +52,8 @@ object MatchingBinding {
             } else {
                 View.VISIBLE
             }
-            text = if (uiState.errorMessage != null) { // 에러 발생
-                uiState.errorMessage
+            text = if (uiState.error != null) { // 에러 발생
+                uiState.error?.message
             } else { // 빈 데이터
                 context.getString(R.string.noMoreRoomMates)
             }

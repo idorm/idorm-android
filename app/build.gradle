@@ -3,8 +3,11 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
-
+    id "io.sentry.android.gradle" version "3.3.0"
 }
+
+def Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
 android {
 
@@ -20,14 +23,17 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
+            resValue "string", "SENTRY_DSN", properties.getProperty("SENTRY_DSN")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            resValue "string", "SENTRY_DSN", properties.getProperty("SENTRY_DSN")
         }
     }
     compileOptions {
@@ -78,5 +84,4 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'com.github.Jay-Goo:RangeSeekBar:v3.0.0'
     implementation "org.jetbrains.kotlin:kotlin-reflect"
-
 }

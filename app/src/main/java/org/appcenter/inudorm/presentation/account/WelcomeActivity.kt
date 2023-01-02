@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityWelcomeBinding
+import org.appcenter.inudorm.presentation.MainActivity
 
 class WelcomeActivity : AppCompatActivity() {
 

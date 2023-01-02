@@ -13,14 +13,10 @@ enum class StatusCode(private val code:Int)  {
 }
 
 // Todo: 알 수 없는 에러에 대해 로그 수집하기
-class IDormError(error: ErrorCode) : IOException() {
-    val code : String;
-    override val message : String;
+class IDormError(val error: ErrorCode) : IOException() {
+    val code : String = error.name;
+    override val message : String = error.message;
 
-    init {
-        code = error.name
-        message = error.message
-    }
 }
 
 enum class ErrorCode(val error: String, val message: String) {
