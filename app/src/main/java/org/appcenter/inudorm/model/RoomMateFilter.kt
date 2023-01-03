@@ -22,8 +22,4 @@ data class RoomMateFilter(
     var minAge: Int,
     @Transient
     var disAllowedFeatures: MutableList<Int>,
-) : Parcelable, ReqBody() {
-    @IgnoredOnParcel
-    @Transient
-    override val bodyData: Any = this
-}
+) : Parcelable, ReqBody()

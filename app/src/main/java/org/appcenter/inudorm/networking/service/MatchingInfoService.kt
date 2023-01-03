@@ -13,8 +13,6 @@ import retrofit2.http.*
 import java.nio.charset.StandardCharsets
 
 abstract class ReqBody() : RequestBody() {
-    abstract val bodyData: Any
-
     @Transient
     private var bodyByteString: ByteString? = null
 
@@ -28,7 +26,7 @@ abstract class ReqBody() : RequestBody() {
                 charset = StandardCharsets.UTF_8
             }
         }
-        bodyByteString = ByteString.encodeString(gson.toJson(bodyData), charset)
+        bodyByteString = ByteString.encodeString(gson.toJson(this), charset)
         IDormLogger.i(this, bodyByteString?.size().toString())
         sink.write(bodyByteString!!)
     }
