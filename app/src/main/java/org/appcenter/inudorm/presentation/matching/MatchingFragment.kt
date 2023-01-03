@@ -98,7 +98,17 @@ class MatchingFragment : Fragment(), CardStackListener {
                 )
             ) {
                 if (it.value == "report") {
-                    // Todo: 신고하기
+                    CustomDialog(
+                        "게시글을 신고하고 싶으신가요?",
+                        DialogButton(
+                            "취소",
+                            textColor = R.color.iDorm_gray_300
+                        ),
+                        DialogButton("확인", {
+                            val position = layoutManager.topPosition
+                            viewModel.reportMatchingInfo(adapter.dataSet[position].memberId)
+                        }),
+                    ).show(this@MatchingFragment.requireContext())
                 }
             }
             modalBottomSheet.show(
@@ -134,15 +144,19 @@ class MatchingFragment : Fragment(), CardStackListener {
         binding.lifecycleOwner = this
         viewModel.getMates(LoadMode.Update, size = 10)
         lifecycleScope.launch {
-            viewModel.userPreferenceEvent.collect { state ->
+            viewModel.userMutationEvent.collect { state ->
                 when (state) {
-                    is UserPreferenceEvent.AddLikedMatchingInfo -> {
+                    is UserMutationEvent.AddLikedMatchingInfo -> {
                         if (!state.success)
                             binding.cardStackView.rewind()
                     }
-                    is UserPreferenceEvent.AddDislikedMatchingInfo -> {
+                    is UserMutationEvent.AddDislikedMatchingInfo -> {
                         if (!state.success)
                             binding.cardStackView.rewind()
+                    }
+                    is UserMutationEvent.ReportMatchingInfo -> {
+                        if (state.success) CustomDialog("사용자를 신고했습니다.", DialogButton("확인")).show(this@MatchingFragment.requireContext())
+                        else CustomDialog("사용자 신고에 실패했습니다.", DialogButton("확인")).show(this@MatchingFragment.requireContext())
                     }
                     else -> {}
                 }
@@ -153,11 +167,12 @@ class MatchingFragment : Fragment(), CardStackListener {
                 // Todo: ⚠️ 네트워크 오류로 퉁치지 말고 꼭!! 상황별 에러 대응하게 처리할 것!!!
                 if (it.error != null) {
                     UIErrorHandler.handle(requireContext(), it.error!!) { err ->
-                        when(err.error) {
+                        when (err.error) {
                             ErrorCode.DUPLICATE_DISLIKED_MEMBER -> {}
                             ErrorCode.DUPLICATE_LIKED_MEMBER -> {}
                             ErrorCode.ILLEGAL_STATEMENT_MATCHING_INFO_NON_PUBLIC -> {
                                 // Todo: 매칭정보 비공개. 다이얼로그 띄워서 온보딩으로 연결
+
                             }
                             else -> {}
                         }

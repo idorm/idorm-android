@@ -60,8 +60,6 @@ interface MatchingInfoService {
     @DELETE("/member/matching/like/{id}")
     suspend fun deleteLikeMatchingInfo(@Path("id") id:Int)
 
-
-
     /**
      * 온보딩 시에 최초로 입력한 매칭 정보를 저장하는 API
      * @param body MatchingInfo를 Serialize한 것의 RequestBody

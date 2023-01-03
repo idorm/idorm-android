@@ -76,7 +76,7 @@ class LoginViewModel(private val prefsRepository: PrefsRepository) : ViewModel()
                             message = it.message
                         )
                     )
-                    IDormLogger.i(this, "로그인 실패,,,")
+                    IDormLogger.i(this@LoginViewModel, "로그인 실패,,,")
                 }.onExpectedError {
                     _loginState.emit(
                         LoginState(

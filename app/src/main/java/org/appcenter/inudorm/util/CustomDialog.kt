@@ -8,11 +8,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.annotation.ColorRes
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.transition.Visibility
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.dialog.MaterialDialogs
 import org.appcenter.inudorm.R
+
+data class DialogButton(
+    val text: String,
+    val onClick: (() -> Unit)? = null,
+    @ColorRes val textColor: Int = R.color.iDorm_blue,
+)
+
 
 open class CustomDialog(
     private val text: String, private val positiveButton: DialogButton? = null, private val negativeButton: DialogButton? = null
@@ -33,21 +42,27 @@ open class CustomDialog(
 
         if (positiveButton != null) {
             val btnOk = customLayout.findViewById<TextView>(R.id.ok_button)
-            btnOk.visibility = View.VISIBLE
-            btnOk.text = positiveButton.text
-            btnOk.setOnClickListener {
-                positiveButton.onClick?.invoke()
-                dialog.dismiss()
+            btnOk.apply {
+                visibility = View.VISIBLE
+                text = positiveButton.text
+                setTextColor(ContextCompat.getColor(getContext(),positiveButton.textColor))
+                setOnClickListener {
+                    positiveButton.onClick?.invoke()
+                    dialog.dismiss()
+                }
             }
         }
 
         if (negativeButton != null) {
             val btnCancel = customLayout.findViewById<TextView>(R.id.cancel_button)
-            btnCancel.visibility = View.VISIBLE
-            btnCancel.text = negativeButton.text
-            btnCancel.setOnClickListener {
-                negativeButton.onClick?.invoke()
-                dialog.dismiss()
+            btnCancel.apply {
+                visibility = View.VISIBLE
+                text = negativeButton.text
+                setTextColor(ContextCompat.getColor(getContext(),negativeButton.textColor))
+                setOnClickListener {
+                    negativeButton.onClick?.invoke()
+                    dialog.dismiss()
+                }
             }
         }
         dialog.show()

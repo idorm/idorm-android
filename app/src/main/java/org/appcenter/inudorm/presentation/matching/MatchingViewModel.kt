@@ -26,11 +26,13 @@ enum class LoadMode {
     Update
 }
 
-sealed class UserPreferenceEvent {
+sealed class UserMutationEvent {
     data class AddLikedMatchingInfo(val id: Int, val success: Boolean) :
-        UserPreferenceEvent();
+        UserMutationEvent();
     data class AddDislikedMatchingInfo(val id: Int, val success: Boolean) :
-        UserPreferenceEvent();
+        UserMutationEvent();
+    data class ReportMatchingInfo(val id: Int, val success: Boolean) :
+        UserMutationEvent();
 }
 
 class MatchingViewModel : ViewModel() {
@@ -43,12 +45,12 @@ class MatchingViewModel : ViewModel() {
     val matchingState: StateFlow<MatchingState>
         get() = _matchingState
 
-    private val _userPreferenceEvent: MutableSharedFlow<UserPreferenceEvent> = MutableSharedFlow()
-    val userPreferenceEvent: SharedFlow<UserPreferenceEvent>
-        get() = _userPreferenceEvent
+    private val _userMutationEvent: MutableSharedFlow<UserMutationEvent> = MutableSharedFlow()
+    val userMutationEvent: SharedFlow<UserMutationEvent>
+        get() = _userMutationEvent
 
     fun refresh() {
-        getMates(LoadMode.Update, size=10)
+        getMates(LoadMode.Update, size = 10)
     }
 
 
@@ -104,8 +106,8 @@ class MatchingViewModel : ViewModel() {
             kotlin.runCatching {
                 AddLikedMatchingInfo().run(id)
             }.onSuccess {
-                _userPreferenceEvent.emit(
-                    UserPreferenceEvent.AddLikedMatchingInfo(
+                _userMutationEvent.emit(
+                    UserMutationEvent.AddLikedMatchingInfo(
                         id,
                         true,
                     )
@@ -128,8 +130,8 @@ class MatchingViewModel : ViewModel() {
             kotlin.runCatching {
                 AddDislikedMatchingInfo().run(id)
             }.onSuccess {
-                _userPreferenceEvent.emit(
-                    UserPreferenceEvent.AddDislikedMatchingInfo(
+                _userMutationEvent.emit(
+                    UserMutationEvent.AddDislikedMatchingInfo(
                         id,
                         true,
                     )
@@ -143,6 +145,20 @@ class MatchingViewModel : ViewModel() {
             kotlin.runCatching {
                 DeleteDislikedMatchingInfo().run(id)
             }.onSuccess {
+            }
+        }
+    }
+
+    fun reportMatchingInfo(id: Int) {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                ReportMatchingInfo().run(id)
+            }.onSuccess {
+                _userMutationEvent.emit(
+                    UserMutationEvent.ReportMatchingInfo(
+                        id, true
+                    )
+                )
             }
         }
     }

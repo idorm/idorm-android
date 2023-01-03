@@ -6,6 +6,7 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.ColorRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -15,7 +16,6 @@ import kotlinx.coroutines.launch
 import org.appcenter.inudorm.OnPromptDoneListener
 import org.appcenter.inudorm.R
 
-data class DialogButton(val text: String,  val onClick: (() -> Unit)? = null, val textColor: Int? = R.color.iDorm_blue,)
 
 
 // Event 클래스를 상속 받는 두 클래스를 만들어준다. sealed를 쓰면 when ... is 를 통해 이벤트에 따라 분기시킬 수 있다.
@@ -52,7 +52,7 @@ open class ViewModelWithEvent : ViewModel() {
         event(Event.MergeBundleWithPaging(bundle))
 }
 
-fun eventHandler(context: Context, it:Event) {
+fun eventHandler(context: Context, it: Event) {
     Log.d("Fragment", it.toString())
     when (it) {
         is Event.ShowToast -> {

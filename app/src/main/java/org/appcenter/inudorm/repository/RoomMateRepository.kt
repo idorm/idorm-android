@@ -1,5 +1,6 @@
 package org.appcenter.inudorm.repository
 
+import kotlinx.coroutines.delay
 import org.appcenter.inudorm.model.MatchingInfo
 import org.appcenter.inudorm.model.RoomMateFilter
 import org.appcenter.inudorm.networking.RetrofitInstance
@@ -23,6 +24,9 @@ class RoomMateRepository {
     }
     suspend fun deleteLikedMatchingInfo(id:Int) {
         return RetrofitInstance.service.deleteLikeMatchingInfo(id)
+    }
+    suspend fun reportMatchingInfo(id: Int) {
+        return delay(2000L)
     }
 
 
