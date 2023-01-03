@@ -31,6 +31,10 @@ sealed class UserMutationEvent {
         UserMutationEvent();
     data class AddDislikedMatchingInfo(val id: Int, val success: Boolean) :
         UserMutationEvent();
+    data class DeleteLikedMatchingInfo(val id: Int, val success: Boolean) :
+        UserMutationEvent();
+    data class DeleteDislikedMatchingInfo(val id: Int, val success: Boolean) :
+        UserMutationEvent();
     data class ReportMatchingInfo(val id: Int, val success: Boolean) :
         UserMutationEvent();
 }
@@ -45,8 +49,8 @@ class MatchingViewModel : ViewModel() {
     val matchingState: StateFlow<MatchingState>
         get() = _matchingState
 
-    private val _userMutationEvent: MutableSharedFlow<UserMutationEvent> = MutableSharedFlow()
-    val userMutationEvent: SharedFlow<UserMutationEvent>
+    private val _userMutationEvent: MutableStateFlow<UserMutationEvent?> = MutableStateFlow(null)
+    val userMutationEvent: MutableStateFlow<UserMutationEvent?>
         get() = _userMutationEvent
 
     fun refresh() {
@@ -121,6 +125,12 @@ class MatchingViewModel : ViewModel() {
             kotlin.runCatching {
                 DeleteLikedMatchingInfo().run(id)
             }.onSuccess {
+                _userMutationEvent.emit(
+                    UserMutationEvent.DeleteLikedMatchingInfo(
+                        id,
+                        true,
+                    )
+                )
             }
         }
     }
@@ -145,6 +155,12 @@ class MatchingViewModel : ViewModel() {
             kotlin.runCatching {
                 DeleteDislikedMatchingInfo().run(id)
             }.onSuccess {
+                _userMutationEvent.emit(
+                    UserMutationEvent.DeleteDislikedMatchingInfo(
+                        id,
+                        true,
+                    )
+                )
             }
         }
     }

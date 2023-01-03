@@ -27,6 +27,7 @@ import kotlinx.coroutines.launch
 import org.appcenter.inudorm.OnSnackBarCallListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentMatchingBinding
+import org.appcenter.inudorm.model.MatchingInfo
 import org.appcenter.inudorm.model.RoomMateFilter
 import org.appcenter.inudorm.networking.ErrorCode
 import org.appcenter.inudorm.networking.IDormError
@@ -155,8 +156,19 @@ class MatchingFragment : Fragment(), CardStackListener {
                             binding.cardStackView.rewind()
                     }
                     is UserMutationEvent.ReportMatchingInfo -> {
-                        if (state.success) CustomDialog("사용자를 신고했습니다.", DialogButton("확인")).show(this@MatchingFragment.requireContext())
-                        else CustomDialog("사용자 신고에 실패했습니다.", DialogButton("확인")).show(this@MatchingFragment.requireContext())
+                        if (state.success) CustomDialog("사용자를 신고했습니다.", DialogButton("확인")).show(
+                            this@MatchingFragment.requireContext()
+                        )
+                        else CustomDialog(
+                            "사용자 신고에 실패했습니다.",
+                            DialogButton("확인")
+                        ).show(this@MatchingFragment.requireContext())
+                    }
+                    is UserMutationEvent.DeleteLikedMatchingInfo -> {
+                        if (state.success) binding.cardStackView.rewind()
+                    }
+                    is UserMutationEvent.DeleteDislikedMatchingInfo -> {
+                        if (state.success) binding.cardStackView.rewind()
                     }
                     else -> {}
                 }
@@ -217,7 +229,16 @@ class MatchingFragment : Fragment(), CardStackListener {
         }
 
         binding.backButton.setOnClickListener {
-            binding.cardStackView.rewind()
+            if (layoutManager.topPosition > 0)
+                when (viewModel.userMutationEvent.value) {
+                    is UserMutationEvent.AddDislikedMatchingInfo -> {
+                        viewModel.deleteDislikedMate(getCurrentItem(1).memberId)
+                    }
+                    is UserMutationEvent.AddLikedMatchingInfo -> {
+                        viewModel.deleteLikedMate(getCurrentItem(1).memberId)
+                    }
+                    else -> {}
+                } else Toast.makeText(this@MatchingFragment.requireContext(), "처음 카드에요.", Toast.LENGTH_SHORT).show()
         }
         binding.chatButton.setOnClickListener {
             animateColorAndRestore(matchingViewUtil.yellow, 150)
@@ -225,8 +246,7 @@ class MatchingFragment : Fragment(), CardStackListener {
             CustomDialog(
                 text = "상대의 카카오톡 오픈채팅으로 이동합니다.",
                 positiveButton = DialogButton("카카오톡으로 이동", {
-                    val position = layoutManager.topPosition
-                    val link = adapter.dataSet[position].openKakaoLink
+                    val link = getCurrentItem().openKakaoLink
                     IDormLogger.i(this, "Open link: $link")
                     try {
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
@@ -262,17 +282,20 @@ class MatchingFragment : Fragment(), CardStackListener {
         requireActivity().window.statusBarColor = rgbEval
     }
 
+    private fun getCurrentItem(offset: Int = 0): MatchingInfo {
+        val position = layoutManager.topPosition
+        return adapter.dataSet[position - offset]
+    }
+
 
     override fun onCardSwiped(direction: Direction?) {
         Toast.makeText(requireContext(), direction.toString(), Toast.LENGTH_SHORT).show()
         lifecycleScope.launch {
             matchingViewUtil.animateToColor(binding.circle, matchingViewUtil.blue, 250)
         }
-        val position = layoutManager.topPosition
-        IDormLogger.i(this, "current pos: $position")
         when (direction) {
-            Direction.Left -> viewModel.addDislikedMate(adapter.dataSet[position - 1].memberId)
-            Direction.Right -> viewModel.addLikedMate(adapter.dataSet[position - 1].memberId)
+            Direction.Left -> viewModel.addDislikedMate(getCurrentItem(1).memberId)
+            Direction.Right -> viewModel.addLikedMate(getCurrentItem(1).memberId)
             else -> {}
         }
     }
