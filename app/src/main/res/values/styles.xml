@@ -116,5 +116,10 @@
     <style name="Widget.DesignSystem.AppCompatButton.blue" parent="Widget.MaterialComponents.Button">
         <item name="backgroundTint">@color/selector_button_blue_background_color</item>
     </style>
+
+    <!--  ImageView Style  -->
+    <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>
 

@@ -17,7 +17,6 @@ import org.appcenter.inudorm.OnPromptDoneListener
 import org.appcenter.inudorm.R
 
 
-
 // Event 클래스를 상속 받는 두 클래스를 만들어준다. sealed를 쓰면 when ... is 를 통해 이벤트에 따라 분기시킬 수 있다.
 sealed class Event {
     data class ShowToast(val text: String, val interval: Int) : Event()
@@ -59,7 +58,11 @@ fun eventHandler(context: Context, it: Event) {
             Toast.makeText(context, it.text, it.interval).show()
         }
         is Event.ShowDialog -> {
-            CustomDialog(it.text, it.positiveButton, it.negativeButton).show(context)
+            CustomDialog(
+                it.text,
+                positiveButton = it.positiveButton,
+                negativeButton = it.negativeButton
+            ).show(context)
         }
         is Event.MergeBundleWithPaging -> {
             (context as OnPromptDoneListener).onPromptDone(it.bundle)

@@ -3,46 +3,89 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="12dp"
-    >
+    app:cardCornerRadius="12dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="15dp">
+        android:padding="24dp">
 
         <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
+            android:id="@+id/title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/notosans_medium"
-            android:text="Button Text"
+            android:includeFontPadding="false"
+            android:text="Title"
             android:textColor="@color/black"
-            android:textSize="14sp"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@+id/close"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageButton
+            android:id="@+id/close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/close"
+            android:src="@drawable/ic_baseline_clear_24"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/title"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_regular"
+            android:paddingVertical="20sp"
+            android:text="Text"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/title"
+            app:layout_constraintTop_toBottomOf="@id/title" />
+
+        <LinearLayout
             android:id="@+id/ok_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@null"
-            android:fontFamily="@font/notosans_medium"
-            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:paddingHorizontal="10dp"
-            android:text="확인"
-            android:textColor="@color/iDorm_blue"
             android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@+id/cancel_button"
-            app:layout_constraintTop_toBottomOf="@+id/text" />
+            app:layout_constraintTop_toBottomOf="@+id/text">
+
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/btnIcon"
+                android:layout_width="23sp"
+                android:layout_height="23sp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="10sp"
+                app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" />
+
+            <TextView
+                android:id="@+id/btnText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosans_regular"
+                android:text="확인"
+                android:textColor="@color/iDorm_blue"
+                android:textSize="14sp" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/cancel_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:fontFamily="@font/notosans_medium"
+            android:fontFamily="@font/notosans_regular"
             android:paddingHorizontal="10dp"
             android:text="취소"
             android:textColor="@color/iDorm_blue"

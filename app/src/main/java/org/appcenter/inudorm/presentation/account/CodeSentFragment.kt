@@ -52,7 +52,7 @@ class CodeSentFragment : Fragment() {
         Log.d(TAG, "trying to open webmail ...")
         CustomDialog(
             "Gmail 앱에 학교 메일이 등록되어 있으신가요?",
-            DialogButton("예", {
+            positiveButton = DialogButton("예", onClick = {
                 val intent =
                     requireContext().packageManager.getLaunchIntentForPackage("com.google.android.gm")
                 if (intent == null) { // 지메일 앱 미설치. 포털로 패스
@@ -62,7 +62,7 @@ class CodeSentFragment : Fragment() {
                     startActivity(intent)
                 }
             }),
-            DialogButton("아니오", { openMailWeb() })
+            negativeButton = DialogButton("아니오", onClick = { openMailWeb() })
         ).show(this.requireContext())
     }
 

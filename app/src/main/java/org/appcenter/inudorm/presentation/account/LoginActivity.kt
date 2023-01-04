@@ -43,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
                 } else if (state.message != null) {
                     CustomDialog(
                         state.message!!,
-                        DialogButton("확인", null)
+                        positiveButton = DialogButton("확인", )
                     ).show(this@LoginActivity)
                 }
             }

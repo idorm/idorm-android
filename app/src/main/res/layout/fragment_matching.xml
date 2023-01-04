@@ -118,7 +118,7 @@
                     android:id="@+id/cardStackView"
                     matchingState="@{matchingViewModel.matchingState}"
                     android:layout_width="match_parent"
-                    android:layout_height="500sp"
+                    android:layout_height="470sp"
                     android:layout_marginVertical="0dp"
                     android:elevation="10dp"
                     tools:listitem="@layout/item_matching" />

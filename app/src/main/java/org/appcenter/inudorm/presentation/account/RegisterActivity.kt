@@ -95,12 +95,12 @@ class RegisterActivity : PromptActivity() {
                 IDormLogger.e(this@RegisterActivity, it.toString())
                 CustomDialog(
                     it.toString(),
-                    DialogButton("확인")
+                    positiveButton = DialogButton("확인")
                 ).show(this@RegisterActivity)
             }.onExpectedError {
                 CustomDialog(
                     it.message,
-                    DialogButton("확인")
+                    positiveButton = DialogButton("확인")
                 ).show(this@RegisterActivity)
             }
         }

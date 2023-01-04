@@ -34,10 +34,7 @@ import org.appcenter.inudorm.networking.IDormError
 import org.appcenter.inudorm.networking.UIErrorHandler
 import org.appcenter.inudorm.presentation.*
 import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter
-import org.appcenter.inudorm.util.CustomDialog
-import org.appcenter.inudorm.util.DialogButton
-import org.appcenter.inudorm.util.IDormLogger
-import org.appcenter.inudorm.util.MatchingViewUtil
+import org.appcenter.inudorm.util.*
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -101,11 +98,8 @@ class MatchingFragment : Fragment(), CardStackListener {
                 if (it.value == "report") {
                     CustomDialog(
                         "게시글을 신고하고 싶으신가요?",
-                        DialogButton(
-                            "취소",
-                            textColor = R.color.iDorm_gray_300
-                        ),
-                        DialogButton("확인", {
+
+                        positiveButton = DialogButton("확인", ButtonType.Filled, icon=R.drawable.ic_kakaotalk_logo,onClick = {
                             val position = layoutManager.topPosition
                             viewModel.reportMatchingInfo(adapter.dataSet[position].memberId)
                         }),
@@ -156,12 +150,15 @@ class MatchingFragment : Fragment(), CardStackListener {
                             binding.cardStackView.rewind()
                     }
                     is UserMutationEvent.ReportMatchingInfo -> {
-                        if (state.success) CustomDialog("사용자를 신고했습니다.", DialogButton("확인")).show(
+                        if (state.success) CustomDialog(
+                            "사용자를 신고했습니다.",
+                            positiveButton = DialogButton("확인")
+                        ).show(
                             this@MatchingFragment.requireContext()
                         )
                         else CustomDialog(
                             "사용자 신고에 실패했습니다.",
-                            DialogButton("확인")
+                            positiveButton = DialogButton("확인")
                         ).show(this@MatchingFragment.requireContext())
                     }
                     is UserMutationEvent.DeleteLikedMatchingInfo -> {
@@ -184,6 +181,12 @@ class MatchingFragment : Fragment(), CardStackListener {
                             ErrorCode.DUPLICATE_LIKED_MEMBER -> {}
                             ErrorCode.ILLEGAL_STATEMENT_MATCHING_INFO_NON_PUBLIC -> {
                                 // Todo: 매칭정보 비공개. 다이얼로그 띄워서 온보딩으로 연결
+                                CustomDialog(
+                                    "룸메이트 매칭을 위해\n우선 매칭 이미지를 만들어 주세요.",
+                                    positiveButton = DialogButton("확인", ButtonType.Filled)
+                                )
+                            }
+                            ErrorCode.MATCHING_INFO_NOT_FOUND -> {
 
                             }
                             else -> {}
@@ -238,14 +241,18 @@ class MatchingFragment : Fragment(), CardStackListener {
                         viewModel.deleteLikedMate(getCurrentItem(1).memberId)
                     }
                     else -> {}
-                } else Toast.makeText(this@MatchingFragment.requireContext(), "처음 카드에요.", Toast.LENGTH_SHORT).show()
+                } else Toast.makeText(
+                this@MatchingFragment.requireContext(),
+                "처음 카드에요.",
+                Toast.LENGTH_SHORT
+            ).show()
         }
         binding.chatButton.setOnClickListener {
             animateColorAndRestore(matchingViewUtil.yellow, 150)
             // Todo: Add KakaoTalk Icon to button
             CustomDialog(
                 text = "상대의 카카오톡 오픈채팅으로 이동합니다.",
-                positiveButton = DialogButton("카카오톡으로 이동", {
+                positiveButton = DialogButton("카카오톡으로 이동", onClick = {
                     val link = getCurrentItem().openKakaoLink
                     IDormLogger.i(this, "Open link: $link")
                     try {

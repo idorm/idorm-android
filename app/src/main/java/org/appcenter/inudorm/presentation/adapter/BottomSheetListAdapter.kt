@@ -1,9 +1,13 @@
+import android.graphics.drawable.Drawable
+import android.os.Build.VERSION
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import org.appcenter.inudorm.R
 
@@ -37,11 +41,18 @@ class BottomSheetListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = _itemList[position]
+        if (VERSION.SDK_INT >= 29) {
+            holder.menuItem.background = ContextCompat.getDrawable(
+                holder.menuItem.context,
+                R.color.selector_bottom_sheet_background_color
+            )
+        }
         holder.title.text = item.title
         if (item.desc != null) holder.desc.text = item.desc
         else holder.desc.visibility = View.GONE
         if (item.iconResourceId != null) {
-            holder.icon.setBackgroundResource(item.iconResourceId);
+            val drawable = AppCompatResources.getDrawable(holder.icon.context, item.iconResourceId)
+            holder.icon.setImageDrawable(drawable);
         } else holder.icon.visibility = View.GONE
         holder.menuItem.setOnClickListener {
             onItemClick(_itemList[position])
