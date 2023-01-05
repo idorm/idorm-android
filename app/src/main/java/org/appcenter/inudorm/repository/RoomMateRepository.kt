@@ -3,8 +3,10 @@ package org.appcenter.inudorm.repository
 import kotlinx.coroutines.delay
 import org.appcenter.inudorm.model.MatchingInfo
 import org.appcenter.inudorm.model.RoomMateFilter
+import org.appcenter.inudorm.model.SetMatchingInfoVisibilityDto
 import org.appcenter.inudorm.networking.RetrofitInstance
 import org.appcenter.inudorm.networking.service.ReqBody
+import org.appcenter.inudorm.usecase.SetMatchingInfoVisibility
 
 class RoomMateRepository {
     suspend fun fetchRoomMates(params: RoomMateFilter): ArrayList<MatchingInfo> {
@@ -27,6 +29,10 @@ class RoomMateRepository {
     }
     suspend fun reportMatchingInfo(id: Int) {
         return delay(2000L)
+    }
+
+    suspend fun setMatchingInfoVisibility(params: SetMatchingInfoVisibilityDto) {
+        return RetrofitInstance.service.setMatchingInfoVisibility(params)
     }
 
 

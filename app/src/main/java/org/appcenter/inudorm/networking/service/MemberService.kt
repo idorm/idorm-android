@@ -1,6 +1,7 @@
 package org.appcenter.inudorm.networking.service
 
 import okhttp3.RequestBody
+import org.appcenter.inudorm.model.SetMatchingInfoVisibilityDto
 import org.appcenter.inudorm.model.User
 import retrofit2.http.*
 import java.lang.reflect.Member
@@ -70,5 +71,8 @@ interface MemberService{
      */
     @PATCH("member/password")
     suspend fun updatePassword(@Body body:RequestBody): Nothing
+
+    @PATCH("member/matchinginfo")
+    suspend fun setMatchingInfoVisibility(@Body body: SetMatchingInfoVisibilityDto)
 
 }

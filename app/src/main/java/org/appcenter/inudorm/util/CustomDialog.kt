@@ -77,10 +77,15 @@ open class CustomDialog(
                 btnText.setTextColor(
                     ContextCompat.getColor(
                         getContext(),
-                        if (positiveButton.textColor == R.color.iDorm_blue) R.color.white else R.color.iDorm_blue
+                        if (positiveButton.buttonType == ButtonType.Filled && positiveButton.textColor == R.color.iDorm_blue) R.color.white else R.color.iDorm_blue
                     )
                 )
-                if (positiveButton.icon != null) btnIcon.setImageDrawable(ContextCompat.getDrawable(this.context, positiveButton.icon))
+                if (positiveButton.icon != null) btnIcon.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        this.context,
+                        positiveButton.icon
+                    )
+                )
                 setOnClickListener {
                     positiveButton.onClick?.invoke()
                     dialog.dismiss()

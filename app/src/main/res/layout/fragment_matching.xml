@@ -137,7 +137,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp"
                         android:backgroundTint="@color/white"
-                        android:enabled="@{!matchingViewModel.matchingState.loading}"
+                        android:enabled="@{!matchingViewModel.matchingState.loading &amp;&amp; matchingViewModel.matchingState.error == null}"
                         app:borderWidth="0dp"
                         app:fabCustomSize="60sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -147,6 +147,7 @@
                         app:srcCompat="@drawable/ic_no_red"
                         app:tint="@color/iDorm_red" />
 
+                    <!-- 이게 무슨 걔똥같은 문법이죠..? 논리연산자 &&를 쓸때 인코딩때문에 &amp; 로 써야한다네요;  -->
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/backButton"
                         android:layout_width="wrap_content"
@@ -155,7 +156,7 @@
                         android:layout_marginEnd="18dp"
                         android:backgroundTint="@color/white"
 
-                        android:enabled="@{!matchingViewModel.matchingState.loading}"
+                        android:enabled="@{!matchingViewModel.matchingState.loading &amp;&amp; matchingViewModel.matchingState.error == null}"
                         app:borderWidth="0dp"
                         app:fabCustomSize="60sp"
                         app:layout_constraintEnd_toStartOf="@+id/chatButton"
@@ -174,7 +175,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="18dp"
                         android:backgroundTint="@color/white"
-                        android:enabled="@{!matchingViewModel.matchingState.loading}"
+                        android:enabled="@{!matchingViewModel.matchingState.loading &amp;&amp; matchingViewModel.matchingState.error == null}"
                         app:borderWidth="0dp"
                         app:fabCustomSize="60sp"
                         app:layout_constraintEnd_toStartOf="@+id/likeButton"
@@ -192,7 +193,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="20dp"
                         android:backgroundTint="@color/white"
-                        android:enabled="@{!matchingViewModel.matchingState.loading}"
+                        android:enabled="@{!matchingViewModel.matchingState.loading &amp;&amp; matchingViewModel.matchingState.error == null}"
                         app:borderWidth="0dp"
                         app:fabCustomSize="60sp"
                         app:layout_constraintEnd_toEndOf="parent"

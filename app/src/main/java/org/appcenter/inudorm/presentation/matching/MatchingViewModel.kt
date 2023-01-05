@@ -37,6 +37,7 @@ sealed class UserMutationEvent {
         UserMutationEvent();
     data class ReportMatchingInfo(val id: Int, val success: Boolean) :
         UserMutationEvent();
+    data class SetMatchingInfoVisibility(val success: Boolean) : UserMutationEvent();
 }
 
 class MatchingViewModel : ViewModel() {
@@ -173,6 +174,20 @@ class MatchingViewModel : ViewModel() {
                 _userMutationEvent.emit(
                     UserMutationEvent.ReportMatchingInfo(
                         id, true
+                    )
+                )
+            }
+        }
+    }
+
+    fun setMatchingInfoVisibility(isMatchingInfoPublic: Boolean) {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                SetMatchingInfoVisibility().run(isMatchingInfoPublic)
+            }.onSuccess {
+                _userMutationEvent.emit(
+                    UserMutationEvent.SetMatchingInfoVisibility(
+                        true
                     )
                 )
             }

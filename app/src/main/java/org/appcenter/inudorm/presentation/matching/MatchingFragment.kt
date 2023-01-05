@@ -98,11 +98,9 @@ class MatchingFragment : Fragment(), CardStackListener {
                 if (it.value == "report") {
                     CustomDialog(
                         "게시글을 신고하고 싶으신가요?",
-
-                        positiveButton = DialogButton("확인", ButtonType.Filled, icon=R.drawable.ic_kakaotalk_logo,onClick = {
-                            val position = layoutManager.topPosition
-                            viewModel.reportMatchingInfo(adapter.dataSet[position].memberId)
-                        }),
+                        positiveButton = DialogButton("확인", onClick = {
+                            viewModel.reportMatchingInfo(getCurrentItem().matchingInfoId)
+                        })
                     ).show(this@MatchingFragment.requireContext())
                 }
             }
@@ -171,6 +169,8 @@ class MatchingFragment : Fragment(), CardStackListener {
                 }
             }
         }
+        // StateFlow 를 watching 해서 무언가를 호출해야 하는 상황이면 차라리 Activity/Fragment 코드에 해주는게 나을 것 같음.
+        // 왜냐? View 에 바인딩 하게 되면 주제가 안맞음.
         lifecycleScope.launch {
             viewModel.matchingState.collect {
                 // Todo: ⚠️ 네트워크 오류로 퉁치지 말고 꼭!! 상황별 에러 대응하게 처리할 것!!!
@@ -179,15 +179,29 @@ class MatchingFragment : Fragment(), CardStackListener {
                         when (err.error) {
                             ErrorCode.DUPLICATE_DISLIKED_MEMBER -> {}
                             ErrorCode.DUPLICATE_LIKED_MEMBER -> {}
-                            ErrorCode.ILLEGAL_STATEMENT_MATCHING_INFO_NON_PUBLIC -> {
+                            ErrorCode.MATCHING_INFO_NOT_FOUND -> {
                                 // Todo: 매칭정보 비공개. 다이얼로그 띄워서 온보딩으로 연결
                                 CustomDialog(
                                     "룸메이트 매칭을 위해\n우선 매칭 이미지를 만들어 주세요.",
-                                    positiveButton = DialogButton("확인", ButtonType.Filled)
-                                )
+                                    positiveButton = DialogButton(
+                                        "프로필 이미지 만들기",
+                                        ButtonType.Filled,
+                                        onClick = {
+                                            // Todo: 온보딩 연결!!
+                                        })
+                                ).show(this@MatchingFragment.requireContext())
                             }
-                            ErrorCode.MATCHING_INFO_NOT_FOUND -> {
-
+                            ErrorCode.ILLEGAL_STATEMENT_MATCHING_INFO_NON_PUBLIC -> {
+                                CustomDialog(
+                                    "룸메이트 매칭을 위해\n" +
+                                            "우선 내 매칭 이미지를\n" +
+                                            "매칭페이지에 공개해야 해요.",
+                                    positiveButton = DialogButton("취소"),
+                                    negativeButton = DialogButton("공개 허용", onClick = {
+                                        // Todo: 매칭정보 공개 API
+                                        viewModel.setMatchingInfoVisibility(true)
+                                    })
+                                ).show(this@MatchingFragment.requireContext())
                             }
                             else -> {}
                         }
@@ -252,7 +266,7 @@ class MatchingFragment : Fragment(), CardStackListener {
             // Todo: Add KakaoTalk Icon to button
             CustomDialog(
                 text = "상대의 카카오톡 오픈채팅으로 이동합니다.",
-                positiveButton = DialogButton("카카오톡으로 이동", onClick = {
+                positiveButton = DialogButton("카카오톡으로 이동", icon = R.drawable.ic_kakaotalk_logo, onClick = {
                     val link = getCurrentItem().openKakaoLink
                     IDormLogger.i(this, "Open link: $link")
                     try {
