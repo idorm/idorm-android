@@ -11,10 +11,7 @@ import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityRegisterBinding
 import org.appcenter.inudorm.presentation.PromptActivity
 import org.appcenter.inudorm.presentation.account.*
-import org.appcenter.inudorm.presentation.account.prompt.CodePromptFragment
-import org.appcenter.inudorm.presentation.account.prompt.EmailPromptFragment
-import org.appcenter.inudorm.presentation.account.prompt.EmailPromptPurpose
-import org.appcenter.inudorm.presentation.account.prompt.PasswordPromptFragment
+import org.appcenter.inudorm.presentation.account.prompt.*
 import org.appcenter.inudorm.usecase.Register
 import org.appcenter.inudorm.usecase.RegisterParams
 import org.appcenter.inudorm.util.CustomDialog
@@ -67,6 +64,10 @@ class RegisterActivity : PromptActivity() {
                     addPage(PasswordPromptFragment())
                 }
                 3 -> {
+                    Toast.makeText(this, "비밀번호 설정 프래그먼트 생성", Toast.LENGTH_SHORT).show()
+                    addPage(NickNamePromptFragment())
+                }
+                4 -> {
                     Toast.makeText(this, "회원가입 시도", Toast.LENGTH_SHORT).show()
                     val email = registerBundle.getString("email", "none")
                     val password = registerBundle.getString("password", "none")

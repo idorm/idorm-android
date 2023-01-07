@@ -1,11 +1,14 @@
 package org.appcenter.inudorm.util.bindingadapter
 
 import android.content.res.ColorStateList
+import android.text.SpannableStringBuilder
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
 
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.text.color
 
 import androidx.databinding.BindingAdapter
 import com.google.android.material.textfield.TextInputEditText
@@ -74,6 +77,39 @@ object ValidatorBinding {
     }
 
     @JvmStatic
+    @BindingAdapter(value = ["value", "sizeRange"], requireAll = true)
+    fun TextView.lengthValidator(value: String, sizeRange: String) {
+        if (sizeRange.matches("[0-9]-[0-9]".toRegex())) {
+            val lengths = sizeRange.split("-").map { it.toInt() }
+
+            if (value.length in lengths[0]..lengths[1] || value.isEmpty()) {
+                setTextColor(resources.getColor(R.color.iDorm_blue, null))
+            } else {
+                setTextColor(resources.getColor(R.color.iDorm_red, null))
+            }
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("noSpaceValidator")
+    fun TextView.noSpaceValidator(value: String) {
+        if (!value.contains(" ")) setTextColor(resources.getColor(R.color.iDorm_blue, null))
+        else setTextColor(resources.getColor(R.color.iDorm_red, null))
+    }
+
+    @JvmStatic
+    @BindingAdapter("onlyKoEnNumValidator")
+    fun TextView.onlyKoEnNumValidator(value: String) {
+        if (value.matches("^[A-Za-zㄱ-ㅎ가-힣0-9]*$".toRegex())) setTextColor(
+            resources.getColor(
+                R.color.iDorm_blue,
+                null
+            )
+        )
+        else setTextColor(resources.getColor(R.color.iDorm_red, null))
+    }
+
+    @JvmStatic
     @BindingAdapter("passwordCharactersValidator")
     fun TextView.passwordValidator(pwState: PasswordState) {
         if (isSecondPWFieldFocused()) {
@@ -83,6 +119,21 @@ object ValidatorBinding {
                 setTextColor(resources.getColor(R.color.iDorm_red, null))
             }
         } else setTextColor(resources.getColor(R.color.iDorm_gray_400, null))
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["textCount", "maxSize"], requireAll = true)
+    fun TextView.textCounter(textCount: Int, maxSize: Int) {
+        val span = SpannableStringBuilder()
+            .color(
+                ContextCompat.getColor(
+                    this.context,
+                    R.color.iDorm_blue
+                )
+            ) { append(textCount.toString()) }
+            .append(" / $maxSize pt")
+        text = span
+
     }
 
 }

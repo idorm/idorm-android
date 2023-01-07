@@ -33,6 +33,12 @@ data class DialogButton(
 )
 
 // Todo: Dialog 코드 개똥방구임 확장성 개똥..; 나중에 꼭 리팩토링 하자;
+/**
+ * @param text 다이얼로그 메시지
+ * @param titleText 다이얼로그 제목
+ * @param positiveButton 확인 버튼(위치상 왼쪽일 뿐 무조건 확인 버튼이어야 할 필요는 없음)
+ * @param negativeButton 취소 버튼
+ */
 open class CustomDialog(
     private val text: String,
     private val titleText: String? = "",
