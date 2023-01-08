@@ -207,4 +207,5 @@
     <string name="nickNameNoSpaceCondition">•  공백없이 입력해주세요.</string>
     <string name="nickNameCharacterCondition">•  영문, 한글, 숫자만 입력할 수 있어요.</string>
     <string name="proceed">계속하기</string>
+    <string name="completeRegistration">가입완료</string>
 </resources>

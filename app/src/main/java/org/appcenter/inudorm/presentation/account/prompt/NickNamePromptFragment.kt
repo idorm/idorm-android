@@ -1,5 +1,6 @@
 package org.appcenter.inudorm.presentation.account.prompt
 
+import CheckableItem
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import org.appcenter.inudorm.OnPromptDoneListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentNicknamePromptBinding
 import org.appcenter.inudorm.databinding.FragmentPasswordPromptBinding
+import org.appcenter.inudorm.presentation.ListBottomSheet
 import org.appcenter.inudorm.util.CustomDialog
 import org.appcenter.inudorm.util.DialogButton
 import org.appcenter.inudorm.util.eventHandler
@@ -37,18 +39,42 @@ class NickNamePromptFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         binding.continueButton.setOnClickListener {
             // Todo: Open Agreement BottomSheet
+            val modalBottomSheet = AgreementBottomSheetFragment(
+                arrayListOf(
+                    CheckableItem(
+                        id="term",
+                        text = "회원가입 약관 필수동의",
+                        required = true,
+                        checked = false,
+                        url="https://google.com"
+                    ),
+                    CheckableItem(
+                        id="privacyPolicy",
+                        text = "개인정보 처리방침 필수동의",
+                        required = true,
+                        checked = false,
+                        url="https://naver.com"
 
+                    ),
+                )
+            ) {
+                onAgreementAccepted()
+            }
+            modalBottomSheet.show(
+                requireActivity().supportFragmentManager,
+                ListBottomSheet.TAG
+            )
         }
     }
 
-    fun onAgreementAccepted() {
+    private fun onAgreementAccepted() {
         val agreed = true
         val nickName = viewModel.nickName.value!!
         if (nickName.matches("^[A-Za-zㄱ-ㅎ가-힣0-9]{2,8}$".toRegex())) {
             if (agreed) {
                 val bundle = Bundle()
                 bundle.putString("nickname", nickName)
-                (this@NickNamePromptFragment as OnPromptDoneListener).onPromptDone(bundle)
+                (this@NickNamePromptFragment.requireContext() as OnPromptDoneListener).onPromptDone(bundle)
             } else {
                 CustomDialog("약관에 동의해야 합니다.", positiveButton = DialogButton("확인")).show(
                     this@NickNamePromptFragment.requireContext()

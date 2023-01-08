@@ -82,7 +82,7 @@ object ValidatorBinding {
         if (sizeRange.matches("[0-9]-[0-9]".toRegex())) {
             val lengths = sizeRange.split("-").map { it.toInt() }
 
-            if (value.length in lengths[0]..lengths[1] || value.isEmpty()) {
+            if (value.length in lengths[0]..lengths[1]) {
                 setTextColor(resources.getColor(R.color.iDorm_blue, null))
             } else {
                 setTextColor(resources.getColor(R.color.iDorm_red, null))

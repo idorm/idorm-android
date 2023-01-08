@@ -11,23 +11,35 @@
         app:behavior_hideable="true"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/close"
-            android:src="@drawable/ic_baseline_clear_24"
+
+        <View
+            android:id="@+id/handle"
+            android:layout_width="120sp"
+            android:layout_height="4sp"
+            android:background="@drawable/ic_bottom_sheet_handle"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SmallSp" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/itemRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="25sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageButton" />
+            app:layout_constraintTop_toBottomOf="@+id/handle" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24sp"
+            android:background="@drawable/view_button_round_10"
+            android:text="@string/completeRegistration"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/itemRecyclerView" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

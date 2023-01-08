@@ -33,6 +33,9 @@ class RegisterActivity : PromptActivity() {
             // The pager adapter, which provides the pages to the view pager widget.
             setUpViewPager(binding.pager, getInitPages())
         }
+        // 특정 페이지 테스트용입니다.
+//        addPage(NickNamePromptFragment())
+//        binding.pager.currentItem++
     }
 
     private fun getInitPages(): ArrayList<Fragment> {
@@ -50,38 +53,36 @@ class RegisterActivity : PromptActivity() {
         if (binding.pager.currentItem == pagerAdapter.itemCount - 1)
             when (binding.pager.currentItem) {
                 0 -> {
-                    Toast.makeText(this, "메일 전송 안내 프래그먼트 생성", Toast.LENGTH_SHORT).show()
                     addPage(CodeSentFragment())
                 }
                 1 -> {
-                    Toast.makeText(this, "암호화된 코드를 갖고 프래그먼트 생성", Toast.LENGTH_SHORT).show()
                     val fragment = CodePromptFragment()
                     fragment.arguments = registerBundle
                     addPage(fragment)
                 }
                 2 -> {
-                    Toast.makeText(this, "비밀번호 설정 프래그먼트 생성", Toast.LENGTH_SHORT).show()
                     addPage(PasswordPromptFragment())
                 }
                 3 -> {
-                    Toast.makeText(this, "비밀번호 설정 프래그먼트 생성", Toast.LENGTH_SHORT).show()
                     addPage(NickNamePromptFragment())
                 }
                 4 -> {
                     Toast.makeText(this, "회원가입 시도", Toast.LENGTH_SHORT).show()
                     val email = registerBundle.getString("email", "none")
                     val password = registerBundle.getString("password", "none")
-                    _register(email, password)
+                    val nickname = registerBundle.getString("nickname", "none")
+
+                    _register(email, password, nickname)
                 }
             }
         binding.pager.currentItem++
         setToolbarIcon()
     }
 
-    private fun _register(email: String, password: String) {
+    private fun _register(email: String, password: String, nickname:String) {
         lifecycleScope.launch {
             kotlin.runCatching {
-                Register().run(RegisterParams(email, password))
+                Register().run(RegisterParams(email, password, nickname))
             }.onSuccess { result ->
                 IDormLogger.i(this, result.toString())
                 if (result) {

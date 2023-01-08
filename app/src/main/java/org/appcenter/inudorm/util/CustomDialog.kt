@@ -91,7 +91,7 @@ open class CustomDialog(
                         this.context,
                         positiveButton.icon
                     )
-                )
+                ) else btnIcon.visibility = View.GONE
                 setOnClickListener {
                     positiveButton.onClick?.invoke()
                     dialog.dismiss()
@@ -104,7 +104,6 @@ open class CustomDialog(
                     this.layoutParams.width = LayoutParams.MATCH_PARENT
                     this.gravity = Gravity.CENTER_HORIZONTAL
                     this.setPadding(16)
-
                 }
             }
         }

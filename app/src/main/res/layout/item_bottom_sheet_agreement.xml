@@ -1,0 +1,57 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/menuItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:paddingVertical="7.5sp"
+    >
+
+    <RadioButton
+        android:id="@+id/radioButton"
+        android:layout_width="17sp"
+        android:layout_height="17sp"
+        android:background="@drawable/selector_radiobutton"
+
+        android:button="@null"
+        android:padding="10sp"
+
+        android:checked="false"
+        app:layout_constraintBottom_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/title" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:fontFamily="@font/notosans_medium"
+        android:includeFontPadding="false"
+        android:text="바텀시트리스트 아이템"
+        android:textColor="@color/iDorm_gray_400"
+        android:textSize="14sp"
+        android:layout_marginStart="17sp"
+
+        app:layout_constraintStart_toEndOf="@id/radioButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/detail"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:fontFamily="@font/notosans_medium"
+        android:includeFontPadding="false"
+        android:text="보기"
+        android:textColor="@color/iDorm_gray_200"
+        android:textSize="14sp"
+        android:layout_marginStart="14sp"
+
+        app:layout_constraintStart_toEndOf="@id/title"
+        app:layout_constraintTop_toTopOf="@id/title"
+        app:layout_constraintBottom_toBottomOf="@id/title"
+        android:gravity="center"
+
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

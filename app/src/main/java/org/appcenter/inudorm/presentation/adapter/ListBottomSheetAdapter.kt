@@ -1,4 +1,3 @@
-import android.graphics.drawable.Drawable
 import android.os.Build.VERSION
 import android.view.LayoutInflater
 import android.view.View
