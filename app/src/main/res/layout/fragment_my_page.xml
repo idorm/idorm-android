@@ -44,7 +44,7 @@
                 android:layout_height="68dp"
                 android:layout_marginTop="68dp"
                 android:elevation="10dp"
-                android:src="@drawable/ic_profile_my_page"
+                app:imageUrl="@{viewModel.myPageState.myInfo.data.profilePhotoUrl}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

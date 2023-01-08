@@ -1,6 +1,7 @@
 package org.appcenter.inudorm.presentation.mypage
 
 import android.content.Context
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -40,6 +41,8 @@ class MyPageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_page, container, false)
+        requireActivity().window.statusBarColor =
+            ContextCompat.getColor(requireContext(), R.color.iDorm_blue)
         return binding.root
     }
 
@@ -52,9 +55,6 @@ class MyPageFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(MyPageViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-
-        requireActivity().window.statusBarColor =
-            ContextCompat.getColor(requireContext(), R.color.iDorm_blue)
 
         viewModel.getMyMatchingInfo()
 
@@ -81,7 +81,8 @@ class MyPageFragment : Fragment() {
         }
 
         binding.settingButton.setOnClickListener {
-
+            val intent = Intent(this@MyPageFragment.requireContext(), MyInfoSettingActivity::class.java)
+            startActivity(intent)
         }
 
         binding.matchingImageButton.setOnClickListener {
