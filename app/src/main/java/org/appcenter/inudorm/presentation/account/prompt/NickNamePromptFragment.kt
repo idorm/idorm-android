@@ -42,19 +42,11 @@ class NickNamePromptFragment : Fragment() {
             val modalBottomSheet = AgreementBottomSheetFragment(
                 arrayListOf(
                     CheckableItem(
-                        id="term",
-                        text = "회원가입 약관 필수동의",
-                        required = true,
-                        checked = false,
-                        url="https://google.com"
-                    ),
-                    CheckableItem(
                         id="privacyPolicy",
                         text = "개인정보 처리방침 필수동의",
                         required = true,
                         checked = false,
-                        url="https://naver.com"
-
+                        url="https://idorm.notion.site/e5a42262cf6b4665b99bce865f08319b"
                     ),
                 )
             ) {

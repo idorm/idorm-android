@@ -14,10 +14,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.appcenter.inudorm.model.SavedUser
 import org.appcenter.inudorm.model.User
-import org.appcenter.inudorm.repository.LocalFilterRepository
-import org.appcenter.inudorm.repository.PrefsRepository
-import org.appcenter.inudorm.repository.RoomMateRepository
-import org.appcenter.inudorm.repository.UserRepository
+import org.appcenter.inudorm.repository.*
 import org.appcenter.inudorm.usecase.Login
 import org.appcenter.inudorm.usecase.LoginRefresh
 import org.appcenter.inudorm.util.IDormLogger
@@ -34,6 +31,7 @@ class App : Application() {
         val userRepository = UserRepository()
         val roomMateRepository = RoomMateRepository()
         val localFilterRepository = LocalFilterRepository()
+        val matchingInfoRepository = MatchingInfoRepository()
     }
 
 

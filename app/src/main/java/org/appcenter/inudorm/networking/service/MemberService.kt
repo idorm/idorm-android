@@ -72,7 +72,5 @@ interface MemberService{
     @PATCH("member/password")
     suspend fun updatePassword(@Body body:RequestBody): Nothing
 
-    @PATCH("member/matchinginfo")
-    suspend fun setMatchingInfoVisibility(@Body body: SetMatchingInfoVisibilityDto)
 
 }

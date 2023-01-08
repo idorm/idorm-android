@@ -4,7 +4,6 @@ import android.os.Parcelable
 import kotlinx.parcelize.IgnoredOnParcel
 
 import kotlinx.parcelize.Parcelize
-import org.appcenter.inudorm.networking.service.ReqBody
 
 /**
  * 불호 요소들의 경우 Serialize/Deserialize 과정에서 Boolean 값을 뒤집어줘야 합니다.

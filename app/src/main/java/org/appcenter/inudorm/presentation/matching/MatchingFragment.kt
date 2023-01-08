@@ -34,6 +34,7 @@ import org.appcenter.inudorm.networking.IDormError
 import org.appcenter.inudorm.networking.UIErrorHandler
 import org.appcenter.inudorm.presentation.*
 import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter
+import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.util.*
 import java.net.ConnectException
 import java.net.SocketTimeoutException
@@ -54,6 +55,9 @@ class MatchingFragment : Fragment(), CardStackListener {
     private lateinit var adapter: RoomMateAdapter
     private val matchingViewUtil by lazy {
         MatchingViewUtil(requireActivity())
+    }
+    private val prefsRepository: PrefsRepository by lazy {
+        PrefsRepository(requireContext())
     }
 
     private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
@@ -175,7 +179,7 @@ class MatchingFragment : Fragment(), CardStackListener {
             viewModel.matchingState.collect {
                 // Todo: ⚠️ 네트워크 오류로 퉁치지 말고 꼭!! 상황별 에러 대응하게 처리할 것!!!
                 if (it.error != null) {
-                    UIErrorHandler.handle(requireContext(), it.error!!) { err ->
+                    UIErrorHandler.handle(requireContext(), prefsRepository, it.error!!) { err ->
                         when (err.error) {
                             ErrorCode.DUPLICATE_DISLIKED_MEMBER -> {}
                             ErrorCode.DUPLICATE_LIKED_MEMBER -> {}
@@ -266,20 +270,23 @@ class MatchingFragment : Fragment(), CardStackListener {
             // Todo: Add KakaoTalk Icon to button
             CustomDialog(
                 text = "상대의 카카오톡 오픈채팅으로 이동합니다.",
-                positiveButton = DialogButton("카카오톡으로 이동", icon = R.drawable.ic_kakaotalk_logo, onClick = {
-                    val link = getCurrentItem().openKakaoLink
-                    IDormLogger.i(this, "Open link: $link")
-                    try {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
-                        startActivity(intent)
-                    } catch (_: ActivityNotFoundException) {
-                        Toast.makeText(
-                            requireContext(),
-                            "카카오톡 오픈채팅 링크를 찾을 수 없거나 올바르지 않아요.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                })
+                positiveButton = DialogButton(
+                    "카카오톡으로 이동",
+                    icon = R.drawable.ic_kakaotalk_logo,
+                    onClick = {
+                        val link = getCurrentItem().openKakaoLink
+                        IDormLogger.i(this, "Open link: $link")
+                        try {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+                            startActivity(intent)
+                        } catch (_: ActivityNotFoundException) {
+                            Toast.makeText(
+                                requireContext(),
+                                "카카오톡 오픈채팅 링크를 찾을 수 없거나 올바르지 않아요.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    })
             ).show(requireContext())
         }
         binding.openFilterButton.setOnClickListener {

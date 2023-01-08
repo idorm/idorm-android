@@ -2,9 +2,11 @@ package org.appcenter.inudorm.networking
 
 import android.content.Context
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.*
 import okhttp3.internal.http2.StreamResetException
 import org.appcenter.inudorm.OnSnackBarCallListener
 import org.appcenter.inudorm.R
+import org.appcenter.inudorm.repository.PrefsRepository
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -17,6 +19,7 @@ object UIErrorHandler {
      */
     fun handle(
         context: Context,
+        prefsRepository : PrefsRepository,
         error: Throwable,
         handleNetworkError: ((Throwable) -> Unit)? = null,
         handleIDormError: ((IDormError) -> Unit)? = null
@@ -36,6 +39,12 @@ object UIErrorHandler {
                 else handleNetworkError(error)
             }
             is IDormError -> {
+                // 로그인 안된 경우 처리
+                if (error.error == ErrorCode.UNAUTHORIZED_MEMBER) {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        prefsRepository.setUserToken("")
+                    }
+                }
                 if (handleIDormError == null)
                     openSnackBar(error.message)
                 else handleIDormError(error)

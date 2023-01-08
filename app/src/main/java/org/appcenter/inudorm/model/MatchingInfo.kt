@@ -22,6 +22,7 @@ data class MatchingInfo(
     val isSmoking: Boolean,
     val isAllowedFood: Boolean,
     val isWearEarphones: Boolean,
+    val isMatchingInfoPublic: Boolean?,
     val wakeUpTime: String,
     val cleanUpStatus: String,
     val showerTime: String,
