@@ -25,7 +25,7 @@
     <string name="EnterAuthCodeInteraction">인증번호 입력</string>
     <string name="checkPostInteraction">본문 확인</string>
     <string name="initializationInteraction">선택 초기화</string>
-    <string name="registerInteraction">가입 완료</string>
+    <string name="registerInteraction">입력 완료</string>
     <string name="filterDoneInteraction">필터링 완료</string>
 
 
@@ -150,7 +150,7 @@
     <string name="notificationSettingText">알림 설정</string>
     <!--<string name="emailText">이메일</string>-->
     <string name="userEmailText">abcdefg@inu.ac.kr</string>
-    <string name="serviceAgreeText">서비스 약관 동의</string>
+    <string name="serviceAgreeText">서비스 약관 자세히 보기</string>
     <string name="versionInfoText">버전 정보</string>
     <string name="nowVersionInfoText">n.n.n</string>
     <string name="withdrawalText">회원탈퇴</string>
@@ -208,4 +208,5 @@
     <string name="nickNameCharacterCondition">•  영문, 한글, 숫자만 입력할 수 있어요.</string>
     <string name="proceed">계속하기</string>
     <string name="completeRegistration">가입완료</string>
+    <string name="signout">로그아웃</string>
 </resources>

@@ -38,44 +38,12 @@ class NickNamePromptFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         binding.continueButton.setOnClickListener {
-            // Todo: Open Agreement BottomSheet
-            val modalBottomSheet = AgreementBottomSheetFragment(
-                arrayListOf(
-                    CheckableItem(
-                        id="privacyPolicy",
-                        text = "개인정보 처리방침 필수동의",
-                        required = true,
-                        checked = false,
-                        url="https://idorm.notion.site/e5a42262cf6b4665b99bce865f08319b"
-                    ),
-                )
-            ) {
-                onAgreementAccepted()
-            }
-            modalBottomSheet.show(
-                requireActivity().supportFragmentManager,
-                ListBottomSheet.TAG
+            val bundle = Bundle()
+            bundle.putString("nickname", viewModel.nickName.value)
+            (this@NickNamePromptFragment.requireContext() as OnPromptDoneListener).onPromptDone(
+                bundle
             )
         }
-    }
-
-    private fun onAgreementAccepted() {
-        val agreed = true
-        val nickName = viewModel.nickName.value!!
-        if (nickName.matches("^[A-Za-zㄱ-ㅎ가-힣0-9]{2,8}$".toRegex())) {
-            if (agreed) {
-                val bundle = Bundle()
-                bundle.putString("nickname", nickName)
-                (this@NickNamePromptFragment.requireContext() as OnPromptDoneListener).onPromptDone(bundle)
-            } else {
-                CustomDialog("약관에 동의해야 합니다.", positiveButton = DialogButton("확인")).show(
-                    this@NickNamePromptFragment.requireContext()
-                )
-            }
-        } else CustomDialog(
-            "닉네임 형식이 올바르지 않습니다.",
-            positiveButton = DialogButton("확인")
-        ).show(this@NickNamePromptFragment.requireContext())
     }
 
 }

@@ -1,15 +1,21 @@
 package org.appcenter.inudorm.presentation.mypage
 
-import android.os.Build
-import android.os.Build.VERSION
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import org.appcenter.inudorm.BuildConfig
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+import org.appcenter.inudorm.App
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityMyInformationSettingBinding
+import org.appcenter.inudorm.presentation.account.ChangePasswordActivity
+import org.appcenter.inudorm.presentation.account.LoginActivity
+import org.appcenter.inudorm.presentation.account.WithdrawalActivity
+import org.appcenter.inudorm.repository.PrefsRepository
+import kotlin.reflect.KClass
 
 class MyInfoSettingActivity : AppCompatActivity() {
 
@@ -17,10 +23,49 @@ class MyInfoSettingActivity : AppCompatActivity() {
     private val binding: ActivityMyInformationSettingBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_my_information_setting)
     }
+    private val prefsRepository: PrefsRepository by lazy {
+        PrefsRepository(this)
+    }
+
+    private inline fun <reified T : AppCompatActivity> navigateTo(activity: KClass<T>) {
+        val intent = Intent(this, activity.java)
+        startActivity(intent)
+    }
+
+    fun changeNickName() {
+        navigateTo(ChangeNickNameActivity::class)
+    }
+
+    fun changePassword() {
+        navigateTo(ChangePasswordActivity::class)
+    }
+
+    fun settingNotification() {
+        navigateTo(NotificationSettingActivity::class)
+    }
+
+    fun terms() {
+        val intent = Intent(
+            Intent.ACTION_VIEW,
+            Uri.parse("https://idorm.notion.site/e5a42262cf6b4665b99bce865f08319b")
+        )
+        startActivity(intent)
+    }
 
     fun withdraw() {
-        Toast.makeText(this, "탈퇴클릭", Toast.LENGTH_SHORT).show()
+        navigateTo(WithdrawalActivity::class)
     }
+
+    fun signOut() {
+        lifecycleScope.launch {
+            prefsRepository.setUserToken("")
+            App.token = ""
+        }.invokeOnCompletion {
+            navigateTo(LoginActivity::class)
+            finish()
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,4 +74,6 @@ class MyInfoSettingActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         viewModel.getUser()
     }
+
+
 }

@@ -1,5 +1,6 @@
 package org.appcenter.inudorm.presentation.account
 
+import CheckableItem
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -7,8 +8,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
+import org.appcenter.inudorm.OnPromptDoneListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityRegisterBinding
+import org.appcenter.inudorm.presentation.ListBottomSheet
 import org.appcenter.inudorm.presentation.PromptActivity
 import org.appcenter.inudorm.presentation.account.*
 import org.appcenter.inudorm.presentation.account.prompt.*
@@ -67,19 +70,52 @@ class RegisterActivity : PromptActivity() {
                     addPage(NickNamePromptFragment())
                 }
                 4 -> {
-                    Toast.makeText(this, "회원가입 시도", Toast.LENGTH_SHORT).show()
-                    val email = registerBundle.getString("email", "none")
-                    val password = registerBundle.getString("password", "none")
-                    val nickname = registerBundle.getString("nickname", "none")
-
-                    _register(email, password, nickname)
+                    val modalBottomSheet = AgreementBottomSheetFragment(
+                        arrayListOf(
+                            CheckableItem(
+                                id = "privacyPolicy",
+                                text = "개인정보 처리방침 필수동의",
+                                required = true,
+                                checked = false,
+                                url = "https://idorm.notion.site/e5a42262cf6b4665b99bce865f08319b"
+                            ),
+                        )
+                    ) {
+                        onAgreementAccepted()
+                    }
+                    modalBottomSheet.show(
+                        this@RegisterActivity.supportFragmentManager,
+                        ListBottomSheet.TAG
+                    )
                 }
             }
         binding.pager.currentItem++
         setToolbarIcon()
     }
 
-    private fun _register(email: String, password: String, nickname:String) {
+
+    private fun onAgreementAccepted() {
+        val email = registerBundle.getString("email", "none")
+        val password = registerBundle.getString("password", "none")
+        val nickname = registerBundle.getString("nickname", "none")
+
+        val agreed = true
+        if (nickname.matches("^[A-Za-zㄱ-ㅎ가-힣0-9]{2,8}$".toRegex())) {
+            if (agreed) {
+                Toast.makeText(this, "회원가입 시도", Toast.LENGTH_SHORT).show()
+                _register(email, password, nickname)
+            } else {
+                CustomDialog("약관에 동의해야 합니다.", positiveButton = DialogButton("확인")).show(
+                    this@RegisterActivity
+                )
+            }
+        } else CustomDialog(
+            "닉네임 형식이 올바르지 않습니다.",
+            positiveButton = DialogButton("확인")
+        ).show(this@RegisterActivity)
+    }
+
+    private fun _register(email: String, password: String, nickname: String) {
         lifecycleScope.launch {
             kotlin.runCatching {
                 Register().run(RegisterParams(email, password, nickname))
@@ -107,5 +143,6 @@ class RegisterActivity : PromptActivity() {
             }
         }
     }
+
 
 }

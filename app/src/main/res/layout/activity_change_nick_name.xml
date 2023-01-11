@@ -1,237 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/iDorm_gray_100"
-    tools:context=".presentation.mypage.ChangeNickNameActivity">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:textAlignment="center"
-        android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:elevation="4dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/notosans_regular"
-            android:includeFontPadding="false"
-            android:textSize="16sp"
-            android:text="@string/myInformationSettingText"
-            android:textColor="@color/black" />
-    </androidx.appcompat.widget.Toolbar>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout12"
-        android:layout_width="match_parent"
-        android:layout_height="24dp"
-        android:background="@color/iDorm_gray_100"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:padding="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout12">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/nickNameText"
-            android:layout_width="wrap_content"
-            android:layout_height="24dp"
-            android:fontFamily="@font/notosans_regular"
-            android:includeFontPadding="false"
-            android:text="@string/enterNickNameText"
-            android:textColor="@color/iDorm_gray_400"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/notosans_medium"
-            android:includeFontPadding="false"
-            android:text="@string/nickNameUnitText"
-            android:textColor="@color/iDorm_gray_300"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nickNameText" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="2dp"
-            android:fontFamily="@font/notosans_medium"
-            android:includeFontPadding="false"
-            android:text="@string/nickNameMaxLengthText"
-            android:textColor="@color/iDorm_gray_300"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/nickNameText" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="2dp"
-            android:fontFamily="@font/notosans_medium"
-            android:includeFontPadding="false"
-            android:text="/"
-            android:textColor="@color/iDorm_gray_300"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toStartOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/nickNameText" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="2dp"
-            android:fontFamily="@font/notosans_medium"
-            android:includeFontPadding="false"
-            android:text="@string/useEnterLengthText"
-            android:textColor="@color/iDorm_blue"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toStartOf="@+id/textView3"
-            app:layout_constraintTop_toBottomOf="@+id/nickNameText" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/editPassword"
-            style="@style/Widget.DesignSystem.TextInputLayout.OutlinedBox"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:endIconMode="none"
-            app:errorEnabled="false"
-            app:hintEnabled="false"
+            android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
+            android:background="@null"
+            app:titleTextColor="@color/black"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:theme="@style/Widget.DesignSystem.TextInputEditText.FilledBox.Inside"
-                android:id="@+id/passwordField"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/notosans_medium"
-                android:hint="@string/userNickNameText"
-                android:includeFontPadding="false"
-                android:inputType="textPassword"
-                android:paddingLeft="9dp"
-                android:textColorHint="@color/iDorm_gray_300"
-                android:textSize="14sp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout3"
-            android:layout_width="match_parent"
-            android:layout_height="18dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editPassword">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/pager">
 
             <TextView
+                android:id="@+id/toolbarText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:fontFamily="@font/notosans_medium"
+                android:text="닉네임 변경"
+                android:fontFamily="@font/notosans_regular"
+                android:textColor="@color/black"
+                android:textSize="16sp"
                 android:includeFontPadding="false"
-                android:text="@string/nickNameLengthCaution"
-                android:textColor="@color/selector_outlined_textinput_text_color"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_gravity="center"/>
+        </androidx.appcompat.widget.Toolbar>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout4"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="18dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:fontFamily="@font/notosans_medium"
-                android:includeFontPadding="false"
-                android:text="@string/nickNameWithoutBlankCaution"
-                android:textColor="@color/selector_outlined_textinput_text_color"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout5"
-            android:layout_width="match_parent"
-            android:layout_height="18dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:fontFamily="@font/notosans_medium"
-                android:includeFontPadding="false"
-                android:text="@string/nickNameInputLangCaution"
-                android:textColor="@color/selector_outlined_textinput_text_color"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button3"
-
-            android:layout_width="match_parent"
-            android:layout_height="53dp"
-            android:layout_marginTop="32dp"
-
-
-            android:background="@drawable/view_button_round_10"
-            android:fontFamily="@font/notosans_medium"
-            android:includeFontPadding="false"
-            android:text="@string/doneInteraction"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout5" />
-
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

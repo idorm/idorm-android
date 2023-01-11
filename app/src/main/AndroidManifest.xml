@@ -39,12 +39,21 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
             tools:ignore="LockedOrientationActivity"></activity>
+
+        <activity
+            android:name=".presentation.account.ChangePasswordActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.IDorm.White"
+            tools:ignore="LockedOrientationActivity" />
+
         <activity
             android:name=".presentation.mypage.NotificationSettingActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
-            tools:ignore="LockedOrientationActivity"></activity>
+            android:parentActivityName=".presentation.mypage.MyInfoSettingActivity"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".presentation.mypage.ChangeNickNameActivity"
             android:exported="true"

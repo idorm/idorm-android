@@ -80,7 +80,7 @@
     </style>
 
     <!--switch 커스텀 디자인-->
-    <style name="Widget.DesignSystem.Switch" parent="Widget.Material3.CompoundButton.Switch">
+    <style name="Widget.DesignSystem.Switch" parent="Widget.AppCompat.CompoundButton.Switch">
         <item name="android:layout_height">21dp</item>
         <item name="android:layout_width">wrap_content</item>
 
