@@ -417,27 +417,25 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/initializationButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="52dp"
 
-            android:layout_marginRight="20dp"
+
             android:layout_marginBottom="20dp"
-
             android:background="@drawable/view_button_round_6_gray_100"
-
             android:drawableLeft="@drawable/ic_initialization"
-
-
             android:drawablePadding="10dp"
             android:fontFamily="@font/notosans_medium"
             android:includeFontPadding="false"
+
             android:paddingHorizontal="20dp"
             android:text="@string/initializationInteraction"
             android:textColor="@color/iDorm_gray_400"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/filterDoneButton"
-            app:layout_constraintWidth_percent="0.6" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.5" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

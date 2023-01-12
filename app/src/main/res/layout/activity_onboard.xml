@@ -41,6 +41,58 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="31dp"-->
+<!--            android:background="@drawable/view_shadow_upper"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/constraintLayout16"-->
+<!--            app:layout_constraintStart_toStartOf="parent" />-->
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/constraintLayout16"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="84dp"-->
+<!--            android:background="@color/white"-->
+<!--            android:elevation="10dp"-->
+<!--            android:paddingHorizontal="24dp"-->
+<!--            android:paddingTop="16dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent">-->
+
+<!--            <androidx.appcompat.widget.AppCompatButton-->
+<!--                android:id="@+id/doneButton"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="52dp"-->
+<!--                android:background="@drawable/view_button_round_6"-->
+<!--                android:fontFamily="@font/notosans_medium"-->
+
+<!--                android:includeFontPadding="false"-->
+<!--                android:text="@string/doneInteraction"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="16sp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintWidth_percent="0.3" />-->
+
+<!--            <androidx.appcompat.widget.AppCompatButton-->
+<!--                android:id="@+id/skipButton"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="52dp"-->
+<!--                android:background="@drawable/view_button_round_6_gray_100"-->
+
+<!--                android:fontFamily="@font/notosans_medium"-->
+<!--                android:includeFontPadding="false"-->
+<!--                android:text="@string/skipInteraction"-->
+<!--                android:textColor="@color/iDorm_gray_400"-->
+<!--                android:textSize="16sp"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintWidth_percent="0.6" />-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
