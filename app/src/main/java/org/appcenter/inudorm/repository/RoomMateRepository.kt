@@ -29,8 +29,8 @@ class RoomMateRepository {
         return delay(2000L)
     }
 
-    suspend fun setMatchingInfoVisibility(params: SetMatchingInfoVisibilityDto) {
-        return RetrofitInstance.service.setMatchingInfoVisibility(params)
+    suspend fun setMatchingInfoVisibility(visibility: Boolean) {
+        return RetrofitInstance.service.setMatchingInfoVisibility(visibility)
     }
 
 

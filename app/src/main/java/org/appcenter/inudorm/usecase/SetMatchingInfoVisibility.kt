@@ -6,6 +6,6 @@ import org.appcenter.inudorm.model.SetMatchingInfoVisibilityDto
 
 class SetMatchingInfoVisibility : UseCase<Boolean, Unit>() {
     override suspend fun onExecute(params: Boolean): Unit {
-        return roomMateRepository.setMatchingInfoVisibility(SetMatchingInfoVisibilityDto(params))
+        return roomMateRepository.setMatchingInfoVisibility(params)
     }
 }

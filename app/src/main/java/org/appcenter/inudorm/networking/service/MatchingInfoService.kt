@@ -30,7 +30,7 @@ interface MatchingInfoService {
     @POST("/member/matchinginfo")
     suspend fun saveMatchingInfo(@Body body: RequestBody): Nothing
 
-    @PATCH("member/matchinginfo")
-    suspend fun setMatchingInfoVisibility(@Body body: SetMatchingInfoVisibilityDto)
+    @PATCH("member/matchinginfo?isMatchingInfoPublic={visibility}")
+    suspend fun setMatchingInfoVisibility(@Query("visibility") visibility: Boolean)
 
 }
