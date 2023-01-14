@@ -32,5 +32,12 @@ class RoomMateRepository {
         return RetrofitInstance.service.setMatchingInfoVisibility(visibility)
     }
 
+    suspend fun getLikedMatchingMates() : ArrayList<MatchingInfo> {
+        return RetrofitInstance.service.getLikedMatchingMates()
+    }
+
+    suspend fun getDisLikedMatchingMates() : ArrayList<MatchingInfo> {
+        return RetrofitInstance.service.getDisLikedMatchingMates()
+    }
 
 }

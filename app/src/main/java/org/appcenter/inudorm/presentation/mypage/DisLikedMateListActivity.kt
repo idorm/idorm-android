@@ -8,22 +8,23 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityLikedMateListBinding
+import org.appcenter.inudorm.util.CustomDialog
+import org.appcenter.inudorm.util.DialogButton
 
-
-class LikedMateListActivity : MateListActivity() {
+class DisLikedMateListActivity : MateListActivity() {
     private val binding: ActivityLikedMateListBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_liked_mate_list)
     }
 
-    private val viewModel : LikedMateListViewModel by viewModels()
+    private val viewModel: DisLikedMateListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupRecyclerView(binding.mateList) {
             // Todo: Option modal
         }
+
         binding.lifecycleOwner = this
-        binding.toolbarText.text = "좋아요한 룸메"
 
         lifecycleScope.launch {
             viewModel.mateListState.collect(collector)
@@ -31,7 +32,5 @@ class LikedMateListActivity : MateListActivity() {
         viewModel.getLikedMates()
 
     }
-
-
 
 }

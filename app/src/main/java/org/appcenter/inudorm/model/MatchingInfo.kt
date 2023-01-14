@@ -11,6 +11,7 @@ package org.appcenter.inudorm.model
  * member: 유저 식별자
  */
 data class MatchingInfo(
+    val addedAt: String? = null,
     val memberId: Int,
     val matchingInfoId: Int,
     val dormNum: Dorm,

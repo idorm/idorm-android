@@ -2,10 +2,7 @@ package org.appcenter.inudorm.networking.service
 
 import org.appcenter.inudorm.model.MatchingInfo
 import org.appcenter.inudorm.model.RoomMateFilter
-import retrofit2.http.Body
-import retrofit2.http.DELETE
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface MatchingMateService {
     /**
@@ -29,5 +26,11 @@ interface MatchingMateService {
 
     @DELETE("/member/matching/like/{id}")
     suspend fun deleteLikeMatchingInfo(@Path("id") id: Int)
+
+    @GET("/member/matching/like")
+    suspend fun getLikedMatchingMates() : ArrayList<MatchingInfo>
+
+    @GET("/member/matching/dislike")
+    suspend fun getDisLikedMatchingMates() : ArrayList<MatchingInfo>
 
 }

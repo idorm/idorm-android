@@ -97,11 +97,11 @@ class MyPageFragment : Fragment() {
         }
 
         binding.dislikedRoomMatesButton.setOnClickListener {
-
+            startActivity(Intent(this@MyPageFragment.requireContext(), DisLikedMateListActivity::class.java))
         }
 
         binding.likedRoomMatesButton.setOnClickListener {
-
+            startActivity(Intent(this@MyPageFragment.requireContext(), LikedMateListActivity::class.java))
         }
     }
 }

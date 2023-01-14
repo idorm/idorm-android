@@ -34,6 +34,13 @@
             android:value="true" />
 
         <activity
+            android:name=".presentation.mypage.DisLikedMateListActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.IDorm.White"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
             android:name=".presentation.mypage.MyMatchingProfileActivity"
             android:exported="true"
             android:screenOrientation="portrait"
