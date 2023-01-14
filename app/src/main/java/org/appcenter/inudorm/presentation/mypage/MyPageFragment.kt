@@ -92,6 +92,7 @@ class MyPageFragment : Fragment() {
         }
 
         binding.matchingImageButton.setOnClickListener {
+            startActivity(Intent(this@MyPageFragment.requireContext(), MyMatchingProfileActivity::class.java))
 
         }
 

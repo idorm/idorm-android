@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MatchingCard">
+        <attr name="dormNum" format="reference|enum" >
+            <enum name="DORM1" value="0"/>
+            <enum name="DORM2" value="1"/>
+            <enum name="DORM3" value="2"/>
+        </attr>
+        <attr name="joinPeriod" format="reference|enum" >
+            <enum name="WEEK16" value="0"/>
+            <enum name="WEEK24" value="1"/>
+        </attr>
+        <attr name="isSnoring" format="reference|boolean" />
+        <attr name="isGrinding" format="reference|boolean" />
+        <attr name="isSmoking" format="reference|boolean" />
+        <attr name="isAllowedFood" format="reference|boolean" />
+        <attr name="isWearEarphones" format="reference|boolean" />
+        <attr name="wakeUpTime" format="reference|string" />
+        <attr name="cleanUpStatus" format="reference|string" />
+        <attr name="showerTime" format="reference|string" />
+        <attr name="mbti" format="reference|string" />
+        <attr name="wishText" format="reference|string" />
+        <attr name="gender" format="reference|enum" >
+            <enum name="MALE" value="0"/>
+            <enum name="FEMALE" value="1"/>
+        </attr>
+        <attr name="age" format="reference|integer" />
+    </declare-styleable>
+</resources>
