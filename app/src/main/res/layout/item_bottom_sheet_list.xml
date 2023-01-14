@@ -11,7 +11,9 @@
         android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="11dp"
         android:src="@drawable/ic_baseline_clear_24"
+
         app:layout_constraintBottom_toBottomOf="@id/title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/title" />
@@ -20,14 +22,15 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
+        android:layout_marginStart="11dp"
         android:fontFamily="@font/notosans_medium"
         android:includeFontPadding="false"
         android:text="바텀시트리스트 아이템"
         android:textColor="@color/black"
         android:textSize="20sp"
-
         app:layout_constraintStart_toEndOf="@id/icon"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginStart="0dp" />
 
     <TextView
         android:id="@+id/desc"

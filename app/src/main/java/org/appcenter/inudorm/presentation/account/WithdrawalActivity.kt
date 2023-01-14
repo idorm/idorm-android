@@ -21,22 +21,21 @@ class WithdrawalActivity : AppCompatActivity() {
                 Withdraw().run(null)
             }.onSuccess {
                 CustomDialog(
-                    "탈퇴 처리가 성공적으로 완료되었습니다.\n" +
-                            "언제든지 다시 돌아와 주세요!",
+                    getString(R.string.withdrawSuccess),
                     "탈퇴 완료",
                     positiveButton = signOutButton
                 )
 
             }.onFailure {
                 CustomDialog(
-                    "회원탈퇴에 실패했습니다. 잠시 후 다시 시도해주세요.",
+                    getString(R.string.withdrawFailure),
                     positiveButton = signOutButton
                 )
             }
         }
     }
 
-    private val signOutButton = DialogButton("확인", onClick = {
+    private val signOutButton = DialogButton(getString(R.string.ok), onClick = {
         signOutAndGoLogin()
     })
 

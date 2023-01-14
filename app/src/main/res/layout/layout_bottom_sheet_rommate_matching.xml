@@ -55,7 +55,7 @@
 
             android:fontFamily="@font/notosans_medium"
             android:includeFontPadding="false"
-            android:text="@string/declarationReason"
+            android:text="@string/matchingImageViolence"
             android:textColor="@color/iDorm_gray_400"
             android:textSize="14sp"
 

@@ -80,7 +80,7 @@ class ChangePasswordActivity : PromptActivity() {
                             ChangePassword().run(ChangePasswordDto(password))
                         }.onSuccess {
                             CustomDialog(
-                                "비밀번호 변경이 완료되었습니다. 변경된 비밀번호로 다시 로그인해주세요.",
+                                getString(R.string.changePasswordSuccess),
                                 positiveButton = DialogButton("확인", onClick = {
                                     lifecycleScope.launch {
                                         prefsRepository.signOut()
@@ -95,7 +95,7 @@ class ChangePasswordActivity : PromptActivity() {
                             ).show(this@ChangePasswordActivity)
                         }.onFailure {
                             CustomDialog(
-                                "비밀번호 변경에 실패했습니다. 잠시후 다시 시도해주세요.",
+                                getString(R.string.changePasswordFailure),
                                 positiveButton = DialogButton("확인")
                             ).show(this@ChangePasswordActivity)
                         }

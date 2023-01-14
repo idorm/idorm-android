@@ -1,62 +1,111 @@
 package org.appcenter.inudorm.presentation.mypage
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import android.os.PersistableBundle
 import android.widget.RadioButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import org.appcenter.inudorm.R
+import org.appcenter.inudorm.databinding.ActivityLikedMateListBinding
+import org.appcenter.inudorm.model.MatchingInfo
 import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter
+import org.appcenter.inudorm.presentation.matching.UserMutationEvent
+import org.appcenter.inudorm.util.ButtonType
 import org.appcenter.inudorm.util.CustomDialog
 import org.appcenter.inudorm.util.DialogButton
 import org.appcenter.inudorm.util.IDormLogger
 
 abstract class MateListActivity : AppCompatActivity() {
 
-    lateinit var mateAdapter: RoomMateAdapter
-    private lateinit var mLayoutManager: LinearLayoutManager
-    var prevState = MateListState("addedAtDesc", UiState())
-    lateinit var mRadioButton1: RadioButton
-    lateinit var mRadioButton2: RadioButton
+    abstract var mateAdapter: RoomMateAdapter
+    private val mLayoutManager: LinearLayoutManager by lazy {
+        LinearLayoutManager(this).apply {
+            orientation = RecyclerView.VERTICAL
+        }
+    }
+    abstract val viewModel: MateListViewModel
+    val binding: ActivityLikedMateListBinding by lazy {
+        DataBindingUtil.setContentView(this, R.layout.activity_liked_mate_list)
+    }
+    abstract val title : String
 
-    fun initView(
-        recyclerViewToSetup: RecyclerView,
-        radioButton1: RadioButton,
-        radioButton2: RadioButton,
-        onDetailOpen: (Int) -> Unit
-    ) {
-        mRadioButton1 = radioButton1
-        mRadioButton2 = radioButton2
-        mateAdapter = RoomMateAdapter(ArrayList(), onDetailOpen)
-        mLayoutManager = LinearLayoutManager(this)
-        mLayoutManager.orientation = RecyclerView.VERTICAL
-        recyclerViewToSetup.apply {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        binding.mateList.apply {
             adapter = mateAdapter
             layoutManager = mLayoutManager
         }
+        lifecycleScope.launch {
+            viewModel.mateListState.collect(collector)
+        }
+        lifecycleScope.launch {
+            viewModel.userMutationState.collect(userMutationCollector)
+        }
+
+        binding.toolbarText.text = title
+
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
+        viewModel.getMates()
     }
 
-    fun changeSort(sortBy: String) {
-        IDormLogger.i(this@MateListActivity, "sort changing")
-        mRadioButton1.isChecked = (sortBy == "addedAtDesc")
-        mRadioButton2.isChecked = (sortBy == "addedAtAsc")
-        mateAdapter.dataSet.sortBy { it.addedAt }
-        if (sortBy == "addedAtDesc") mateAdapter.dataSet.reverse()
-        mateAdapter.notifyDataSetChanged()
-    }
-
-    val collector = FlowCollector<MateListState> { value ->
-        if (value.mates.data != null && prevState.mates != value.mates) {
-            mateAdapter.dataSet.clear()
-            mateAdapter.dataSet.addAll(value.mates.data ?: ArrayList())
-            mateAdapter.notifyDataSetChanged()
-        } else if (value.mates.data == null && value.mates.error != null) {
+    private val collector = FlowCollector<MateListState> { value ->
+        if (value.mates.data == null && value.mates.error != null) {
             // Todo: Handle Error
             IDormLogger.e(this@MateListActivity, value.toString())
             CustomDialog(
-                value.mates.error?.message ?: "알 수 없는 에러가 발생했습니다.",
+                value.mates.error?.message ?: getString(R.string.unknownError),
                 positiveButton = DialogButton("확인")
             ).show(this@MateListActivity)
         }
-        prevState = value
     }
+
+    private val userMutationCollector = FlowCollector<UserMutationEvent> {
+        IDormLogger.i(this, it.toString())
+        when (it) {
+            is UserMutationEvent.DeleteDislikedMatchingInfo,
+            is UserMutationEvent.DeleteLikedMatchingInfo -> {
+                viewModel.getMates()
+            }
+            is UserMutationEvent.ReportMatchingInfo -> {}
+            else -> {}
+        }
+    }
+
+    fun openKakaoTalk(link: String) {
+        CustomDialog(
+            text = "상대의 카카오톡 오픈채팅으로 이동합니다.",
+            positiveButton = DialogButton(
+                "카카오톡으로 이동",
+                icon = R.drawable.ic_kakaotalk_logo,
+                onClick = {
+                    IDormLogger.i(this, "Open link: $link")
+                    try {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+                        startActivity(intent)
+                    } catch (_: ActivityNotFoundException) {
+                        Toast.makeText(
+                            this,
+                            getString(R.string.kakaoLinkNotFound),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                },
+                buttonType = ButtonType.Filled
+            )
+        ).show(this)
+    }
+
 }

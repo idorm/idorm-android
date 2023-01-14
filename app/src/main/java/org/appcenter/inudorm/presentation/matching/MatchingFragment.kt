@@ -107,7 +107,7 @@ class MatchingFragment : Fragment(), CardStackListener {
                     SelectItem(
                         "신고하기",
                         "report",
-                        desc = getString(R.string.declarationReason)
+                        desc = getString(R.string.matchingImageViolence)
                     )
                 )
             ) {
@@ -300,11 +300,12 @@ class MatchingFragment : Fragment(), CardStackListener {
                         } catch (_: ActivityNotFoundException) {
                             Toast.makeText(
                                 requireContext(),
-                                "카카오톡 오픈채팅 링크를 찾을 수 없거나 올바르지 않아요.",
+                                getString(R.string.kakaoLinkNotFound),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
-                    })
+                    }, buttonType = ButtonType.Filled
+                )
             ).show(requireContext())
         }
         binding.openFilterButton.setOnClickListener {

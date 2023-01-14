@@ -46,14 +46,14 @@ class ChangeNickNameActivity : PromptActivity() {
                 ChangeNickName().run(ChangeNickNameDto(data.getString("nickname")))
             }.onSuccess {
                 CustomDialog(
-                    "닉네임 변경이 완료되었습니다. 변경된 비밀번호로 다시 로그인해주세요.",
+                    getString(R.string.changePasswordCompleted),
                     positiveButton = DialogButton("확인", onClick = {
                         onBackPressed()
                     })
                 ).show(this@ChangeNickNameActivity)
             }.onFailure {
                 CustomDialog(
-                    "닉네임 변경에 실패했습니다. 잠시후 다시 시도해주세요.",
+                    getString(R.string.failedToChangePassword),
                     positiveButton = DialogButton("확인", onClick = {
                         onBackPressed()
 

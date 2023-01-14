@@ -74,7 +74,7 @@ class RegisterActivity : PromptActivity() {
                         arrayListOf(
                             CheckableItem(
                                 id = "privacyPolicy",
-                                text = "개인정보 처리방침 필수동의",
+                                text = getString(R.string.privacyPolicyAgreement),
                                 required = true,
                                 checked = false,
                                 url = "https://idorm.notion.site/e5a42262cf6b4665b99bce865f08319b"
