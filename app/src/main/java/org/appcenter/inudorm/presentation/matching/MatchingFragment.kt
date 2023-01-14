@@ -162,15 +162,15 @@ class MatchingFragment : Fragment(), CardStackListener {
             viewModel.userMutationEvent.collect { state ->
                 when (state) {
                     is UserMutationEvent.AddLikedMatchingInfo -> {
-                        if (!state.success)
+                        if (state.success == false)
                             binding.cardStackView.rewind()
                     }
                     is UserMutationEvent.AddDislikedMatchingInfo -> {
-                        if (!state.success)
+                        if (state.success == false)
                             binding.cardStackView.rewind()
                     }
                     is UserMutationEvent.ReportMatchingInfo -> {
-                        if (state.success) CustomDialog(
+                        if (state.success == true) CustomDialog(
                             "사용자를 신고했습니다.",
                             positiveButton = DialogButton("확인")
                         ).show(
@@ -182,10 +182,10 @@ class MatchingFragment : Fragment(), CardStackListener {
                         ).show(this@MatchingFragment.requireContext())
                     }
                     is UserMutationEvent.DeleteLikedMatchingInfo -> {
-                        if (state.success) binding.cardStackView.rewind()
+                        if (state.success == true) binding.cardStackView.rewind()
                     }
                     is UserMutationEvent.DeleteDislikedMatchingInfo -> {
-                        if (state.success) binding.cardStackView.rewind()
+                        if (state.success == true) binding.cardStackView.rewind()
                     }
                     else -> {}
                 }

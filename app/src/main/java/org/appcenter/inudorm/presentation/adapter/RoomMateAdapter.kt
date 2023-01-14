@@ -11,7 +11,7 @@ import java.util.*
 
 class RoomMateAdapter(
     private val _dataSet: ArrayList<MatchingInfo>,
-    private val onMoreClicked : () -> Unit,
+    private val onMoreClicked: (Int) -> Unit,
 ) :
     RecyclerView.Adapter<RoomMateAdapter.RoomMateViewHolder>() {
 
@@ -21,7 +21,10 @@ class RoomMateAdapter(
             value
         }
 
-    inner class RoomMateViewHolder(var viewBinding: ItemMatchingBinding, onMoreClicked: () -> Unit) :
+    inner class RoomMateViewHolder(
+        var viewBinding: ItemMatchingBinding,
+        onMoreClicked: (Int) -> Unit
+    ) :
         RecyclerView.ViewHolder(viewBinding.root) {}
 
 
@@ -36,7 +39,7 @@ class RoomMateAdapter(
         )
 
         return RoomMateViewHolder(binding) {
-            onMoreClicked()
+            onMoreClicked(it)
         }
     }
 
@@ -47,7 +50,7 @@ class RoomMateAdapter(
             viewHolder.viewBinding.executePendingBindings()
         }
         viewHolder.viewBinding.more.setOnClickListener {
-            onMoreClicked()
+            onMoreClicked(_dataSet[position].memberId)
         }
     }
 

@@ -2,13 +2,11 @@ package org.appcenter.inudorm.presentation.mypage
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.model.MatchingInfo
-import org.appcenter.inudorm.usecase.GetDisLikedMates
-import org.appcenter.inudorm.usecase.GetLikedMates
+import org.appcenter.inudorm.presentation.matching.UserMutationEvent
+import org.appcenter.inudorm.usecase.*
 
 data class MateListState(var sortBy: String, var mates: UiState<ArrayList<MatchingInfo>>)
 
@@ -16,6 +14,10 @@ class LikedMateListViewModel : ViewModel() {
     val _mateListState = MutableStateFlow(MateListState("addedAtDesc", UiState()))
     val mateListState: StateFlow<MateListState>
         get() = _mateListState
+    private val _userMutationState = MutableSharedFlow<UserMutationEvent>()
+    val userMutationState: SharedFlow<UserMutationEvent>
+        get() = _userMutationState
+
 
     fun getLikedMates() {
         _mateListState.update {
@@ -50,6 +52,28 @@ class LikedMateListViewModel : ViewModel() {
                     )
                 }
             }
+        }
+    }
+
+    fun deleteLikedMate(id: Int) {
+        viewModelScope.launch {
+            val result = kotlin.runCatching {
+                DeleteLikedMatchingInfo().run(id)
+            }.getOrNull()
+            _userMutationState.emit(
+                UserMutationEvent.DeleteLikedMatchingInfo(id, result != null)
+            )
+        }
+    }
+
+    fun reportMate(id: Int) {
+        viewModelScope.launch {
+            val result = kotlin.runCatching {
+                ReportMatchingInfo().run(id)
+            }.getOrNull()
+            _userMutationState.emit(
+                UserMutationEvent.ReportMatchingInfo(id, result != null)
+            )
         }
     }
 }

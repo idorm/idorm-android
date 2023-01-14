@@ -27,17 +27,17 @@ enum class LoadMode {
 }
 
 sealed class UserMutationEvent {
-    data class AddLikedMatchingInfo(val id: Int, val success: Boolean) :
+    data class AddLikedMatchingInfo(val id: Int, val success: Boolean?) :
         UserMutationEvent();
-    data class AddDislikedMatchingInfo(val id: Int, val success: Boolean) :
+    data class AddDislikedMatchingInfo(val id: Int, val success: Boolean?) :
         UserMutationEvent();
-    data class DeleteLikedMatchingInfo(val id: Int, val success: Boolean) :
+    data class DeleteLikedMatchingInfo(val id: Int, val success: Boolean?) :
         UserMutationEvent();
-    data class DeleteDislikedMatchingInfo(val id: Int, val success: Boolean) :
+    data class DeleteDislikedMatchingInfo(val id: Int, val success: Boolean?) :
         UserMutationEvent();
-    data class ReportMatchingInfo(val id: Int, val success: Boolean) :
+    data class ReportMatchingInfo(val id: Int, val success: Boolean?) :
         UserMutationEvent();
-    data class SetMatchingInfoVisibility(val success: Boolean) : UserMutationEvent();
+    data class SetMatchingInfoVisibility(val success: Boolean?) : UserMutationEvent();
 }
 
 class MatchingViewModel : ViewModel() {

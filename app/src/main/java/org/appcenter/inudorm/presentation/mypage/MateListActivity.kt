@@ -22,7 +22,7 @@ abstract class MateListActivity : AppCompatActivity() {
         recyclerViewToSetup: RecyclerView,
         radioButton1: RadioButton,
         radioButton2: RadioButton,
-        onDetailOpen: () -> Unit
+        onDetailOpen: (Int) -> Unit
     ) {
         mRadioButton1 = radioButton1
         mRadioButton2 = radioButton2
