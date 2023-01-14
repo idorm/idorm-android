@@ -61,46 +61,52 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:id="@+id/constraintLayout8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:orientation="vertical"
             android:paddingVertical="36dp"
-            android:paddingLeft="24dp"
-            android:paddingRight="15dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView8">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/notosans_regular"
-                android:includeFontPadding="false"
-                android:text="@{viewModel.myPageState.data.nickname}"
-                android:textColor="@color/iDorm_gray_300"
-                android:textSize="16sp"
-
-                app:drawableEndCompat="@drawable/ic_go_depth"
-                app:layout_constraintBottom_toBottomOf="@+id/nickNameText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/nickNameText" />
-
-            <TextView
-                android:id="@+id/nickNameText"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/notosans_regular"
-                android:includeFontPadding="false"
-                android:onClick="@{() -> activity.changeNickName()}"
-                android:paddingVertical="12dp"
-                android:text="@string/nickNameText"
-                android:textColor="@color/iDorm_gray_400"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="@{viewModel.myPageState.data.nickname}"
+                    android:textColor="@color/iDorm_gray_300"
+                    android:textSize="16sp"
+
+                    app:drawableEndCompat="@drawable/ic_go_depth"
+                    app:layout_constraintBottom_toBottomOf="@+id/nickNameText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/nickNameText" />
+
+                <TextView
+                    android:id="@+id/nickNameText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:onClick="@{() -> activity.changeNickName()}"
+                    android:paddingVertical="12dp"
+                    android:text="@string/nickNameText"
+                    android:textColor="@color/iDorm_gray_400"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             <TextView
@@ -119,50 +125,55 @@
                 app:layout_constraintTop_toBottomOf="@+id/nickNameText" />
 
 
-            <TextView
-                android:id="@+id/nickNameText3"
+            <!--     <TextView
+                     android:id="@+id/nickNameText3"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:fontFamily="@font/notosans_regular"
+                     android:includeFontPadding="false"
+                     android:onClick="@{() -> activity.settingNotification()}"
+                     android:paddingVertical="12dp"
+                     android:text="@string/notificationSettingText"
+                     android:textColor="@color/iDorm_gray_400"
+                     android:textSize="16sp"
+                     app:drawableEndCompat="@drawable/ic_go_depth"
+                     app:layout_constraintStart_toStartOf="parent"
+                     app:layout_constraintTop_toBottomOf="@+id/nickNameText2" />-->
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/notosans_regular"
-                android:includeFontPadding="false"
-                android:onClick="@{() -> activity.settingNotification()}"
-                android:paddingVertical="12dp"
-                android:text="@string/notificationSettingText"
-                android:textColor="@color/iDorm_gray_400"
-                android:textSize="16sp"
-                app:drawableEndCompat="@drawable/ic_go_depth"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nickNameText2" />
+                android:paddingVertical="12dp">
+
+                <TextView
+                    android:id="@+id/nickNameText4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="@string/emailText"
+                    android:textColor="@color/iDorm_gray_400"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="9dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="@{viewModel.myPageState.data.email}"
+                    android:textColor="@color/iDorm_gray_300"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/nickNameText4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/nickNameText4" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            <TextView
-                android:id="@+id/nickNameText4"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_marginTop="24dp"
-                android:fontFamily="@font/notosans_regular"
-                android:includeFontPadding="false"
-                android:text="@string/emailText"
-                android:textColor="@color/iDorm_gray_400"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nickNameText3" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="9dp"
-                android:fontFamily="@font/notosans_regular"
-                android:includeFontPadding="false"
-                android:text="@{viewModel.myPageState.data.email}"
-                android:textColor="@color/iDorm_gray_300"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/nickNameText4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/nickNameText4" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout10"
@@ -173,10 +184,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout8" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:id="@+id/constraintLayout11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:paddingVertical="36dp"
             android:paddingStart="24dp"
             android:paddingEnd="15dp"
@@ -200,35 +212,40 @@
 
                 />
 
-            <TextView
-                android:id="@+id/nickNameText6"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_marginTop="24dp"
-                android:fontFamily="@font/notosans_regular"
-                android:includeFontPadding="false"
-                android:text="@string/versionInfoText"
-                android:textColor="@color/iDorm_gray_400"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nickNameText5" />
-
-            <TextView
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/notosans_regular"
-                android:includeFontPadding="false"
-                android:text="@{build.VERSION_NAME}"
-                android:textColor="@color/iDorm_gray_300"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/nickNameText6"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/nickNameText6"
-                app:layout_constraintVertical_bias="0.0" />
+                android:paddingVertical="12dp">
+
+                <TextView
+                    android:id="@+id/nickNameText6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="@string/versionInfoText"
+                    android:textColor="@color/iDorm_gray_400"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="@{build.VERSION_NAME}"
+                    android:textColor="@color/iDorm_gray_300"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/nickNameText6"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/nickNameText6"
+                    app:layout_constraintVertical_bias="0.0" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout12"
@@ -261,9 +278,9 @@
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="36dp"
             android:background="@drawable/view_button_round_6"
-            android:textColor="@color/white"
             android:onClick="@{() -> activity.signOut()}"
             android:text="@string/signout"
+            android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/withdrawText" />
 

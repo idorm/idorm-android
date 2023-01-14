@@ -1,12 +1,14 @@
 package org.appcenter.inudorm.networking.service
 
 import okhttp3.RequestBody
-import org.appcenter.inudorm.model.SetMatchingInfoVisibilityDto
+import org.appcenter.inudorm.model.ChangeNickNameDto
+import org.appcenter.inudorm.model.ChangePasswordDto
 import org.appcenter.inudorm.model.User
+import retrofit2.Response
 import retrofit2.http.*
 import java.lang.reflect.Member
 
-interface MemberService{
+interface MemberService {
 
     /**
      * 로그인 API
@@ -14,7 +16,7 @@ interface MemberService{
      * @return data가 빈 Data
      */
     @GET("member")
-    suspend fun loginRefresh():User
+    suspend fun loginRefresh(): User
 
     /**
      * 로그인 API
@@ -46,7 +48,7 @@ interface MemberService{
      * @return data가 빈 Data
      */
     @DELETE("member")
-    suspend fun withdrawMember(): Nothing
+    suspend fun withdrawMember(): Response<List<Any>>
 
     /**
      * 로그인된 사용자 정보를 업데이트 하는 API
@@ -54,7 +56,7 @@ interface MemberService{
      * @return data가 빈 Data
      */
     @PATCH("member")
-    suspend fun updateMember(@Body body:RequestBody): Nothing
+    suspend fun updateMember(@Body body: RequestBody): Nothing
 
     /**
      * 로그인된 사용자 정보 중 닉네임만 업데이트 하는 API
@@ -62,15 +64,13 @@ interface MemberService{
      * @return data가 빈 Data
      */
     @PATCH("member/nickname")
-    suspend fun updateNickname(@Body body:RequestBody): Nothing
+    suspend fun changeNickname(@Body body: ChangeNickNameDto): User
 
     /**
      * 로그인된 사용자 정보 중 비밀번호만 업데이트 하는 API
-     * @param body {password: String} Json RequestBody Object
-     * @return data가 빈 Data
      */
     @PATCH("member/password")
-    suspend fun updatePassword(@Body body:RequestBody): Nothing
+    suspend fun changePassword(@Body body: ChangePasswordDto): User
 
 
 }

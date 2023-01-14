@@ -2,16 +2,14 @@ package org.appcenter.inudorm.repository
 
 import android.content.Context
 import android.util.Log
-import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.google.gson.Gson
 import kotlinx.coroutines.flow.*
+import org.appcenter.inudorm.App
 import org.appcenter.inudorm.Prefs
-import org.appcenter.inudorm.model.SavedUser
 import org.appcenter.inudorm.repository.PrefsRepository.PreferenceKeys.TOKEN
 import java.io.IOException
 
@@ -33,8 +31,13 @@ class PrefsRepository(private val context: Context) {
         mapUserPrefs(it)
     }
 
-    suspend fun setUserToken(token: String) = context.dataStore.edit { preferences ->
-        preferences[TOKEN] = token
+    suspend fun setUserToken(token: String?) = context.dataStore.edit { preferences ->
+        preferences[TOKEN] = token ?: ""
+    }
+
+    suspend fun signOut() = context.dataStore.edit { preferences ->
+        preferences[TOKEN] = ""
+        App.token = null
     }
 
     private fun mapPrefs(prefs: Preferences): Prefs {

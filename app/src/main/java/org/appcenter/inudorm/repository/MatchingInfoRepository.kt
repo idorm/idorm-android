@@ -3,7 +3,6 @@ package org.appcenter.inudorm.repository
 import kotlinx.coroutines.delay
 import org.appcenter.inudorm.model.MatchingInfo
 import org.appcenter.inudorm.model.RoomMateFilter
-import org.appcenter.inudorm.model.SetMatchingInfoVisibilityDto
 import org.appcenter.inudorm.networking.RetrofitInstance
 import org.appcenter.inudorm.usecase.SetMatchingInfoVisibility
 

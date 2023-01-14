@@ -1,6 +1,8 @@
 package org.appcenter.inudorm.repository
 
 import org.appcenter.inudorm.App.Companion.gson
+import org.appcenter.inudorm.model.ChangeNickNameDto
+import org.appcenter.inudorm.model.ChangePasswordDto
 import org.appcenter.inudorm.model.EmailVerifyResponseDto
 import org.appcenter.inudorm.model.User
 import org.appcenter.inudorm.networking.RetrofitInstance
@@ -44,5 +46,18 @@ class UserRepository {
     suspend fun register(params: RegisterParams): User {
         val str = gson.toJson(params)
         return RetrofitInstance.service.register(createJsonRequestBody(str))
+    }
+
+    suspend fun withdraw(): Boolean {
+        return RetrofitInstance.service.withdrawMember().isSuccessful
+    }
+
+    suspend fun changeNickName(params: ChangeNickNameDto) : User {
+        return RetrofitInstance.service.changeNickname(params)
+    }
+
+
+    suspend fun changePassword(params: ChangePasswordDto) : User {
+        return RetrofitInstance.service.changePassword(params)
     }
 }

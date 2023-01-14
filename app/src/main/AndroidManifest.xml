@@ -41,7 +41,7 @@
             tools:ignore="LockedOrientationActivity"></activity>
 
         <activity
-            android:name=".presentation.account.ChangePasswordActivity"
+            android:name=".presentation.mypage.ChangePasswordActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"

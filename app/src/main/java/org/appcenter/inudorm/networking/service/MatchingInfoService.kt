@@ -8,7 +8,6 @@ import okio.ByteString
 import org.appcenter.inudorm.App.Companion.gson
 import org.appcenter.inudorm.model.MatchingInfo
 import org.appcenter.inudorm.model.RoomMateFilter
-import org.appcenter.inudorm.model.SetMatchingInfoVisibilityDto
 import org.appcenter.inudorm.util.IDormLogger
 import retrofit2.http.*
 import java.nio.charset.StandardCharsets

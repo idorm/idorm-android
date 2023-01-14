@@ -4,17 +4,21 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.view.Window
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.App
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityMyInformationSettingBinding
-import org.appcenter.inudorm.presentation.account.ChangePasswordActivity
 import org.appcenter.inudorm.presentation.account.LoginActivity
 import org.appcenter.inudorm.presentation.account.WithdrawalActivity
 import org.appcenter.inudorm.repository.PrefsRepository
+import org.appcenter.inudorm.util.WindowUtil.setStatusBarColor
 import kotlin.reflect.KClass
 
 class MyInfoSettingActivity : AppCompatActivity() {
@@ -54,6 +58,11 @@ class MyInfoSettingActivity : AppCompatActivity() {
 
     fun withdraw() {
         navigateTo(WithdrawalActivity::class)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setStatusBarColor(ContextCompat.getColor(this, R.color.iDorm_blue).toString())
     }
 
     fun signOut() {

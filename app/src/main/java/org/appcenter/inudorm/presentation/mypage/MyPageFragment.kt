@@ -50,6 +50,12 @@ class MyPageFragment : Fragment() {
         CustomDialog(text, positiveButton = DialogButton("확인", onClick = onOk)).show(context)
     }
 
+    override fun onResume() {
+        super.onResume()
+        requireActivity().window.statusBarColor =
+            ContextCompat.getColor(requireContext(), R.color.iDorm_blue)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MyPageViewModel::class.java)
