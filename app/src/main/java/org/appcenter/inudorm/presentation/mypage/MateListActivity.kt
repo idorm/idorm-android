@@ -1,5 +1,6 @@
 package org.appcenter.inudorm.presentation.mypage
 
+import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,10 +14,18 @@ abstract class MateListActivity : AppCompatActivity() {
 
     lateinit var mateAdapter: RoomMateAdapter
     private lateinit var mLayoutManager: LinearLayoutManager
-    private var prevState = MateListState("addedAtDesc", UiState())
+    var prevState = MateListState("addedAtDesc", UiState())
+    lateinit var mRadioButton1: RadioButton
+    lateinit var mRadioButton2: RadioButton
 
-
-    fun setupRecyclerView(recyclerViewToSetup: RecyclerView, onDetailOpen: () -> Unit) {
+    fun setupRecyclerView(
+        recyclerViewToSetup: RecyclerView,
+        radioButton1: RadioButton,
+        radioButton2: RadioButton,
+        onDetailOpen: () -> Unit
+    ) {
+        mRadioButton1 = radioButton1
+        mRadioButton2 = radioButton2
         mateAdapter = RoomMateAdapter(ArrayList(), onDetailOpen)
         mLayoutManager = LinearLayoutManager(this)
         mLayoutManager.orientation = RecyclerView.VERTICAL
@@ -27,6 +36,9 @@ abstract class MateListActivity : AppCompatActivity() {
     }
 
     fun changeSort(sortBy: String) {
+        IDormLogger.i(this@MateListActivity, "sort changing")
+        mRadioButton1.isChecked = (sortBy == "addedAtDesc")
+        mRadioButton2.isChecked = (sortBy == "addedAtAsc")
         mateAdapter.dataSet.sortBy { it.addedAt }
         if (sortBy == "addedAtDesc") mateAdapter.dataSet.reverse()
         mateAdapter.notifyDataSetChanged()
@@ -45,5 +57,6 @@ abstract class MateListActivity : AppCompatActivity() {
                 positiveButton = DialogButton("확인")
             ).show(this@MateListActivity)
         }
+        prevState = value
     }
 }

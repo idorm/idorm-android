@@ -2,6 +2,8 @@ package org.appcenter.inudorm.presentation.mypage
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore.Audio.Radio
+import android.widget.RadioButton
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
@@ -19,19 +21,20 @@ class LikedMateListActivity : MateListActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setupRecyclerView(binding.mateList) {
+        setupRecyclerView(binding.mateList, binding.radioButton, binding.radioButton2) {
             // Todo: Option modal
         }
         binding.lifecycleOwner = this
         binding.toolbarText.text = "좋아요한 룸메"
-
+        binding.radioButton.setOnClickListener {
+            changeSort("addedAtDesc")
+        }
+        binding.radioButton2.setOnClickListener {
+            changeSort("addedAtAsc")
+        }
         lifecycleScope.launch {
             viewModel.mateListState.collect(collector)
         }
         viewModel.getLikedMates()
-
     }
-
-
-
 }

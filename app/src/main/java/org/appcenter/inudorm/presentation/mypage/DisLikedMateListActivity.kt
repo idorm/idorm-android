@@ -20,7 +20,7 @@ class DisLikedMateListActivity : MateListActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setupRecyclerView(binding.mateList) {
+        setupRecyclerView(binding.mateList, binding.radioButton, binding.radioButton2) {
             // Todo: Option modal
         }
 
@@ -30,6 +30,12 @@ class DisLikedMateListActivity : MateListActivity() {
             viewModel.mateListState.collect(collector)
         }
         viewModel.getLikedMates()
+        binding.radioButton.setOnClickListener {
+            changeSort("addedAtDesc")
+        }
+        binding.radioButton2.setOnClickListener {
+            changeSort("addedAtAsc")
+        }
 
     }
 

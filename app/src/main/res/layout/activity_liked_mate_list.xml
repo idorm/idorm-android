@@ -77,7 +77,6 @@
                     android:background="@drawable/selector_radiobutton"
 
                     android:button="@null"
-                    android:onClick="@{() -> activity.changeSort(`addedAtDesc`)}"
 
                     android:checked="true"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -108,7 +107,8 @@
                     android:background="@drawable/selector_radiobutton"
 
                     android:button="@null"
-                    android:onClick="@{() -> activity.changeSort(`addedAtAsc`)}"
+                    android:checked="false"
+
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView3"
                     app:layout_constraintTop_toTopOf="parent" />
