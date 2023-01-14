@@ -209,4 +209,8 @@
     <string name="proceed">계속하기</string>
     <string name="completeRegistration">가입완료</string>
     <string name="signout">로그아웃</string>
+
+
+    <!--OnboardActivity-->
+    <string name="skipInteraction">정보 입력 건너뛰기</string>
 </resources>

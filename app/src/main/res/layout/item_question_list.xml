@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        <variable
+            name="question"
+            type="org.appcenter.inudorm.model.OnboardQuestion" />
+        
+    </data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="20dp">
 
@@ -23,7 +27,8 @@
 
 
             android:includeFontPadding="false"
-            android:text="질문"
+            android:text="@{question.questionText}"
+            tools:text="질문"
             android:textColor="@color/iDorm_gray_400"
             android:textSize="14sp"
 
@@ -39,7 +44,8 @@
 
 
             android:includeFontPadding="false"
-            android:text="(필수)"
+            android:text="@{question.isRequired}"
+            tools:text="(필수)"
             android:textColor="@color/iDorm_blue"
             android:textSize="14sp"
 
@@ -79,4 +85,4 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</LinearLayout>
+</layout>
