@@ -18,7 +18,7 @@ abstract class MateListActivity : AppCompatActivity() {
     lateinit var mRadioButton1: RadioButton
     lateinit var mRadioButton2: RadioButton
 
-    fun setupRecyclerView(
+    fun initView(
         recyclerViewToSetup: RecyclerView,
         radioButton1: RadioButton,
         radioButton2: RadioButton,

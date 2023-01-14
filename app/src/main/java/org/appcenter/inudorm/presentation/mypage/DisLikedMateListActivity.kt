@@ -1,15 +1,14 @@
 package org.appcenter.inudorm.presentation.mypage
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityLikedMateListBinding
-import org.appcenter.inudorm.util.CustomDialog
-import org.appcenter.inudorm.util.DialogButton
+import org.appcenter.inudorm.util.WindowUtil.setStatusBarColor
 
 class DisLikedMateListActivity : MateListActivity() {
     private val binding: ActivityLikedMateListBinding by lazy {
@@ -20,9 +19,10 @@ class DisLikedMateListActivity : MateListActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setupRecyclerView(binding.mateList, binding.radioButton, binding.radioButton2) {
+        initView(binding.mateList, binding.radioButton, binding.radioButton2) {
             // Todo: Option modal
         }
+
 
         binding.lifecycleOwner = this
 

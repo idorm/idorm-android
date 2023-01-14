@@ -36,6 +36,7 @@ import org.appcenter.inudorm.presentation.*
 import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter
 import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.util.*
+import org.appcenter.inudorm.util.WindowUtil.setStatusBarColor
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -74,6 +75,17 @@ class MatchingFragment : Fragment(), CardStackListener {
             Direction.Right -> animateColorAndRestore(matchingViewUtil.green, 150)
             else -> {}
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        requireActivity().setStatusBarColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.iDorm_blue
+            )
+        )
+
     }
 
     private fun setupCardStackView() {
@@ -123,6 +135,12 @@ class MatchingFragment : Fragment(), CardStackListener {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_matching, container, false)
+        requireActivity().setStatusBarColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.iDorm_blue
+            )
+        )
         return binding.root
     }
 

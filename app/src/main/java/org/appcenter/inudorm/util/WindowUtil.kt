@@ -1,27 +1,28 @@
 package org.appcenter.inudorm.util
 
+import android.app.Activity
 import android.graphics.Color
 import android.view.Window
+import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import androidx.core.graphics.toColor
 import androidx.core.graphics.toColorInt
 import androidx.core.view.WindowInsetsControllerCompat
-import org.appcenter.inudorm.R
 
 object WindowUtil {
-    fun AppCompatActivity.setStatusBarColor(color: String) {
-        this.window.statusBarColor = color.toColorInt()
+    // 색상을 받아 밝은 색 계열이면 흰색으로 전환합니다.
+    fun Activity.setStatusBarColor(@ColorInt color: Int) {
+        this.window.statusBarColor = color
         val window: Window = window
-        IDormLogger.i(this, "$color, ${isLightColor(color)}")
-        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
-
+        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars =
+            !isLightColor(color) || color == Color.WHITE
     }
 
-    fun isLightColor(color: String): Boolean {
-        val number = color.substring(1)
-        val r = number.substring(0, 2).toInt()
-        val g = number.substring(2, 4).toInt()
-        val b = number.substring(4, 6).toInt()
+    fun isLightColor(color: Int): Boolean {
+        val colorString = String.format("%06X", (0xFFFFFF and color))
+        val r = Integer.parseInt(colorString.substring(0, 2), 16)
+        val g = Integer.parseInt(colorString.substring(2, 4), 16)
+        val b = Integer.parseInt(colorString.substring(4, 6), 16)
         return (r + g + b) / 3 > 125.5
     }
 }

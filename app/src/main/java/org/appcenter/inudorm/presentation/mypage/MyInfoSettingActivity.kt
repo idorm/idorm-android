@@ -4,11 +4,9 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.view.Window
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
@@ -62,7 +60,7 @@ class MyInfoSettingActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        setStatusBarColor(ContextCompat.getColor(this, R.color.iDorm_blue).toString())
+        setStatusBarColor(ContextCompat.getColor(this, R.color.white))
     }
 
     fun signOut() {
@@ -86,6 +84,16 @@ class MyInfoSettingActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         viewModel.getUser()
     }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // 클릭된 메뉴 아이템의 아이디 마다 when 구절로 클릭시 동작을 설정한다.
+        when (item.itemId) {
+            android.R.id.home -> { // 메뉴 버튼, 사실상 백버튼으로 취급하면 됩니다!
+                this.onBackPressed()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 
 
 }

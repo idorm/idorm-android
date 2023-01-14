@@ -21,7 +21,7 @@ class LikedMateListActivity : MateListActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setupRecyclerView(binding.mateList, binding.radioButton, binding.radioButton2) {
+        initView(binding.mateList, binding.radioButton, binding.radioButton2) {
             // Todo: Option modal
         }
         binding.lifecycleOwner = this

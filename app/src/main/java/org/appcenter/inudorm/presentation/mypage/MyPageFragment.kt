@@ -22,6 +22,7 @@ import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.util.CustomDialog
 import org.appcenter.inudorm.util.DialogButton
 import org.appcenter.inudorm.util.IDormLogger
+import org.appcenter.inudorm.util.WindowUtil.setStatusBarColor
 import kotlin.math.E
 
 class MyPageFragment : Fragment() {
@@ -41,8 +42,12 @@ class MyPageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_page, container, false)
-        requireActivity().window.statusBarColor =
-            ContextCompat.getColor(requireContext(), R.color.iDorm_blue)
+        requireActivity().setStatusBarColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.iDorm_blue
+            )
+        )
         return binding.root
     }
 
@@ -52,8 +57,12 @@ class MyPageFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        requireActivity().window.statusBarColor =
-            ContextCompat.getColor(requireContext(), R.color.iDorm_blue)
+        requireActivity().setStatusBarColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.iDorm_blue
+            )
+        )
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -63,6 +72,7 @@ class MyPageFragment : Fragment() {
         binding.lifecycleOwner = this
 
         viewModel.getMyMatchingInfo()
+
 
         lifecycleScope.launch {
             viewModel.myPageState.collect {
@@ -87,21 +97,37 @@ class MyPageFragment : Fragment() {
         }
 
         binding.settingButton.setOnClickListener {
-            val intent = Intent(this@MyPageFragment.requireContext(), MyInfoSettingActivity::class.java)
+            val intent =
+                Intent(this@MyPageFragment.requireContext(), MyInfoSettingActivity::class.java)
             startActivity(intent)
         }
 
         binding.matchingImageButton.setOnClickListener {
-            startActivity(Intent(this@MyPageFragment.requireContext(), MyMatchingProfileActivity::class.java))
+            startActivity(
+                Intent(
+                    this@MyPageFragment.requireContext(),
+                    MyMatchingProfileActivity::class.java
+                )
+            )
 
         }
 
         binding.dislikedRoomMatesButton.setOnClickListener {
-            startActivity(Intent(this@MyPageFragment.requireContext(), DisLikedMateListActivity::class.java))
+            startActivity(
+                Intent(
+                    this@MyPageFragment.requireContext(),
+                    DisLikedMateListActivity::class.java
+                )
+            )
         }
 
         binding.likedRoomMatesButton.setOnClickListener {
-            startActivity(Intent(this@MyPageFragment.requireContext(), LikedMateListActivity::class.java))
+            startActivity(
+                Intent(
+                    this@MyPageFragment.requireContext(),
+                    LikedMateListActivity::class.java
+                )
+            )
         }
     }
 }

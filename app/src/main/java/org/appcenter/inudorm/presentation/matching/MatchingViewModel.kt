@@ -86,6 +86,7 @@ class MatchingViewModel : ViewModel() {
                         isLoading = false,
                         mates = mates,
                         loadMode = loadMode,
+                        error = null
                     )
                 }
             }.onFailure { err ->
@@ -94,7 +95,7 @@ class MatchingViewModel : ViewModel() {
                     it.copy(
                         isLoading = false,
                         error = err,
-                        loadMode = loadMode
+                        loadMode = loadMode,
                     )
                 }
             }
@@ -190,6 +191,12 @@ class MatchingViewModel : ViewModel() {
                         true
                     )
                 )
+                _matchingState.update {
+                    it.copy(
+                        error = null
+                    )
+                }
+                getMates(LoadMode.Update, size = 10)
             }
         }
     }
