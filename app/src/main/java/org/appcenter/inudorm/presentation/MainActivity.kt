@@ -1,9 +1,13 @@
 package org.appcenter.inudorm.presentation
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
@@ -11,13 +15,16 @@ import com.google.android.material.R.id.snackbar_text
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import io.sentry.Sentry
+import org.appcenter.inudorm.LoadingActivity
 import org.appcenter.inudorm.OnSnackBarCallListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityMainBinding
 import org.appcenter.inudorm.presentation.matching.MatchingFragment
 import org.appcenter.inudorm.presentation.mypage.MyPageFragment
 
-class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener, OnSnackBarCallListener {
+
+class MainActivity : BottomNavigationView.OnNavigationItemSelectedListener, OnSnackBarCallListener,
+    LoadingActivity() {
     private val TAG = "[MainActivity]"
 
     private lateinit var binding: ActivityMainBinding
@@ -59,11 +66,12 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         return true
     }
 
-    override fun onSnackBarCalled(message:String, duration:Int) {
+    override fun onSnackBarCalled(message: String, duration: Int) {
         Snackbar.make(binding.container, message, duration)
             .apply {
                 anchorView = binding.bottomNavigation
-                view.findViewById<TextView>(snackbar_text).textAlignment = View.TEXT_ALIGNMENT_CENTER
+                view.findViewById<TextView>(snackbar_text).textAlignment =
+                    View.TEXT_ALIGNMENT_CENTER
             }
             .show()
     }

@@ -18,6 +18,7 @@ import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentMyPageBinding
 import org.appcenter.inudorm.networking.ErrorCode
 import org.appcenter.inudorm.networking.UIErrorHandler
+import org.appcenter.inudorm.presentation.MainActivity
 import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.util.CustomDialog
 import org.appcenter.inudorm.util.DialogButton
@@ -76,6 +77,9 @@ class MyPageFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.myPageState.collect {
+                (this@MyPageFragment.requireActivity() as MainActivity).setLoadingState(
+                    it.myInfo?.loading == true || it.matchingInfo?.loading == true
+                )
                 IDormLogger.i(this@MyPageFragment, "state changed: $it")
                 if (viewModel.myPageState.value.matchingInfo?.error == null && !viewModel.myPageState.value.matchingInfo?.loading!!) {
                     IDormLogger.i(this@MyPageFragment, "가능")

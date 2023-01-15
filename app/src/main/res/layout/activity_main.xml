@@ -15,6 +15,7 @@
         android:layout_height="match_parent"
         tools:context=".presentation.MainActivity">
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
@@ -36,18 +37,16 @@
             android:layout_gravity="bottom"
 
             android:background="@drawable/view_bottom_navigation"
+            android:paddingVertical="3dp"
             app:itemIconTint="@color/selector_bottom_navigation_icon_color"
-            app:itemTextColor="@color/selector_bottom_navigation_text_color"
             app:itemRippleColor="@color/white"
             app:itemTextAppearanceActive="@style/Widget.BottomNavigationView"
             app:itemTextAppearanceInactive="@style/Widget.BottomNavigationView"
 
-            android:paddingVertical="3dp"
+            app:itemTextColor="@color/selector_bottom_navigation_text_color"
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:menu="@menu/bottom_navigation"
-            />
-
+            app:menu="@menu/bottom_navigation" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

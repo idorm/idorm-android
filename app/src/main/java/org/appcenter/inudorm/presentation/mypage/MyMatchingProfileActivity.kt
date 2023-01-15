@@ -34,7 +34,7 @@ class MyMatchingProfileActivity : AppCompatActivity() {
                     CustomDialog(
                         it.error.message ?: getString(R.string.unknownError),
                         positiveButton = DialogButton("확인")
-                    ).show()
+                    ).show(this@MyMatchingProfileActivity)
                 }
             }
         }
