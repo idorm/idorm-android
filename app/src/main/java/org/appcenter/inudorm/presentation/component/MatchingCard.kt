@@ -35,7 +35,7 @@ class MatchingCard(context: Context, attrs: AttributeSet) : LinearLayout(context
     private var mWishText: String = ""
     private var mGender: Gender = Gender.MALE
     private var mAge: Int = 20
-    private lateinit var binding: ItemMatchingBinding
+    lateinit var binding: ItemMatchingBinding
 
     inline fun <reified T : Enum<T>> TypedArray.getEnum(index: Int, default: T): T {
         IDormLogger.i(this@MatchingCard, "$index, $default ${T::class.simpleName}")
@@ -58,20 +58,6 @@ class MatchingCard(context: Context, attrs: AttributeSet) : LinearLayout(context
         val errText = "정보가 없는 것 같아요."
         try {
             IDormLogger.i(this, a.getInt(R.styleable.MatchingCard_dormNum, -1).toString())
-            mDormNum = a.getEnum(R.styleable.MatchingCard_dormNum, Dorm.DORM1)
-            mJoinPeriod = a.getEnum(R.styleable.MatchingCard_joinPeriod, JoinPeriod.WEEK16)
-            mIsSnoring = a.getBoolean(R.styleable.MatchingCard_isSnoring, false)
-            mIsGrinding = a.getBoolean(R.styleable.MatchingCard_isGrinding, false)
-            mIsSmoking = a.getBoolean(R.styleable.MatchingCard_isSmoking, false)
-            mIsAllowedFood = a.getBoolean(R.styleable.MatchingCard_isAllowedFood, false)
-            mIsWearEarphones = a.getBoolean(R.styleable.MatchingCard_isWearEarphones, false)
-            mWakeUpTime = a.getString(R.styleable.MatchingCard_wakeUpTime) ?: errText
-            mCleanUpStatus = a.getString(R.styleable.MatchingCard_cleanUpStatus) ?: errText
-            mShowerTime = a.getString(R.styleable.MatchingCard_showerTime) ?: errText
-            mMbti = a.getString(R.styleable.MatchingCard_mbti) ?: errText
-            mWishText = a.getString(R.styleable.MatchingCard_wishText) ?: errText
-            mGender = a.getEnum(R.styleable.MatchingCard_gender, Gender.MALE)
-            mAge = a.getInt(R.styleable.MatchingCard_age, 20)
         } finally {
             a.recycle()
         }
@@ -83,7 +69,7 @@ class MatchingCard(context: Context, attrs: AttributeSet) : LinearLayout(context
             inflater, R.layout.item_matching,
             this, true
         )
-        binding.mate = MatchingInfo(
+       binding.mate = MatchingInfo(
             dormNum = mDormNum,
             joinPeriod = mJoinPeriod,
             gender = mGender,

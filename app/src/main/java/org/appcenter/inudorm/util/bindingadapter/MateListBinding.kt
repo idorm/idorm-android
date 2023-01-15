@@ -4,8 +4,10 @@ import android.widget.RadioButton
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputLayout
+import org.appcenter.inudorm.model.MatchingInfo
 import org.appcenter.inudorm.presentation.account.prompt.PasswordState
 import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter
+import org.appcenter.inudorm.presentation.component.MatchingCard
 import org.appcenter.inudorm.presentation.matching.LoadMode
 import org.appcenter.inudorm.presentation.mypage.MateListState
 import org.appcenter.inudorm.util.IDormLogger
@@ -29,5 +31,12 @@ object MateListBinding {
             if (mateListState.sortBy == "addedAtDesc") a.dataSet.reverse()
             a.notifyDataSetChanged()
         }
+    }
+
+    @JvmStatic
+    @BindingAdapter("mate")
+    fun MatchingCard.setMate(mate: MatchingInfo?) {
+        if (mate != null)
+            binding.mate = mate
     }
 }
