@@ -4,6 +4,7 @@ import android.content.Context
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.*
 import okhttp3.internal.http2.StreamResetException
+import org.appcenter.inudorm.App
 import org.appcenter.inudorm.OnSnackBarCallListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.repository.PrefsRepository
@@ -42,7 +43,7 @@ object UIErrorHandler {
                 // 로그인 안된 경우 처리
                 if (error.error == ErrorCode.UNAUTHORIZED_MEMBER) {
                     CoroutineScope(Dispatchers.IO).launch {
-                        prefsRepository.setUserToken("")
+                        prefsRepository.signOut()
                     }
                 }
                 if (handleIDormError == null)

@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import org.appcenter.inudorm.LoadingActivity
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentEmailPromptBinding
 import org.appcenter.inudorm.util.eventHandler
@@ -65,6 +67,11 @@ class EmailPromptFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.eventFlow.collect {
                 eventHandler(requireContext(), it)
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.emailLoading.collect {
+                (this@EmailPromptFragment.requireActivity() as LoadingActivity).setLoadingState(it)
             }
         }
     }

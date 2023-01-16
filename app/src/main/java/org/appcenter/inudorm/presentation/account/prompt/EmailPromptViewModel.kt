@@ -5,21 +5,33 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.appcenter.inudorm.presentation.mypage.UiState
 import org.appcenter.inudorm.usecase.SendAuthCode
 import org.appcenter.inudorm.usecase.SendAuthCodeParams
 import org.appcenter.inudorm.util.DialogButton
+import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.ViewModelWithEvent
 import org.appcenter.inudorm.util.emailValidator
 
 
 class EmailPromptViewModel(private val purpose: EmailPromptPurpose) : ViewModelWithEvent() {
     val email = MutableLiveData("")
+    private val _emailLoading: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val emailLoading: StateFlow<Boolean>
+        get() = _emailLoading
 
     fun submit() {
         val mail = email.value!!
         if (emailValidator(mail)) { // 올바른 메일인지 체크좀 할게요..
             viewModelScope.launch {
+                _emailLoading.update {
+                    true
+                }
                 kotlin.runCatching {
                     SendAuthCode().run(SendAuthCodeParams(purpose, email.value!!))
                 }.onSuccess {
@@ -27,6 +39,9 @@ class EmailPromptViewModel(private val purpose: EmailPromptPurpose) : ViewModelW
                     bundle.putString("email", mail)
                     bundle.putSerializable("purpose", purpose)
                     mergeBundleWithPaging(bundle)
+                    _emailLoading.update {
+                        false
+                    }
                 }.onFailure {
                     showToast("이메일 전송에 실패한 것 같습니다.")
                 }

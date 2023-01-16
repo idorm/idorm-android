@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityLoginBinding
 import org.appcenter.inudorm.presentation.MainActivity
+import org.appcenter.inudorm.presentation.mypage.ChangePasswordActivity
 import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.util.CustomDialog
 import org.appcenter.inudorm.util.DialogButton
@@ -17,7 +18,7 @@ import org.appcenter.inudorm.util.DialogButton
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var prefsRepository: PrefsRepository
-    private lateinit var viewModel : LoginViewModel
+    private lateinit var viewModel: LoginViewModel
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
                 } else if (state.message != null) {
                     CustomDialog(
                         state.message!!,
-                        positiveButton = DialogButton("확인", )
+                        positiveButton = DialogButton("확인")
                     ).show(this@LoginActivity)
                 }
             }
@@ -51,6 +52,9 @@ class LoginActivity : AppCompatActivity() {
         binding.registerClickText.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
+        }
+        binding.changePasswordClickText.setOnClickListener {
+            startActivity(Intent(this, ChangePasswordActivity::class.java))
         }
     }
 
