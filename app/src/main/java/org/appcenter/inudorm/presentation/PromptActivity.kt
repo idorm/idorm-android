@@ -5,11 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
+import org.appcenter.inudorm.LoadingActivity
 import org.appcenter.inudorm.OnPromptDoneListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.presentation.adapter.PagerAdapter
 
-abstract class PromptActivity : AppCompatActivity(), OnPromptDoneListener {
+abstract class PromptActivity : LoadingActivity(), OnPromptDoneListener {
 
     lateinit var pagerAdapter: PagerAdapter
     private lateinit var pager: ViewPager2

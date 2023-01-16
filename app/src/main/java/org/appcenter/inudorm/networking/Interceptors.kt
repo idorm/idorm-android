@@ -39,7 +39,6 @@ class ResponseInterceptor : Interceptor {
     private val TAG = "[ResponseInterceptor]"
     private val networkErrorMessage = "네트워크 요청에 알 수 없는 이유로 실패했습니다."
     override fun intercept(chain: Interceptor.Chain): Response {
-        val gson = Gson()
         val request = chain.request()
         // Request
         val response = chain.proceed(request)
@@ -57,12 +56,12 @@ class ResponseInterceptor : Interceptor {
         val res = try {
             // 성공한 경우
             if (response.isSuccessful) {
-                if (response.code() == 204) {
+                if (response.code() == 204) { // No Content => 빈 배열 반환 []
                     emptyList<Any>()
                 } else {
                     val type = object : TypeToken<ResponseWrapper<*>>() {}.type
                     val result =
-                        gson.fromJson<ResponseWrapper<*>>(
+                        App.gson.fromJson<ResponseWrapper<*>>(
                             rawJsonResponse,
                             type
                         ) // parsed ResponseWrapper
@@ -74,7 +73,7 @@ class ResponseInterceptor : Interceptor {
                 // 정상적으로 실패한 경우
                 val type = object : TypeToken<ErrorResponse>() {}.type
                 val result =
-                    gson.fromJson<ErrorResponse>(rawJsonResponse, type) // parsed ResponseWrapper
+                    App.gson.fromJson<ErrorResponse>(rawJsonResponse, type) // parsed ResponseWrapper
                         ?: throw JsonParseException("Failed to parse json")
                 throw IDormError((result.code.asEnumOrDefault<ErrorCode>(null) ?: ErrorCode.UNKNOWN_ERROR))
             }
@@ -90,7 +89,7 @@ class ResponseInterceptor : Interceptor {
         }
 
         // Re-transform result to json and return
-        val resultJson = gson.toJson(res)
+        val resultJson = App.gson.toJson(res)
         IDormLogger.i(this, resultJson)
         val newResponse = response.newBuilder()
             .body(ResponseBody.create(MediaType.parse("application/json"), resultJson))
