@@ -16,7 +16,7 @@ import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter
 import org.appcenter.inudorm.util.WindowUtil.setStatusBarColor
 
 class DisLikedMateListActivity : MateListActivity() {
-    override var mateAdapter: RoomMateAdapter = RoomMateAdapter(ArrayList()) { mate ->
+    override var mateAdapter: RoomMateAdapter = RoomMateAdapter(false, ArrayList()) { mate ->
         // Todo: Option modal
         val items = arrayListOf(
             SelectItem(getString(R.string.chatWithMate), "chat", R.drawable.ic_chat),
