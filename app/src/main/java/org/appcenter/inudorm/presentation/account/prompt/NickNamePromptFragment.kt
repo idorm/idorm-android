@@ -31,7 +31,7 @@ class NickNamePromptFragment : Fragment() {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_nickname_prompt, container, false)
         binding.nickNamePromptViewModel = viewModel
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = requireActivity()
         return binding.root
     }
 

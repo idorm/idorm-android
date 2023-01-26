@@ -38,7 +38,7 @@ class CodePromptFragment : Fragment() {
         )[CodePromptViewModel::class.java]
 
         binding.codeViewModel = viewModel
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = requireActivity()
         return binding.root
     }
 

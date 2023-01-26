@@ -9,13 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import org.appcenter.inudorm.R
-
-class SelectItem(
-    val title: String,
-    val value: String,
-    val iconResourceId: Int? = null,
-    val desc: String? = null
-)
+import org.appcenter.inudorm.model.SelectItem
 
 class BottomSheetListAdapter(
     private val _itemList: ArrayList<SelectItem>,

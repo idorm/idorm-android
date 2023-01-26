@@ -1,6 +1,5 @@
 package org.appcenter.inudorm.presentation.matching
 
-import SelectItem
 import android.animation.ArgbEvaluator
 import android.content.ActivityNotFoundException
 import android.content.Context
@@ -23,12 +22,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.yuyakaido.android.cardstackview.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.OnSnackBarCallListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentMatchingBinding
 import org.appcenter.inudorm.model.MatchingInfo
 import org.appcenter.inudorm.model.RoomMateFilter
+import org.appcenter.inudorm.model.SelectItem
 import org.appcenter.inudorm.networking.ErrorCode
 import org.appcenter.inudorm.networking.IDormError
 import org.appcenter.inudorm.networking.UIErrorHandler
@@ -85,7 +86,6 @@ class MatchingFragment : Fragment(), CardStackListener {
                 R.color.iDorm_blue
             )
         )
-
     }
 
     private fun setupCardStackView() {
@@ -156,7 +156,7 @@ class MatchingFragment : Fragment(), CardStackListener {
         setupCardStackView()
         setupControlButton()
         binding.matchingViewModel = viewModel
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = requireActivity()
         viewModel.getMates(LoadMode.Update, size = 10)
         lifecycleScope.launch {
             viewModel.userMutationEvent.collect { state ->
