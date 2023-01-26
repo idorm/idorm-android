@@ -101,7 +101,7 @@ class MatchingFragment : Fragment(), CardStackListener {
             setVisibleCount(4)
         }
 
-        adapter = RoomMateAdapter(ArrayList()) {
+        adapter = RoomMateAdapter(true, ArrayList()) {
             val modalBottomSheet = ListBottomSheet(
                 arrayListOf(
                     SelectItem(
