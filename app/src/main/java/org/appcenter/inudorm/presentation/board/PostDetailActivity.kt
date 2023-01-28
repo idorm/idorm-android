@@ -3,13 +3,18 @@ package org.appcenter.inudorm.presentation.board
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityPostDetailBinding
 import org.appcenter.inudorm.model.SelectItem
 import org.appcenter.inudorm.presentation.ListBottomSheet
+import org.appcenter.inudorm.presentation.adapter.CommentAdapter
 import org.appcenter.inudorm.util.IDormLogger
 
 
@@ -34,8 +39,24 @@ class PostDetailActivity : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowTitleEnabled(false)
         }
-
         viewModel.getPost(postId)
+
+        lifecycleScope.launch {
+            viewModel.postDetailState.collect {
+                if (!it.loading && it.error == null && it.data != null) {
+                    binding.comments.adapter =
+                        CommentAdapter(it.data.comments ?: ArrayList(), {
+                            Toast.makeText(this@PostDetailActivity,
+                                "댓글 인터렉션 오픈",
+                                Toast.LENGTH_SHORT).show()
+                        }, {
+                            Toast.makeText(this@PostDetailActivity,
+                                "답글 쓰기",
+                                Toast.LENGTH_SHORT).show()
+                        })
+                }
+            }
+        }
 
     }
 
@@ -45,9 +66,13 @@ class PostDetailActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
         when (item.itemId) {
-            R.id.home -> {
+            android.R.id.home -> {
+                IDormLogger.i(this, "back pressed")
                 super.onBackPressed()
+                return true
+
             }
             R.id.postMenu -> {
                 ListBottomSheet(
@@ -60,6 +85,8 @@ class PostDetailActivity : AppCompatActivity() {
                 ) {
                     IDormLogger.i(this, it.value)
                 }.show(supportFragmentManager, "TAG")
+                return true
+
             }
         }
         return super.onOptionsItemSelected(item)

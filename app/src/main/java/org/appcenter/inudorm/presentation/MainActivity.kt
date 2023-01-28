@@ -43,7 +43,7 @@ class MainActivity : BottomNavigationView.OnNavigationItemSelectedListener, OnSn
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.home -> {
+            R.id.bottomHome -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.container, HomeFragment()).commit()
             }

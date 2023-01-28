@@ -1,98 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+        <variable
+            name="comment"
+            type="org.appcenter.inudorm.model.board.Comment" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/commentParent"
         android:layout_width="match_parent"
-        android:layout_height="105dp"
-        android:layout_marginVertical="16dp"
-        android:layout_marginHorizontal="24dp"
-        android:background="@color/white">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
-            android:background="@drawable/view_image_profile"
-            android:clipToOutline="true"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="21dp"
-            android:layout_marginStart="10dp"
-            android:fontFamily="@font/notosans_medium"
-            android:includeFontPadding="false"
-            android:text="닉네임닉네임"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-
-            android:layout_height="18dp"
-            android:fontFamily="@font/notosans_regular"
-            android:includeFontPadding="false"
-            android:text="1시간 전"
-
-            android:textColor="@color/iDorm_gray_300"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/textView8"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="21dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="105dp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginVertical="16dp"
+            android:background="@color/white">
 
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/notosans_medium"
-            android:includeFontPadding="false"
-            android:text="내용내용내용내용내용내용내용내용내용"
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:background="@drawable/view_image_profile"
+                android:clipToOutline="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            android:textColor="@color/iDorm_gray_400"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/textView8"
-            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+            <ImageView
+                android:id="@+id/openCommentInteraction"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/ic_baseline_more_vert_24"
+                android:clipToOutline="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/appCompatButton"
-            android:layout_width="67dp"
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="21dp"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/notosans_medium"
+                android:includeFontPadding="false"
+                android:text="닉네임닉네임"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            android:layout_height="30dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/view_button_round_10_gray_100"
-            android:fontFamily="@font/notosans_regular"
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
 
-            android:includeFontPadding="false"
-            android:text="@string/checkPostInteraction"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/textView8"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                android:layout_height="18dp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="1시간 전"
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <com.google.android.material.divider.MaterialDivider
-        android:id="@+id/materialDivider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="14dp"
-        android:background="@color/iDorm_gray_200">
-
-    </com.google.android.material.divider.MaterialDivider>
+                android:textColor="@color/iDorm_gray_300"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/textView8"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="21dp"
+
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/notosans_medium"
+                android:includeFontPadding="false"
+                android:text="내용내용내용내용내용내용내용내용내용"
+
+                android:textColor="@color/iDorm_gray_400"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/textView8"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/writeSubComment"
+                android:layout_width="67dp"
+
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/view_button_round_10_gray_100"
+                android:fontFamily="@font/notosans_regular"
+
+                android:includeFontPadding="false"
+                android:text="답글 쓰기"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/textView8"
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/materialDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="14dp"
+            android:background="@color/iDorm_gray_200">
+
+        </com.google.android.material.divider.MaterialDivider>
+
+
+    </LinearLayout>
+</layout>

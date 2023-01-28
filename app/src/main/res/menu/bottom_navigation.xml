@@ -40,7 +40,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/home"
+        android:id="@+id/bottomHome"
         android:enabled="true"
         android:icon="@drawable/ic_bottom_home"
         android:title="홈" />
