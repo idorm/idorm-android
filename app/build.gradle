@@ -31,6 +31,7 @@ android {
         release {
             resValue "string", "SENTRY_DSN", properties.getProperty("SENTRY_DSN")
             minifyEnabled false
+            signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
@@ -65,7 +66,6 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.google.code.gson:gson:$gsonVersion"
-    implementation 'com.google.code.gson:gson:2.9.0'
 
     // Dependencies for MVVM
     def archLifecycleVersion = '2.3.0'
@@ -88,5 +88,8 @@ dependencies {
 
     // Dependency for network image loader
     implementation 'com.github.bumptech.glide:glide:4.13.0'
+
+    implementation 'joda-time:joda-time:2.10.10'
+
 
 }

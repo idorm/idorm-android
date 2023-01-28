@@ -38,13 +38,21 @@ class MyInfoSettingViewModel : ViewModel() {
 data class UiState<T>(
     val data: T? = null,
     val loading: Boolean = false,
-    val error: Throwable? = null
-)
+    val error: Throwable? = null,
+) {
+    companion object {
+        inline fun <reified T> empty() = UiState<T>(
+            data = null,
+            loading = true,
+            error = null
+        )
+    }
+}
 
 suspend fun <D, P> runCatch(
     state: KProperty<MutableStateFlow<UiState<D>>>,
     runMethod: KSuspendFunction1<P?, D>,
-    param: P?
+    param: P?,
 ) {
     state.isAccessible = true
     runCatching {

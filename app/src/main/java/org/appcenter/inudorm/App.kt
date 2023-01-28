@@ -32,6 +32,7 @@ class App : Application() {
         val roomMateRepository = RoomMateRepository()
         val localFilterRepository = LocalFilterRepository()
         val matchingInfoRepository = MatchingInfoRepository()
+        val communityRepository = CommunityRepository()
     }
 
 

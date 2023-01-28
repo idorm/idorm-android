@@ -56,7 +56,7 @@ class ResponseInterceptor : Interceptor {
         val res = try {
             // 성공한 경우
             if (response.isSuccessful) {
-                if (response.code() == 204) { // No Content => 빈 배열 반환 []
+                if (rawJsonResponse.isNullOrEmpty()) { // No Content => 빈 배열 반환 []
                     emptyList<Any>()
                 } else {
                     val type = object : TypeToken<ResponseWrapper<*>>() {}.type

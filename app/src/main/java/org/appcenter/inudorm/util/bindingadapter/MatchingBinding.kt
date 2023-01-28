@@ -31,9 +31,9 @@ object MatchingBinding {
                 val start = a.itemCount
                 IDormLogger.i(this@MatchingBinding, "state mutated")
                 if (uiState.loadMode == LoadMode.Paging) {
-                    a.dataSet.addAll(uiState.mates.subList(start, uiState.mates.size))
+                    a.dataSet.addAll(uiState.mates)
                     // 추가됐다고 알려주기!
-                    a.notifyItemRangeInserted(start, uiState.mates.size - start)
+                    a.notifyItemRangeInserted(start, uiState.mates.size)
                 } else if (uiState.loadMode == LoadMode.Update) {
                     a.dataSet.clear()
                     a.dataSet.addAll(uiState.mates)
@@ -92,7 +92,7 @@ object MatchingBinding {
         name: String,
         value: String,
         valueColor: Int = Color.BLACK,
-        bold: Boolean
+        bold: Boolean,
     ): SpannableStringBuilder {
         return SpannableStringBuilder()
             .bold { append(name) }
