@@ -1,5 +1,6 @@
 package org.appcenter.inudorm.presentation.board
 
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -41,6 +42,12 @@ class BoardFragment : Fragment() {
 
     val dorms = Dorm.values().map { SelectItem("제${it.text}기숙사", it.name) } as ArrayList<SelectItem>
 
+    fun goDetail(id: Int) {
+        val intent = Intent(requireContext(), PostDetailActivity::class.java)
+        intent.putExtra("id", id)
+        startActivity(intent)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(BoardViewModel::class.java)
@@ -49,10 +56,10 @@ class BoardFragment : Fragment() {
         binding.lifecycleOwner = requireActivity()
 
         binding.popularPosts.adapter = PopularPostAdapter(ArrayList()) {
-            Toast.makeText(requireActivity(), "${it.postId} Clicked", Toast.LENGTH_SHORT).show()
+            goDetail(it.postId)
         }
         binding.posts.adapter = PostAdapter(ArrayList()) {
-            Toast.makeText(requireActivity(), "${it.postId} Clicked", Toast.LENGTH_SHORT).show()
+            goDetail(it.postId)
         }
         binding.posts.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

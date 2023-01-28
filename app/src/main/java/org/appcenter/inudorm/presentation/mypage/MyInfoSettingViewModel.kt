@@ -51,8 +51,8 @@ data class UiState<T>(
 
 suspend fun <D, P> runCatch(
     state: KProperty<MutableStateFlow<UiState<D>>>,
-    runMethod: KSuspendFunction1<P?, D>,
-    param: P?,
+    runMethod: KSuspendFunction1<P, D>,
+    param: P,
 ) {
     state.isAccessible = true
     runCatching {

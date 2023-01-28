@@ -69,7 +69,6 @@ data class InfinityScrollState<T>(
 }
 
 class BoardViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
     private val _boardUiState =
         MutableStateFlow(BoardUiState(
             SelectItem("제${Dorm.DORM1.text}기숙사", Dorm.DORM1.name),

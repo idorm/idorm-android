@@ -9,11 +9,15 @@ import org.appcenter.inudorm.networking.createJsonRequestBody
 import org.appcenter.inudorm.usecase.UserInputParams
 
 class CommunityRepository {
-    suspend fun getTopPostsByDorm(dorm: Dorm, page:Int): ArrayList<Post> {
+    suspend fun getTopPostsByDorm(dorm: Dorm, page: Int): ArrayList<Post> {
         return RetrofitInstance.service.getTopPostsByDorm(dorm)
     }
 
-    suspend fun getPostsByDorm(dorm: Dorm, page:Int): ArrayList<Post> {
+    suspend fun getPostsByDorm(dorm: Dorm, page: Int): ArrayList<Post> {
         return RetrofitInstance.service.getPostsByDorm(dorm, page)
+    }
+
+    suspend fun getSinglePost(id: Int): Post {
+        return RetrofitInstance.service.getSinglePost(id)
     }
 }

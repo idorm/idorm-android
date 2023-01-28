@@ -26,4 +26,10 @@ interface CommunityService {
     @GET("member/posts/{dorm}")
     suspend fun getPostsByDorm(@Path("dorm") dorm: Dorm, @Query("page") page: Int): ArrayList<Post>
 
+    /**
+     * @param id 글 id
+     * @return Post
+     */
+    @GET("member/post/{postId}")
+    suspend fun getSinglePost(@Path("postId") id: Int): Post
 }
