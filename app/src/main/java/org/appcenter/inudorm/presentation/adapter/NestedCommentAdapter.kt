@@ -11,14 +11,19 @@ import org.appcenter.inudorm.databinding.ItemCommentListBinding
 import org.appcenter.inudorm.databinding.ItemPostListBinding
 import org.appcenter.inudorm.model.board.Comment
 import org.appcenter.inudorm.model.board.Post
+import org.appcenter.inudorm.util.IDormLogger
 import java.util.*
 
 class NestedCommentAdapter(
     private val _dataSet: ArrayList<Comment>,
     private val onCommentInteractionOpened: (Comment) -> Unit,
 ) :
-    RecyclerView.Adapter<NestedCommentAdapter.CommentViewHolder>() {
+    RecyclerView.Adapter<NestedCommentAdapter.NestedCommentViewHolder>() {
 
+    init {
+        IDormLogger.i(this, "NestedCommentAdatper Init")
+        IDormLogger.i(this, _dataSet.toString())
+    }
 
     var dataSet: ArrayList<Comment>
         get() = _dataSet
@@ -26,15 +31,16 @@ class NestedCommentAdapter(
             value
         }
 
-    inner class CommentViewHolder(
+    inner class NestedCommentViewHolder(
         var viewBinding: ItemCommentListBinding,
         onCommentDetailClicked: (Comment) -> Unit,
     ) :
-        RecyclerView.ViewHolder(viewBinding.root) {}
+        RecyclerView.ViewHolder(viewBinding.root) {
+    }
 
 
     // Create new views (invoked by the layout manager)
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): CommentViewHolder {
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): NestedCommentViewHolder {
         // Create a new view, which defines the UI of the list item
         val binding = DataBindingUtil.inflate<ItemCommentListBinding>(
             LayoutInflater.from(viewGroup.context),
@@ -43,13 +49,13 @@ class NestedCommentAdapter(
             false
         )
 
-        return CommentViewHolder(
+        return NestedCommentViewHolder(
             binding,
         ) { onCommentInteractionOpened(it) }
     }
 
     // Replace the contents of a view (invoked by the layout manager)
-    override fun onBindViewHolder(viewHolder: CommentViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: NestedCommentViewHolder, position: Int) {
         _dataSet[position].let {
             viewHolder.viewBinding.comment = it
             viewHolder.viewBinding.executePendingBindings()

@@ -97,10 +97,11 @@ class LoginViewModel(private val prefsRepository: PrefsRepository) : ViewModel()
 
 class LoginViewModelFactory(private val prefsRepository: PrefsRepository) :
     ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
             return LoginViewModel(prefsRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
+
 }

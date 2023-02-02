@@ -282,7 +282,8 @@
                         android:orientation="vertical"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/commentSort"/>
+                        app:layout_constraintTop_toBottomOf="@+id/commentSort"
+                        tools:listitem="@layout/item_comment_list" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

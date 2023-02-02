@@ -8,6 +8,7 @@
         <variable
             name="comment"
             type="org.appcenter.inudorm.model.board.Comment" />
+
     </data>
 
     <LinearLayout
@@ -48,12 +49,11 @@
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/notosans_medium"
                 android:includeFontPadding="false"
-                android:text="닉네임닉네임"
+                android:text="@{comment.nickname}"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toTopOf="parent" />
-
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
@@ -61,12 +61,12 @@
                 android:layout_height="18dp"
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
-                android:text="1시간 전"
-
                 android:textColor="@color/iDorm_gray_300"
+
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@+id/textView8"
-                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+                app:layout_constraintTop_toBottomOf="@+id/textView8"
+                app:timeElapsed="@{comment.createdAt}" />
 
 
             <TextView
@@ -77,7 +77,7 @@
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/notosans_medium"
                 android:includeFontPadding="false"
-                android:text="내용내용내용내용내용내용내용내용내용"
+                android:text="@{comment.content}"
 
                 android:textColor="@color/iDorm_gray_400"
                 android:textSize="14sp"
@@ -126,7 +126,8 @@
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintStart_toStartOf="@id/icon"
-                app:layout_constraintTop_toBottomOf="@+id/icon" />
+                app:layout_constraintTop_toBottomOf="@+id/icon"
+                tools:listitem="@layout/item_comment_list" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

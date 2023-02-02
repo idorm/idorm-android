@@ -105,7 +105,7 @@ class CodePromptViewModelFactory(
     private val purpose: EmailPromptPurpose
 ) :
     ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CodePromptViewModel::class.java)) {
             return CodePromptViewModel(email, purpose) as T
         }

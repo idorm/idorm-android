@@ -1,6 +1,7 @@
 package org.appcenter.inudorm.presentation.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +20,8 @@ class CommentAdapter(
 ) :
     RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
 
+    private lateinit var subCommentAdapter: NestedCommentAdapter
+
 
     var dataSet: ArrayList<Comment>
         get() = _dataSet
@@ -31,18 +34,7 @@ class CommentAdapter(
         onCommentDetailClicked: (Comment) -> Unit,
         onWriteSubCommentClicked: (Comment) -> Unit,
     ) :
-        RecyclerView.ViewHolder(viewBinding.root) {
-
-        // Todo: NestedAdapter Argument 변경
-        private val nestedAdapter = NestedCommentAdapter(_dataSet, onCommentInteractionOpened)
-
-        init {
-            viewBinding.subComment.apply {
-                adapter = nestedAdapter
-                layoutManager = LinearLayoutManager(context)
-            }
-        }
-    }
+        RecyclerView.ViewHolder(viewBinding.root)
 
 
     // Create new views (invoked by the layout manager)
@@ -63,6 +55,17 @@ class CommentAdapter(
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: CommentViewHolder, position: Int) {
+        val subComments = _dataSet[position].subComments
+        if (subComments != null) {
+            subCommentAdapter = NestedCommentAdapter(subComments, onCommentInteractionOpened)
+            viewHolder.viewBinding.subComment.apply {
+                adapter = subCommentAdapter
+                layoutManager = LinearLayoutManager(context)
+            }
+        } else {
+            viewHolder.viewBinding.subCommentArea.visibility = View.GONE
+        }
+
         _dataSet[position].let {
             viewHolder.viewBinding.comment = it
             viewHolder.viewBinding.executePendingBindings()

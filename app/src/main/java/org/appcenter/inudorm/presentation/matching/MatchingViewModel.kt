@@ -205,7 +205,7 @@ class MatchingViewModel : ViewModel() {
 
 class MatchingViewModelFactory :
     ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MatchingViewModel::class.java)) {
             return MatchingViewModel() as T
         }
