@@ -40,6 +40,9 @@ class PostDetailActivity : AppCompatActivity() {
             setDisplayShowTitleEnabled(false)
         }
         viewModel.getPost(postId)
+        binding.refreshLayout.setOnRefreshListener {
+            viewModel.getPost(postId)
+        }
 
         lifecycleScope.launch {
             viewModel.postDetailState.collect {

@@ -1,7 +1,7 @@
 package org.appcenter.inudorm.model.board
 
 data class Post(
-    val comments: ArrayList<Comment>? = null,
+    var comments: ArrayList<Comment>? = null,
     val commentsCount: Int = 0,
     val content: String,
     val createdAt: String,
