@@ -11,11 +11,6 @@ abstract class LoginParams {
 }
 
 data class UserInputParams(override val email: String, val password: String) : LoginParams()
-class StoredUser(override val email: String, val token: String) : LoginParams()
-
-object LoginResponseCode {
-    const val SUCCESS = "SUCCESS"
-}
 
 class Login(private val prefsRepository: PrefsRepository) : UseCase<UserInputParams, Boolean>() {
 
@@ -24,9 +19,9 @@ class Login(private val prefsRepository: PrefsRepository) : UseCase<UserInputPar
         return loginWithInput(params)
     }
 
-    private suspend fun loginWithInput(params: UserInputParams) : Boolean {
+    private suspend fun loginWithInput(params: UserInputParams): Boolean {
         val user = userRepository.login(params)
-        val token = user.loginToken
+        val token = user.headers()["AUTHORIZATION"]
         // Todo: 토큰 저장
         IDormLogger.i(this, "token: $token")
         return if (token != null) {

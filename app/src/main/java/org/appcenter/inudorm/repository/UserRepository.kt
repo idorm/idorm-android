@@ -11,9 +11,10 @@ import org.appcenter.inudorm.usecase.CodeVerifyParams
 import org.appcenter.inudorm.usecase.RegisterParams
 import org.appcenter.inudorm.usecase.SendAuthCodeParams
 import org.appcenter.inudorm.usecase.UserInputParams
+import retrofit2.Response
 
 class UserRepository {
-    suspend fun login(params: UserInputParams?): User {
+    suspend fun login(params: UserInputParams?): Response<User> {
         val str = gson.toJson(params)
         return RetrofitInstance.service.login(createJsonRequestBody(str))
     }

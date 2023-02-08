@@ -24,7 +24,7 @@ interface MemberService {
      * @return data가 빈 Data
      */
     @POST("login")
-    suspend fun login(@Body body: RequestBody): User
+    suspend fun login(@Body body: RequestBody): Response<User>
 
     /**
      * 회원가입 API
