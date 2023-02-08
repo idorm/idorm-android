@@ -54,7 +54,7 @@ class EmailPromptViewModel(private val purpose: EmailPromptPurpose) : ViewModelW
 
 class EmailPromptViewModelFactory(private val purpose: EmailPromptPurpose) :
     ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(EmailPromptViewModel::class.java)) {
             return EmailPromptViewModel(purpose) as T
         }

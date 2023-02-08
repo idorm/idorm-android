@@ -1,5 +1,6 @@
 package org.appcenter.inudorm.presentation.board
 
+import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.solver.state.State
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.yuyakaido.android.cardstackview.Direction
@@ -22,6 +24,7 @@ import org.appcenter.inudorm.presentation.ListBottomSheet
 import org.appcenter.inudorm.presentation.adapter.PopularPostAdapter
 import org.appcenter.inudorm.presentation.adapter.PostAdapter
 import org.appcenter.inudorm.usecase.BoardType
+import org.appcenter.inudorm.util.WindowUtil.setStatusBarColor
 
 class BoardFragment : Fragment() {
 
@@ -37,6 +40,12 @@ class BoardFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_board, container, false)
+        requireActivity().setStatusBarColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.white
+            )
+        )
         return binding.root
     }
 
@@ -46,6 +55,16 @@ class BoardFragment : Fragment() {
         val intent = Intent(requireContext(), PostDetailActivity::class.java)
         intent.putExtra("id", id)
         startActivity(intent)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        requireActivity().setStatusBarColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.white
+            )
+        )
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

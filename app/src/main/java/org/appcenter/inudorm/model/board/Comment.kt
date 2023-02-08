@@ -6,6 +6,7 @@ data class Comment(
     val createdAt: String,
     val isDeleted: Boolean,
     val nickname: String,
-    val parentCommentId: Int,
-    val profileUrl: String
+    val parentCommentId: Int?,
+    val profileUrl: String?,
+    var subComments: ArrayList<Comment>? ,
 )

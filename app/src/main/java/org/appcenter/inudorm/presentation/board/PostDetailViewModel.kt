@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.presentation.mypage.UiState
@@ -18,6 +19,9 @@ class PostDetailViewModel : ViewModel() {
 
     fun getPost(id: Int) {
         viewModelScope.launch {
+            _postDetailState.update {
+                it.copy(loading = true)
+            }
             runCatch(this@PostDetailViewModel::_postDetailState, GetSinglePost()::run, id)
         }
     }

@@ -3,25 +3,27 @@ package org.appcenter.inudorm.presentation.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ItemCommentListBinding
 import org.appcenter.inudorm.databinding.ItemPostListBinding
 import org.appcenter.inudorm.model.board.Comment
 import org.appcenter.inudorm.model.board.Post
+import org.appcenter.inudorm.util.IDormLogger
 import java.util.*
 
-class CommentAdapter(
+class NestedCommentAdapter(
     private val _dataSet: ArrayList<Comment>,
     private val onCommentInteractionOpened: (Comment) -> Unit,
-    private val onWriteSubCommentClicked: (Comment) -> Unit,
 ) :
-    RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
+    RecyclerView.Adapter<NestedCommentAdapter.NestedCommentViewHolder>() {
 
-    private lateinit var subCommentAdapter: NestedCommentAdapter
-
+    init {
+        IDormLogger.i(this, "NestedCommentAdatper Init")
+        IDormLogger.i(this, _dataSet.toString())
+    }
 
     var dataSet: ArrayList<Comment>
         get() = _dataSet
@@ -29,16 +31,16 @@ class CommentAdapter(
             value
         }
 
-    inner class CommentViewHolder(
+    inner class NestedCommentViewHolder(
         var viewBinding: ItemCommentListBinding,
         onCommentDetailClicked: (Comment) -> Unit,
-        onWriteSubCommentClicked: (Comment) -> Unit,
     ) :
-        RecyclerView.ViewHolder(viewBinding.root)
+        RecyclerView.ViewHolder(viewBinding.root) {
+    }
 
 
     // Create new views (invoked by the layout manager)
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): CommentViewHolder {
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): NestedCommentViewHolder {
         // Create a new view, which defines the UI of the list item
         val binding = DataBindingUtil.inflate<ItemCommentListBinding>(
             LayoutInflater.from(viewGroup.context),
@@ -47,34 +49,20 @@ class CommentAdapter(
             false
         )
 
-        return CommentViewHolder(binding,
-            { onCommentInteractionOpened(it) },
-            { onWriteSubCommentClicked(it) }
-        )
+        return NestedCommentViewHolder(
+            binding,
+        ) { onCommentInteractionOpened(it) }
     }
 
     // Replace the contents of a view (invoked by the layout manager)
-    override fun onBindViewHolder(viewHolder: CommentViewHolder, position: Int) {
-        val subComments = _dataSet[position].subComments
-        if (subComments != null) {
-            subCommentAdapter = NestedCommentAdapter(subComments, onCommentInteractionOpened)
-            viewHolder.viewBinding.subComment.apply {
-                adapter = subCommentAdapter
-                layoutManager = LinearLayoutManager(context)
-            }
-        } else {
-            viewHolder.viewBinding.subCommentArea.visibility = View.GONE
-        }
-
+    override fun onBindViewHolder(viewHolder: NestedCommentViewHolder, position: Int) {
         _dataSet[position].let {
             viewHolder.viewBinding.comment = it
             viewHolder.viewBinding.executePendingBindings()
         }
+        viewHolder.viewBinding.subCommentArea.visibility = View.GONE
         viewHolder.viewBinding.openCommentInteraction.setOnClickListener {
             onCommentInteractionOpened(_dataSet[position])
-        }
-        viewHolder.viewBinding.writeSubComment.setOnClickListener {
-            onWriteSubCommentClicked(_dataSet[position])
         }
     }
 

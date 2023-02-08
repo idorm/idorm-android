@@ -8,6 +8,7 @@
         <variable
             name="comment"
             type="org.appcenter.inudorm.model.board.Comment" />
+
     </data>
 
     <LinearLayout
@@ -21,8 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="105dp"
             android:layout_marginHorizontal="24dp"
-            android:layout_marginVertical="16dp"
-            android:background="@color/white">
+            android:layout_marginVertical="16dp">
 
             <ImageView
                 android:id="@+id/imageView"
@@ -40,8 +40,7 @@
                 android:background="@drawable/ic_baseline_more_vert_24"
                 android:clipToOutline="true"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textView8"
@@ -50,12 +49,11 @@
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/notosans_medium"
                 android:includeFontPadding="false"
-                android:text="닉네임닉네임"
+                android:text="@{comment.nickname}"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toTopOf="parent" />
-
             <TextView
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
@@ -63,12 +61,12 @@
                 android:layout_height="18dp"
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
-                android:text="1시간 전"
-
                 android:textColor="@color/iDorm_gray_300"
+
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@+id/textView8"
-                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+                app:layout_constraintTop_toBottomOf="@+id/textView8"
+                app:timeElapsed="@{comment.createdAt}" />
 
 
             <TextView
@@ -79,7 +77,7 @@
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/notosans_medium"
                 android:includeFontPadding="false"
-                android:text="내용내용내용내용내용내용내용내용내용"
+                android:text="@{comment.content}"
 
                 android:textColor="@color/iDorm_gray_400"
                 android:textSize="14sp"
@@ -105,11 +103,38 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/subCommentArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/iDorm_matching_screen"
+            android:paddingHorizontal="24dp">
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:src="@drawable/ic_sub_comment"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/subComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintStart_toStartOf="@id/icon"
+                app:layout_constraintTop_toBottomOf="@+id/icon"
+                tools:listitem="@layout/item_comment_list" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/materialDivider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="14dp"
             android:background="@color/iDorm_gray_200">
 
         </com.google.android.material.divider.MaterialDivider>

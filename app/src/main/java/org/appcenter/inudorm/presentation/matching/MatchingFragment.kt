@@ -132,7 +132,7 @@ class MatchingFragment : Fragment(), CardStackListener {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_matching, container, false)
         requireActivity().setStatusBarColor(
@@ -146,8 +146,12 @@ class MatchingFragment : Fragment(), CardStackListener {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        requireActivity().window.statusBarColor =
-            ContextCompat.getColor(requireContext(), R.color.iDorm_blue)
+        requireActivity().setStatusBarColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.iDorm_blue
+            )
+        )
         setupFilter()
     }
 
