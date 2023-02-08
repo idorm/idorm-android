@@ -15,12 +15,12 @@ android {
         dataBinding = true
     }
 
-    compileSdk 31
+    compileSdk 33
 
     defaultConfig {
         applicationId "org.appcenter.inudorm"
         minSdk 23
-        targetSdk 31
+        targetSdk 33
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
@@ -93,6 +93,9 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.13.0'
 
     implementation 'joda-time:joda-time:2.10.10'
+
+    // ImagePicker
+    implementation 'com.github.nguyenhoanglam:ImagePicker:1.5.5'
 
 
 }

@@ -236,4 +236,6 @@
     <string name="changePasswordFailure">비밀번호 변경에 실패했습니다. 잠시후 다시 시도해주세요.</string>
     <string name="likedMates">좋아요한 룸메</string>
     <string name="disLikedMates">싫어요한 룸메</string>
+    <string name="contentHint">기숙사에 있는 학우들에게 질문하거나\n함께 이야기를 나누어 보세요.</string>
+    <string name="titleHint">제목</string>
 </resources>

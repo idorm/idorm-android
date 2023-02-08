@@ -20,7 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.IDorm.White">
-        <profileable android:shell="true"/>
+        <profileable android:shell="true" />
         <meta-data
             android:name="io.sentry.dsn"
             android:value="@string/SENTRY_DSN" />
@@ -65,9 +65,9 @@
         <activity
             android:name=".presentation.mypage.NotificationSettingActivity"
             android:exported="true"
+            android:parentActivityName=".presentation.mypage.MyInfoSettingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
-            android:parentActivityName=".presentation.mypage.MyInfoSettingActivity"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".presentation.mypage.ChangeNickNameActivity"
@@ -77,9 +77,17 @@
             tools:ignore="LockedOrientationActivity"></activity>
         <activity
             android:name=".presentation.board.WritePostActivity"
-            android:exported="false"
+            android:exported="true"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustResize"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".presentation.board.PostDetailActivity"
             android:exported="false"
@@ -129,11 +137,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.Blue"
             tools:ignore="LockedOrientationActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".presentation.account.WelcomeActivity"

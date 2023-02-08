@@ -1,13 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingHorizontal="15dp">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="org.appcenter.inudorm.presentation.board.WritePostViewModel" />
+
+        <variable
+            name="activity"
+            type="org.appcenter.inudorm.presentation.board.WritePostActivity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToOutline="false"
+        android:clipToPadding="false"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@null"
+            android:textAlignment="center"
+            android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:menu="@menu/board_write_menu"
+            app:titleTextColor="@color/black">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="center"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:text="글쓰기"
+                android:textColor="@color/black"
+
+                android:textSize="16sp" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/editorBottom"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/iDorm_gray_200"
+                android:fontFamily="@font/notosans_bold"
+                android:hint="@string/titleHint"
+                android:includeFontPadding="false"
+                android:onTextChanged="@{viewModel.setTitle}"
+                android:textColorHint="@color/iDorm_gray_200"
+                android:textSize="20sp" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:fontFamily="@font/notosans_medium"
+                android:gravity="top"
+                android:hint="@string/contentHint"
+                android:includeFontPadding="false"
+                android:onTextChanged="@{viewModel.setContent}"
+                android:padding="3sp"
+                android:textColorHint="@color/iDorm_gray_200"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="31dp"
+            android:background="@drawable/view_shadow_upper"
+            app:layout_constraintBottom_toTopOf="@+id/editorBottom"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/editorBottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+
+            >
+
+            <ImageView
+                android:id="@+id/imageIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> activity.openImagePicker()}"
+                android:paddingVertical="12sp"
+                android:src="@drawable/ic_photo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:fontFamily="@font/notosans_medium"
+                android:text="@{viewModel.editorState.images.size() + ` / 10`}"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageIcon"
+                app:layout_constraintTop_toTopOf="parent"
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10sp"
+                android:fontFamily="@font/notosans_medium"
+                android:text="익명"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/anonymousRadioButton"
+                app:layout_constraintTop_toTopOf="parent"
+
+                />
+
+            <RadioButton
+                android:id="@+id/anonymousRadioButton"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:background="@drawable/selector_radiobutton"
+                android:button="@null"
+                android:checked="@{viewModel.editorState.anonymous}"
+                android:onClick="@{() -> viewModel.toggleAnonymous()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-</LinearLayout>
+</layout>
