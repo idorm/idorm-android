@@ -1,12 +1,16 @@
 package org.appcenter.inudorm.util.bindingadapter
 
+import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.nguyenhoanglam.imagepicker.model.Image
 import com.yuyakaido.android.cardstackview.CardStackView
 import org.appcenter.inudorm.model.SelectItem
 import org.appcenter.inudorm.model.board.Post
+import org.appcenter.inudorm.presentation.adapter.ImageViewAdapter
 import org.appcenter.inudorm.presentation.adapter.PopularPostAdapter
 import org.appcenter.inudorm.presentation.adapter.PostAdapter
 import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter
@@ -49,6 +53,30 @@ object BoardBinding {
                 }
 
             }
+    }
+
+
+    @JvmStatic
+    @BindingAdapter("boardImages")
+    fun RecyclerView.bindBoardImages(images: ArrayList<Image>?) {
+        if (adapter != null && images?.size != 0) {
+            val a = adapter as ImageViewAdapter
+
+            DiffUtil.calculateDiff(object : DiffUtil.Callback() {
+                override fun getOldListSize(): Int = a.itemCount
+                override fun getNewListSize(): Int = images?.size!!
+
+                override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
+                    a.imageList[oldItemPosition].uri == images!![newItemPosition].uri
+
+                override fun areContentsTheSame(
+                    oldItemPosition: Int,
+                    newItemPosition: Int,
+                ): Boolean = a.imageList[oldItemPosition] == images!![newItemPosition]
+            }).dispatchUpdatesTo(a)
+            a.imageList = images!!
+            visibility = View.VISIBLE
+        }
     }
 
     @JvmStatic

@@ -1,5 +1,9 @@
 package org.appcenter.inudorm.model.board
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Post(
     var comments: ArrayList<Comment>? = null,
     val commentsCount: Int = 0,
@@ -12,5 +16,5 @@ data class Post(
     val postId: Int,
     val profileUrl: String? = null,
     val title: String,
-    val updatedAt: String? = null
-)
+    val updatedAt: String? = null,
+) : Parcelable

@@ -25,6 +25,28 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20sp"
+                android:backgroundTint="@color/iDorm_blue"
+                android:fontFamily="@font/notosans_bold"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:paddingHorizontal="20dp"
+                android:text="글쓰기"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:icon="@drawable/ic_write"
+                app:iconGravity="textStart"
+                app:iconSize="22sp"
+                app:iconTint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:onClick="@{() -> fragment.write()}"
+                />
+
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"

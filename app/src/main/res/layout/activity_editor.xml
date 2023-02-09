@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="org.appcenter.inudorm.presentation.board.WritePostViewModel" />
+            type="org.appcenter.inudorm.presentation.board.EditorViewModel" />
 
         <variable
             name="activity"
-            type="org.appcenter.inudorm.presentation.board.WritePostActivity" />
+            type="org.appcenter.inudorm.presentation.board.EditorActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -57,6 +57,7 @@
             app:layout_constraintBottom_toTopOf="@+id/editorBottom"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
 
+
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -65,8 +66,21 @@
                 android:hint="@string/titleHint"
                 android:includeFontPadding="false"
                 android:onTextChanged="@{viewModel.setTitle}"
+                android:text="@{viewModel.editorState.title}"
+
                 android:textColorHint="@color/iDorm_gray_200"
                 android:textSize="20sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginBottom="10sp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:boardImages="@{viewModel.editorState.images}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_board_image" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -78,6 +92,7 @@
                 android:includeFontPadding="false"
                 android:onTextChanged="@{viewModel.setContent}"
                 android:padding="3sp"
+                android:text="@{viewModel.editorState.content}"
                 android:textColorHint="@color/iDorm_gray_200"
                 android:textSize="16sp" />
 

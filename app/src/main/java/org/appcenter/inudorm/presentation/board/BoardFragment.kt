@@ -57,6 +57,10 @@ class BoardFragment : Fragment() {
         startActivity(intent)
     }
 
+    fun write() {
+        startActivity(Intent(requireContext(), EditorActivity::class.java))
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         requireActivity().setStatusBarColor(

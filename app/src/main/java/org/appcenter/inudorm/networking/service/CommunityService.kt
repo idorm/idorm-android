@@ -1,11 +1,10 @@
 package org.appcenter.inudorm.networking.service
 
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import org.appcenter.inudorm.model.ChangeNickNameDto
-import org.appcenter.inudorm.model.ChangePasswordDto
-import org.appcenter.inudorm.model.Dorm
-import org.appcenter.inudorm.model.User
+import org.appcenter.inudorm.model.*
 import org.appcenter.inudorm.model.board.Post
+import org.appcenter.inudorm.model.board.PostEditDto
 import retrofit2.Response
 import retrofit2.http.*
 import java.lang.reflect.Member
@@ -32,4 +31,22 @@ interface CommunityService {
      */
     @GET("member/post/{postId}")
     suspend fun getSinglePost(@Path("postId") id: Int): Post
+
+    @Multipart
+    @POST("member/post")
+    suspend fun createPost(
+        @PartMap body: HashMap<String, RequestBody>,
+//        @Part files: List<ContentUriRequestBody>,
+    ): Post
+
+    /**
+     * @param id 글 id
+     * @return Post
+     */
+    @POST("member/post/{postId}")
+    suspend fun updatePost(
+        @Path("postId") id: Int,
+        @PartMap body: HashMap<String, RequestBody>,
+//        @Part files: List<ContentUriRequestBody>,
+    ): Post
 }
