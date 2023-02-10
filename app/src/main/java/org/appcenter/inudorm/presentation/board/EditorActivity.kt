@@ -1,11 +1,14 @@
 package org.appcenter.inudorm.presentation.board
 
+import android.content.Context
+import android.database.Cursor
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.nguyenhoanglam.imagepicker.model.Image
 import com.nguyenhoanglam.imagepicker.model.ImagePickerConfig
@@ -14,6 +17,9 @@ import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityEditorBinding
 import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.presentation.adapter.ImageViewAdapter
+import org.appcenter.inudorm.util.IDormLogger
+import org.appcenter.inudorm.util.ImageUri
+import java.io.File
 
 class EditorActivity : AppCompatActivity() {
 
@@ -24,10 +30,27 @@ class EditorActivity : AppCompatActivity() {
     private val viewModel: EditorViewModel by viewModels()
     private var imageViewAdapter: ImageViewAdapter? = null
 
+
     private val launcher = registerImagePicker { images ->
         // Selected images are ready to use
         if (images.isNotEmpty()) {
-            viewModel.setImages(images)
+            try {
+                viewModel.setImages(
+                    images.map {
+                        UploadableImage(
+                            it,
+                            File(
+                                ImageUri.getFullPathFromUri(this@EditorActivity, it.uri)
+                                    ?: throw RuntimeException()
+                            )
+                        )
+                    }
+                )
+            } catch (e: RuntimeException) {
+                e.printStackTrace()
+                Toast.makeText(this@EditorActivity, "이미지를 불러오지 못헀습니다.", Toast.LENGTH_SHORT).show()
+            }
+
         }
     }
     private var orgPost: Post? = null
@@ -71,7 +94,7 @@ class EditorActivity : AppCompatActivity() {
             toolbarIconColor = "#000000",
             imageTitle = "모든 사진",
             backgroundColor = "#ffffff",
-            selectedImages = viewModel.editorState.value.images,
+            selectedImages = viewModel.editorState.value.images.map { it.image } as java.util.ArrayList<Image>,
             isMultipleMode = true,
             doneTitle = "완료",
             maxSize = 10,

@@ -7,12 +7,15 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.appcenter.inudorm.model.ContentUriRequestBody
 import org.appcenter.inudorm.model.Dorm
 import org.appcenter.inudorm.model.board.PostEditDto
 import org.appcenter.inudorm.usecase.PostUpdateParams
 import org.appcenter.inudorm.usecase.UpdatePost
 import org.appcenter.inudorm.usecase.WritePost
+import java.io.File
 
+data class UploadableImage(val image: Image, var file: File)
 
 data class EditorState(
     val anonymous: Boolean,
@@ -20,7 +23,7 @@ data class EditorState(
     val dormNum: Dorm = Dorm.DORM1,
     val title: String = "",
     val content: String = "",
-    val images: ArrayList<Image> = arrayListOf(),
+    val images: ArrayList<UploadableImage> = arrayListOf(),
 )
 
 class EditorViewModel : ViewModel() {
@@ -46,9 +49,9 @@ class EditorViewModel : ViewModel() {
         }
     }
 
-    fun setImages(images: ArrayList<Image>) {
+    fun setImages(images: List<UploadableImage>) {
         _editorState.update {
-            it.copy(images = images)
+            it.copy(images = images as ArrayList<UploadableImage>)
         }
     }
 
@@ -61,7 +64,7 @@ class EditorViewModel : ViewModel() {
                         _editorState.value.content,
                         _editorState.value.dormNum,
                         _editorState.value.anonymous,
-                        _editorState.value.images
+                        _editorState.value.images.map { it.file }
                     )
                 )
             }.onSuccess {
@@ -85,7 +88,7 @@ class EditorViewModel : ViewModel() {
                                 _editorState.value.content,
                                 _editorState.value.dormNum,
                                 _editorState.value.anonymous,
-                                _editorState.value.images
+                                _editorState.value.images.map { it.file }
                             )
                         )
                     )

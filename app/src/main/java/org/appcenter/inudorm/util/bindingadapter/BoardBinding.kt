@@ -16,6 +16,7 @@ import org.appcenter.inudorm.presentation.adapter.PostAdapter
 import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter
 import org.appcenter.inudorm.presentation.board.BoardUiState
 import org.appcenter.inudorm.presentation.board.InfinityScrollState
+import org.appcenter.inudorm.presentation.board.UploadableImage
 import org.appcenter.inudorm.presentation.matching.LoadMode
 import org.appcenter.inudorm.presentation.matching.MatchingState
 import org.appcenter.inudorm.presentation.mypage.UiState
@@ -58,23 +59,24 @@ object BoardBinding {
 
     @JvmStatic
     @BindingAdapter("boardImages")
-    fun RecyclerView.bindBoardImages(images: ArrayList<Image>?) {
+    fun RecyclerView.bindBoardImages(images: ArrayList<UploadableImage>?) {
         if (adapter != null && images?.size != 0) {
+            val imageMedias = images?.map { it.image }
             val a = adapter as ImageViewAdapter
 
             DiffUtil.calculateDiff(object : DiffUtil.Callback() {
                 override fun getOldListSize(): Int = a.itemCount
-                override fun getNewListSize(): Int = images?.size!!
+                override fun getNewListSize(): Int = imageMedias?.size!!
 
                 override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
-                    a.imageList[oldItemPosition].uri == images!![newItemPosition].uri
+                    a.imageList[oldItemPosition].uri == imageMedias!![newItemPosition].uri
 
                 override fun areContentsTheSame(
                     oldItemPosition: Int,
                     newItemPosition: Int,
-                ): Boolean = a.imageList[oldItemPosition] == images!![newItemPosition]
+                ): Boolean = a.imageList[oldItemPosition] == imageMedias!![newItemPosition]
             }).dispatchUpdatesTo(a)
-            a.imageList = images!!
+            a.imageList = (imageMedias as ArrayList<Image>?)!!
             visibility = View.VISIBLE
         }
     }
