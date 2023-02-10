@@ -1,14 +1,14 @@
 package org.appcenter.inudorm.usecase
 
-import org.appcenter.inudorm.App.Companion.communityRepository
 import org.appcenter.inudorm.App.Companion.matchingInfoRepository
 import org.appcenter.inudorm.model.MatchingInfo
 import org.appcenter.inudorm.model.board.Comment
 import org.appcenter.inudorm.model.board.Post
+import org.appcenter.inudorm.repository.CommunityRepository
 import org.appcenter.inudorm.util.IDormLogger
 
 // Todo: MyInfo보다 다른 이름이 더 의미상 어울릴 것 같아요.
-class GetSinglePost : UseCase<Int, Post>() {
+class GetSinglePost(private val communityRepository: CommunityRepository) : UseCase<Int, Post>() {
     override suspend fun onExecute(params: Int): Post {
         val post = communityRepository.getSinglePost(params)
 

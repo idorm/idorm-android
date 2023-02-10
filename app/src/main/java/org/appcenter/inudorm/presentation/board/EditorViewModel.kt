@@ -3,15 +3,18 @@ package org.appcenter.inudorm.presentation.board
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nguyenhoanglam.imagepicker.model.Image
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.model.Dorm
 import org.appcenter.inudorm.model.board.PostEditDto
+import org.appcenter.inudorm.repository.CommunityRepository
 import org.appcenter.inudorm.usecase.PostUpdateParams
 import org.appcenter.inudorm.usecase.UpdatePost
 import org.appcenter.inudorm.usecase.WritePost
+import javax.inject.Inject
 
 
 data class EditorState(
@@ -23,7 +26,9 @@ data class EditorState(
     val images: ArrayList<Image> = arrayListOf(),
 )
 
-class EditorViewModel : ViewModel() {
+@HiltViewModel
+class EditorViewModel @Inject constructor(private val communityRepository: CommunityRepository) :
+    ViewModel() {
     private val _editorState = MutableStateFlow(EditorState(true))
     val editorState: StateFlow<EditorState>
         get() = _editorState
@@ -55,7 +60,7 @@ class EditorViewModel : ViewModel() {
     fun writePost() {
         viewModelScope.launch {
             kotlin.runCatching {
-                WritePost().run(
+                WritePost(communityRepository).run(
                     PostEditDto(
                         _editorState.value.title,
                         _editorState.value.content,
@@ -77,7 +82,7 @@ class EditorViewModel : ViewModel() {
         if (orgPostId != null)
             viewModelScope.launch {
                 kotlin.runCatching {
-                    UpdatePost().run(
+                    UpdatePost(communityRepository).run(
                         PostUpdateParams(
                             orgPostId,
                             PostEditDto(

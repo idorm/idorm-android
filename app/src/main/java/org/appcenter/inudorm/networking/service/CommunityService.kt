@@ -36,7 +36,7 @@ interface CommunityService {
     @POST("member/post")
     suspend fun createPost(
         @PartMap body: HashMap<String, RequestBody>,
-//        @Part files: List<ContentUriRequestBody>,
+        @Part files: List<ContentUriRequestBody>,
     ): Post
 
     /**

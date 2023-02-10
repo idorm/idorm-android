@@ -3,11 +3,18 @@ package org.appcenter.inudorm.model
 import android.content.Context
 import android.net.Uri
 import android.provider.MediaStore
+import dagger.hilt.android.qualifiers.ActivityContext
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import okio.BufferedSink
+import javax.inject.Inject
 
-class ContentUriRequestBody(context: Context, private val uri: Uri) : RequestBody() {
+
+class ContentUriRequestBody(
+    context: Context,
+    private val uri: Uri,
+) :
+    RequestBody() {
 
     private val contentResolver = context.contentResolver
 

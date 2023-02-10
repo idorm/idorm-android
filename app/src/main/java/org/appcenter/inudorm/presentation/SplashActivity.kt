@@ -7,6 +7,7 @@ import android.os.Looper
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
@@ -20,6 +21,7 @@ import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.usecase.LoginRefresh
 import org.appcenter.inudorm.util.IDormLogger
 
+@AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
 
     private lateinit var prefsRepository: PrefsRepository

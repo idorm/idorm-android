@@ -16,6 +16,7 @@ import org.appcenter.inudorm.model.SelectItem
 import org.appcenter.inudorm.presentation.ListBottomSheet
 import org.appcenter.inudorm.presentation.adapter.CommentAdapter
 import org.appcenter.inudorm.util.IDormLogger
+import javax.inject.Inject
 
 
 /**
@@ -26,7 +27,8 @@ class PostDetailActivity : AppCompatActivity() {
     private val binding: ActivityPostDetailBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_post_detail)
     }
-    private val viewModel: PostDetailViewModel by viewModels()
+    @Inject
+    lateinit var viewModel: PostDetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

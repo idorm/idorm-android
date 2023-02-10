@@ -3,6 +3,7 @@ package org.appcenter.inudorm.presentation.board
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -13,10 +14,12 @@ import org.appcenter.inudorm.model.SelectItem
 import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.presentation.matching.LoadMode
 import org.appcenter.inudorm.presentation.mypage.UiState
+import org.appcenter.inudorm.repository.CommunityRepository
 import org.appcenter.inudorm.usecase.BoardType
 import org.appcenter.inudorm.usecase.GetPostParams
 import org.appcenter.inudorm.usecase.GetPosts
 import org.appcenter.inudorm.util.IDormLogger
+import javax.inject.Inject
 import kotlin.reflect.KProperty
 import kotlin.reflect.KSuspendFunction1
 
@@ -68,7 +71,8 @@ data class InfinityScrollState<T>(
     }
 }
 
-class BoardViewModel : ViewModel() {
+@HiltViewModel
+class BoardViewModel @Inject constructor(private val communityRepository: CommunityRepository) : ViewModel() {
     private val _boardUiState =
         MutableStateFlow(BoardUiState(
             SelectItem("제${Dorm.DORM1.text}기숙사", Dorm.DORM1.name),
@@ -91,11 +95,11 @@ class BoardViewModel : ViewModel() {
             }
             kotlin.runCatching {
                 val posts =
-                    GetPosts().run(GetPostParams(BoardType.Regular,
+                    GetPosts(communityRepository).run(GetPostParams(BoardType.Regular,
                         getDorm(),
                         _boardUiState.value.page))
                 val topPosts =
-                    GetPosts().run(GetPostParams(BoardType.Top,
+                    GetPosts(communityRepository).run(GetPostParams(BoardType.Top,
                         getDorm(),
                         _boardUiState.value.page))
                 boardUiState.value.copy(
@@ -136,7 +140,7 @@ class BoardViewModel : ViewModel() {
                 )
             }
             kotlin.runCatching {
-                GetPosts().run(GetPostParams(boardType, getDorm(), _boardUiState.value.page))
+                GetPosts(communityRepository).run(GetPostParams(boardType, getDorm(), _boardUiState.value.page))
             }.onSuccess { data ->
                 _boardUiState.update {
                     it.copy(

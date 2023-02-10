@@ -1,6 +1,7 @@
 package org.appcenter.inudorm.model.board
 
 import android.content.Context
+import android.net.Uri
 import android.os.Parcelable
 import androidx.core.net.toFile
 import com.nguyenhoanglam.imagepicker.model.Image
@@ -8,6 +9,7 @@ import kotlinx.parcelize.Parcelize
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.appcenter.inudorm.model.ContentUriRequestBody
 import org.appcenter.inudorm.model.Dorm
 import org.appcenter.inudorm.util.ImageUri
 
@@ -28,6 +30,15 @@ data class PostEditDto(
                     RequestBody.create(MediaType.parse("text/plain"), field.get(this)?.toString()!!)
         }
         return reqMap
+    }
+
+    fun getUploadableImages(context: Context): List<ContentUriRequestBody> {
+        return files?.map {
+            ContentUriRequestBody(
+                context,
+                it.uri
+            )
+        } ?: listOf()
     }
 
 }

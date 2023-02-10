@@ -4,6 +4,8 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
     id "io.sentry.android.gradle" version "3.3.0"
+    id 'com.google.dagger.hilt.android'
+
 }
 
 def Properties properties = new Properties()
@@ -97,5 +99,10 @@ dependencies {
     // ImagePicker
     implementation 'com.github.nguyenhoanglam:ImagePicker:1.5.5'
 
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.44"
 
+}
+kapt {
+    correctErrorTypes true
 }

@@ -14,6 +14,8 @@ import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityEditorBinding
 import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.presentation.adapter.ImageViewAdapter
+import javax.inject.Inject
+
 
 class EditorActivity : AppCompatActivity() {
 
@@ -21,7 +23,8 @@ class EditorActivity : AppCompatActivity() {
         DataBindingUtil.setContentView(this, R.layout.activity_editor)
     }
 
-    private val viewModel: EditorViewModel by viewModels()
+    @Inject
+    lateinit var viewModel: EditorViewModel
     private var imageViewAdapter: ImageViewAdapter? = null
 
     private val launcher = registerImagePicker { images ->
