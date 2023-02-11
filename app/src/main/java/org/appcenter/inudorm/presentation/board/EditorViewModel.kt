@@ -26,7 +26,7 @@ data class EditorState(
     val images: ArrayList<UploadableImage> = arrayListOf(),
 )
 
-class EditorViewModel : ViewModel() {
+open class EditorViewModel : ViewModel() {
     private val _editorState = MutableStateFlow(EditorState(true))
     val editorState: StateFlow<EditorState>
         get() = _editorState
@@ -55,49 +55,6 @@ class EditorViewModel : ViewModel() {
         }
     }
 
-    fun writePost() {
-        viewModelScope.launch {
-            kotlin.runCatching {
-                WritePost().run(
-                    PostEditDto(
-                        _editorState.value.title,
-                        _editorState.value.content,
-                        _editorState.value.dormNum,
-                        _editorState.value.anonymous,
-                        _editorState.value.images.map { it.file }
-                    )
-                )
-            }.onSuccess {
-                // Todo: 글쓰기 성공.
-            }.onFailure {
-                // todo: 글쓰기 실패.
-            }
-        }
-    }
 
-    fun editPost() {
-        val orgPostId = _editorState.value.postId
-        if (orgPostId != null)
-            viewModelScope.launch {
-                kotlin.runCatching {
-                    UpdatePost().run(
-                        PostUpdateParams(
-                            orgPostId,
-                            PostEditDto(
-                                _editorState.value.title,
-                                _editorState.value.content,
-                                _editorState.value.dormNum,
-                                _editorState.value.anonymous,
-                                _editorState.value.images.map { it.file }
-                            )
-                        )
-                    )
-                }.onSuccess {
-                    // Todo: 글쓰기 성공.
-                }.onFailure {
-                    // todo: 글쓰기 실패.
-                }
-            }
-    }
 
 }

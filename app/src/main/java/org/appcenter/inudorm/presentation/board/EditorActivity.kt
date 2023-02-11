@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil
 import com.nguyenhoanglam.imagepicker.model.Image
 import com.nguyenhoanglam.imagepicker.model.ImagePickerConfig
 import com.nguyenhoanglam.imagepicker.ui.imagepicker.registerImagePicker
+import org.appcenter.inudorm.LoadingActivity
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityEditorBinding
 import org.appcenter.inudorm.model.board.Post
@@ -21,13 +22,13 @@ import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.ImageUri
 import java.io.File
 
-class EditorActivity : AppCompatActivity() {
+abstract class EditorActivity : LoadingActivity() {
 
-    private val binding: ActivityEditorBinding by lazy {
+    val binding: ActivityEditorBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_editor)
     }
 
-    private val viewModel: EditorViewModel by viewModels()
+    abstract val viewModel: EditorViewModel
     private var imageViewAdapter: ImageViewAdapter? = null
 
 
@@ -53,7 +54,7 @@ class EditorActivity : AppCompatActivity() {
 
         }
     }
-    private var orgPost: Post? = null
+    var orgPost: Post? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,19 +107,6 @@ class EditorActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.board_write_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> super.onBackPressed()
-            R.id.doneButton -> {
-                if (orgPost == null)
-                    viewModel.writePost()
-                else
-                    viewModel.editPost()
-            }
-        }
         return true
     }
 

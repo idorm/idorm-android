@@ -118,6 +118,8 @@ object BoardBinding {
                     .plusHours(9).toString(DateTimeFormat.forPattern("MM월 dd일"))
 
             val elapsed = (currentDateTime - dateTime) / 1000
+            if (elapsed < 0)
+                assert(false) { "시간 계산 오류" }
 
             if (elapsed < 60) {
                 // 1분 이하

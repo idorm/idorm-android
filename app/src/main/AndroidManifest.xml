@@ -76,7 +76,16 @@
             android:theme="@style/Theme.IDorm.White"
             tools:ignore="LockedOrientationActivity"></activity>
         <activity
-            android:name=".presentation.board.EditorActivity"
+            android:name=".presentation.board.WritePostActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustResize"
+            >
+
+        </activity>
+        <activity
+            android:name=".presentation.board.EditPostActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"

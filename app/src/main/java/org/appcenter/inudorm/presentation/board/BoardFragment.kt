@@ -58,7 +58,7 @@ class BoardFragment : Fragment() {
     }
 
     fun write() {
-        startActivity(Intent(requireContext(), EditorActivity::class.java))
+        startActivity(Intent(requireContext(), WritePostActivity::class.java))
     }
 
     override fun onAttach(context: Context) {
