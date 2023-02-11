@@ -1,5 +1,6 @@
 package org.appcenter.inudorm.presentation.board
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nguyenhoanglam.imagepicker.model.Image
@@ -21,8 +22,6 @@ data class EditorState(
     val anonymous: Boolean,
     val postId: Int? = null,
     val dormNum: Dorm = Dorm.DORM1,
-    val title: String = "",
-    val content: String = "",
     val images: ArrayList<UploadableImage> = arrayListOf(),
 )
 
@@ -31,21 +30,12 @@ open class EditorViewModel : ViewModel() {
     val editorState: StateFlow<EditorState>
         get() = _editorState
 
+    val title = MutableLiveData("")
+    val content = MutableLiveData("")
+
     fun toggleAnonymous() {
         _editorState.update {
             it.copy(anonymous = !it.anonymous)
-        }
-    }
-
-    fun setTitle(s: CharSequence, start: Int, before: Int, count: Int) {
-        _editorState.update {
-            it.copy(title = s.toString())
-        }
-    }
-
-    fun setContent(s: CharSequence, start: Int, before: Int, count: Int) {
-        _editorState.update {
-            it.copy(content = s.toString())
         }
     }
 
@@ -54,7 +44,6 @@ open class EditorViewModel : ViewModel() {
             it.copy(images = images as ArrayList<UploadableImage>)
         }
     }
-
 
 
 }

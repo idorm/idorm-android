@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.model.board.PostEditDto
 import org.appcenter.inudorm.usecase.WritePost
 
@@ -25,8 +26,8 @@ class WritePostViewModel : EditorViewModel() {
             kotlin.runCatching {
                 WritePost().run(
                     PostEditDto(
-                        editorState.value.title,
-                        editorState.value.content,
+                        title.value!!,
+                        content.value!!,
                         editorState.value.dormNum,
                         editorState.value.anonymous,
                         editorState.value.images.map { it.file }

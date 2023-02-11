@@ -56,29 +56,72 @@ object BoardBinding {
             }
     }
 
-
     @JvmStatic
     @BindingAdapter("boardImages")
-    fun RecyclerView.bindBoardImages(images: ArrayList<UploadableImage>?) {
-        if (adapter != null && images?.size != 0) {
-            val imageMedias = images?.map { it.image }
+    fun RecyclerView.bindBoardImages(images: ArrayList<String>?) {
+        if (adapter != null && (images?.size ?: 0) > 0) {
             val a = adapter as ImageViewAdapter
+            bindImages(
+                a,
+                object : DiffUtil.Callback() {
+                    override fun getOldListSize(): Int = a.itemCount
+                    override fun getNewListSize(): Int = images?.size!!
 
-            DiffUtil.calculateDiff(object : DiffUtil.Callback() {
-                override fun getOldListSize(): Int = a.itemCount
-                override fun getNewListSize(): Int = imageMedias?.size!!
+                    override fun areItemsTheSame(
+                        oldItemPosition: Int,
+                        newItemPosition: Int,
+                    ): Boolean =
+                        a.imageList[oldItemPosition] == images!![newItemPosition]
 
-                override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
-                    a.imageList[oldItemPosition].uri == imageMedias!![newItemPosition].uri
-
-                override fun areContentsTheSame(
-                    oldItemPosition: Int,
-                    newItemPosition: Int,
-                ): Boolean = a.imageList[oldItemPosition] == imageMedias!![newItemPosition]
-            }).dispatchUpdatesTo(a)
-            a.imageList = (imageMedias as ArrayList<Image>?)!!
-            visibility = View.VISIBLE
+                    override fun areContentsTheSame(
+                        oldItemPosition: Int,
+                        newItemPosition: Int,
+                    ): Boolean =
+                        a.imageList[oldItemPosition] == images!![newItemPosition]
+                },
+                images!!
+            )
         }
+    }
+
+
+    @JvmStatic
+    @BindingAdapter("uploadableImages")
+    fun RecyclerView.bindUploadableImages(images: ArrayList<UploadableImage>?) {
+        if (adapter != null && (images?.size ?: 0) > 0) {
+            val a = adapter as ImageViewAdapter
+            bindImages(
+                a,
+                object : DiffUtil.Callback() {
+                    override fun getOldListSize(): Int = a.itemCount
+                    override fun getNewListSize(): Int = images?.size!!
+
+                    override fun areItemsTheSame(
+                        oldItemPosition: Int,
+                        newItemPosition: Int,
+                    ): Boolean =
+                        a.imageList[oldItemPosition] == images!![newItemPosition].image.uri.toString()
+
+                    override fun areContentsTheSame(
+                        oldItemPosition: Int,
+                        newItemPosition: Int,
+                    ): Boolean =
+                        a.imageList[oldItemPosition] == images!![newItemPosition].image.uri.toString()
+                },
+                images?.map { it.image.uri.toString() } as ArrayList<String>
+            )
+        }
+    }
+
+    fun RecyclerView.bindImages(
+        adapter: ImageViewAdapter,
+        diffCallback: DiffUtil.Callback,
+        imageUrls: ArrayList<String>,
+    ) {
+        DiffUtil.calculateDiff(diffCallback).dispatchUpdatesTo(adapter)
+        adapter.imageList = imageUrls
+        visibility = View.VISIBLE
+
     }
 
     @JvmStatic

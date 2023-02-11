@@ -14,8 +14,8 @@ import org.appcenter.inudorm.databinding.ItemQuestionListBinding
 import org.appcenter.inudorm.model.board.Post
 
 class ImageViewAdapter(
-    var imageList: ArrayList<Image>,
-    private val onClicked: (Image) -> Unit,
+    var imageList: ArrayList<String>,
+    private val onClicked: (String) -> Unit,
 ) : RecyclerView.Adapter<ImageViewAdapter.ViewHolder>() {
 
 
@@ -46,7 +46,7 @@ class ImageViewAdapter(
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ImageViewAdapter.ViewHolder, position: Int) {
         imageList[position].let {
-            viewHolder.binding.image = it.uri.toString()
+            viewHolder.binding.image = it
             viewHolder.binding.executePendingBindings()
         }
         viewHolder.binding.imageView.setOnClickListener {

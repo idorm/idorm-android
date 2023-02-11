@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
+import com.nguyenhoanglam.imagepicker.model.Image
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
@@ -15,6 +16,7 @@ import org.appcenter.inudorm.databinding.ActivityPostDetailBinding
 import org.appcenter.inudorm.model.SelectItem
 import org.appcenter.inudorm.presentation.ListBottomSheet
 import org.appcenter.inudorm.presentation.adapter.CommentAdapter
+import org.appcenter.inudorm.presentation.adapter.ImageViewAdapter
 import org.appcenter.inudorm.util.IDormLogger
 
 
@@ -43,19 +45,26 @@ class PostDetailActivity : AppCompatActivity() {
         binding.refreshLayout.setOnRefreshListener {
             viewModel.getPost(postId)
         }
+        binding.images.adapter = ImageViewAdapter(arrayListOf()) {
+
+        }
 
         lifecycleScope.launch {
             viewModel.postDetailState.collect {
                 if (!it.loading && it.error == null && it.data != null) {
                     binding.comments.adapter =
                         CommentAdapter(it.data.comments ?: ArrayList(), {
-                            Toast.makeText(this@PostDetailActivity,
+                            Toast.makeText(
+                                this@PostDetailActivity,
                                 "댓글 인터렉션 오픈",
-                                Toast.LENGTH_SHORT).show()
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }, {
-                            Toast.makeText(this@PostDetailActivity,
+                            Toast.makeText(
+                                this@PostDetailActivity,
                                 "답글 쓰기",
-                                Toast.LENGTH_SHORT).show()
+                                Toast.LENGTH_SHORT
+                            ).show()
                         })
                 }
             }

@@ -18,8 +18,8 @@ class EditPostViewModel : EditorViewModel() {
                         PostUpdateParams(
                             orgPostId,
                             PostEditDto(
-                                editorState.value.title,
-                                editorState.value.content,
+                                title.value!!,
+                                content.value!!,
                                 editorState.value.dormNum,
                                 editorState.value.anonymous,
                                 editorState.value.images.map { it.file }

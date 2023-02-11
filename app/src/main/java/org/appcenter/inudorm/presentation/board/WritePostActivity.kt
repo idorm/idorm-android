@@ -4,10 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
-import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.util.CustomDialog
 import org.appcenter.inudorm.util.DialogButton
 
@@ -37,7 +34,7 @@ class WritePostActivity : EditorActivity() {
                             "게시글이 등록되었습니다.",
                             positiveButton = DialogButton(
                                 "확인",
-                                onClick = { finishActivity(EDITOR_FINISHED) })
+                                onClick = { finish() })
                         ).show(this@WritePostActivity)
                     }
                     is State.Error -> {

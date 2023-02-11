@@ -21,8 +21,8 @@ data class GetPostParams(val boardType: BoardType, val dorm: Dorm, val page: Int
 
 private val postRepos: Map<BoardType, KSuspendFunction2<Dorm, Int, ArrayList<Post>>> =
     mapOf(
-        BoardType.Top to App.communityRepository::getTopPostsByDorm,
-        BoardType.Regular to App.communityRepository::getPostsByDorm
+        BoardType.Top to communityRepository::getTopPostsByDorm,
+        BoardType.Regular to communityRepository::getPostsByDorm
     )
 
 class GetPosts : UseCase<GetPostParams, ArrayList<Post>>() {
