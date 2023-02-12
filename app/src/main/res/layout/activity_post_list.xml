@@ -12,12 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:elevation="4dp"
         android:textAlignment="center"
         android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:elevation="4dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
@@ -25,9 +25,9 @@
             android:layout_gravity="center"
             android:fontFamily="@font/notosans_regular"
             android:includeFontPadding="false"
-            android:textSize="16sp"
             android:text="@string/myPost"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textSize="16sp" />
     </androidx.appcompat.widget.Toolbar>
 
     <RadioGroup

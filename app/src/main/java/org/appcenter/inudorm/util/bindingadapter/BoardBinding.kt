@@ -52,7 +52,6 @@ object BoardBinding {
                     a.dataSet.addAll(uiState.data)
                     a.notifyDataSetChanged()
                 }
-
             }
     }
 

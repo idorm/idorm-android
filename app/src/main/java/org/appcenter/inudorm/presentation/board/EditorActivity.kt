@@ -68,8 +68,8 @@ abstract class EditorActivity : LoadingActivity() {
 
         orgPost = intent.getParcelableExtra<Post>("post")
         if (orgPost != null) {
-            viewModel.setTitle(orgPost!!.title, 0, 0, 0)
-            viewModel.setContent(orgPost!!.content, 0, 0, 0)
+            viewModel.title.value = orgPost!!.title
+            viewModel.content.value = orgPost!!.content
             val images = ArrayList<Image>()
             images.addAll((orgPost!!.photoUrls?.map {
                 Image(Uri.parse(it), "", 0, "")

@@ -33,6 +33,7 @@
                 android:fontFamily="@font/notosans_bold"
                 android:gravity="center"
                 android:includeFontPadding="false"
+                android:onClick="@{() -> fragment.write()}"
                 android:paddingHorizontal="20dp"
                 android:text="글쓰기"
                 android:textColor="@color/white"
@@ -43,9 +44,7 @@
                 app:iconTint="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:onClick="@{() -> fragment.write()}"
-                />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -118,15 +117,26 @@
                     app:layout_constraintTop_toBottomOf="@id/popularPosts"
                     app:loading="@{viewModel.boardUiState.posts.loading}">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/posts"
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        app:board="@{viewModel.boardUiState.posts}"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:layout_height="match_parent">
 
-                        tools:listitem="@layout/item_post_list" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/no_post" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/posts"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            app:board="@{viewModel.boardUiState.posts}"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+                            tools:listitem="@layout/item_post_list" />
+                    </FrameLayout>
+
 
                 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
