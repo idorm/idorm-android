@@ -27,7 +27,7 @@
         <attr name="age" format="reference|integer" />
     </declare-styleable>
     <declare-styleable name="BoardProfile">
-        <attr name="profileNickname" format="string"/>
+        <attr name="nickname" format="string"/>
         <attr name="timeElapsed" format="string"/>
         <attr name="profileUrl" format="string"/>
     </declare-styleable>

@@ -6,12 +6,15 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import org.appcenter.inudorm.model.board.Comment
 import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.presentation.adapter.ImageViewAdapter
 import org.appcenter.inudorm.presentation.adapter.PopularPostAdapter
 import org.appcenter.inudorm.presentation.adapter.PostAdapter
 import org.appcenter.inudorm.presentation.board.InfinityScrollState
 import org.appcenter.inudorm.presentation.board.UploadableImage
+import org.appcenter.inudorm.presentation.component.BoardProfile
+import org.appcenter.inudorm.presentation.component.BoardProfileData
 import org.appcenter.inudorm.presentation.matching.LoadMode
 import org.appcenter.inudorm.util.IDormLogger
 import org.joda.time.DateTimeZone
@@ -173,6 +176,32 @@ object BoardBinding {
             } else setText(dateString)
         }
     }
+
+    @JvmStatic
+    @BindingAdapter("post")
+    fun BoardProfile.bindPost(post: Post?) {
+        if (post != null) {
+            binding.profile = BoardProfileData(
+                post.nickname,
+                post.createdAt,
+                post.profileUrl ?: "",
+            )
+        }
+    }
+
+
+    @JvmStatic
+    @BindingAdapter("comment")
+    fun BoardProfile.bindComment(comment: Comment?) {
+        if (comment != null) {
+            binding.profile = BoardProfileData(
+                comment.nickname,
+                comment.createdAt,
+                comment.profileUrl ?: "",
+            )
+        }
+    }
+
 
     @JvmStatic
     @BindingAdapter("loading")

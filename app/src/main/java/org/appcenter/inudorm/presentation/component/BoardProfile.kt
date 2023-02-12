@@ -11,9 +11,6 @@ import org.appcenter.inudorm.databinding.ItemBoardProfileBinding
 data class BoardProfileData(val nickname: String, val createdAt: String, val profileUrl: String)
 
 class BoardProfile(context: Context, attrs: AttributeSet) : LinearLayout(context, attrs) {
-    private lateinit var mNickName: String
-    private lateinit var mCreatedAt: String
-    private lateinit var mProfileUrl: String
     lateinit var binding: ItemBoardProfileBinding
 
     init {
@@ -28,13 +25,7 @@ class BoardProfile(context: Context, attrs: AttributeSet) : LinearLayout(context
             0, 0
         )
         val errText = "정보가 없는 것 같아요."
-        try {
-            mNickName = a.getString(R.styleable.BoardProfile_profileNickname) ?: ""
-            mProfileUrl = a.getString(R.styleable.BoardProfile_profileUrl) ?: ""
-            mCreatedAt = a.getString(R.styleable.BoardProfile_timeElapsed) ?: ""
-        } finally {
-            a.recycle()
-        }
+        a.recycle()
     }
 
     fun _initView() {
@@ -42,11 +33,6 @@ class BoardProfile(context: Context, attrs: AttributeSet) : LinearLayout(context
         binding = DataBindingUtil.inflate(
             inflater, R.layout.item_board_profile,
             this, true
-        )
-        binding.profile = BoardProfileData(
-            mNickName,
-            mCreatedAt,
-            mProfileUrl
         )
     }
 
