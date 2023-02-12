@@ -105,7 +105,6 @@
                             app:layout_constraintTop_toBottomOf="@id/content"
                             tools:listitem="@layout/item_board_image" />
 
-
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <LinearLayout
@@ -202,7 +201,9 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/view_button_round_6_gray_100"
                                 android:text="공감하기"
-                                app:layout_constraintEnd_toEndOf="parent" />
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -247,11 +248,71 @@
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/commentSort"
-                        tools:listitem="@layout/item_comment_list" />
-
+                    />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/commentWrite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingHorizontal="24sp"
+                android:paddingVertical="8sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+
+                >
+
+                <TextView
+                    android:id="@+id/anonymousText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10sp"
+                    android:fontFamily="@font/notosans_medium"
+                    android:text="익명"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RadioButton
+                    android:id="@+id/anonymousRadioButton"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:background="@drawable/selector_radiobutton"
+                    android:button="@null"
+                    android:checked="@{viewModel.commentState.anonymous}"
+                    android:onClick="@{() -> viewModel.toggleAnonymous()}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/anonymousText"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/commentInput"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10sp"
+                    android:background="@drawable/view_edit_text_pill_gray_100"
+                    android:padding="10sp"
+                    android:paddingEnd="35sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/anonymousRadioButton"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10sp"
+                    android:background="@null"
+                    android:onClick="@{() -> viewModel.writeComment()}"
+                    android:src="@drawable/ic_send"
+                    app:layout_constraintBottom_toBottomOf="@id/commentInput"
+                    app:layout_constraintEnd_toEndOf="@id/commentInput"
+                    app:layout_constraintTop_toTopOf="@id/commentInput" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

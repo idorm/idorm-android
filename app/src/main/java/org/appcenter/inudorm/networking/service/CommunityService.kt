@@ -3,7 +3,9 @@ package org.appcenter.inudorm.networking.service
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.appcenter.inudorm.model.*
+import org.appcenter.inudorm.model.board.Comment
 import org.appcenter.inudorm.model.board.Post
+import org.appcenter.inudorm.model.board.WriteCommentDto
 import retrofit2.http.*
 
 interface CommunityService {
@@ -46,4 +48,10 @@ interface CommunityService {
         @PartMap body: HashMap<String, RequestBody>,
 //        @Part files: List<ContentUriRequestBody>,
     ): Post
+
+    @POST("member/post/{post-id}/comment")
+    suspend fun registerComment(
+        @Path("post-id") postId: Int,
+        @Body commentDto: WriteCommentDto,
+    ): Comment
 }

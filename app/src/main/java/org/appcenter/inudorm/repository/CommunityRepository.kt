@@ -4,8 +4,10 @@ import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.appcenter.inudorm.model.Dorm
+import org.appcenter.inudorm.model.board.Comment
 import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.model.board.PostEditDto
+import org.appcenter.inudorm.model.board.WriteCommentDto
 import org.appcenter.inudorm.networking.RetrofitInstance
 
 class CommunityRepository {
@@ -32,6 +34,10 @@ class CommunityRepository {
 
     suspend fun updatePost(id: Int, post: PostEditDto): Post {
         return RetrofitInstance.service.updatePost(id, post.toFormData())
+    }
+
+    suspend fun registerComment(postId: Int, commentDto: WriteCommentDto): Comment {
+        return RetrofitInstance.service.registerComment(postId, commentDto)
     }
 
 }

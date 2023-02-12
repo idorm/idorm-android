@@ -55,7 +55,7 @@
 
                 android:textColor="@color/iDorm_gray_400"
                 android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="@+id/textView8"
+                app:layout_constraintStart_toStartOf="@+id/writer"
                 app:layout_constraintTop_toBottomOf="@+id/writer" />
 
             <androidx.appcompat.widget.AppCompatButton

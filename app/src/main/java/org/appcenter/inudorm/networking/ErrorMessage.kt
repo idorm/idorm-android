@@ -3,7 +3,7 @@ package org.appcenter.inudorm.networking
 import java.io.IOException
 
 
-enum class StatusCode(private val code:Int)  {
+enum class StatusCode(private val code: Int) {
     BAD_REQUEST(400),
     UNAUTHORIZED(401),
     FORBIDDEN(403),
@@ -14,8 +14,8 @@ enum class StatusCode(private val code:Int)  {
 
 // Todo: 알 수 없는 에러에 대해 로그 수집하기
 class IDormError(val error: ErrorCode) : IOException() {
-    val code : String = error.name;
-    override val message : String = error.message;
+    val code: String = error.name;
+    override val message: String = error.message;
 
 }
 
@@ -23,6 +23,8 @@ enum class ErrorCode(val error: String, val message: String) {
     /**
      * 400 BAD_REQUEST : 잘못된 요청
      */
+
+    INVALID_REQEUST_PARAM(StatusCode.BAD_REQUEST.name, "잘못된 요청입니다."),
 
     FIELD_REQUIRED(StatusCode.BAD_REQUEST.name, "입력은 필수 입니다."),
     FILE_SIZE_EXCEEDED(StatusCode.BAD_REQUEST.name, "파일 사이즈 초과 입니다."),

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="activity"
             type="org.appcenter.inudorm.presentation.mypage.MyMatchingProfileActivity" />
+
         <variable
             name="viewModel"
             type="org.appcenter.inudorm.presentation.mypage.MyMatchingProfileViewModel" />
@@ -22,26 +25,9 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:dormNum="DORM1"
-            app:joinPeriod="WEEK16"
-            app:isSnoring="@string/snoringCardText"
-            app:isGrinding="@string/grindingCardText"
-            app:isSmoking="@string/smokingCardText"
-            app:isAllowedFood="@string/eatingInsideCardText"
-            app:isWearEarphones="@string/wearEarphonesCardText"
-            app:wakeUpTime="@string/wakeUpTimeCardText"
-            app:cleanUpStatus="@string/cleaningCardText"
-            app:showerTime="@string/showerTimeCardText"
-            app:mbti="@string/mbtiCardText"
-            app:wishText="@string/moreCardText"
-            app:gender="MALE"
-            app:age="21"
-
-            app:mate="@{viewModel.myPageState.data}"
-
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout16"
-            app:layout_constraintStart_toStartOf="parent"
+            app:mate="@{viewModel.myPageState.data}"
 
             />
 
@@ -72,9 +58,9 @@
                 android:layout_height="52dp"
                 android:background="@drawable/view_button_round_6"
                 android:fontFamily="@font/notosans_medium"
-                android:onClick="@{() -> activity.onBackPressed()}"
-
                 android:includeFontPadding="false"
+
+                android:onClick="@{() -> activity.onBackPressed()}"
                 android:text="@string/doneInteraction"
                 android:textColor="@color/white"
                 android:textSize="16sp"
@@ -86,11 +72,11 @@
                 android:layout_width="0dp"
                 android:layout_height="52dp"
                 android:background="@drawable/view_button_round_6_gray_100"
-                android:onClick="@{() -> activity.editImage()}"
-
                 android:drawableStart="@drawable/ic_edit"
+
                 android:fontFamily="@font/notosans_medium"
                 android:includeFontPadding="false"
+                android:onClick="@{() -> activity.editImage()}"
                 android:paddingHorizontal="26dp"
                 android:text="@string/editImage"
                 android:textColor="@color/iDorm_gray_400"

@@ -14,18 +14,7 @@ class BoardProfile(context: Context, attrs: AttributeSet) : LinearLayout(context
     lateinit var binding: ItemBoardProfileBinding
 
     init {
-        _initAttrs(context, attrs)
         _initView()
-    }
-
-    private fun _initAttrs(context: Context, attrs: AttributeSet) {
-        val a = context.theme.obtainStyledAttributes(
-            attrs,
-            R.styleable.BoardProfile,
-            0, 0
-        )
-        val errText = "정보가 없는 것 같아요."
-        a.recycle()
     }
 
     fun _initView() {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -19,8 +20,7 @@
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20sp"
-        >
+        android:layout_margin="20sp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -60,6 +60,7 @@
 
                         android:shadowRadius="4"
                         android:text="@{mate.dormNum.text}"
+                        tools:text="1"
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -108,6 +109,7 @@
                         android:shadowDy="1"
                         android:shadowRadius="4"
                         android:text="@{mate.joinPeriod.text}"
+                        tools:text="16"
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -229,7 +231,8 @@
                         android:text="@{MatchingBinding.buildCardText(@string/wakeUpTimeCardText, mate.wakeUpTime, Color.BLACK, false)}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="기상시간 8:30" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/cleaningCardText"
@@ -241,7 +244,8 @@
                         android:text="@{MatchingBinding.buildCardText(@string/cleaningCardText, mate.cleanUpStatus, Color.BLACK, false)}"
                         app:layout_constraintEnd_toEndOf="@+id/wakeUpTime"
                         app:layout_constraintStart_toStartOf="@+id/wakeUpTime"
-                        app:layout_constraintTop_toBottomOf="@+id/wakeUpTime" />
+                        app:layout_constraintTop_toBottomOf="@+id/wakeUpTime"
+                        tools:text="정리정돈 적당히 깔끔하게 사는 편" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/showerTimeCardText"
@@ -253,7 +257,8 @@
                         android:text="@{MatchingBinding.buildCardText(@string/showerTimeCardText, mate.showerTime, Color.BLACK, false)}"
                         app:layout_constraintEnd_toEndOf="@+id/cleaningCardText"
                         app:layout_constraintStart_toStartOf="@+id/cleaningCardText"
-                        app:layout_constraintTop_toBottomOf="@+id/cleaningCardText" />
+                        app:layout_constraintTop_toBottomOf="@+id/cleaningCardText"
+                        tools:text="샤워시간 아침저녁 10분" />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/mbtiCardText"
@@ -265,7 +270,8 @@
                         android:text="@{MatchingBinding.buildCardText(@string/mbtiCardText, mate.mbti, Color.BLACK, false)}"
                         app:layout_constraintEnd_toEndOf="@+id/showerTimeCardText"
                         app:layout_constraintStart_toStartOf="@+id/showerTimeCardText"
-                        app:layout_constraintTop_toBottomOf="@+id/showerTimeCardText" />
+                        app:layout_constraintTop_toBottomOf="@+id/showerTimeCardText"
+                        tools:text="MBTI INTJ" />
 
                     <TextView
                         android:id="@+id/textView12"
@@ -279,10 +285,11 @@
                         android:text="@{mate.wishText}"
                         android:textColor="@color/iDorm_gray_400"
                         android:textSize="14sp"
-
                         app:layout_constraintEnd_toEndOf="parent"
+
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/mbtiCardText" />
+                        app:layout_constraintTop_toBottomOf="@+id/mbtiCardText"
+                        tools:text="룸메이트에게 바라는 점 미리보기" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -325,7 +332,8 @@
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/image"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="남성" />
 
                 <TextView
                     android:id="@+id/comma"
@@ -337,6 +345,7 @@
                     android:text=","
                     android:textColor="@color/iDorm_gray_400"
                     android:textSize="12sp"
+
 
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/gender"
@@ -351,12 +360,13 @@
                     android:fontFamily="@font/notosans_bold"
                     android:includeFontPadding="false"
                     android:text="@{String.valueOf(mate.age)}"
-
                     android:textColor="@color/iDorm_gray_400"
+
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/comma"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="20" />
 
                 <TextView
                     android:id="@+id/se"

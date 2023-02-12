@@ -47,9 +47,9 @@ suspend fun <D, P> runCatch(
     state: KProperty<MutableStateFlow<UiState<D>>>,
     runMethod: KSuspendFunction1<P, D>,
     param: P,
-) {
+): D? {
     state.isAccessible = true
-    runCatching {
+    return runCatching {
         runMethod(param)
     }.onSuccess { data ->
         state.call().update {
@@ -59,5 +59,5 @@ suspend fun <D, P> runCatch(
         state.call().update {
             UiState(data = null, loading = false, error = e)
         }
-    }
+    }.getOrNull()
 }
