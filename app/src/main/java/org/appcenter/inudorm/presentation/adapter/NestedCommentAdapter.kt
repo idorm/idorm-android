@@ -3,16 +3,12 @@ package org.appcenter.inudorm.presentation.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ItemCommentListBinding
-import org.appcenter.inudorm.databinding.ItemPostListBinding
 import org.appcenter.inudorm.model.board.Comment
-import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.util.IDormLogger
-import java.util.*
 
 class NestedCommentAdapter(
     private val _dataSet: ArrayList<Comment>,

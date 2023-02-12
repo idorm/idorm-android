@@ -1,20 +1,14 @@
 package org.appcenter.inudorm.presentation
 
-import android.app.Dialog
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.R.id.snackbar_text
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
-import io.sentry.Sentry
 import org.appcenter.inudorm.LoadingActivity
 import org.appcenter.inudorm.OnSnackBarCallListener
 import org.appcenter.inudorm.R

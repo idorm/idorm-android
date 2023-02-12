@@ -1,24 +1,18 @@
 package org.appcenter.inudorm.presentation.board
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.appcenter.inudorm.App
 import org.appcenter.inudorm.model.Dorm
 import org.appcenter.inudorm.model.SelectItem
 import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.presentation.matching.LoadMode
-import org.appcenter.inudorm.presentation.mypage.UiState
 import org.appcenter.inudorm.usecase.BoardType
 import org.appcenter.inudorm.usecase.GetPostParams
 import org.appcenter.inudorm.usecase.GetPosts
-import org.appcenter.inudorm.util.IDormLogger
-import kotlin.reflect.KProperty
-import kotlin.reflect.KSuspendFunction1
 
 data class BoardUiState(
     val selectedDorm: SelectItem,

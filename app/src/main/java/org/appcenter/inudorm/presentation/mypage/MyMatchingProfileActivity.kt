@@ -8,10 +8,6 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityMyMatchingProfileBinding
-import org.appcenter.inudorm.model.Dorm
-import org.appcenter.inudorm.model.Gender
-import org.appcenter.inudorm.model.JoinPeriod
-import org.appcenter.inudorm.model.MatchingInfo
 import org.appcenter.inudorm.util.CustomDialog
 import org.appcenter.inudorm.util.DialogButton
 

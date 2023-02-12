@@ -20,28 +20,20 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.snackbar.Snackbar
 import com.yuyakaido.android.cardstackview.*
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.appcenter.inudorm.OnSnackBarCallListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentMatchingBinding
 import org.appcenter.inudorm.model.MatchingInfo
 import org.appcenter.inudorm.model.RoomMateFilter
 import org.appcenter.inudorm.model.SelectItem
 import org.appcenter.inudorm.networking.ErrorCode
-import org.appcenter.inudorm.networking.IDormError
 import org.appcenter.inudorm.networking.UIErrorHandler
-import org.appcenter.inudorm.presentation.*
+import org.appcenter.inudorm.presentation.ListBottomSheet
 import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter
 import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.util.*
 import org.appcenter.inudorm.util.WindowUtil.setStatusBarColor
-import java.net.ConnectException
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
-import javax.net.ssl.SSLHandshakeException
 
 const val FILTER_RESULT_CODE = 1226
 

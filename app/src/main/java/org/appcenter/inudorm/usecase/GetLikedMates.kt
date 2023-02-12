@@ -1,6 +1,5 @@
 package org.appcenter.inudorm.usecase
 
-import org.appcenter.inudorm.App
 import org.appcenter.inudorm.App.Companion.roomMateRepository
 import org.appcenter.inudorm.model.MatchingInfo
 

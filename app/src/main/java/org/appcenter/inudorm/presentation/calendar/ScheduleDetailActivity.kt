@@ -1,7 +1,7 @@
 package org.appcenter.inudorm.presentation.calendar
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import org.appcenter.inudorm.R
 
 class ScheduleDetailActivity : AppCompatActivity() {

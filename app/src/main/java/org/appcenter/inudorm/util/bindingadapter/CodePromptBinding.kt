@@ -3,12 +3,7 @@ package org.appcenter.inudorm.util.bindingadapter
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.View
-
-import android.widget.EditText
 import android.widget.TextView
-import androidx.core.widget.addTextChangedListener
-
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener

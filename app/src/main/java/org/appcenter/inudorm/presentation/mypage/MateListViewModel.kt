@@ -6,7 +6,8 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.model.MatchingInfo
 import org.appcenter.inudorm.presentation.matching.UserMutationEvent
-import org.appcenter.inudorm.usecase.*
+import org.appcenter.inudorm.usecase.ReportMatchingInfo
+import org.appcenter.inudorm.usecase.UseCase
 
 
 abstract class MateListViewModel : ViewModel() {

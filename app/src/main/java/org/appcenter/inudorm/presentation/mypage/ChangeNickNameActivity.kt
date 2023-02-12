@@ -1,7 +1,5 @@
 package org.appcenter.inudorm.presentation.mypage
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -9,12 +7,9 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityChangeNickNameBinding
-import org.appcenter.inudorm.databinding.ActivityFindPassBinding
 import org.appcenter.inudorm.model.ChangeNickNameDto
 import org.appcenter.inudorm.presentation.PromptActivity
-import org.appcenter.inudorm.presentation.account.LoginActivity
 import org.appcenter.inudorm.presentation.account.prompt.NickNamePromptFragment
-import org.appcenter.inudorm.presentation.account.prompt.PasswordPromptFragment
 import org.appcenter.inudorm.usecase.ChangeNickName
 import org.appcenter.inudorm.util.CustomDialog
 import org.appcenter.inudorm.util.DialogButton

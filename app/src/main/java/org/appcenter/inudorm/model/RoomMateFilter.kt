@@ -1,8 +1,6 @@
 package org.appcenter.inudorm.model
 
 import android.os.Parcelable
-import kotlinx.parcelize.IgnoredOnParcel
-
 import kotlinx.parcelize.Parcelize
 
 /**

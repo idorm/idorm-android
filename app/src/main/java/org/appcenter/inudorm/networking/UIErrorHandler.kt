@@ -2,9 +2,10 @@ package org.appcenter.inudorm.networking
 
 import android.content.Context
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import okhttp3.internal.http2.StreamResetException
-import org.appcenter.inudorm.App
 import org.appcenter.inudorm.OnSnackBarCallListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.repository.PrefsRepository

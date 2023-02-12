@@ -1,14 +1,9 @@
 package org.appcenter.inudorm.presentation.board
 
-import android.content.Context
-import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
 import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.nguyenhoanglam.imagepicker.model.Image
 import com.nguyenhoanglam.imagepicker.model.ImagePickerConfig
@@ -18,7 +13,6 @@ import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityEditorBinding
 import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.presentation.adapter.ImageViewAdapter
-import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.ImageUri
 import java.io.File
 

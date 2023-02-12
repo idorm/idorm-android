@@ -3,13 +3,15 @@ package org.appcenter.inudorm.presentation.matching
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.App.Companion.localFilterRepository
-import org.appcenter.inudorm.model.*
+import org.appcenter.inudorm.model.MatchingInfo
+import org.appcenter.inudorm.model.RoomMateFilter
 import org.appcenter.inudorm.usecase.*
 import org.appcenter.inudorm.util.IDormLogger
-import java.util.*
 
 // Todo: Change Member type
 data class MatchingState(

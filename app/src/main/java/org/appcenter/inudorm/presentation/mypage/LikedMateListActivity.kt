@@ -1,15 +1,7 @@
 package org.appcenter.inudorm.presentation.mypage
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.provider.MediaStore.Audio.Radio
-import android.widget.RadioButton
 import androidx.activity.viewModels
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
-import org.appcenter.inudorm.databinding.ActivityLikedMateListBinding
 import org.appcenter.inudorm.model.SelectItem
 import org.appcenter.inudorm.presentation.ListBottomSheet
 import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter

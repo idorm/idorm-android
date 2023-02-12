@@ -1,15 +1,8 @@
 package org.appcenter.inudorm.usecase
 
-import org.appcenter.inudorm.App
 import org.appcenter.inudorm.App.Companion.communityRepository
-import org.appcenter.inudorm.App.Companion.roomMateRepository
 import org.appcenter.inudorm.model.Dorm
-import org.appcenter.inudorm.model.Mate
-import org.appcenter.inudorm.model.MatchingInfo
-import org.appcenter.inudorm.model.RoomMateFilter
 import org.appcenter.inudorm.model.board.Post
-import org.appcenter.inudorm.repository.RoomMateRepository
-import kotlin.reflect.KSuspendFunction1
 import kotlin.reflect.KSuspendFunction2
 
 sealed class BoardType {

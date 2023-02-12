@@ -4,10 +4,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.appcenter.inudorm.model.*
 import org.appcenter.inudorm.model.board.Post
-import org.appcenter.inudorm.model.board.PostEditDto
-import retrofit2.Response
 import retrofit2.http.*
-import java.lang.reflect.Member
 
 interface CommunityService {
 

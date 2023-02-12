@@ -1,14 +1,9 @@
 package org.appcenter.inudorm.presentation.adapter
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import org.appcenter.inudorm.R
-import org.appcenter.inudorm.databinding.FragmentBaseInformationBinding
 import org.appcenter.inudorm.databinding.ItemQuestionListBinding
 import org.appcenter.inudorm.model.OnboardQuestion
-import java.util.*
 
 class OnboardRVAdapter (private val _dataSet: ArrayList<OnboardQuestion>): RecyclerView.Adapter<OnboardRVAdapter.ViewHolder>()  {
 

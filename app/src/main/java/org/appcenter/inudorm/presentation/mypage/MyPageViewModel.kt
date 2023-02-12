@@ -7,13 +7,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.model.MatchingInfo
-import org.appcenter.inudorm.model.Member
 import org.appcenter.inudorm.model.User
-import org.appcenter.inudorm.presentation.matching.UserMutationEvent
 import org.appcenter.inudorm.usecase.GetMatchingInfo
 import org.appcenter.inudorm.usecase.LoginRefresh
 import org.appcenter.inudorm.usecase.SetMatchingInfoVisibility
-import org.appcenter.inudorm.util.IDormLogger
 
 data class MyPageState(
     val myInfo: Result<User?>?,

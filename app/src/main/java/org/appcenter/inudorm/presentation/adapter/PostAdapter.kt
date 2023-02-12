@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ItemPostListBinding
 import org.appcenter.inudorm.model.board.Post
-import java.util.*
 
 class PostAdapter(
     private val _dataSet: ArrayList<Post>,

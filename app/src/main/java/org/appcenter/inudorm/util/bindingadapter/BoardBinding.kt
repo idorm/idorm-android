@@ -6,31 +6,18 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.nguyenhoanglam.imagepicker.model.Image
-import com.yuyakaido.android.cardstackview.CardStackView
-import org.appcenter.inudorm.model.SelectItem
 import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.presentation.adapter.ImageViewAdapter
 import org.appcenter.inudorm.presentation.adapter.PopularPostAdapter
 import org.appcenter.inudorm.presentation.adapter.PostAdapter
-import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter
-import org.appcenter.inudorm.presentation.board.BoardUiState
 import org.appcenter.inudorm.presentation.board.InfinityScrollState
 import org.appcenter.inudorm.presentation.board.UploadableImage
 import org.appcenter.inudorm.presentation.matching.LoadMode
-import org.appcenter.inudorm.presentation.matching.MatchingState
-import org.appcenter.inudorm.presentation.mypage.UiState
 import org.appcenter.inudorm.util.IDormLogger
-import org.appcenter.inudorm.util.bindingadapter.BoardBinding.bindBoard
 import org.joda.time.DateTimeZone
-import org.joda.time.Days
-import org.joda.time.Duration
 import org.joda.time.LocalDateTime
 import org.joda.time.format.DateTimeFormat
-import org.joda.time.format.DateTimeFormatter
-import java.time.temporal.ChronoUnit
 import java.util.*
-import kotlin.collections.ArrayList
 
 object BoardBinding {
     @JvmStatic

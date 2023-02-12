@@ -11,7 +11,9 @@ import org.appcenter.inudorm.usecase.CheckIfCodeCorrect
 import org.appcenter.inudorm.usecase.CodeVerifyParams
 import org.appcenter.inudorm.usecase.SendAuthCode
 import org.appcenter.inudorm.usecase.SendAuthCodeParams
-import org.appcenter.inudorm.util.*
+import org.appcenter.inudorm.util.DialogButton
+import org.appcenter.inudorm.util.IDormLogger
+import org.appcenter.inudorm.util.ViewModelWithEvent
 
 private const val initialTime = 60 * 3
 

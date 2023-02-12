@@ -5,9 +5,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
-import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputEditText
-import org.appcenter.inudorm.model.Dorm
 
 object EmailFieldBinding {
     @JvmStatic

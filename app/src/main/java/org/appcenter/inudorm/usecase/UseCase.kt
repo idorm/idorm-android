@@ -2,7 +2,6 @@ package org.appcenter.inudorm.usecase
 
 import android.util.Log
 import io.sentry.Sentry
-import kotlinx.coroutines.flow.Flow
 import org.appcenter.inudorm.networking.IDormError
 import org.appcenter.inudorm.util.IDormLogger
 

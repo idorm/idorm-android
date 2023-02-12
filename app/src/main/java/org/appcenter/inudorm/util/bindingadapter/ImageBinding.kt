@@ -3,9 +3,7 @@ package org.appcenter.inudorm.util.bindingadapter
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.nguyenhoanglam.imagepicker.model.Image
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.util.IDormLogger
 

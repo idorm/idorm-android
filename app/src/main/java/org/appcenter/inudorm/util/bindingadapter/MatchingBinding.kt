@@ -13,9 +13,9 @@ import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.yuyakaido.android.cardstackview.CardStackView
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.model.Taste
+import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter
 import org.appcenter.inudorm.presentation.matching.LoadMode
 import org.appcenter.inudorm.presentation.matching.MatchingState
-import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter
 import org.appcenter.inudorm.util.IDormLogger
 
 object MatchingBinding {

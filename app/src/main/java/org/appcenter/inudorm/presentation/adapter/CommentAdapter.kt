@@ -8,10 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ItemCommentListBinding
-import org.appcenter.inudorm.databinding.ItemPostListBinding
 import org.appcenter.inudorm.model.board.Comment
-import org.appcenter.inudorm.model.board.Post
-import java.util.*
 
 class CommentAdapter(
     private val _dataSet: ArrayList<Comment>,

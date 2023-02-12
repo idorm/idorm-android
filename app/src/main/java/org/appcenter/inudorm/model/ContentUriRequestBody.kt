@@ -1,12 +1,8 @@
 package org.appcenter.inudorm.model
 
 import android.content.Context
-import android.database.Cursor
 import android.net.Uri
-import android.os.Build
-import android.provider.DocumentsContract
 import android.provider.MediaStore
-import androidx.annotation.RequiresApi
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import okio.BufferedSink

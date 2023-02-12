@@ -1,11 +1,10 @@
 package org.appcenter.inudorm.presentation.mypage
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityNotificationSettingBinding
-import org.appcenter.inudorm.databinding.ActivityRegisterBinding
 
 class NotificationSettingActivity : AppCompatActivity() {
     private val binding: ActivityNotificationSettingBinding by lazy {

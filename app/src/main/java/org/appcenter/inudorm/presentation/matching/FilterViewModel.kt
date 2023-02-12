@@ -3,8 +3,6 @@ package org.appcenter.inudorm.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
 import org.appcenter.inudorm.model.RoomMateFilter
 
 class FilterViewModel(initialFilter: RoomMateFilter) : ViewModel() {

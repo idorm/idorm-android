@@ -1,11 +1,9 @@
 package org.appcenter.inudorm.model.board
 
 import android.os.Parcelable
-import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import okhttp3.MediaType
 import okhttp3.RequestBody
-import org.appcenter.inudorm.model.ContentUriRequestBody
 import org.appcenter.inudorm.model.Dorm
 import java.io.File
 

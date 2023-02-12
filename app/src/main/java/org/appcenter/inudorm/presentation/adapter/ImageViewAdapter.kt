@@ -1,17 +1,11 @@
 package org.appcenter.inudorm.presentation.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.nguyenhoanglam.imagepicker.model.Image
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ItemBoardImageBinding
-import org.appcenter.inudorm.databinding.ItemPostListBinding
-import org.appcenter.inudorm.databinding.ItemQuestionListBinding
-import org.appcenter.inudorm.model.board.Post
 
 class ImageViewAdapter(
     var imageList: ArrayList<String>,

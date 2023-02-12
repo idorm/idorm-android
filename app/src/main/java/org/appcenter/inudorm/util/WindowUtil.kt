@@ -6,9 +6,6 @@ import android.graphics.Color
 import android.util.TypedValue
 import android.view.Window
 import androidx.annotation.ColorInt
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.toColor
-import androidx.core.graphics.toColorInt
 import androidx.core.view.WindowInsetsControllerCompat
 import kotlin.math.roundToInt
 

@@ -3,14 +3,10 @@ package org.appcenter.inudorm.util.bindingadapter
 import android.widget.RadioButton
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.textfield.TextInputLayout
 import org.appcenter.inudorm.model.MatchingInfo
-import org.appcenter.inudorm.presentation.account.prompt.PasswordState
 import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter
 import org.appcenter.inudorm.presentation.component.MatchingCard
-import org.appcenter.inudorm.presentation.matching.LoadMode
 import org.appcenter.inudorm.presentation.mypage.MateListState
-import org.appcenter.inudorm.util.IDormLogger
 
 object MateListBinding {
     @JvmStatic

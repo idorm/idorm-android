@@ -1,11 +1,13 @@
 package org.appcenter.inudorm.networking
 
 import android.util.Log
-import com.google.gson.Gson
 import com.google.gson.JsonParseException
 import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
-import okhttp3.*
+import okhttp3.Interceptor
+import okhttp3.MediaType
+import okhttp3.Response
+import okhttp3.ResponseBody
 import org.appcenter.inudorm.App
 import org.appcenter.inudorm.model.ErrorResponse
 import org.appcenter.inudorm.util.IDormLogger

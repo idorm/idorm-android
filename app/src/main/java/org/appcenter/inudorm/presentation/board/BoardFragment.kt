@@ -2,28 +2,24 @@ package org.appcenter.inudorm.presentation.board
 
 import android.content.Context
 import android.content.Intent
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.constraintlayout.solver.state.State
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import com.yuyakaido.android.cardstackview.Direction
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentBoardBinding
-import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.model.Dorm
 import org.appcenter.inudorm.model.SelectItem
 import org.appcenter.inudorm.presentation.ListBottomSheet
 import org.appcenter.inudorm.presentation.adapter.PopularPostAdapter
 import org.appcenter.inudorm.presentation.adapter.PostAdapter
-import org.appcenter.inudorm.usecase.BoardType
 import org.appcenter.inudorm.util.WindowUtil.setStatusBarColor
 
 class BoardFragment : Fragment() {

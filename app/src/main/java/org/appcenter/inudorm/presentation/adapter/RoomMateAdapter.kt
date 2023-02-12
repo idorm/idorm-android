@@ -6,15 +6,12 @@ import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import androidx.core.view.setMargins
 import androidx.core.view.setPadding
-import androidx.core.view.updateLayoutParams
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ItemMatchingBinding
 import org.appcenter.inudorm.model.MatchingInfo
 import org.appcenter.inudorm.util.WindowUtil
-import java.util.*
-import kotlin.math.roundToInt
 
 class RoomMateAdapter(
     private val isMatching: Boolean,

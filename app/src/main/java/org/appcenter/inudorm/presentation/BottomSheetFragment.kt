@@ -1,20 +1,16 @@
 package org.appcenter.inudorm.presentation
 
 import BottomSheetListAdapter
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentBottomSheetBinding
 import org.appcenter.inudorm.model.SelectItem
-import org.appcenter.inudorm.util.IDormLogger
 
 class ListBottomSheet(private val items: ArrayList<SelectItem>, private val onClick: (SelectItem) -> Unit) : BottomSheetDialogFragment() {
 

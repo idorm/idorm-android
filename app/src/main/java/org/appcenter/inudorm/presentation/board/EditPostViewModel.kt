@@ -5,7 +5,6 @@ import kotlinx.coroutines.launch
 import org.appcenter.inudorm.model.board.PostEditDto
 import org.appcenter.inudorm.usecase.PostUpdateParams
 import org.appcenter.inudorm.usecase.UpdatePost
-import org.appcenter.inudorm.usecase.WritePost
 
 class EditPostViewModel : EditorViewModel() {
 

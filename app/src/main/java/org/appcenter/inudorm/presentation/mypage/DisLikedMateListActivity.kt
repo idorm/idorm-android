@@ -1,19 +1,10 @@
 package org.appcenter.inudorm.presentation.mypage
 
-import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
-import org.appcenter.inudorm.databinding.ActivityLikedMateListBinding
-import org.appcenter.inudorm.model.MatchingInfo
 import org.appcenter.inudorm.model.SelectItem
 import org.appcenter.inudorm.presentation.ListBottomSheet
 import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter
-import org.appcenter.inudorm.util.WindowUtil.setStatusBarColor
 
 class DisLikedMateListActivity : MateListActivity() {
     override var mateAdapter: RoomMateAdapter = RoomMateAdapter(false, ArrayList()) { mate ->

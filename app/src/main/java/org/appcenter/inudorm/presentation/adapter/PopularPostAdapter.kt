@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ItemPopularPostBinding
 import org.appcenter.inudorm.model.board.Post
-import java.util.*
 
 class PopularPostAdapter(
     private val _dataSet: ArrayList<Post>,

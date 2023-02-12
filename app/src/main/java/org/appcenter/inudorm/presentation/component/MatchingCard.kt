@@ -4,11 +4,7 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.LinearLayout
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ItemMatchingBinding
@@ -17,7 +13,6 @@ import org.appcenter.inudorm.model.Gender
 import org.appcenter.inudorm.model.JoinPeriod
 import org.appcenter.inudorm.model.MatchingInfo
 import org.appcenter.inudorm.util.IDormLogger
-import org.w3c.dom.Attr
 
 
 class MatchingCard(context: Context, attrs: AttributeSet) : LinearLayout(context, attrs) {

@@ -1,16 +1,8 @@
 package org.appcenter.inudorm.networking.service
 
-import androidx.annotation.Nullable
-import okhttp3.MediaType
 import okhttp3.RequestBody
-import okio.BufferedSink
-import okio.ByteString
-import org.appcenter.inudorm.App.Companion.gson
 import org.appcenter.inudorm.model.MatchingInfo
-import org.appcenter.inudorm.model.RoomMateFilter
-import org.appcenter.inudorm.util.IDormLogger
 import retrofit2.http.*
-import java.nio.charset.StandardCharsets
 
 
 interface MatchingInfoService {

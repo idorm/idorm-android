@@ -1,7 +1,5 @@
 package org.appcenter.inudorm.repository
 
-import org.appcenter.inudorm.model.Dorm
-import org.appcenter.inudorm.model.JoinPeriod
 import org.appcenter.inudorm.model.RoomMateFilter
 import org.appcenter.inudorm.presentation.matching.defaultFilter
 

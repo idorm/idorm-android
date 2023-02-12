@@ -1,12 +1,11 @@
 package org.appcenter.inudorm.presentation.account
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
-import org.appcenter.inudorm.App
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityWithdrawalBinding
 import org.appcenter.inudorm.repository.PrefsRepository

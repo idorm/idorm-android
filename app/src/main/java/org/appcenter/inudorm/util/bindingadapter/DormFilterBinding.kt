@@ -2,7 +2,6 @@ package org.appcenter.inudorm.util.bindingadapter
 
 import android.util.Log
 import androidx.databinding.*
-import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import org.appcenter.inudorm.model.*
 import org.appcenter.inudorm.util.IDormLogger
