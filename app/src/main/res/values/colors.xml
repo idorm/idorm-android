@@ -25,6 +25,9 @@
     <color name="iDorm_blue_200">#3357E2</color>
     <color name="iDorm_blue_0">#94B9FE</color>
 
+    <!--    토글버튼 컬러-->
+    <color name="iDorm_blue_100">#8EC2FF</color>
+
 
     <!--이건 매칭 바텀 네비게이션 컬러-->
     <color name="iDorm_matching_screen">#F8FDFF</color>
@@ -36,8 +39,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FF0000</color>
-
-
 
 
 </resources>

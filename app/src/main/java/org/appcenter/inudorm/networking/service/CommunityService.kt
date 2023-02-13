@@ -66,5 +66,17 @@ interface CommunityService {
         @Path("comment-id") commentId: Int,
     )
 
+    @PUT("member/post/{post-id}/like")
+    suspend fun likePost(
+        @Path("post-id") postId: Int,
+    )
+
+    @DELETE("member/post/{post-id}/like")
+    suspend fun deletePostLike(
+        @Path("post-id") postId: Int,
+    )
+
+
+
 
 }

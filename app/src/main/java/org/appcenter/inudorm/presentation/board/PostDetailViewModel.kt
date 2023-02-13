@@ -127,4 +127,25 @@ class PostDetailViewModel : ViewModel() {
         }
     }
 
+    fun toggleLike() {
+        viewModelScope.launch {
+            _postLikeResult.emit(
+                ToggleLikePost().run(
+                    ToggleLikePost.Param(
+                        postDetailState.value.data?.postId!!,
+                        postDetailState.value.data?.isLiked!!
+                    )
+                )
+            )
+            _postDetailState.update {
+                it.copy(
+                    data = it.data?.copy(
+                        isLiked = !it.data.isLiked
+                    )
+                )
+            }
+
+        }
+    }
+
 }

@@ -47,6 +47,14 @@ class CommunityRepository {
     suspend fun reportPost(postId: Int) {
 //        return RetrofitInstance.service.reportPost(postId)
     }
+    suspend fun likePost(postId: Int) {
+        return RetrofitInstance.service.likePost(postId)
+    }
+
+    suspend fun deletePostLike(postId: Int) {
+        return RetrofitInstance.service.deletePostLike(postId)
+    }
+
 
     suspend fun deleteComment(commentId: Int, postId: Int) {
         return RetrofitInstance.service.deleteComment(commentId, postId)

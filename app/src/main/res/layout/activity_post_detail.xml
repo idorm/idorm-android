@@ -200,11 +200,15 @@
                                     app:layout_constraintStart_toEndOf="@+id/imageView4"
                                     app:layout_constraintTop_toTopOf="parent" />
 
-                                <androidx.appcompat.widget.AppCompatButton
+                                <androidx.appcompat.widget.AppCompatToggleButton
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:background="@drawable/view_button_round_6_gray_100"
-                                    android:text="공감하기"
+                                    android:background="@drawable/selector_button_toggle"
+                                    android:checked="@{viewModel.postDetailState.data.liked}"
+                                    android:textColor="@color/selector_toggle_button_text"
+                                    android:textOff="공감하기"
+                                    android:textOn="공감하기"
+                                    android:onClick="@{() -> viewModel.toggleLike()}"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
