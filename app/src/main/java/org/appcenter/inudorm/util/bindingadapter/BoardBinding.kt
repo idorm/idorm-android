@@ -142,16 +142,16 @@ object BoardBinding {
             val time = timeText.replace("T", " ")
             val dateTime =
                 LocalDateTime.parse(time, DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss"))
-                    .toDateTime(DateTimeZone.UTC).millis
+                    .toDateTime(DateTimeZone.UTC)
             val currentDateTime =
-                LocalDateTime.now().toDateTime(DateTimeZone.forID("Asia/Seoul")).millis
+                LocalDateTime.now().toDateTime(DateTimeZone.forID("Asia/Seoul"))
             val dateString =
                 LocalDateTime.parse(time, DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss"))
                     .plusHours(9).toString(DateTimeFormat.forPattern("MM월 dd일"))
 
-            val elapsed = (currentDateTime - dateTime) / 1000
-            if (elapsed < 0)
-                assert(false) { "시간 계산 오류" }
+            val elapsed = (currentDateTime.millis - dateTime.millis) / 1000
+            if (elapsed < -10)
+                assert(false) { "시간 계산 오류 $dateTime | $currentDateTime" }
 
             if (elapsed < 60) {
                 // 1분 이하

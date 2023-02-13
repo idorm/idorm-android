@@ -53,7 +53,7 @@ class CommentAdapter(
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: CommentViewHolder, position: Int) {
         val subComments = _dataSet[position].subComments
-        if (subComments != null) {
+        if (subComments != null && subComments.size > 0) {
             subCommentAdapter = NestedCommentAdapter(subComments, onCommentInteractionOpened)
             viewHolder.viewBinding.subComment.apply {
                 adapter = subCommentAdapter
@@ -67,9 +67,11 @@ class CommentAdapter(
             viewHolder.viewBinding.comment = it
             viewHolder.viewBinding.executePendingBindings()
         }
+
         viewHolder.viewBinding.openCommentInteraction.setOnClickListener {
             onCommentInteractionOpened(_dataSet[position])
         }
+        viewHolder.viewBinding.writeSubComment.visibility = View.VISIBLE
         viewHolder.viewBinding.writeSubComment.setOnClickListener {
             onWriteSubCommentClicked(position, _dataSet[position])
         }

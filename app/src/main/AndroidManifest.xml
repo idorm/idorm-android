@@ -102,7 +102,9 @@
             android:name=".presentation.board.PostDetailActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            />
         <activity
             android:name=".presentation.calendar.ScheduleDetailActivity"
             android:exported="false"

@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
+import org.appcenter.inudorm.LoadingActivity
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityPostDetailBinding
 import org.appcenter.inudorm.model.SelectItem
@@ -24,7 +25,7 @@ import org.appcenter.inudorm.util.IDormLogger
 /**
  * 커뮤니티 글 보기 페이지에서 눌러서 들어가는 페이지. PostList
  */
-class PostDetailActivity : AppCompatActivity() {
+class PostDetailActivity : LoadingActivity() {
 
     private val binding: ActivityPostDetailBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_post_detail)
@@ -34,11 +35,17 @@ class PostDetailActivity : AppCompatActivity() {
         getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     }
 
+    fun writeComment() {
+        imm.hideSoftInputFromWindow(binding.commentInput.windowToken, 0)
+        viewModel.writeComment()
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val postId = intent.getIntExtra("id", -9999)
         binding.viewModel = viewModel
+        binding.activity = this
         binding.lifecycleOwner = this
 
         setSupportActionBar(binding.toolbar)
@@ -74,11 +81,7 @@ class PostDetailActivity : AppCompatActivity() {
                                         desc = "idorm의 커뮤니티 가이드라인에 위배되는 게시글"
                                     ),
                                 )
-                                IDormLogger.d(
-                                    this,
-                                    "${viewModel.userState.value.data?.nickname}, ${comment.nickname}"
-                                )
-                                if (viewModel.userState.value.data?.nickname == comment.nickname)
+                                if (viewModel.userState.value.data?.memberId == comment.memberId)
                                     menus.add(
                                         0, SelectItem("댓글 삭제", "delete", R.drawable.ic_delete),
                                     )
@@ -98,6 +101,25 @@ class PostDetailActivity : AppCompatActivity() {
                             }
                         )
                 }
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.commentWriteResult.collect {
+                when (it) {
+                    is State.Success<*> -> {
+                        setLoadingState(false)
+                        // FIXME: 자식 RecyclerView 를 찾아가고, 해당 RecyclerView 에만 notify 해줘 최적화할 수 있습니다.
+                        viewModel.getPost(viewModel.postDetailState.value.data?.postId!!)
+                    }
+                    is State.Error -> {
+                        setLoadingState(false)
+                    }
+                    is State.Loading -> {
+                        setLoadingState(true)
+                    }
+                    else -> {}
+                }
+
             }
         }
 

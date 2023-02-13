@@ -28,6 +28,16 @@ class PostDetailViewModel : ViewModel() {
     val userState: StateFlow<UiState<User>>
         get() = _userState
 
+    private val _commentWriteResult = MutableStateFlow<State?>(null)
+    val commentWriteResult: StateFlow<State?>
+        get() = _commentWriteResult
+
+
+    fun setCommentInput(s: CharSequence, start: Int, before: Int, count: Int) {
+        _commentState.update {
+            it.copy(content = s.toString())
+        }
+    }
 
     fun getPost(id: Int) {
         viewModelScope.launch {
@@ -41,7 +51,7 @@ class PostDetailViewModel : ViewModel() {
 
     fun toggleAnonymous() {
         _commentState.update {
-            it.copy(anonymous = !it.anonymous)
+            it.copy(isAnonymous = !it.isAnonymous)
         }
     }
 
@@ -52,12 +62,19 @@ class PostDetailViewModel : ViewModel() {
     }
 
     fun writeComment() {
+        val content = _commentState.value.content
+        _commentState.update {
+            it.copy(content = "")
+        }
         viewModelScope.launch {
-            kotlin.runCatching {
-                WriteComment().run(_commentState.value.copy(postId = _postDetailState.value.data?.postId))
-            }.onSuccess {
-
-            }
+            val state =
+                WriteComment().run(
+                    _commentState.value.copy(
+                        postId = _postDetailState.value.data?.postId,
+                        content = content
+                    )
+                )
+            _commentWriteResult.emit(state)
         }
 
     }

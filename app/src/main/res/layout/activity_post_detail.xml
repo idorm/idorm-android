@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="fragment"
-            type="org.appcenter.inudorm.presentation.board.BoardFragment" />
+            name="activity"
+            type="org.appcenter.inudorm.presentation.board.PostDetailActivity" />
 
         <variable
             name="viewModel"
@@ -56,6 +56,7 @@
                 <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp">
@@ -283,11 +284,11 @@
                     android:id="@+id/anonymousRadioButton"
                     android:layout_width="17dp"
                     android:layout_height="17dp"
+                    android:layout_marginLeft="10sp"
                     android:background="@drawable/selector_radiobutton"
                     android:button="@null"
-                    android:checked="@{viewModel.commentState.anonymous}"
+                    android:checked="@{viewModel.commentState.isAnonymous}"
                     android:onClick="@{() -> viewModel.toggleAnonymous()}"
-                    android:layout_marginLeft="10sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/anonymousText"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -298,8 +299,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
                     android:background="@drawable/view_edit_text_pill_gray_100"
+                    android:hint="@string/enterCommentHint"
+                    android:onTextChanged="@{viewModel.setCommentInput}"
                     android:padding="10sp"
                     android:paddingEnd="35sp"
+                    android:text="@{viewModel.commentState.content}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/anonymousRadioButton"
@@ -310,7 +314,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10sp"
                     android:background="@null"
-                    android:onClick="@{() -> viewModel.writeComment()}"
+                    android:onClick="@{() -> activity.writeComment()}"
                     android:src="@drawable/ic_send"
                     app:layout_constraintBottom_toBottomOf="@id/commentInput"
                     app:layout_constraintEnd_toEndOf="@id/commentInput"

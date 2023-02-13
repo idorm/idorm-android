@@ -23,12 +23,13 @@ abstract class Member(
 
 
 data class User(
+    val memberId: Int,
     val email: String,
     val nickname: String,
     val profilePhotoUrl: String?,
     @SerializedName("matchingInfoId")
     val matchingInfo: Int?,
-    var loginToken: String?
+    var loginToken: String?,
 )
 
 
