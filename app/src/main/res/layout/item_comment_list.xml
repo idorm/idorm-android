@@ -17,101 +17,120 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="105dp"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginVertical="16dp">
-
-            <org.appcenter.inudorm.presentation.component.BoardProfile
-                android:id="@+id/writer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:comment="@{comment}"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <ImageView
-                android:id="@+id/openCommentInteraction"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:background="@drawable/ic_baseline_more_vert_24"
-                android:clipToOutline="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+            android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="21dp"
-
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/notosans_medium"
-                android:includeFontPadding="false"
-                android:text="@{comment.content}"
-
-                android:textColor="@color/iDorm_gray_400"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="@+id/writer"
-                app:layout_constraintTop_toBottomOf="@+id/writer" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/writeSubComment"
-                android:layout_width="67dp"
-
-                android:layout_height="30dp"
-                android:layout_margin="3sp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/view_button_round_10_gray_100"
-                android:fontFamily="@font/notosans_regular"
-
-                android:includeFontPadding="false"
-                android:text="답글 쓰기"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="@+id/writer"
-                app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/subCommentArea"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/iDorm_matching_screen"
-            android:paddingStart="24dp">
-
-            <ImageView
-                android:id="@+id/icon"
-                android:layout_width="wrap_content"
+                android:id="@+id/deletedComment"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:src="@drawable/ic_sub_comment"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:text="삭제된 댓글입니다." />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/subComment"
+            <LinearLayout
+                android:id="@+id/validComment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintStart_toStartOf="@id/icon"
-                app:layout_constraintTop_toBottomOf="@+id/icon" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:visibility="gone">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="105dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginVertical="16dp">
+
+                    <org.appcenter.inudorm.presentation.component.BoardProfile
+                        android:id="@+id/writer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:comment="@{comment}"
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
-        <com.google.android.material.divider.MaterialDivider
-            android:id="@+id/materialDivider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/iDorm_gray_200">
+                    <ImageView
+                        android:id="@+id/openCommentInteraction"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@drawable/ic_baseline_more_vert_24"
+                        android:clipToOutline="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-        </com.google.android.material.divider.MaterialDivider>
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="21dp"
+
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/notosans_medium"
+                        android:includeFontPadding="false"
+                        android:text="@{comment.content}"
+
+                        android:textColor="@color/iDorm_gray_400"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="@+id/writer"
+                        app:layout_constraintTop_toBottomOf="@+id/writer" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/writeSubComment"
+                        android:layout_width="67dp"
+
+                        android:layout_height="30dp"
+                        android:layout_margin="3sp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/view_button_round_10_gray_100"
+                        android:fontFamily="@font/notosans_regular"
+
+                        android:includeFontPadding="false"
+                        android:text="답글 쓰기"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="@+id/writer"
+                        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/subCommentArea"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/iDorm_matching_screen"
+                    android:paddingStart="24dp">
+
+                    <ImageView
+                        android:id="@+id/icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:src="@drawable/ic_sub_comment"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/subComment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintStart_toStartOf="@id/icon"
+                        app:layout_constraintTop_toBottomOf="@+id/icon" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/materialDivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/iDorm_gray_200">
+
+                </com.google.android.material.divider.MaterialDivider>
+            </LinearLayout>
+
+
+        </FrameLayout>
 
 
     </LinearLayout>

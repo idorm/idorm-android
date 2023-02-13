@@ -40,4 +40,21 @@ class CommunityRepository {
         return RetrofitInstance.service.registerComment(postId, commentDto)
     }
 
+    suspend fun deletePost(postId: Int) {
+        return RetrofitInstance.service.deletePost(postId)
+    }
+
+    suspend fun reportPost(postId: Int) {
+//        return RetrofitInstance.service.reportPost(postId)
+    }
+
+    suspend fun deleteComment(commentId: Int, postId: Int) {
+        return RetrofitInstance.service.deleteComment(commentId, postId)
+    }
+
+    suspend fun reportComment(commentId: Int) {
+//        return RetrofitInstance.service.reportComment(commentId)
+    }
+
+
 }

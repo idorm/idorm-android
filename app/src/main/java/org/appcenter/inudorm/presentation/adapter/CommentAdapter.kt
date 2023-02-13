@@ -52,14 +52,30 @@ class CommentAdapter(
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: CommentViewHolder, position: Int) {
+
+        fun setDeleted(deleted: Boolean) {
+            viewHolder.viewBinding.validComment.visibility =
+                if (deleted) View.GONE else View.VISIBLE
+            viewHolder.viewBinding.deletedComment.visibility =
+                if (deleted) View.VISIBLE else View.GONE
+        }
+
         val subComments = _dataSet[position].subComments
-        if (subComments != null && subComments.size > 0) {
-            subCommentAdapter = NestedCommentAdapter(subComments, onCommentInteractionOpened)
+        val validSubComments = subComments?.filter { !it.isDeleted } as ArrayList<Comment>
+        if (validSubComments.size > 0) {
+            setDeleted(_dataSet[position].isDeleted)
+            subCommentAdapter = NestedCommentAdapter(validSubComments, onCommentInteractionOpened)
             viewHolder.viewBinding.subComment.apply {
                 adapter = subCommentAdapter
                 layoutManager = LinearLayoutManager(context)
             }
         } else {
+            if (_dataSet[position].isDeleted)
+                viewHolder.viewBinding.deletedComment.visibility = View.GONE
+            else {
+                setDeleted(false)
+            }
+
             viewHolder.viewBinding.subCommentArea.visibility = View.GONE
         }
 

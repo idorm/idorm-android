@@ -9,18 +9,24 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.LoadingActivity
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityPostDetailBinding
 import org.appcenter.inudorm.model.SelectItem
+import org.appcenter.inudorm.networking.UIErrorHandler
 import org.appcenter.inudorm.presentation.ListBottomSheet
 import org.appcenter.inudorm.presentation.adapter.CommentAdapter
 import org.appcenter.inudorm.presentation.adapter.ImageViewAdapter
 import org.appcenter.inudorm.presentation.component.ImageViewPager
+import org.appcenter.inudorm.repository.PrefsRepository
+import org.appcenter.inudorm.util.CustomDialog
+import org.appcenter.inudorm.util.DialogButton
 import org.appcenter.inudorm.util.IDormLogger
 
+private val Context.dataStore by preferencesDataStore(name = "prefs")
 
 /**
  * 커뮤니티 글 보기 페이지에서 눌러서 들어가는 페이지. PostList
@@ -39,7 +45,6 @@ class PostDetailActivity : LoadingActivity() {
         imm.hideSoftInputFromWindow(binding.commentInput.windowToken, 0)
         viewModel.writeComment()
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,6 +93,22 @@ class PostDetailActivity : LoadingActivity() {
 
                                 ListBottomSheet(menus) {
                                     IDormLogger.i(this, it.value)
+                                    when (it.value) {
+                                        "report" -> CustomDialog(
+                                            "댓글을 신고하시겠습니까?",
+                                            positiveButton = DialogButton("확인", onClick = {
+                                                viewModel.reportComment(comment.commentId)
+                                            }),
+                                            negativeButton = DialogButton("취소")
+                                        ).show(this@PostDetailActivity)
+                                        "delete" -> CustomDialog(
+                                            "댓글을 삭제하시겠습니까?",
+                                            positiveButton = DialogButton("확인", onClick = {
+                                                viewModel.deleteComment(comment.commentId, postId)
+                                            }),
+                                            negativeButton = DialogButton("취소")
+                                        ).show(this@PostDetailActivity)
+                                    }
                                 }.show(supportFragmentManager, "TAG")
                             },
                             onWriteSubCommentClicked = { idx, comment ->
@@ -105,24 +126,37 @@ class PostDetailActivity : LoadingActivity() {
         }
         lifecycleScope.launch {
             viewModel.commentWriteResult.collect {
-                when (it) {
-                    is State.Success<*> -> {
-                        setLoadingState(false)
-                        // FIXME: 자식 RecyclerView 를 찾아가고, 해당 RecyclerView 에만 notify 해줘 최적화할 수 있습니다.
-                        viewModel.getPost(viewModel.postDetailState.value.data?.postId!!)
-                    }
-                    is State.Error -> {
-                        setLoadingState(false)
-                    }
-                    is State.Loading -> {
-                        setLoadingState(true)
-                    }
-                    else -> {}
-                }
-
+                handleState(it)
             }
         }
+        lifecycleScope.launch {
+            viewModel.commentDeleteResult.collect {
+                handleState(it)
+            }
+        }
+        lifecycleScope.launch {
 
+        }
+
+    }
+
+    fun handleState(state: State?) {
+        when (state) {
+            is State.Success<*> -> {
+                setLoadingState(false)
+                // FIXME: 자식 RecyclerView 를 찾아가고, 해당 RecyclerView 에만 notify 해줘 최적화할 수 있습니다.
+                viewModel.getPost(viewModel.postDetailState.value.data?.postId!!)
+            }
+            is State.Error -> {
+                setLoadingState(false)
+                // FIXME: 큰일남. 의존성 주입으로 PrefsRepository를 액세스해야 할 것 같음.
+                UIErrorHandler.handle(this, PrefsRepository(this), state.error)
+            }
+            is State.Loading -> {
+                setLoadingState(true)
+            }
+            else -> {}
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -149,6 +183,46 @@ class PostDetailActivity : LoadingActivity() {
                     )
                 ) {
                     IDormLogger.i(this, it.value)
+                    when (it.value) {
+                        "share" -> {
+                            val sendIntent: Intent = Intent().apply {
+                                action = Intent.ACTION_SEND
+                                putExtra(Intent.EXTRA_TEXT, "텍스트 공유로 테스트. 앱링크로 대체해야 합니다.")
+                                type = "text/plain"
+                            }
+
+                            val shareIntent = Intent.createChooser(sendIntent, null)
+                            startActivity(shareIntent)
+
+                        }
+                        "delete" -> {
+                            CustomDialog(
+                                "게시글을 삭제하시겠습니까?",
+                                positiveButton = DialogButton("확인", onClick = {
+                                    viewModel.deletePost()
+                                }),
+                                negativeButton = DialogButton("취소")
+                            ).show(this@PostDetailActivity)
+                        }
+                        "edit" -> {
+                            val intent = Intent(
+                                this@PostDetailActivity,
+                                EditPostActivity::class.java
+                            )
+                            intent.putExtra("post", viewModel.postDetailState.value.data)
+                            startActivity(intent)
+                        }
+                        "report" -> {
+                            CustomDialog(
+                                "게시글을 신고하시겠습니까?",
+                                positiveButton = DialogButton("확인", onClick = {
+                                    viewModel.reportPost()
+                                }),
+                                negativeButton = DialogButton("취소")
+                            ).show(this@PostDetailActivity)
+                        }
+
+                    }
                 }.show(supportFragmentManager, "TAG")
                 return true
 

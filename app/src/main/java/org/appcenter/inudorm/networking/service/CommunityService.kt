@@ -54,4 +54,17 @@ interface CommunityService {
         @Path("post-id") postId: Int,
         @Body commentDto: WriteCommentDto,
     ): Comment
+
+    @DELETE("member/post/{post-id}")
+    suspend fun deletePost(
+        @Path("post-id") postId: Int,
+    )
+
+    @DELETE("member/post/{post-id}/comment/{comment-id}")
+    suspend fun deleteComment(
+        @Path("post-id") postId: Int,
+        @Path("comment-id") commentId: Int,
+    )
+
+
 }

@@ -52,6 +52,14 @@ class NestedCommentAdapter(
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: NestedCommentViewHolder, position: Int) {
+
+        fun setDeleted(deleted: Boolean) {
+            viewHolder.viewBinding.validComment.visibility =
+                if (deleted) View.GONE else View.VISIBLE
+            viewHolder.viewBinding.deletedComment.visibility =
+                if (deleted) View.VISIBLE else View.GONE
+        }
+        setDeleted(false)
         _dataSet[position].let {
             viewHolder.viewBinding.comment = it
             viewHolder.viewBinding.executePendingBindings()

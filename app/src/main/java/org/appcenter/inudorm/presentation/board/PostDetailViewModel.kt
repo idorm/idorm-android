@@ -11,11 +11,11 @@ import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.model.board.WriteCommentDto
 import org.appcenter.inudorm.presentation.mypage.UiState
 import org.appcenter.inudorm.presentation.mypage.runCatch
-import org.appcenter.inudorm.usecase.GetSinglePost
-import org.appcenter.inudorm.usecase.LoginRefresh
-import org.appcenter.inudorm.usecase.WriteComment
+import org.appcenter.inudorm.usecase.*
 
 class PostDetailViewModel : ViewModel() {
+    // Todo: MutableStateFlow를 Redux 처럼 쓸 수 있지 않을까요?!
+
     private val _postDetailState = MutableStateFlow(UiState<Post>())
     val postDetailState: StateFlow<UiState<Post>>
         get() = _postDetailState
@@ -31,6 +31,26 @@ class PostDetailViewModel : ViewModel() {
     private val _commentWriteResult = MutableStateFlow<State?>(null)
     val commentWriteResult: StateFlow<State?>
         get() = _commentWriteResult
+
+    private val _commentDeleteResult = MutableStateFlow<State?>(null)
+    val commentDeleteResult: StateFlow<State?>
+        get() = _commentDeleteResult
+
+    private val _commentReportResult = MutableStateFlow<State?>(null)
+    val commentReportResult: StateFlow<State?>
+        get() = _commentReportResult
+
+    private val _postLikeResult = MutableStateFlow<State?>(null)
+    val postLikeResult: StateFlow<State?>
+        get() = _postLikeResult
+
+    private val _postReportResult = MutableStateFlow<State?>(null)
+    val postReportResult: StateFlow<State?>
+        get() = _postReportResult
+
+    private val _postDeleteResult = MutableStateFlow<State?>(null)
+    val postDeleteResult: StateFlow<State?>
+        get() = _postDeleteResult
 
 
     fun setCommentInput(s: CharSequence, start: Int, before: Int, count: Int) {
@@ -78,4 +98,33 @@ class PostDetailViewModel : ViewModel() {
         }
 
     }
+
+    fun deletePost() {
+        viewModelScope.launch {
+            val state = DeletePost().run(postDetailState.value.data?.postId!!)
+            _postDeleteResult.emit(state)
+        }
+    }
+
+    fun reportPost() {
+        viewModelScope.launch {
+            val state = ReportPost().run(postDetailState.value.data?.postId!!)
+            _postReportResult.emit(state)
+        }
+    }
+
+    fun deleteComment(commentId: Int, postId: Int) {
+        viewModelScope.launch {
+            val state = DeleteComment().run(DeleteComment.Param(commentId, postId))
+            _commentDeleteResult.emit(state)
+        }
+    }
+
+    fun reportComment(id: Int) {
+        viewModelScope.launch {
+            val state = ReportComment().run(id)
+            _commentReportResult.emit(state)
+        }
+    }
+
 }
