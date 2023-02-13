@@ -49,6 +49,13 @@
             tools:ignore="LockedOrientationActivity" />
 
         <activity
+            android:name=".presentation.component.ImageViewPager"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.IDorm.White"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
             android:name=".presentation.account.WithdrawalActivity"
             android:exported="true"
             android:screenOrientation="portrait"
@@ -79,18 +86,16 @@
             android:name=".presentation.board.WritePostActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"
             android:windowSoftInputMode="adjustResize"
-            >
+            tools:ignore="LockedOrientationActivity">
 
         </activity>
         <activity
             android:name=".presentation.board.EditPostActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"
             android:windowSoftInputMode="adjustResize"
-            >
+            tools:ignore="LockedOrientationActivity">
 
         </activity>
         <activity

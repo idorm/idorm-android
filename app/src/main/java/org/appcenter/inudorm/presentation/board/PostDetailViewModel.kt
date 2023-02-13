@@ -6,11 +6,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.appcenter.inudorm.model.User
 import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.model.board.WriteCommentDto
 import org.appcenter.inudorm.presentation.mypage.UiState
 import org.appcenter.inudorm.presentation.mypage.runCatch
 import org.appcenter.inudorm.usecase.GetSinglePost
+import org.appcenter.inudorm.usecase.LoginRefresh
 import org.appcenter.inudorm.usecase.WriteComment
 
 class PostDetailViewModel : ViewModel() {
@@ -19,8 +21,12 @@ class PostDetailViewModel : ViewModel() {
         get() = _postDetailState
 
     private val _commentState = MutableStateFlow(WriteCommentDto())
-    val commentState: StateFlow< WriteCommentDto>
+    val commentState: StateFlow<WriteCommentDto>
         get() = _commentState
+
+    private val _userState = MutableStateFlow(UiState<User>())
+    val userState: StateFlow<UiState<User>>
+        get() = _userState
 
 
     fun getPost(id: Int) {
@@ -28,6 +34,7 @@ class PostDetailViewModel : ViewModel() {
             _postDetailState.update {
                 it.copy(loading = true)
             }
+            runCatch(this@PostDetailViewModel::_userState, LoginRefresh()::run, null)
             runCatch(this@PostDetailViewModel::_postDetailState, GetSinglePost()::run, id)
         }
     }
@@ -35,6 +42,12 @@ class PostDetailViewModel : ViewModel() {
     fun toggleAnonymous() {
         _commentState.update {
             it.copy(anonymous = !it.anonymous)
+        }
+    }
+
+    fun setParentComment(id: Int) {
+        _commentState.update {
+            it.copy(parentCommentId = id)
         }
     }
 

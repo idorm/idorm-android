@@ -13,7 +13,7 @@ import org.appcenter.inudorm.model.board.Comment
 class CommentAdapter(
     private val _dataSet: ArrayList<Comment>,
     private val onCommentInteractionOpened: (Comment) -> Unit,
-    private val onWriteSubCommentClicked: (Comment) -> Unit,
+    private val onWriteSubCommentClicked: (Int, Comment) -> Unit,
 ) :
     RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
 
@@ -29,7 +29,7 @@ class CommentAdapter(
     inner class CommentViewHolder(
         var viewBinding: ItemCommentListBinding,
         onCommentDetailClicked: (Comment) -> Unit,
-        onWriteSubCommentClicked: (Comment) -> Unit,
+        onWriteSubCommentClicked: (Int, Comment) -> Unit,
     ) :
         RecyclerView.ViewHolder(viewBinding.root)
 
@@ -46,7 +46,7 @@ class CommentAdapter(
 
         return CommentViewHolder(binding,
             { onCommentInteractionOpened(it) },
-            { onWriteSubCommentClicked(it) }
+            { id, comment -> onWriteSubCommentClicked(id, comment) }
         )
     }
 
@@ -71,7 +71,7 @@ class CommentAdapter(
             onCommentInteractionOpened(_dataSet[position])
         }
         viewHolder.viewBinding.writeSubComment.setOnClickListener {
-            onWriteSubCommentClicked(_dataSet[position])
+            onWriteSubCommentClicked(position, _dataSet[position])
         }
     }
 

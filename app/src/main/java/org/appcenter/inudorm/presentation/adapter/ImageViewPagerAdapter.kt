@@ -1,50 +1,46 @@
 package org.appcenter.inudorm.presentation.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ItemBoardImageBinding
 
-class ImageViewAdapter(
+class ImageViewPagerAdapter(
     var imageList: ArrayList<String>,
-    private val onClicked: (Int, String) -> Unit,
-) : RecyclerView.Adapter<ImageViewAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<ImageViewPagerAdapter.ViewHolder>() {
 
 
     inner class ViewHolder(
-        var binding: ItemBoardImageBinding,
+        var view: View,
         onClicked: (Int) -> Unit,
     ) :
-        RecyclerView.ViewHolder(binding.root) {}
+        RecyclerView.ViewHolder(view.rootView) {}
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(
         viewGroup: ViewGroup,
         viewType: Int,
-    ): ImageViewAdapter.ViewHolder {
+    ): ImageViewPagerAdapter.ViewHolder {
         // Create a new view, which defines the UI of the list item
-        val binding = DataBindingUtil.inflate<ItemBoardImageBinding>(
-            LayoutInflater.from(viewGroup.context),
-            R.layout.item_board_image,
-            viewGroup,
-            false
-        )
+        val view = LayoutInflater.from(viewGroup.context)
+            .inflate(R.layout.item_image_viewer, viewGroup, false)
 
-        return ViewHolder(binding) { idx ->
-            onClicked(idx, imageList[idx])
+        return ViewHolder(view) {
         }
     }
 
     // Replace the contents of a view (invoked by the layout manager)
-    override fun onBindViewHolder(viewHolder: ImageViewAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: ImageViewPagerAdapter.ViewHolder, position: Int) {
         imageList[position].let {
-            viewHolder.binding.image = it
-            viewHolder.binding.executePendingBindings()
-        }
-        viewHolder.binding.imageView.setOnClickListener {
-            onClicked(position, imageList[position])
+            val imgView = viewHolder.view.findViewById<ImageView>(R.id.image)
+            Glide.with(viewHolder.view)
+                .load(it)
+                .into(imgView)
         }
     }
 

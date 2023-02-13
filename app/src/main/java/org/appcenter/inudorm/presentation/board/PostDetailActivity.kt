@@ -1,9 +1,11 @@
 package org.appcenter.inudorm.presentation.board
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -15,6 +17,7 @@ import org.appcenter.inudorm.model.SelectItem
 import org.appcenter.inudorm.presentation.ListBottomSheet
 import org.appcenter.inudorm.presentation.adapter.CommentAdapter
 import org.appcenter.inudorm.presentation.adapter.ImageViewAdapter
+import org.appcenter.inudorm.presentation.component.ImageViewPager
 import org.appcenter.inudorm.util.IDormLogger
 
 
@@ -27,6 +30,10 @@ class PostDetailActivity : AppCompatActivity() {
         DataBindingUtil.setContentView(this, R.layout.activity_post_detail)
     }
     private val viewModel: PostDetailViewModel by viewModels()
+    private val imm: InputMethodManager by lazy {
+        getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,27 +50,53 @@ class PostDetailActivity : AppCompatActivity() {
         binding.refreshLayout.setOnRefreshListener {
             viewModel.getPost(postId)
         }
-        binding.images.adapter = ImageViewAdapter(arrayListOf()) {
-
+        binding.images.adapter = ImageViewAdapter(arrayListOf()) { idx, imageUrl ->
+            val intent = Intent(this, ImageViewPager::class.java)
+            intent.putStringArrayListExtra(
+                "images",
+                viewModel.postDetailState.value.data?.photoUrls
+            )
+            intent.putExtra("initialPosition", idx)
+            startActivity(intent)
         }
 
         lifecycleScope.launch {
             viewModel.postDetailState.collect {
                 if (!it.loading && it.error == null && it.data != null) {
                     binding.comments.adapter =
-                        CommentAdapter(it.data.comments ?: ArrayList(), {
-                            Toast.makeText(
-                                this@PostDetailActivity,
-                                "댓글 인터렉션 오픈",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }, {
-                            Toast.makeText(
-                                this@PostDetailActivity,
-                                "답글 쓰기",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        })
+                        CommentAdapter(
+                            it.data.comments ?: ArrayList(),
+                            onCommentInteractionOpened = { comment ->
+                                val menus = arrayListOf(
+                                    SelectItem(
+                                        "신고하기",
+                                        "report",
+                                        desc = "idorm의 커뮤니티 가이드라인에 위배되는 게시글"
+                                    ),
+                                )
+                                IDormLogger.d(
+                                    this,
+                                    "${viewModel.userState.value.data?.nickname}, ${comment.nickname}"
+                                )
+                                if (viewModel.userState.value.data?.nickname == comment.nickname)
+                                    menus.add(
+                                        0, SelectItem("댓글 삭제", "delete", R.drawable.ic_delete),
+                                    )
+
+                                ListBottomSheet(menus) {
+                                    IDormLogger.i(this, it.value)
+                                }.show(supportFragmentManager, "TAG")
+                            },
+                            onWriteSubCommentClicked = { idx, comment ->
+                                viewModel.setParentComment(comment.commentId)
+                                binding.commentInput.requestFocus()
+                                imm.showSoftInput(
+                                    binding.commentInput,
+                                    InputMethodManager.HIDE_IMPLICIT_ONLY
+                                )
+                                binding.comments.smoothScrollToPosition(idx)
+                            }
+                        )
                 }
             }
         }

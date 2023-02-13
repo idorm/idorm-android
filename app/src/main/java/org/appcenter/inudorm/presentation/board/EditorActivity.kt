@@ -1,5 +1,6 @@
 package org.appcenter.inudorm.presentation.board
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
@@ -13,6 +14,7 @@ import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityEditorBinding
 import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.presentation.adapter.ImageViewAdapter
+import org.appcenter.inudorm.presentation.component.ImageViewPager
 import org.appcenter.inudorm.util.ImageUri
 import java.io.File
 
@@ -71,8 +73,14 @@ abstract class EditorActivity : LoadingActivity() {
         }
 
         if (imageViewAdapter == null) {
-            imageViewAdapter = ImageViewAdapter(arrayListOf()) {
-                // Todo: Show fullsize image
+            imageViewAdapter = ImageViewAdapter(arrayListOf()) { idx, imageUrl ->
+                val intent = Intent(this, ImageViewPager::class.java)
+                intent.putStringArrayListExtra(
+                    "images",
+                    viewModel.editorState.value.images.map { it.image.uri.toString() } as java.util.ArrayList<String>
+                )
+                intent.putExtra("initialPosition", idx)
+                startActivity(intent)
             }
             binding.imageView.adapter = imageViewAdapter
         }
