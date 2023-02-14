@@ -77,6 +77,7 @@ class BoardFragment : Fragment() {
         binding.popularPosts.adapter = PopularPostAdapter(ArrayList()) {
             goDetail(it.postId)
         }
+
         binding.posts.adapter = PostAdapter(ArrayList()) {
             goDetail(it.postId)
         }

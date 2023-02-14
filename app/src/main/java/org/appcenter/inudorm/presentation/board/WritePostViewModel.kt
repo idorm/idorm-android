@@ -18,6 +18,7 @@ class WritePostViewModel : EditorViewModel() {
     val writePostResult: StateFlow<State?>
         get() = _writePostResult
 
+
     fun writePost() {
         viewModelScope.launch {
             kotlin.runCatching {

@@ -73,7 +73,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:post="@{viewModel.postDetailState.data}" />
+                                app:nickname="@{viewModel.postDetailState.data.nickname}"
+                                app:profileUrl="@{viewModel.postDetailState.data.profileUrl}"
+                                app:timeElapsed="@{viewModel.postDetailState.data.createdAt}" />
 
                             <TextView
                                 android:id="@+id/title"
@@ -205,10 +207,10 @@
                                     android:layout_height="wrap_content"
                                     android:background="@drawable/selector_button_toggle"
                                     android:checked="@{viewModel.postDetailState.data.liked}"
+                                    android:onClick="@{() -> viewModel.toggleLike()}"
                                     android:textColor="@color/selector_toggle_button_text"
                                     android:textOff="공감하기"
                                     android:textOn="공감하기"
-                                    android:onClick="@{() -> viewModel.toggleLike()}"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
@@ -248,14 +250,40 @@
 
                         </LinearLayout>
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/comments"
+                        <FrameLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/commentSort" />
+                            app:layout_constraintTop_toBottomOf="@+id/commentSort">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/ic_comment"
+
+                                    />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="아직 등록된 댓글이 없어요.\n첫 댓글을 남겨주세요."
+                                    android:textAlignment="center" />
+                            </LinearLayout>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/comments"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                        </FrameLayout>
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.core.widget.NestedScrollView>

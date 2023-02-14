@@ -44,7 +44,6 @@
                         android:id="@+id/writer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:comment="@{comment}"
                         app:layout_constraintTop_toTopOf="parent" />
 
 

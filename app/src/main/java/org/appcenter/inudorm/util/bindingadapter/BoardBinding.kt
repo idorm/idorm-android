@@ -6,15 +6,12 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import org.appcenter.inudorm.model.board.Comment
 import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.presentation.adapter.ImageViewAdapter
 import org.appcenter.inudorm.presentation.adapter.PopularPostAdapter
 import org.appcenter.inudorm.presentation.adapter.PostAdapter
 import org.appcenter.inudorm.presentation.board.InfinityScrollState
 import org.appcenter.inudorm.presentation.board.UploadableImage
-import org.appcenter.inudorm.presentation.component.BoardProfile
-import org.appcenter.inudorm.presentation.component.BoardProfileData
 import org.appcenter.inudorm.presentation.matching.LoadMode
 import org.appcenter.inudorm.util.IDormLogger
 import org.joda.time.DateTimeZone
@@ -135,6 +132,40 @@ object BoardBinding {
             }
     }
 
+    fun getElapsedTime(timeText: String): String {
+        val time = timeText.replace("T", " ")
+        val dateTime =
+            LocalDateTime.parse(time, DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss"))
+                .toDateTime(DateTimeZone.UTC)
+        val currentDateTime =
+            LocalDateTime.now().toDateTime(DateTimeZone.forID("Asia/Seoul"))
+        val dateString =
+            LocalDateTime.parse(time, DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss"))
+                .plusHours(9).toString(DateTimeFormat.forPattern("MM월 dd일"))
+
+        val elapsed = (currentDateTime.millis - dateTime.millis) / 1000
+        if (elapsed < -10)
+            assert(false) { "시간 계산 오류 $dateTime | $currentDateTime" }
+
+        if (elapsed < 60) {
+            // 1분 이하
+            return "${elapsed}초전"
+        } else if (elapsed < 60 * 60) {
+            // 1시간 이하
+            return "${elapsed / 60}분전"
+        } else if (elapsed < 60 * 60 * 24) {
+            // 1일 이하
+            return ("${elapsed / 60 / 60}시간전")
+        } else if (elapsed < 60 * 60 * 24 * 7) {
+            // 7일 이하
+            return ("${elapsed / 60 / 60 / 24}일전")
+        } else if (elapsed < 60 * 60 * 24 * 31) {
+            // 한달 이하
+            return ("${elapsed / 60 / 60 / 24 / 7}주일전")
+        } else return (dateString)
+
+    }
+
     @JvmStatic
     @BindingAdapter("timeElapsed")
     fun TextView.bindTimeElapsed(timeText: String?) {
@@ -176,7 +207,7 @@ object BoardBinding {
             } else setText(dateString)
         }
     }
-
+/*
     @JvmStatic
     @BindingAdapter("post")
     fun BoardProfile.bindPost(post: Post?) {
@@ -200,7 +231,7 @@ object BoardBinding {
                 comment.profileUrl ?: "",
             )
         }
-    }
+    }*/
 
 
     @JvmStatic

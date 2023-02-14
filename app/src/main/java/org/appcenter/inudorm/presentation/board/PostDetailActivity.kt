@@ -75,9 +75,11 @@ class PostDetailActivity : LoadingActivity() {
         lifecycleScope.launch {
             viewModel.postDetailState.collect {
                 if (!it.loading && it.error == null && it.data != null) {
+
                     binding.comments.adapter =
                         CommentAdapter(
-                            it.data.comments ?: ArrayList(),
+                            if (it.data.isCommentEmpty()) ArrayList()
+                            else it.data.comments ?: ArrayList(),
                             onCommentInteractionOpened = { comment ->
                                 val menus = arrayListOf(
                                     SelectItem(
@@ -104,7 +106,10 @@ class PostDetailActivity : LoadingActivity() {
                                         "delete" -> CustomDialog(
                                             "댓글을 삭제하시겠습니까?",
                                             positiveButton = DialogButton("확인", onClick = {
-                                                viewModel.deleteComment(comment.commentId, postId)
+                                                viewModel.deleteComment(
+                                                    comment.commentId,
+                                                    postId
+                                                )
                                             }),
                                             negativeButton = DialogButton("취소")
                                         ).show(this@PostDetailActivity)
