@@ -241,11 +241,14 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="8sp"
                                 android:text="등록순"
+                                android:onClick="@{() -> activity.setCommentSort(`asc`)}"
                                 android:textColor="@color/black" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:onClick="@{() -> activity.setCommentSort(`desc`)}"
+
                                 android:text="최신순" />
 
                         </LinearLayout>
@@ -257,14 +260,15 @@
                             app:layout_constraintTop_toBottomOf="@+id/commentSort">
 
                             <LinearLayout
+                                android:id="@+id/noComments"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:orientation="vertical">
 
                                 <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
+                                    android:layout_width="60sp"
+                                    android:layout_height="60sp"
                                     android:src="@drawable/ic_comment"
 
                                     />

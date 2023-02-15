@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,7 @@ import org.appcenter.inudorm.LoadingActivity
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityPostDetailBinding
 import org.appcenter.inudorm.model.SelectItem
+import org.appcenter.inudorm.model.board.Comment
 import org.appcenter.inudorm.networking.UIErrorHandler
 import org.appcenter.inudorm.presentation.ListBottomSheet
 import org.appcenter.inudorm.presentation.adapter.CommentAdapter
@@ -26,6 +28,7 @@ import org.appcenter.inudorm.util.CustomDialog
 import org.appcenter.inudorm.util.DialogButton
 import org.appcenter.inudorm.util.IDormLogger
 
+// Todo: 대댓글 작성 그림자 빼기
 private val Context.dataStore by preferencesDataStore(name = "prefs")
 
 /**
@@ -44,6 +47,32 @@ class PostDetailActivity : LoadingActivity() {
     fun writeComment() {
         imm.hideSoftInputFromWindow(binding.commentInput.windowToken, 0)
         viewModel.writeComment()
+    }
+
+    fun setCommentSort(sort: String) {
+        val adapter = (binding.comments.adapter as CommentAdapter)
+        val descComment = sortComment(adapter.dataSet)
+        if (sort == "asc") {
+            adapter.dataSet = descComment
+        } else {
+            descComment.reverse()
+            adapter.dataSet = descComment
+        }
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun sortComment(comments: ArrayList<Comment>): ArrayList<Comment> {
+        comments.sortByDescending {
+            it.createdAt
+        }
+        comments.forEach {
+            if (!it.subComments.isNullOrEmpty()) {
+                it.subComments!!.sortByDescending { subComment ->
+                    subComment.createdAt
+                }
+            }
+        }
+        return comments
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,11 +104,18 @@ class PostDetailActivity : LoadingActivity() {
         lifecycleScope.launch {
             viewModel.postDetailState.collect {
                 if (!it.loading && it.error == null && it.data != null) {
-
+                    if (it.data.isCommentEmpty()) {
+                        binding.comments.visibility = View.GONE
+                        binding.noComments.visibility = View.VISIBLE
+                    } else {
+                        binding.comments.visibility = View.VISIBLE
+                        binding.noComments.visibility = View.GONE
+                    }
+                    val comments = if (it.data.isCommentEmpty()) ArrayList()
+                    else sortComment(it.data.comments!!)
                     binding.comments.adapter =
                         CommentAdapter(
-                            if (it.data.isCommentEmpty()) ArrayList()
-                            else it.data.comments ?: ArrayList(),
+                            comments,
                             onCommentInteractionOpened = { comment ->
                                 val menus = arrayListOf(
                                     SelectItem(
@@ -103,6 +139,7 @@ class PostDetailActivity : LoadingActivity() {
                                             }),
                                             negativeButton = DialogButton("취소")
                                         ).show(this@PostDetailActivity)
+
                                         "delete" -> CustomDialog(
                                             "댓글을 삭제하시겠습니까?",
                                             positiveButton = DialogButton("확인", onClick = {
@@ -152,14 +189,17 @@ class PostDetailActivity : LoadingActivity() {
                 // FIXME: 자식 RecyclerView 를 찾아가고, 해당 RecyclerView 에만 notify 해줘 최적화할 수 있습니다.
                 viewModel.getPost(viewModel.postDetailState.value.data?.postId!!)
             }
+
             is State.Error -> {
                 setLoadingState(false)
                 // FIXME: 큰일남. 의존성 주입으로 PrefsRepository를 액세스해야 할 것 같음.
                 UIErrorHandler.handle(this, PrefsRepository(this), state.error)
             }
+
             is State.Loading -> {
                 setLoadingState(true)
             }
+
             else -> {}
         }
     }
@@ -178,6 +218,7 @@ class PostDetailActivity : LoadingActivity() {
                 return true
 
             }
+
             R.id.postMenu -> {
                 ListBottomSheet(
                     arrayListOf(
@@ -200,6 +241,7 @@ class PostDetailActivity : LoadingActivity() {
                             startActivity(shareIntent)
 
                         }
+
                         "delete" -> {
                             CustomDialog(
                                 "게시글을 삭제하시겠습니까?",
@@ -209,6 +251,7 @@ class PostDetailActivity : LoadingActivity() {
                                 negativeButton = DialogButton("취소")
                             ).show(this@PostDetailActivity)
                         }
+
                         "edit" -> {
                             val intent = Intent(
                                 this@PostDetailActivity,
@@ -217,6 +260,7 @@ class PostDetailActivity : LoadingActivity() {
                             intent.putExtra("post", viewModel.postDetailState.value.data)
                             startActivity(intent)
                         }
+
                         "report" -> {
                             CustomDialog(
                                 "게시글을 신고하시겠습니까?",

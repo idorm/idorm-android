@@ -3,7 +3,6 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
-    id "io.sentry.android.gradle" version "3.3.0"
 }
 
 def Properties properties = new Properties()
@@ -49,7 +48,17 @@ android {
 }
 
 
+def retrofitVersion = "2.9.0"
+def gsonVersion = "2.10.1"
+def archLifecycleVersion = '2.5.1'
+def cardStackViewVersion = "2.3.4"
+def shapeOfViewVersion = "1.4.7"
+def glideVersion = "4.14.2"
+def jodaTimeVersion = "2.12.2"
+def imagePickerVersion = "1.5.5"
+
 dependencies {
+    implementation 'io.sentry:sentry-android:6.13.1'
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
@@ -61,40 +70,34 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 
-    // Dependencies for Networking
-    def retrofitVersion = "2.9.0"
-    def gsonVersion = '2.10.1'
+
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.google.code.gson:gson:$gsonVersion"
 
     // Dependencies for MVVM
-    def archLifecycleVersion = '2.5.1'
-    implementation "androidx.lifecycle:lifecycle-viewmodel:$archLifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$archLifecycleVersion"
-    implementation "androidx.lifecycle:lifecycle-livedata:$archLifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$archLifecycleVersion"
     implementation 'androidx.activity:activity-ktx:1.6.1'
     implementation 'androidx.fragment:fragment-ktx:1.5.5'
 
     implementation "androidx.datastore:datastore-preferences:1.0.0"
 
-    implementation 'com.github.yuyakaido:CardStackView:2.3.4'
-    implementation 'io.github.florent37:shapeofview:1.4.7'
+    implementation "com.github.yuyakaido:CardStackView:$cardStackViewVersion"
+    implementation "io.github.florent37:shapeofview:$shapeOfViewVersion"
 
 
     //Dependencies for Continuous slider
+    implementation 'com.google.android.material:material:1.8.0'
     implementation 'com.github.Jay-Goo:RangeSeekBar:v3.0.0'
     implementation "org.jetbrains.kotlin:kotlin-reflect"
 
     // Dependency for network image loader
-    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
 
-    implementation 'joda-time:joda-time:2.12.2'
-
+    implementation "joda-time:joda-time:$jodaTimeVersion"
     // ImagePicker
-    implementation 'com.github.nguyenhoanglam:ImagePicker:1.5.5'
-
+    implementation "com.github.nguyenhoanglam:ImagePicker:$imagePickerVersion"
 
 
 }

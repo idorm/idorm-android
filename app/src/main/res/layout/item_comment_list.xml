@@ -44,7 +44,10 @@
                         android:id="@+id/writer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:nickname="@{comment.nickname}"
+                        app:profileUrl="@{comment.profileUrl}"
+                        app:timeElapsed="@{comment.createdAt}" />
 
 
                     <ImageView

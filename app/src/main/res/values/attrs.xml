@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--<declare-styleable name="MatchingCard">
+    <declare-styleable name="MatchingCard">
         <attr name="dormNum" format="reference|enum">
             <enum name="DORM1" value="0" />
             <enum name="DORM2" value="1" />
@@ -25,7 +25,7 @@
             <enum name="FEMALE" value="1" />
         </attr>
         <attr name="age" format="reference|integer" />
-    </declare-styleable>-->
+    </declare-styleable>
     <declare-styleable name="BoardProfile">
         <attr name="nickname" format="reference|string" />
         <attr name="timeElapsed" format="reference|string" />

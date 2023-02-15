@@ -1,14 +1,12 @@
 package org.appcenter.inudorm.presentation.component
 
 import android.content.Context
-import android.graphics.Canvas
 import android.util.AttributeSet
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import org.appcenter.inudorm.R
-import org.appcenter.inudorm.util.bindingadapter.BoardBinding.bindTimeElapsed
 import org.appcenter.inudorm.util.bindingadapter.BoardBinding.getElapsedTime
 
 
@@ -24,8 +22,8 @@ class BoardProfile(context: Context, attrs: AttributeSet) : LinearLayout(context
         }
     var timeElapsed: String? = null
         set(value) {
-            if (initialized && !timeElapsed.isNullOrEmpty())
-                findViewById<TextView>(R.id.timeElapsed).text = getElapsedTime(timeElapsed!!)
+            if (initialized && !(value.isNullOrEmpty()))
+                findViewById<TextView>(R.id.timeElapsed).text = getElapsedTime(value)
             field = value
         }
     var profileUrl: String? = null
@@ -50,12 +48,13 @@ class BoardProfile(context: Context, attrs: AttributeSet) : LinearLayout(context
             }
         }
         inflate(context, R.layout.item_board_profile, this)
+        initialized = true
+
         val nicknameView = findViewById<TextView>(R.id.nickname)
         val timeElapsedView = findViewById<TextView>(R.id.timeElapsed)
         nicknameView.text = nickname
         if (!timeElapsed.isNullOrEmpty())
             timeElapsedView.text = getElapsedTime(timeElapsed!!)
-        initialized = true
     }
 
     fun loadImage(imageView: ImageView, url: String) {
