@@ -12,7 +12,7 @@ import java.io.File
 data class PostEditDto(
     val title: String,
     val content: String,
-    val dormNum: Dorm?,
+    val dormCategory: Dorm?,
     val isAnonymous: Boolean,
     val files: List<File>? = null,
 ) : Parcelable {

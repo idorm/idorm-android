@@ -14,7 +14,7 @@ data class UploadableImage(val image: Image, var file: File)
 data class EditorState(
     val anonymous: Boolean,
     val postId: Int? = null,
-    val dormNum: Dorm = Dorm.DORM1,
+    val dormCategory: Dorm = Dorm.DORM1,
     val images: ArrayList<UploadableImage> = arrayListOf(),
 )
 

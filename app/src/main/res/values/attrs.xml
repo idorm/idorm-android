@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="MatchingCard">
-        <attr name="dormNum" format="reference|enum">
+        <attr name="dormCategory" format="reference|enum">
             <enum name="DORM1" value="0" />
             <enum name="DORM2" value="1" />
             <enum name="DORM3" value="2" />

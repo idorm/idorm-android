@@ -21,7 +21,7 @@ import org.appcenter.inudorm.util.IDormLogger
 
 val defaultFilter =
     RoomMateFilter(
-        dormNum = Dorm.DORM1,
+        dormCategory = Dorm.DORM1,
         joinPeriod = JoinPeriod.WEEK16,
         minAge = 20,
         maxAge = 40,

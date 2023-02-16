@@ -27,6 +27,7 @@ import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.util.CustomDialog
 import org.appcenter.inudorm.util.DialogButton
 import org.appcenter.inudorm.util.IDormLogger
+import org.joda.time.LocalDateTime
 
 // Todo: 대댓글 작성 그림자 빼기
 private val Context.dataStore by preferencesDataStore(name = "prefs")
@@ -49,30 +50,24 @@ class PostDetailActivity : LoadingActivity() {
         viewModel.writeComment()
     }
 
-    fun setCommentSort(sort: String) {
-        val adapter = (binding.comments.adapter as CommentAdapter)
-        val descComment = sortComment(adapter.dataSet)
-        if (sort == "asc") {
-            adapter.dataSet = descComment
-        } else {
-            descComment.reverse()
-            adapter.dataSet = descComment
-        }
-        adapter.notifyDataSetChanged()
-    }
+    private fun sortComment(comments: ArrayList<Comment>, sort: String): ArrayList<Comment> {
 
-    private fun sortComment(comments: ArrayList<Comment>): ArrayList<Comment> {
         comments.sortByDescending {
-            it.createdAt
+            LocalDateTime.parse(it.createdAt)
         }
-        comments.forEach {
-            if (!it.subComments.isNullOrEmpty()) {
-                it.subComments!!.sortByDescending { subComment ->
-                    subComment.createdAt
+        comments.forEachIndexed { index, comment ->
+            if (!comment.subComments.isNullOrEmpty()) {
+                val subComments = comment.subComments!!
+                subComments.sortByDescending { subComment ->
+                    LocalDateTime.parse(subComment.createdAt)
                 }
+                comments[index] = comment.copy(subComments = subComments)
             }
         }
+        if (sort == "asc")
+            comments.reverse()
         return comments
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -112,7 +107,7 @@ class PostDetailActivity : LoadingActivity() {
                         binding.noComments.visibility = View.GONE
                     }
                     val comments = if (it.data.isCommentEmpty()) ArrayList()
-                    else sortComment(it.data.comments!!)
+                    else sortComment(it.data.comments!!, viewModel.sortState.value)
                     binding.comments.adapter =
                         CommentAdapter(
                             comments,
@@ -177,7 +172,16 @@ class PostDetailActivity : LoadingActivity() {
             }
         }
         lifecycleScope.launch {
+            viewModel.sortState.collect {
+                val adapter = (binding.comments.adapter as CommentAdapter?)
+                // Adapter가 null이 아니면 데이터 로드도 완료된 것
+                if (adapter != null) {
+                    adapter.dataSet = sortComment(adapter.dataSet, it)
 
+                    adapter.notifyDataSetChanged()
+                }
+
+            }
         }
 
     }

@@ -28,6 +28,10 @@ class PostDetailViewModel : ViewModel() {
     val userState: StateFlow<UiState<User>>
         get() = _userState
 
+    private val _sortState = MutableStateFlow("asc")
+    val sortState: StateFlow<String>
+        get() = _sortState
+
     private val _commentWriteResult = MutableStateFlow<State?>(null)
     val commentWriteResult: StateFlow<State?>
         get() = _commentWriteResult
@@ -59,6 +63,11 @@ class PostDetailViewModel : ViewModel() {
         }
     }
 
+    fun setSort(sort: String) {
+        if (sort != "asc" && sort != "desc") throw java.lang.RuntimeException("정렬 값 잘못됨")
+        _sortState.update { sort }
+    }
+
     fun getPost(id: Int) {
         viewModelScope.launch {
             _postDetailState.update {
@@ -75,7 +84,7 @@ class PostDetailViewModel : ViewModel() {
         }
     }
 
-    fun setParentComment(id: Int) {
+    fun setParentComment(id: Int?) {
         _commentState.update {
             it.copy(parentCommentId = id)
         }
@@ -91,9 +100,10 @@ class PostDetailViewModel : ViewModel() {
                 WriteComment().run(
                     _commentState.value.copy(
                         postId = _postDetailState.value.data?.postId,
-                        content = content
+                        content = content,
                     )
                 )
+            setParentComment(null)
             _commentWriteResult.emit(state)
         }
 

@@ -240,16 +240,20 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="8sp"
+                                android:onClick="@{() -> viewModel.setSort(`asc`)}"
                                 android:text="등록순"
-                                android:onClick="@{() -> activity.setCommentSort(`asc`)}"
-                                android:textColor="@color/black" />
+                                android:textColor="@color/selector_enabled_text"
+                                app:sortstate="@{viewModel.sortState}"
+                                app:sortvalue="@{`asc`}" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:onClick="@{() -> activity.setCommentSort(`desc`)}"
-
-                                android:text="최신순" />
+                                android:onClick="@{() -> viewModel.setSort(`desc`)}"
+                                android:text="최신순"
+                                android:textColor="@color/selector_enabled_text"
+                                app:sortstate="@{viewModel.sortState}"
+                                app:sortvalue="@{`desc`}" />
 
                         </LinearLayout>
 

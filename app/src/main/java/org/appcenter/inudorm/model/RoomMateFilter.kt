@@ -8,7 +8,7 @@ import kotlinx.parcelize.Parcelize
  * */
 @Parcelize
 data class RoomMateFilter(
-    var dormNum: Dorm,
+    var dormCategory: Dorm,
     var isAllowedFood: Boolean = true,
     var isGrinding: Boolean = true,
     var isSmoking: Boolean = true,

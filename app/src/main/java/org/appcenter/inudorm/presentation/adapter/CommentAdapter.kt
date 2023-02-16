@@ -4,11 +4,34 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ItemCommentListBinding
 import org.appcenter.inudorm.model.board.Comment
+import org.appcenter.inudorm.util.IDormLogger
+
+class SubCommentDiffCallback(
+    private val prevItems: ArrayList<Comment>,
+    private val newItems: ArrayList<Comment>,
+) : DiffUtil.Callback() {
+
+    override fun getOldListSize(): Int = prevItems.size
+    override fun getNewListSize(): Int = newItems.size
+
+    override fun areItemsTheSame(
+        oldItemPosition: Int,
+        newItemPosition: Int,
+    ): Boolean =
+        prevItems[oldItemPosition] == newItems[newItemPosition]
+
+    override fun areContentsTheSame(
+        oldItemPosition: Int,
+        newItemPosition: Int,
+    ): Boolean =
+        prevItems[oldItemPosition].commentId == newItems[newItemPosition].commentId
+}
 
 class CommentAdapter(
     private val _dataSet: ArrayList<Comment>,
@@ -43,6 +66,12 @@ class CommentAdapter(
             viewGroup,
             false
         )
+        subCommentAdapter = NestedCommentAdapter(arrayListOf(), onCommentInteractionOpened)
+        binding.subComment.apply {
+            adapter = subCommentAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
+
 
         return CommentViewHolder(binding,
             { onCommentInteractionOpened(it) },
@@ -64,11 +93,14 @@ class CommentAdapter(
         val validSubComments = subComments?.filter { !it.isDeleted } as ArrayList<Comment>
         if (validSubComments.size > 0) {
             setDeleted(_dataSet[position].isDeleted)
-            subCommentAdapter = NestedCommentAdapter(validSubComments, onCommentInteractionOpened)
-            viewHolder.viewBinding.subComment.apply {
-                adapter = subCommentAdapter
-                layoutManager = LinearLayoutManager(context)
-            }
+            val adapter = (viewHolder.viewBinding.subComment.adapter as NestedCommentAdapter)
+            adapter.dataSet.clear()
+            adapter.dataSet.addAll(validSubComments)
+            adapter.notifyDataSetChanged()
+            IDormLogger.d(this, validSubComments.toString())
+//            adapter.notifyDataSetChanged()
+            viewHolder.viewBinding.subCommentArea.visibility = View.VISIBLE
+
         } else {
             if (_dataSet[position].isDeleted)
                 viewHolder.viewBinding.deletedComment.visibility = View.GONE

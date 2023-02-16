@@ -19,7 +19,7 @@ class EditPostViewModel : EditorViewModel() {
                             PostEditDto(
                                 title.value!!,
                                 content.value!!,
-                                editorState.value.dormNum,
+                                editorState.value.dormCategory,
                                 editorState.value.anonymous,
                                 editorState.value.images.map { it.file }
                             )

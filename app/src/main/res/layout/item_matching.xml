@@ -47,7 +47,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/dormNum"
+                        android:id="@+id/dormCategory"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -59,7 +59,7 @@
                         android:shadowDy="1"
 
                         android:shadowRadius="4"
-                        android:text="@{mate.dormNum.text}"
+                        android:text="@{mate.dormCategory.text}"
                         tools:text="1"
                         android:textColor="@color/white"
                         android:textSize="20sp"
@@ -83,7 +83,7 @@
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/dormNum"
+                        app:layout_constraintStart_toEndOf="@+id/dormCategory"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.0" />
 

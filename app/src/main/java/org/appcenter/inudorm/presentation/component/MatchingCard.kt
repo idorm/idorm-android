@@ -23,7 +23,7 @@ class MatchingCard(context: Context, attrs: AttributeSet? = null) : LinearLayout
             this, true
         )
         binding.mate = MatchingInfo(
-            dormNum = Dorm.DORM1,
+            dormCategory = Dorm.DORM1,
             joinPeriod = JoinPeriod.WEEK16,
             gender = Gender.MALE,
             age = 20,

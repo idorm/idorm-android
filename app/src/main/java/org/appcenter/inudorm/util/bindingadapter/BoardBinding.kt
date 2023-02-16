@@ -6,6 +6,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import org.appcenter.inudorm.R
 import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.presentation.adapter.ImageViewAdapter
 import org.appcenter.inudorm.presentation.adapter.PopularPostAdapter
@@ -70,6 +71,19 @@ object BoardBinding {
         }
     }
 
+
+    @JvmStatic
+    @BindingAdapter(value = ["sortstate", "sortvalue"], requireAll = true)
+    fun TextView.setSortState(state: String?, sortTo: String?) {
+        if ((state == "asc" || state == "desc") && sortTo != null)
+            setTextColor(
+                if (state == sortTo)
+                    context.getColor(R.color.black)
+                else
+                    context.getColor(R.color.iDorm_gray_300)
+
+            )
+    }
 
     @JvmStatic
     @BindingAdapter("uploadableImages")

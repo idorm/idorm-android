@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ItemCommentListBinding
@@ -52,6 +53,7 @@ class NestedCommentAdapter(
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: NestedCommentViewHolder, position: Int) {
+        IDormLogger.d(this, "Binding NestedAdapter")
 
         fun setDeleted(deleted: Boolean) {
             viewHolder.viewBinding.validComment.visibility =

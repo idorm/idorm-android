@@ -75,7 +75,7 @@
             <!--choice의 기본 margin값은 8dp입니다.-->
 
             <com.google.android.material.chip.ChipGroup
-                selectedDorm="@={filterViewModel.filterState.dormNum}"
+                selectedDorm="@={filterViewModel.filterState.dormCategory}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:checkedChip="@id/firstDorm"

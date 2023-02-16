@@ -12,6 +12,7 @@ import org.appcenter.inudorm.App
 import org.appcenter.inudorm.model.ErrorResponse
 import org.appcenter.inudorm.util.IDormLogger
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 class AuthInterceptor : Interceptor {
     private val TAG = "[AuthInterceptor]"
@@ -25,10 +26,14 @@ class AuthInterceptor : Interceptor {
                 chain.request().url()
             } with\ntoken: ${App.token},\nbody: ${buffer.readUtf8()},\n"
         )
-        var req =
+        val req =
             chain.request().newBuilder()
                 .addHeader("X-AUTH-TOKEN", App.token ?: "").build()
-        return chain.proceed(req)
+        return chain
+            .withWriteTimeout(5, TimeUnit.SECONDS)
+            .withReadTimeout(5, TimeUnit.SECONDS)
+            .withConnectTimeout(5, TimeUnit.SECONDS)
+            .proceed(req)
 
     }
 }
@@ -43,7 +48,11 @@ class ResponseInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         // Request
-        val response = chain.proceed(request)
+        val response = chain
+            .withWriteTimeout(5, TimeUnit.SECONDS)
+            .withReadTimeout(5, TimeUnit.SECONDS)
+            .withConnectTimeout(5, TimeUnit.SECONDS)
+            .proceed(request)
 
         // Get raw json response
         val rawJsonResponse: String? = response.body()?.string()
@@ -75,9 +84,14 @@ class ResponseInterceptor : Interceptor {
                 // 정상적으로 실패한 경우
                 val type = object : TypeToken<ErrorResponse>() {}.type
                 val result =
-                    App.gson.fromJson<ErrorResponse>(rawJsonResponse, type) // parsed ResponseWrapper
-                        ?: throw JsonParseException("Failed to parse json")
-                throw IDormError((result.code.asEnumOrDefault<ErrorCode>(null) ?: ErrorCode.UNKNOWN_ERROR))
+                    App.gson.fromJson<ErrorResponse>(
+                        rawJsonResponse,
+                        type
+                    ) // parsed ResponseWrapper
+                        ?: throw IOException("${response.code()} 에러 발생.")
+                throw IDormError(
+                    (result.code.asEnumOrDefault<ErrorCode>(null) ?: ErrorCode.UNKNOWN_ERROR)
+                )
             }
         } catch (e: JsonSyntaxException) {
             // JSON 문법 오류인 경우
