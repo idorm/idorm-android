@@ -1,5 +1,6 @@
 package org.appcenter.inudorm.util
 
+import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -30,6 +31,21 @@ data class DialogButton(
     val onClick: (() -> Unit)? = null,
     @ColorRes val textColor: Int = R.color.iDorm_blue,
 )
+
+class OkCancelDialog(text: String, titleText: String? = "", onOk: () -> Unit) :
+    CustomDialog(
+        text,
+        titleText,
+        positiveButton = DialogButton("확인", onClick = onOk),
+        negativeButton = DialogButton("취소")
+    )
+
+class OkDialog(text: String, titleText: String? = "", onOk: (() -> Unit)? = null) :
+    CustomDialog(
+        text,
+        titleText,
+        positiveButton = DialogButton("확인", onClick = onOk),
+    )
 
 // Todo: Dialog 코드 개똥방구임 확장성 개똥..; 나중에 꼭 리팩토링 하자;
 /**

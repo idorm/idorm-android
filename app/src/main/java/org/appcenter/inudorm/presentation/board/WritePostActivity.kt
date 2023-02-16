@@ -7,15 +7,18 @@ import androidx.lifecycle.lifecycleScope
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.util.CustomDialog
 import org.appcenter.inudorm.util.DialogButton
+import org.appcenter.inudorm.util.OkDialog
 
-const val EDITOR_FINISHED = 4734
 
 class WritePostActivity : EditorActivity() {
     override val viewModel: WritePostViewModel by viewModels()
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> super.onBackPressed()
+            android.R.id.home -> {
+                setResult(EDITOR_FINISHED)
+                finish()
+            }
             R.id.doneButton -> {
                 viewModel.writePost()
             }
@@ -25,27 +28,24 @@ class WritePostActivity : EditorActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val dorm = intent.getStringExtra("dormCategory")
+        viewModel.setDorm(dorm)
+
         lifecycleScope.launchWhenCreated {
             viewModel.writePostResult.collect {
                 when (it) {
                     is State.Success<*> -> {
                         this@WritePostActivity.setLoadingState(false)
-                        CustomDialog(
-                            "게시글이 등록되었습니다.",
-                            positiveButton = DialogButton(
-                                "확인",
-                                onClick = { finish() })
-                        ).show(this@WritePostActivity)
+                        OkDialog("게시글이 등록되었습니다.") {
+                            setResult(EDITOR_FINISHED)
+                            finish()
+                        }.show(this@WritePostActivity)
                     }
                     is State.Error -> {
                         this@WritePostActivity.setLoadingState(false)
-                        CustomDialog(
-                            "게시글 작성에 실패했습니다.",
-                            titleText = "오류",
-                            positiveButton = DialogButton(
-                                "확인",
-                                onClick = { finishActivity(EDITOR_FINISHED) })
-                        ).show(this@WritePostActivity)
+                        OkDialog("게시글 작성에 실패했습니다..", "오류") {
+                            finish()
+                        }.show(this@WritePostActivity)
                     }
                     is State.Loading -> {
                         this@WritePostActivity.setLoadingState(true)
@@ -58,6 +58,10 @@ class WritePostActivity : EditorActivity() {
             }
         }
 
+    }
+
+    companion object {
+        const val EDITOR_FINISHED = 4734
     }
 
 }

@@ -2,6 +2,7 @@ package org.appcenter.inudorm.model.board
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import org.appcenter.inudorm.model.Dorm
 
 @Parcelize
 data class Post(
@@ -18,7 +19,11 @@ data class Post(
     val profileUrl: String? = null,
     val title: String,
     val updatedAt: String? = null,
+    val memberId: Int,
+    val dormCategory: Dorm
 ) : Parcelable {
+
+    fun isAnonymous() = nickname == "anonymous"
     fun isCommentEmpty(): Boolean {
         if (comments == null) return true
         // 하나라도 deleted가 false 이거나 subComment가 null이 아닌 걸 찾으면

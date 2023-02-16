@@ -62,10 +62,9 @@ abstract class EditorActivity : LoadingActivity() {
         binding.viewModel = viewModel
         binding.activity = this
 
-        orgPost = intent.getParcelableExtra<Post>("post")
+        orgPost = intent.getParcelableExtra("post")
         if (orgPost != null) {
-            viewModel.title.value = orgPost!!.title
-            viewModel.content.value = orgPost!!.content
+            viewModel.setInitialPost(orgPost!!)
             val images = ArrayList<Image>()
             images.addAll((orgPost!!.photoUrls?.map {
                 Image(Uri.parse(it), "", 0, "")

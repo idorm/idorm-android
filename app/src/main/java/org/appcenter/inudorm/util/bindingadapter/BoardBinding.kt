@@ -81,7 +81,6 @@ object BoardBinding {
                     context.getColor(R.color.black)
                 else
                     context.getColor(R.color.iDorm_gray_300)
-
             )
     }
 

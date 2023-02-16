@@ -22,11 +22,10 @@ import org.appcenter.inudorm.networking.UIErrorHandler
 import org.appcenter.inudorm.presentation.ListBottomSheet
 import org.appcenter.inudorm.presentation.adapter.CommentAdapter
 import org.appcenter.inudorm.presentation.adapter.ImageViewAdapter
+import org.appcenter.inudorm.presentation.board.WritePostActivity.Companion.EDITOR_FINISHED
 import org.appcenter.inudorm.presentation.component.ImageViewPager
 import org.appcenter.inudorm.repository.PrefsRepository
-import org.appcenter.inudorm.util.CustomDialog
-import org.appcenter.inudorm.util.DialogButton
-import org.appcenter.inudorm.util.IDormLogger
+import org.appcenter.inudorm.util.*
 import org.joda.time.LocalDateTime
 
 // Todo: 대댓글 작성 그림자 빼기
@@ -50,6 +49,11 @@ class PostDetailActivity : LoadingActivity() {
         viewModel.writeComment()
     }
 
+    private fun goBackAndRefresh() {
+        setResult(DETAIL_FINISHED)
+        finish()
+    }
+
     private fun sortComment(comments: ArrayList<Comment>, sort: String): ArrayList<Comment> {
 
         comments.sortByDescending {
@@ -68,6 +72,18 @@ class PostDetailActivity : LoadingActivity() {
             comments.reverse()
         return comments
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (resultCode) {
+            EDITOR_FINISHED -> {
+                viewModel.getPost(
+                    viewModel.postDetailState.value.data?.postId
+                        ?: throw java.lang.RuntimeException("올바르지 않은 게시글 번호.")
+                )
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -167,6 +183,11 @@ class PostDetailActivity : LoadingActivity() {
             }
         }
         lifecycleScope.launch {
+            viewModel.postDeleteResult.collect {
+                handleState(it, true)
+            }
+        }
+        lifecycleScope.launch {
             viewModel.commentDeleteResult.collect {
                 handleState(it)
             }
@@ -177,7 +198,6 @@ class PostDetailActivity : LoadingActivity() {
                 // Adapter가 null이 아니면 데이터 로드도 완료된 것
                 if (adapter != null) {
                     adapter.dataSet = sortComment(adapter.dataSet, it)
-
                     adapter.notifyDataSetChanged()
                 }
 
@@ -186,12 +206,14 @@ class PostDetailActivity : LoadingActivity() {
 
     }
 
-    fun handleState(state: State?) {
+    private fun handleState(state: State?, goBack: Boolean = false) {
         when (state) {
             is State.Success<*> -> {
                 setLoadingState(false)
                 // FIXME: 자식 RecyclerView 를 찾아가고, 해당 RecyclerView 에만 notify 해줘 최적화할 수 있습니다.
-                viewModel.getPost(viewModel.postDetailState.value.data?.postId!!)
+                if (goBack) goBackAndRefresh()
+                else viewModel.getPost(viewModel.postDetailState.value.data?.postId!!)
+
             }
 
             is State.Error -> {
@@ -218,9 +240,8 @@ class PostDetailActivity : LoadingActivity() {
         when (item.itemId) {
             android.R.id.home -> {
                 IDormLogger.i(this, "back pressed")
-                super.onBackPressed()
+                goBackAndRefresh()
                 return true
-
             }
 
             R.id.postMenu -> {
@@ -247,13 +268,12 @@ class PostDetailActivity : LoadingActivity() {
                         }
 
                         "delete" -> {
-                            CustomDialog(
-                                "게시글을 삭제하시겠습니까?",
-                                positiveButton = DialogButton("확인", onClick = {
+                            if (viewModel.userState.value.data?.memberId == viewModel.postDetailState.value.data?.memberId) {
+                                OkCancelDialog("게시글을 삭제할까요?") {
                                     viewModel.deletePost()
-                                }),
-                                negativeButton = DialogButton("취소")
-                            ).show(this@PostDetailActivity)
+                                }.show(this@PostDetailActivity)
+                            } else
+                                OkDialog("게시글을 삭제할 권한이 없어요.").show(this@PostDetailActivity)
                         }
 
                         "edit" -> {
@@ -262,17 +282,13 @@ class PostDetailActivity : LoadingActivity() {
                                 EditPostActivity::class.java
                             )
                             intent.putExtra("post", viewModel.postDetailState.value.data)
-                            startActivity(intent)
+                            startActivityForResult(intent, EDITOR_OPEN)
                         }
 
                         "report" -> {
-                            CustomDialog(
-                                "게시글을 신고하시겠습니까?",
-                                positiveButton = DialogButton("확인", onClick = {
-                                    viewModel.reportPost()
-                                }),
-                                negativeButton = DialogButton("취소")
-                            ).show(this@PostDetailActivity)
+                            OkCancelDialog("게시글을 신고할까요?") {
+                                viewModel.reportPost()
+                            }.show(this@PostDetailActivity)
                         }
 
                     }
@@ -282,5 +298,10 @@ class PostDetailActivity : LoadingActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    companion object {
+        const val DETAIL_FINISHED = 3485
+        const val EDITOR_OPEN = 7661
     }
 }

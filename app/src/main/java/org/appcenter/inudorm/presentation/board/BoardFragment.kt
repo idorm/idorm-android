@@ -20,16 +20,29 @@ import org.appcenter.inudorm.model.SelectItem
 import org.appcenter.inudorm.presentation.ListBottomSheet
 import org.appcenter.inudorm.presentation.adapter.PopularPostAdapter
 import org.appcenter.inudorm.presentation.adapter.PostAdapter
+import org.appcenter.inudorm.presentation.board.PostDetailActivity.Companion.DETAIL_FINISHED
+import org.appcenter.inudorm.presentation.board.WritePostActivity.Companion.EDITOR_FINISHED
 import org.appcenter.inudorm.util.WindowUtil.setStatusBarColor
 
 class BoardFragment : Fragment() {
 
     companion object {
         fun newInstance() = BoardFragment()
+        const val WRITER_OPEN = 7659
+        const val DETAIL_OPEN = 7660
     }
 
     private lateinit var viewModel: BoardViewModel
     private lateinit var binding: FragmentBoardBinding
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (resultCode) {
+            EDITOR_FINISHED, DETAIL_FINISHED -> {
+                viewModel.getAllPosts()
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,11 +63,13 @@ class BoardFragment : Fragment() {
     fun goDetail(id: Int) {
         val intent = Intent(requireContext(), PostDetailActivity::class.java)
         intent.putExtra("id", id)
-        startActivity(intent)
+        startActivityForResult(intent, DETAIL_OPEN)
     }
 
     fun write() {
-        startActivity(Intent(requireContext(), WritePostActivity::class.java))
+        val intent = Intent(requireContext(), WritePostActivity::class.java)
+        intent.putExtra("dormCategory", viewModel.boardUiState.value.selectedDorm.value)
+        startActivityForResult(intent, WRITER_OPEN)
     }
 
     override fun onAttach(context: Context) {
