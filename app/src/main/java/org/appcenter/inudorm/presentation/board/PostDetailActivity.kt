@@ -245,13 +245,20 @@ class PostDetailActivity : LoadingActivity() {
             }
 
             R.id.postMenu -> {
-                ListBottomSheet(
-                    arrayListOf(
-                        SelectItem("공유하기", "share", R.drawable.ic_share),
-                        SelectItem("게시글 삭제", "delete", R.drawable.ic_delete),
-                        SelectItem("게시글 수정", "edit", R.drawable.ic_edit),
-                        SelectItem("신고하기", "report", desc = "idorm의 커뮤니티 가이드라인에 위배되는 게시글"),
+                val menus = arrayListOf(
+                    SelectItem("공유하기", "share", R.drawable.ic_share),
+                    SelectItem("신고하기", "report", desc = "idorm의 커뮤니티 가이드라인에 위배되는 게시글"),
+                )
+                if (viewModel.userState.value.data?.memberId == viewModel.postDetailState.value.data?.memberId) {
+                    menus.addAll(
+                        1, arrayListOf(
+                            SelectItem("게시글 삭제", "delete", R.drawable.ic_delete),
+                            SelectItem("게시글 수정", "edit", R.drawable.ic_edit),
+                        )
                     )
+                }
+                ListBottomSheet(
+                    menus
                 ) {
                     IDormLogger.i(this, it.value)
                     when (it.value) {
