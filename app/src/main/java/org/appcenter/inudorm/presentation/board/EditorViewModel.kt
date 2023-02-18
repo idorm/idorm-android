@@ -7,16 +7,15 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import org.appcenter.inudorm.model.Dorm
+import org.appcenter.inudorm.model.board.Photo
 import org.appcenter.inudorm.model.board.Post
 import java.io.File
-
-data class UploadableImage(val image: Image, var file: File)
 
 data class EditorState(
     val anonymous: Boolean,
     val postId: Int? = null,
     val dormCategory: Dorm = Dorm.DORM1,
-    val images: ArrayList<UploadableImage> = arrayListOf(),
+    val images: ArrayList<Photo> = arrayListOf(),
 )
 
 open class EditorViewModel : ViewModel() {
@@ -34,7 +33,8 @@ open class EditorViewModel : ViewModel() {
             it.copy(
                 postId = post.postId,
                 dormCategory = post.dormCategory,
-                anonymous = post.isAnonymous()
+                anonymous = post.isAnonymous(),
+                images = post.postPhotos ?: arrayListOf(),
             )
         }
     }
@@ -55,11 +55,18 @@ open class EditorViewModel : ViewModel() {
         }
     }
 
-    fun setImages(images: List<UploadableImage>) {
+    fun setImages(images: List<Photo>) {
         _editorState.update {
-            it.copy(images = images as ArrayList<UploadableImage>)
+            it.copy(images = images as ArrayList<Photo>)
         }
     }
 
+    fun addImages(images: List<Photo>) {
+        _editorState.update {
+            val newImages = ArrayList(it.images)
+            newImages.addAll(images as ArrayList<Photo>)
+            it.copy(images = newImages)
+        }
+    }
 
 }

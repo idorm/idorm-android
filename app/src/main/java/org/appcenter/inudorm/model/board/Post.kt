@@ -14,7 +14,7 @@ data class Post(
     val likesCount: Int = 0,
     val isLiked: Boolean = false,
     val nickname: String,
-    val photoUrls: ArrayList<String>? = null,
+    val postPhotos: ArrayList<Photo>? = null,
     val postId: Int,
     val profileUrl: String? = null,
     val title: String,

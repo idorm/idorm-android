@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import org.appcenter.inudorm.R
+import org.appcenter.inudorm.model.board.Photo
 import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.presentation.adapter.ImageViewAdapter
 import org.appcenter.inudorm.presentation.adapter.PopularPostAdapter
 import org.appcenter.inudorm.presentation.adapter.PostAdapter
 import org.appcenter.inudorm.presentation.board.InfinityScrollState
-import org.appcenter.inudorm.presentation.board.UploadableImage
 import org.appcenter.inudorm.presentation.matching.LoadMode
 import org.appcenter.inudorm.util.IDormLogger
 import org.joda.time.DateTimeZone
@@ -45,28 +45,29 @@ object BoardBinding {
 
     @JvmStatic
     @BindingAdapter("boardImages")
-    fun RecyclerView.bindBoardImages(images: ArrayList<String>?) {
+    fun RecyclerView.bindBoardImages(images: ArrayList<Photo>?) {
         if (adapter != null && (images?.size ?: 0) > 0) {
             val a = adapter as ImageViewAdapter
+            val imageUrls = images?.map { it.photoUrl } as ArrayList<String>
             bindImages(
                 a,
                 object : DiffUtil.Callback() {
                     override fun getOldListSize(): Int = a.itemCount
-                    override fun getNewListSize(): Int = images?.size!!
+                    override fun getNewListSize(): Int = imageUrls.size
 
                     override fun areItemsTheSame(
                         oldItemPosition: Int,
                         newItemPosition: Int,
                     ): Boolean =
-                        a.imageList[oldItemPosition] == images!![newItemPosition]
+                        a.imageList[oldItemPosition] == imageUrls[newItemPosition]
 
                     override fun areContentsTheSame(
                         oldItemPosition: Int,
                         newItemPosition: Int,
                     ): Boolean =
-                        a.imageList[oldItemPosition] == images!![newItemPosition]
+                        a.imageList[oldItemPosition] == imageUrls[newItemPosition]
                 },
-                images!!
+                imageUrls
             )
         }
     }
@@ -86,7 +87,7 @@ object BoardBinding {
 
     @JvmStatic
     @BindingAdapter("uploadableImages")
-    fun RecyclerView.bindUploadableImages(images: ArrayList<UploadableImage>?) {
+    fun RecyclerView.bindUploadableImages(images: ArrayList<Photo>?) {
         if (adapter != null && (images?.size ?: 0) > 0) {
             val a = adapter as ImageViewAdapter
             bindImages(
@@ -99,15 +100,15 @@ object BoardBinding {
                         oldItemPosition: Int,
                         newItemPosition: Int,
                     ): Boolean =
-                        a.imageList[oldItemPosition] == images!![newItemPosition].image.uri.toString()
+                        a.imageList[oldItemPosition] == images!![newItemPosition].image?.uri.toString()
 
                     override fun areContentsTheSame(
                         oldItemPosition: Int,
                         newItemPosition: Int,
                     ): Boolean =
-                        a.imageList[oldItemPosition] == images!![newItemPosition].image.uri.toString()
+                        a.imageList[oldItemPosition] == images!![newItemPosition].image?.uri.toString()
                 },
-                images?.map { it.image.uri.toString() } as ArrayList<String>
+                images?.map { it.image?.uri.toString() } as ArrayList<String>
             )
         }
     }
@@ -117,8 +118,10 @@ object BoardBinding {
         diffCallback: DiffUtil.Callback,
         imageUrls: ArrayList<String>,
     ) {
-        DiffUtil.calculateDiff(diffCallback).dispatchUpdatesTo(adapter)
-        adapter.imageList = imageUrls
+        adapter.imageList.clear()
+        adapter.imageList.addAll(imageUrls)
+        adapter.notifyDataSetChanged()
+
         visibility = View.VISIBLE
 
     }

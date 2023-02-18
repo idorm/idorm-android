@@ -19,7 +19,6 @@ class WritePostViewModel : EditorViewModel() {
         get() = _writePostResult
 
 
-
     fun writePost() {
         viewModelScope.launch {
             kotlin.runCatching {
@@ -29,7 +28,9 @@ class WritePostViewModel : EditorViewModel() {
                         content.value!!,
                         editorState.value.dormCategory,
                         editorState.value.anonymous,
-                        editorState.value.images.map { it.file }
+                        editorState.value.images
+                            .filter { it.file != null }
+                            .map { it.file!! }
                     )
                 )
             }.onSuccess {

@@ -42,11 +42,12 @@ interface CommunityService {
      * @param id 글 id
      * @return Post
      */
+    @Multipart
     @POST("member/post/{postId}")
     suspend fun updatePost(
         @Path("postId") id: Int,
         @PartMap body: HashMap<String, RequestBody>,
-//        @Part files: List<ContentUriRequestBody>,
+        @Part files: List<MultipartBody.Part>,
     ): Post
 
     @POST("member/post/{post-id}/comment")

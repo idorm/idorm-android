@@ -1,5 +1,6 @@
 package org.appcenter.inudorm.networking
 
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import org.appcenter.inudorm.networking.service.*
 
@@ -10,6 +11,6 @@ interface Service : EmailService, MatchingInfoService, MemberService, MatchingMa
 
 fun createJsonRequestBody(content: String): RequestBody =
     RequestBody.create(
-        okhttp3.MediaType.parse("application/json; charset=utf-8"),
+        "application/json; charset=utf-8".toMediaTypeOrNull(),
         content
     )

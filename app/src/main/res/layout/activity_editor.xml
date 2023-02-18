@@ -77,7 +77,7 @@
                 android:layout_marginBottom="10sp"
                 android:orientation="horizontal"
                 android:visibility="gone"
-                app:uploadableImages="@{viewModel.editorState.images}"
+                app:boardImages="@{viewModel.editorState.images}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_board_image" />
 

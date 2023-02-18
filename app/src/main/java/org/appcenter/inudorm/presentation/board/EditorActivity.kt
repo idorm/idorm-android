@@ -12,6 +12,7 @@ import com.nguyenhoanglam.imagepicker.ui.imagepicker.registerImagePicker
 import org.appcenter.inudorm.LoadingActivity
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityEditorBinding
+import org.appcenter.inudorm.model.board.Photo
 import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.presentation.adapter.ImageViewAdapter
 import org.appcenter.inudorm.presentation.component.ImageViewPager
@@ -32,14 +33,15 @@ abstract class EditorActivity : LoadingActivity() {
         // Selected images are ready to use
         if (images.isNotEmpty()) {
             try {
-                viewModel.setImages(
+                viewModel.addImages(
                     images.map {
-                        UploadableImage(
+                        Photo(
                             it,
                             File(
                                 ImageUri.getFullPathFromUri(this@EditorActivity, it.uri)
                                     ?: throw RuntimeException()
-                            )
+                            ),
+                            photoUrl = it.uri.toString()
                         )
                     }
                 )
@@ -65,10 +67,6 @@ abstract class EditorActivity : LoadingActivity() {
         orgPost = intent.getParcelableExtra("post")
         if (orgPost != null) {
             viewModel.setInitialPost(orgPost!!)
-            val images = ArrayList<Image>()
-            images.addAll((orgPost!!.photoUrls?.map {
-                Image(Uri.parse(it), "", 0, "")
-            })!!)
         }
 
         if (imageViewAdapter == null) {
@@ -76,7 +74,7 @@ abstract class EditorActivity : LoadingActivity() {
                 val intent = Intent(this, ImageViewPager::class.java)
                 intent.putStringArrayListExtra(
                     "images",
-                    viewModel.editorState.value.images.map { it.image.uri.toString() } as java.util.ArrayList<String>
+                    viewModel.editorState.value.images.map { it.photoUrl } as java.util.ArrayList<String>
                 )
                 intent.putExtra("initialPosition", idx)
                 startActivity(intent)
@@ -96,7 +94,6 @@ abstract class EditorActivity : LoadingActivity() {
             toolbarIconColor = "#000000",
             imageTitle = "모든 사진",
             backgroundColor = "#ffffff",
-            selectedImages = viewModel.editorState.value.images.map { it.image } as java.util.ArrayList<Image>,
             isMultipleMode = true,
             doneTitle = "완료",
             maxSize = 10,

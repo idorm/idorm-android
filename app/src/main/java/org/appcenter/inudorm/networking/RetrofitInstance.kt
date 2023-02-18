@@ -13,6 +13,10 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitInstance {
     private val client = OkHttpClient.Builder()
+        .callTimeout(10, TimeUnit.SECONDS)
+        .connectTimeout(10, TimeUnit.SECONDS)
+        .readTimeout(10, TimeUnit.SECONDS)
+        .writeTimeout(10, TimeUnit.SECONDS)
         .addInterceptor(AuthInterceptor()) // 저장한 토큰을 헤더에 넣는 Interceptor
         .addInterceptor(ResponseInterceptor()) // Response Wrapper를 벗겨내는 Interceptor
         .build()

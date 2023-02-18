@@ -1,8 +1,10 @@
 package org.appcenter.inudorm.repository
 
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import org.appcenter.inudorm.model.Dorm
 import org.appcenter.inudorm.model.board.Comment
 import org.appcenter.inudorm.model.board.Post
@@ -26,14 +28,19 @@ class CommunityRepository {
     suspend fun createPost(post: PostEditDto): Post {
         val files = ArrayList<MultipartBody.Part>()
         post.files?.forEach {
-            val requestFile = RequestBody.create(MediaType.parse("image/jpg"), it)
+            val requestFile = it.asRequestBody("image/jpg".toMediaTypeOrNull())
             files.add(MultipartBody.Part.createFormData("files", it.name, requestFile))
         }
         return RetrofitInstance.service.createPost(post.toFormData(), files)
     }
 
     suspend fun updatePost(id: Int, post: PostEditDto): Post {
-        return RetrofitInstance.service.updatePost(id, post.toFormData())
+        val files = ArrayList<MultipartBody.Part>()
+        post.files?.forEach {
+            val requestFile = it.asRequestBody("image/jpg".toMediaTypeOrNull())
+            files.add(MultipartBody.Part.createFormData("files", it.name, requestFile))
+        }
+        return RetrofitInstance.service.updatePost(id, post.toFormData(), files)
     }
 
     suspend fun registerComment(postId: Int, commentDto: WriteCommentDto): Comment {

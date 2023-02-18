@@ -4,8 +4,13 @@ import android.util.Log
 import com.google.gson.JsonParseException
 import com.google.gson.JsonSyntaxException
 import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeout
 import okhttp3.Interceptor
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.Response
 import okhttp3.ResponseBody
 import org.appcenter.inudorm.App
@@ -19,21 +24,17 @@ class AuthInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val copy = chain.request()
         val buffer = okio.Buffer()
-        copy.body()?.writeTo(buffer);
+        copy.body?.writeTo(buffer);
         Log.i(
             TAG,
-            "Send ${chain.request().method()} request to ${
-                chain.request().url()
+            "Send ${chain.request().method} request to ${
+                chain.request().url
             } with\ntoken: ${App.token},\nbody: ${buffer.readUtf8()},\n"
         )
         val req =
             chain.request().newBuilder()
                 .addHeader("X-AUTH-TOKEN", App.token ?: "").build()
-        return chain
-            .withWriteTimeout(5, TimeUnit.SECONDS)
-            .withReadTimeout(5, TimeUnit.SECONDS)
-            .withConnectTimeout(5, TimeUnit.SECONDS)
-            .proceed(req)
+        return chain.proceed(req)
 
     }
 }
@@ -48,18 +49,14 @@ class ResponseInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         // Request
-        val response = chain
-            .withWriteTimeout(5, TimeUnit.SECONDS)
-            .withReadTimeout(5, TimeUnit.SECONDS)
-            .withConnectTimeout(5, TimeUnit.SECONDS)
-            .proceed(request)
+        val response = chain.proceed(request)
 
         // Get raw json response
-        val rawJsonResponse: String? = response.body()?.string()
+        val rawJsonResponse: String? = response.body?.string()
         IDormLogger.i(
             this,
             "${
-                request.url().encodedPath()
+                request.url.encodedPath
             } response:\n${rawJsonResponse}\n-----------------------\n"
         )
 
@@ -88,7 +85,7 @@ class ResponseInterceptor : Interceptor {
                         rawJsonResponse,
                         type
                     ) // parsed ResponseWrapper
-                        ?: throw IOException("${response.code()} 에러 발생.")
+                        ?: throw IOException("${response.code} 에러 발생.")
                 throw IDormError(
                     (result.code.asEnumOrDefault<ErrorCode>(null) ?: ErrorCode.UNKNOWN_ERROR)
                 )
@@ -108,7 +105,7 @@ class ResponseInterceptor : Interceptor {
         val resultJson = App.gson.toJson(res)
         IDormLogger.i(this, resultJson)
         val newResponse = response.newBuilder()
-            .body(ResponseBody.create(MediaType.parse("application/json"), resultJson))
+            .body(ResponseBody.create("application/json".toMediaTypeOrNull(), resultJson))
             .code(200)
             .build()
         Log.d(TAG, "$res | $newResponse")

@@ -106,7 +106,7 @@ class PostDetailActivity : LoadingActivity() {
             val intent = Intent(this, ImageViewPager::class.java)
             intent.putStringArrayListExtra(
                 "images",
-                viewModel.postDetailState.value.data?.photoUrls
+                viewModel.postDetailState.value.data?.postPhotos?.map { it.photoUrl } as java.util.ArrayList<String>?
             )
             intent.putExtra("initialPosition", idx)
             startActivity(intent)

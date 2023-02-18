@@ -4,9 +4,11 @@ import android.content.Context
 import android.net.Uri
 import android.provider.MediaStore
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okio.BufferedSink
 import okio.Okio
+import okio.source
 
 
 class ContentUriRequestBody(val context: Context, val uri: Uri) : RequestBody() {
@@ -37,16 +39,17 @@ class ContentUriRequestBody(val context: Context, val uri: Uri) : RequestBody() 
 
     override fun contentLength(): Long = size
 
-    override fun contentType(): MediaType? = MediaType.parse(contentResolver.getType(uri) ?: throw java.lang.RuntimeException("미디어타입 파싱 실패"))
+    override fun contentType(): MediaType? =
+        (contentResolver.getType(uri)
+            ?: throw java.lang.RuntimeException("미디어타입 파싱 실패")).toMediaTypeOrNull()
 
     override fun writeTo(sink: BufferedSink) {
-        Okio.source(
-            contentResolver.openInputStream(uri)
-                ?: throw IllegalStateException("Couldn't open content URI for reading: $uri")
-        ).use { source ->
-
+        val stream = (contentResolver.openInputStream(uri)
+            ?: throw IllegalStateException("Couldn't open content URI for reading: $uri"))
+        stream.source().use { source ->
             sink.writeAll(source)
         }
+        stream.close()
     }
 
 /*    private fun getRealPathFromURI(contentUri: Uri): String? {
