@@ -5,6 +5,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.appcenter.inudorm.model.Dorm
 import org.appcenter.inudorm.model.board.Comment
 import org.appcenter.inudorm.model.board.Post
@@ -40,7 +41,18 @@ class CommunityRepository {
             val requestFile = it.asRequestBody("image/jpg".toMediaTypeOrNull())
             files.add(MultipartBody.Part.createFormData("files", it.name, requestFile))
         }
-        return RetrofitInstance.service.updatePost(id, post.toFormData(), files)
+        val parts = post.deletePostPhotoIds?.map {
+            MultipartBody.Part.createFormData(
+                "deletePostPhotoIds",
+                it.toString()
+            )
+        }
+        return RetrofitInstance.service.updatePost(
+            id,
+            post.toFormData(),
+            files,
+            parts ?: listOf()
+        )
     }
 
     suspend fun registerComment(postId: Int, commentDto: WriteCommentDto): Comment {
@@ -54,6 +66,7 @@ class CommunityRepository {
     suspend fun reportPost(postId: Int) {
 //        return RetrofitInstance.service.reportPost(postId)
     }
+
     suspend fun likePost(postId: Int) {
         return RetrofitInstance.service.likePost(postId)
     }

@@ -48,7 +48,8 @@ interface CommunityService {
         @Path("postId") id: Int,
         @PartMap body: HashMap<String, RequestBody>,
         @Part files: List<MultipartBody.Part>,
-    ): Post
+        @Part deletePostPhotoIds: List<MultipartBody.Part>,
+        ): Post
 
     @POST("member/post/{post-id}/comment")
     suspend fun registerComment(

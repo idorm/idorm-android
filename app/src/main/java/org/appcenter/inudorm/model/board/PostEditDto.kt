@@ -21,7 +21,7 @@ data class PostEditDto(
     fun toFormData(): HashMap<String, RequestBody> {
         val reqMap = HashMap<String, RequestBody>()
         for (field in this::class.java.declaredFields) {
-            if (field.get(this) != null && field.name != "files")
+            if (field.get(this) != null && field.name != "files" && field.name != "deletePostPhotoIds")
                 reqMap[field.name] =
                     field.get(this)?.toString()!!.toRequestBody("text/plain".toMediaTypeOrNull())
         }
