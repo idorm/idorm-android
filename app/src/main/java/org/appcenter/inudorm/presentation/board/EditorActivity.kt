@@ -70,7 +70,11 @@ abstract class EditorActivity : LoadingActivity() {
         }
 
         if (imageViewAdapter == null) {
-            imageViewAdapter = ImageViewAdapter(arrayListOf()) { idx, imageUrl ->
+            imageViewAdapter = ImageViewAdapter(arrayListOf(), true, {
+                idx, imageUrl ->
+                viewModel.deleteImage(idx)
+            })
+            { idx, imageUrl ->
                 val intent = Intent(this, ImageViewPager::class.java)
                 intent.putStringArrayListExtra(
                     "images",

@@ -16,6 +16,7 @@ data class EditorState(
     val postId: Int? = null,
     val dormCategory: Dorm = Dorm.DORM1,
     val images: ArrayList<Photo> = arrayListOf(),
+    val deletedPhotoIds: ArrayList<Int>? = null,
 )
 
 open class EditorViewModel : ViewModel() {
@@ -39,6 +40,22 @@ open class EditorViewModel : ViewModel() {
         }
     }
 
+
+    fun deleteImage(idx: Int) {
+        _editorState.update {
+            val newImages = ArrayList(it.images)
+            val newDeletedPhotoIds = ArrayList(it.deletedPhotoIds ?: arrayListOf())
+            newImages.removeAt(idx)
+            // image는 로컬에서 pick 한 이미지만 갖고 있는 값. => 기존에 있던 이미지는 image == null
+            if (it.images[idx].image == null && it.images[idx].photoId != null) {
+                newDeletedPhotoIds.add(it.images[idx].photoId!!)
+            }
+            it.copy(
+                images = newImages,
+                deletedPhotoIds = newDeletedPhotoIds
+            )
+        }
+    }
 
     fun setDorm(dorm: String?) {
         _editorState.update {

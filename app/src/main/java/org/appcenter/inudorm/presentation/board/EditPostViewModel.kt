@@ -31,6 +31,7 @@ class EditPostViewModel : EditorViewModel() {
                                 editorState.value.images
                                     .filter { it.file != null }
                                     .map { it.file!! },
+                                deletePostPhotoIds = editorState.value.deletedPhotoIds
                             )
                         )
                     )

@@ -9,20 +9,48 @@
             type="String" />
     </data>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/imageView"
-        android:layout_width="120sp"
-        android:layout_height="120sp"
-        android:layout_marginEnd="8sp"
-        app:cardCornerRadius="8dp"
-        >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/view_image_profile"
 
-            android:scaleType="centerCrop"
-            app:imageUrl="@{image}" />
-    </androidx.cardview.widget.CardView>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/deleteButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:backgroundTint="@color/iDorm_gray_400"
+            android:src="@drawable/ic_x_button"
+            app:borderWidth="0dp"
+            app:fabCustomSize="30dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="@id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:tint="@color/white"
+            app:useCompatPadding="false" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/imageView"
+            android:layout_width="120sp"
+            android:layout_height="120sp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/view_image_profile"
+
+                android:scaleType="centerCrop"
+                app:imageUrl="@{image}" />
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

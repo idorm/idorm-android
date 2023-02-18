@@ -1,6 +1,7 @@
 package org.appcenter.inudorm.presentation.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -9,12 +10,15 @@ import org.appcenter.inudorm.databinding.ItemBoardImageBinding
 
 class ImageViewAdapter(
     var imageList: ArrayList<String>,
+    private val removable: Boolean = false,
+    private val onRemoveButtonClicked: ((Int, String) -> Unit)? = null,
     private val onClicked: (Int, String) -> Unit,
 ) : RecyclerView.Adapter<ImageViewAdapter.ViewHolder>() {
 
 
     inner class ViewHolder(
         var binding: ItemBoardImageBinding,
+        onRemoveButtonClicked: (Int) -> Unit,
         onClicked: (Int) -> Unit,
     ) :
         RecyclerView.ViewHolder(binding.root) {}
@@ -32,9 +36,9 @@ class ImageViewAdapter(
             false
         )
 
-        return ViewHolder(binding) { idx ->
-            onClicked(idx, imageList[idx])
-        }
+        return ViewHolder(binding,
+            { idx -> onRemoveButtonClicked?.let { it(idx, imageList[idx]) } })
+        { idx -> onClicked(idx, imageList[idx]) }
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -42,6 +46,12 @@ class ImageViewAdapter(
         imageList[position].let {
             viewHolder.binding.image = it
             viewHolder.binding.executePendingBindings()
+        }
+        viewHolder.binding.deleteButton.visibility = if (removable) {
+            View.VISIBLE
+        } else View.GONE
+        viewHolder.binding.deleteButton.setOnClickListener {
+            onRemoveButtonClicked?.let { it1 -> it1(position, imageList[position]) }
         }
         viewHolder.binding.imageView.setOnClickListener {
             onClicked(position, imageList[position])
