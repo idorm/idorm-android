@@ -1,4 +1,4 @@
-package org.appcenter.inudorm.presentation.mypage
+package org.appcenter.inudorm.presentation.mypage.community
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

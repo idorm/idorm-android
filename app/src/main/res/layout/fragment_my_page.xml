@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <variable
+            name="fragment"
+            type="org.appcenter.inudorm.presentation.mypage.MyPageFragment" />
 
         <variable
             name="viewModel"
             type="org.appcenter.inudorm.presentation.mypage.MyPageViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/iDorm_gray_100"
@@ -33,8 +37,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="22dp"
-                android:src="@drawable/ic_setting"
                 android:background="@null"
+                android:src="@drawable/ic_setting"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -68,6 +72,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout17"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="24dp"
@@ -200,11 +205,11 @@
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="16dp"
                 android:checked="@{viewModel.myPageState.matchingInfo.data.isMatchingInfoPublic}"
+                android:enabled="@{viewModel.myPageState.matchingInfo.error == null &amp;&amp; !viewModel.myPageState.matchingInfo.loading}"
                 android:fontFamily="@font/notosans_medium"
                 android:gravity="center"
                 android:includeFontPadding="false"
                 android:onClick="@{() -> viewModel.toggleMatchingInfoVisibility()}"
-                android:enabled="@{viewModel.myPageState.matchingInfo.error == null &amp;&amp; !viewModel.myPageState.matchingInfo.loading}"
                 android:text="@string/showMyImageSwitchText"
 
                 android:textColor="@color/iDorm_gray_400"
@@ -216,6 +221,135 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:layout_marginStart="72dp"
+            android:background="@drawable/view_layout_my_page_card_background"
+            android:elevation="4dp"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout17">
+
+            <TextView
+                android:id="@+id/communityTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+
+                android:fontFamily="@font/notosans_bold"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/mypageCommunity"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/communityArea"
+                android:layout_width="match_parent"
+                android:layout_height="102dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="@+id/communityTitle"
+                app:layout_constraintTop_toBottomOf="@+id/communityTitle">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/postsWrote"
+                    android:layout_width="0dp"
+                    android:layout_height="102dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/view_button_round_12_gray_100"
+                    android:drawableTop="@drawable/ic_write_circled"
+                    android:drawablePadding="8dp"
+
+                    android:elevation="4dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:onClick="@{() -> fragment.openPostsWrote()}"
+                    android:paddingVertical="12dp"
+
+                    android:shadowColor="@color/iDorm_shadow"
+                    android:shadowDy="2"
+                    android:shadowRadius="4"
+                    android:text="@string/postWrote"
+                    android:textColor="@color/black"
+
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/commentsWrote"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/commentsWrote"
+                    android:layout_width="0dp"
+                    android:layout_height="102dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/view_button_round_12_gray_100"
+                    android:drawableTop="@drawable/ic_like_circled"
+
+
+                    android:drawablePadding="8dp"
+                    android:elevation="4dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:onClick="@{() -> fragment.openCommentsWrote()}"
+
+                    android:paddingVertical="12dp"
+                    android:shadowColor="@color/iDorm_shadow"
+                    android:shadowDy="2"
+                    android:shadowRadius="4"
+                    android:text="@string/commentsWrote"
+
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/postsLiked"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@+id/postsWrote"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/postsLiked"
+                    android:layout_width="0dp"
+                    android:layout_height="102dp"
+                    android:background="@drawable/view_button_round_12_gray_100"
+                    android:drawableTop="@drawable/ic_comments_wrote"
+                    android:drawablePadding="8dp"
+
+                    android:elevation="4dp"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:onClick="@{() -> fragment.openPostsLiked()}"
+                    android:paddingVertical="12dp"
+
+                    android:shadowColor="@color/iDorm_shadow"
+                    android:shadowDy="2"
+                    android:shadowRadius="4"
+                    android:text="@string/postsLiked"
+                    android:textColor="@color/black"
+
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@+id/commentsWrote"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

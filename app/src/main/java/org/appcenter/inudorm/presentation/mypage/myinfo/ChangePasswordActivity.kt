@@ -1,4 +1,4 @@
-package org.appcenter.inudorm.presentation.mypage
+package org.appcenter.inudorm.presentation.mypage.myinfo
 
 import android.content.Intent
 import android.os.Bundle

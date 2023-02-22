@@ -12,6 +12,8 @@ import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.model.board.PostEditDto
 import org.appcenter.inudorm.model.board.WriteCommentDto
 import org.appcenter.inudorm.networking.RetrofitInstance
+import retrofit2.Retrofit
+import retrofit2.http.GET
 
 class CommunityRepository {
     suspend fun getTopPostsByDorm(dorm: Dorm, page: Int): ArrayList<Post> {
@@ -82,6 +84,19 @@ class CommunityRepository {
 
     suspend fun reportComment(commentId: Int) {
 //        return RetrofitInstance.service.reportComment(commentId)
+    }
+
+
+    suspend fun getWrotePosts(): ArrayList<Post> {
+        return RetrofitInstance.service.getWrotePosts()
+    }
+
+    suspend fun getLikedPosts(): ArrayList<Post> {
+        return RetrofitInstance.service.getLikedPosts()
+    }
+
+    suspend fun getWroteComments(): ArrayList<Comment> {
+        return RetrofitInstance.service.getWroteComments()
     }
 
 

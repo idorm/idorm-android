@@ -1,4 +1,4 @@
-package org.appcenter.inudorm.presentation.mypage
+package org.appcenter.inudorm.presentation.mypage.myinfo
 
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil

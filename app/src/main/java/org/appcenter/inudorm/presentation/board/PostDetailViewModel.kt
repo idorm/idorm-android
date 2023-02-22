@@ -9,8 +9,8 @@ import kotlinx.coroutines.launch
 import org.appcenter.inudorm.model.User
 import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.model.board.WriteCommentDto
-import org.appcenter.inudorm.presentation.mypage.UiState
-import org.appcenter.inudorm.presentation.mypage.runCatch
+import org.appcenter.inudorm.presentation.mypage.myinfo.UiState
+import org.appcenter.inudorm.presentation.mypage.myinfo.runCatch
 import org.appcenter.inudorm.usecase.*
 
 class PostDetailViewModel : ViewModel() {

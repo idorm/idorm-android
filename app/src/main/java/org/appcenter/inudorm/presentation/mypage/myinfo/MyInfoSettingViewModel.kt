@@ -1,4 +1,4 @@
-package org.appcenter.inudorm.presentation.mypage
+package org.appcenter.inudorm.presentation.mypage.myinfo
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="org.appcenter.inudorm.presentation.mypage.MyInfoSettingViewModel" />
+            type="org.appcenter.inudorm.presentation.mypage.myinfo.MyInfoSettingViewModel" />
 
         <variable
             name="build"
@@ -15,7 +15,7 @@
 
         <variable
             name="activity"
-            type="org.appcenter.inudorm.presentation.mypage.MyInfoSettingActivity" />
+            type="org.appcenter.inudorm.presentation.mypage.myinfo.MyInfoSettingActivity" />
 
     </data>
 
@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        tools:context=".presentation.mypage.MyInfoSettingActivity">
+        tools:context=".presentation.mypage.myinfo.MyInfoSettingActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"

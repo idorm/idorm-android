@@ -1,4 +1,4 @@
-package org.appcenter.inudorm.presentation.mypage
+package org.appcenter.inudorm.presentation.mypage.matching
 
 import android.os.Bundle
 import androidx.activity.viewModels

@@ -14,6 +14,7 @@ import org.appcenter.inudorm.presentation.adapter.PopularPostAdapter
 import org.appcenter.inudorm.presentation.adapter.PostAdapter
 import org.appcenter.inudorm.presentation.board.InfinityScrollState
 import org.appcenter.inudorm.presentation.matching.LoadMode
+import org.appcenter.inudorm.presentation.mypage.myinfo.UiState
 import org.appcenter.inudorm.util.IDormLogger
 import org.joda.time.DateTimeZone
 import org.joda.time.LocalDateTime
@@ -40,6 +41,20 @@ object BoardBinding {
                     a.dataSet.addAll(uiState.data)
                     a.notifyDataSetChanged()
                 }
+            }
+    }
+
+    @JvmStatic
+    @BindingAdapter("posts")
+    fun RecyclerView.bindLimitedBoard(uiState: UiState<ArrayList<Post>>?) {
+        if (uiState != null)
+            if (adapter is PostAdapter && !uiState.loading && uiState.error == null && uiState.data != null) {
+
+                val a = adapter as PostAdapter
+                // 리스트에 추가하고
+                a.dataSet.clear()
+                a.dataSet.addAll(uiState.data)
+                a.notifyDataSetChanged()
             }
     }
 

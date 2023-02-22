@@ -36,14 +36,14 @@
             android:value="true" />
 
         <activity
-            android:name=".presentation.mypage.DisLikedMateListActivity"
+            android:name=".presentation.mypage.matching.DisLikedMateListActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
             tools:ignore="LockedOrientationActivity" />
 
         <activity
-            android:name=".presentation.mypage.MyMatchingProfileActivity"
+            android:name=".presentation.mypage.matching.MyMatchingProfileActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
@@ -64,7 +64,7 @@
             tools:ignore="LockedOrientationActivity"></activity>
 
         <activity
-            android:name=".presentation.mypage.ChangePasswordActivity"
+            android:name=".presentation.mypage.myinfo.ChangePasswordActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
@@ -73,12 +73,12 @@
         <activity
             android:name=".presentation.mypage.NotificationSettingActivity"
             android:exported="true"
-            android:parentActivityName=".presentation.mypage.MyInfoSettingActivity"
+            android:parentActivityName=".presentation.mypage.myinfo.MyInfoSettingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".presentation.mypage.ChangeNickNameActivity"
+            android:name=".presentation.mypage.myinfo.ChangeNickNameActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
@@ -112,7 +112,7 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".presentation.mypage.LikedMateListActivity"
+            android:name=".presentation.mypage.matching.LikedMateListActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
@@ -122,12 +122,12 @@
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".presentation.mypage.CommentListActivity"
+            android:name=".presentation.mypage.community.CommentListActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".presentation.board.PostListActivity"
+            android:name=".presentation.mypage.community.PostListActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
@@ -181,7 +181,7 @@
             android:theme="@style/Theme.IDorm.White"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".presentation.mypage.MyInfoSettingActivity"
+            android:name=".presentation.mypage.myinfo.MyInfoSettingActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />

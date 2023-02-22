@@ -17,6 +17,12 @@ import org.appcenter.inudorm.databinding.FragmentMyPageBinding
 import org.appcenter.inudorm.networking.ErrorCode
 import org.appcenter.inudorm.networking.UIErrorHandler
 import org.appcenter.inudorm.presentation.MainActivity
+import org.appcenter.inudorm.presentation.mypage.community.CommentListActivity
+import org.appcenter.inudorm.presentation.mypage.community.PostListActivity
+import org.appcenter.inudorm.presentation.mypage.matching.DisLikedMateListActivity
+import org.appcenter.inudorm.presentation.mypage.matching.LikedMateListActivity
+import org.appcenter.inudorm.presentation.mypage.matching.MyMatchingProfileActivity
+import org.appcenter.inudorm.presentation.mypage.myinfo.MyInfoSettingActivity
 import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.util.CustomDialog
 import org.appcenter.inudorm.util.DialogButton
@@ -37,7 +43,7 @@ class MyPageFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_page, container, false)
         requireActivity().setStatusBarColor(
@@ -63,10 +69,23 @@ class MyPageFragment : Fragment() {
         )
     }
 
+    fun openPostsWrote() {
+        startActivity(Intent(requireContext(), PostListActivity::class.java))
+    }
+
+    fun openCommentsWrote() {
+        startActivity(Intent(requireContext(), CommentListActivity::class.java))
+    }
+
+    fun openPostsLiked() {
+        startActivity(Intent(requireContext(), PostListActivity::class.java))
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MyPageViewModel::class.java)
         binding.viewModel = viewModel
+        binding.fragment = this
         binding.lifecycleOwner = requireActivity()
 
         viewModel.getMyMatchingInfo()

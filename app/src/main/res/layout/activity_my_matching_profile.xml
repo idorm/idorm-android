@@ -7,11 +7,11 @@
 
         <variable
             name="activity"
-            type="org.appcenter.inudorm.presentation.mypage.MyMatchingProfileActivity" />
+            type="org.appcenter.inudorm.presentation.mypage.matching.MyMatchingProfileActivity" />
 
         <variable
             name="viewModel"
-            type="org.appcenter.inudorm.presentation.mypage.MyMatchingProfileViewModel" />
+            type="org.appcenter.inudorm.presentation.mypage.matching.MyMatchingProfileViewModel" />
 
     </data>
 

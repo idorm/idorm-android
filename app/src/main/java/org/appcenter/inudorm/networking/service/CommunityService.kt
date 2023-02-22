@@ -49,7 +49,7 @@ interface CommunityService {
         @PartMap body: HashMap<String, RequestBody>,
         @Part files: List<MultipartBody.Part>,
         @Part deletePostPhotoIds: List<MultipartBody.Part>,
-        ): Post
+    ): Post
 
     @POST("member/post/{post-id}/comment")
     suspend fun registerComment(
@@ -78,7 +78,14 @@ interface CommunityService {
         @Path("post-id") postId: Int,
     )
 
+    @GET("member/posts/write")
+    suspend fun getWrotePosts(): ArrayList<Post>
 
+    @GET("member/posts/like")
+    suspend fun getLikedPosts(): ArrayList<Post>
+
+    @GET("member/comments/write")
+    suspend fun getWroteComments(): ArrayList<Comment>
 
 
 }

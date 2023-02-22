@@ -240,4 +240,8 @@
     <string name="titleHint">제목</string>
     <string name="noPost">게시글이 없는 것 같아요.\n새로운 글을 등록해볼까요?</string>
     <string name="enterCommentHint">댓글을 입력해주세요.</string>
+    <string name="mypageCommunity">커뮤니티 관리</string>
+    <string name="postWrote">내가 쓴 글</string>
+    <string name="commentsWrote">내가 쓴 댓글</string>
+    <string name="postsLiked">추천한 글</string>
 </resources>

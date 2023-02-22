@@ -5,11 +5,11 @@
 
         <variable
             name="activity"
-            type="org.appcenter.inudorm.presentation.mypage.MateListActivity" />
+            type="org.appcenter.inudorm.presentation.mypage.matching.MateListActivity" />
 
         <variable
             name="viewModel"
-            type="org.appcenter.inudorm.presentation.mypage.MateListViewModel" />
+            type="org.appcenter.inudorm.presentation.mypage.matching.MateListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/iDorm_gray_100"
-        tools:context=".presentation.mypage.LikedMateListActivity">
+        tools:context=".presentation.mypage.matching.LikedMateListActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"

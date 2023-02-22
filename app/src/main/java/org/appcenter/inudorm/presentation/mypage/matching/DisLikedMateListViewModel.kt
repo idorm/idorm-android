@@ -1,4 +1,4 @@
-package org.appcenter.inudorm.presentation.mypage
+package org.appcenter.inudorm.presentation.mypage.matching
 
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch

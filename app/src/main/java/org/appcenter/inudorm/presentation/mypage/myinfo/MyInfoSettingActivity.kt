@@ -1,4 +1,4 @@
-package org.appcenter.inudorm.presentation.mypage
+package org.appcenter.inudorm.presentation.mypage.myinfo
 
 import android.content.Intent
 import android.net.Uri
@@ -15,6 +15,7 @@ import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityMyInformationSettingBinding
 import org.appcenter.inudorm.presentation.account.LoginActivity
 import org.appcenter.inudorm.presentation.account.WithdrawalActivity
+import org.appcenter.inudorm.presentation.mypage.NotificationSettingActivity
 import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.util.WindowUtil.setStatusBarColor
 import kotlin.reflect.KClass

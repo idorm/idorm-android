@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.appcenter.inudorm.model.MatchingInfo
 import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter
 import org.appcenter.inudorm.presentation.component.MatchingCard
-import org.appcenter.inudorm.presentation.mypage.MateListState
+import org.appcenter.inudorm.presentation.mypage.matching.MateListState
 
 object MateListBinding {
     @JvmStatic
