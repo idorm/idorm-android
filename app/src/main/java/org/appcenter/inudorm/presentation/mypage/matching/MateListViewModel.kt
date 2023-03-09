@@ -5,15 +5,19 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.model.MatchingInfo
+import org.appcenter.inudorm.model.Mate
 import org.appcenter.inudorm.presentation.matching.UserMutationEvent
 import org.appcenter.inudorm.presentation.mypage.myinfo.UiState
 import org.appcenter.inudorm.usecase.ReportMatchingInfo
 import org.appcenter.inudorm.usecase.UseCase
 
 
+data class Sortable<T>(var sortBy: String, var data: T)
+
 abstract class MateListViewModel : ViewModel() {
-    val _mateListState = MutableStateFlow(MateListState("addedAtDesc", UiState()))
-    val mateListState: StateFlow<MateListState>
+    val _mateListState =
+        MutableStateFlow(Sortable<UiState<ArrayList<MatchingInfo>>>("addedAtDesc", UiState()))
+    val mateListState: StateFlow<Sortable<UiState<ArrayList<MatchingInfo>>>>
         get() = _mateListState
     val _userMutationState = MutableSharedFlow<UserMutationEvent>()
     val userMutationState: SharedFlow<UserMutationEvent>
@@ -23,7 +27,7 @@ abstract class MateListViewModel : ViewModel() {
     fun getMates() {
         _mateListState.update {
             it.copy(
-                mates = it.mates.copy(
+                data = it.data.copy(
                     loading = true
                 )
             )
@@ -35,7 +39,7 @@ abstract class MateListViewModel : ViewModel() {
             }.onSuccess { mates ->
                 _mateListState.update {
                     it.copy(
-                        mates = it.mates.copy(
+                        data = it.data.copy(
                             loading = false,
                             data = mates,
                             error = null,
@@ -45,7 +49,7 @@ abstract class MateListViewModel : ViewModel() {
             }.onFailure { e ->
                 _mateListState.update {
                     it.copy(
-                        mates = it.mates.copy(
+                        data = it.data.copy(
                             loading = false,
                             data = null,
                             error = e

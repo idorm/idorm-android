@@ -20,7 +20,7 @@ class UserRepository {
     }
 
 
-    suspend fun loginRefresh() : User {
+    suspend fun loginRefresh(): User {
         return RetrofitInstance.service.loginRefresh()
     }
 
@@ -36,12 +36,14 @@ class UserRepository {
 
     suspend fun verifyRegisterCode(params: CodeVerifyParams): EmailVerifyResponseDto {
         val str = gson.toJson(params)
-        return RetrofitInstance.service.verifyRegisterCode(params.email, createJsonRequestBody(str))
+        RetrofitInstance.service.verifyRegisterCode(params.email, createJsonRequestBody(str))
+        return EmailVerifyResponseDto(params.email, true, true)
     }
 
     suspend fun verifyPasswordAuthCode(params: CodeVerifyParams): EmailVerifyResponseDto {
         val str = gson.toJson(params)
-        return RetrofitInstance.service.verifyForgotPWEmail(params.email, createJsonRequestBody(str))
+        RetrofitInstance.service.verifyForgotPWEmail(params.email, createJsonRequestBody(str))
+        return EmailVerifyResponseDto(params.email, true, true)
     }
 
     suspend fun register(params: RegisterParams): User {
@@ -53,12 +55,12 @@ class UserRepository {
         return RetrofitInstance.service.withdrawMember().isSuccessful
     }
 
-    suspend fun changeNickName(params: ChangeNickNameDto) : User {
+    suspend fun changeNickName(params: ChangeNickNameDto): User {
         return RetrofitInstance.service.changeNickname(params)
     }
 
 
-    suspend fun changePassword(params: ChangePasswordDto) : User {
+    suspend fun changePassword(params: ChangePasswordDto): User {
         return RetrofitInstance.service.changePassword(params)
     }
 }

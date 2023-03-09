@@ -7,15 +7,19 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import org.appcenter.inudorm.R
+import org.appcenter.inudorm.model.board.Comment
 import org.appcenter.inudorm.model.board.Photo
 import org.appcenter.inudorm.model.board.Post
+import org.appcenter.inudorm.presentation.adapter.CommentListAdapter
 import org.appcenter.inudorm.presentation.adapter.ImageViewAdapter
 import org.appcenter.inudorm.presentation.adapter.PopularPostAdapter
 import org.appcenter.inudorm.presentation.adapter.PostAdapter
 import org.appcenter.inudorm.presentation.board.InfinityScrollState
 import org.appcenter.inudorm.presentation.matching.LoadMode
+import org.appcenter.inudorm.presentation.mypage.matching.Sortable
 import org.appcenter.inudorm.presentation.mypage.myinfo.UiState
 import org.appcenter.inudorm.util.IDormLogger
+import org.appcenter.inudorm.util.bindingadapter.BoardBinding.bindBoard
 import org.joda.time.DateTimeZone
 import org.joda.time.LocalDateTime
 import org.joda.time.format.DateTimeFormat
@@ -270,4 +274,32 @@ object BoardBinding {
     fun SwipeRefreshLayout.setLoadingAction(loading: Boolean?) {
         isRefreshing = loading ?: false
     }
+
+    @JvmStatic
+    @BindingAdapter("commentListState")
+    fun RecyclerView.setComments(commentListState: Sortable<UiState<ArrayList<Comment>>>?) {
+        if (commentListState != null && adapter is CommentListAdapter && !commentListState.data.loading && commentListState.data.error == null) {
+            val a = adapter as CommentListAdapter
+            a.dataSet.clear()
+            a.dataSet.addAll(commentListState.data.data ?: arrayListOf())
+            a.dataSet.sortBy { it.createdAt }
+            if (commentListState.sortBy == "addedAtDesc") a.dataSet.reverse()
+            a.notifyDataSetChanged()
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("postListState")
+    fun RecyclerView.setPosts(postListState: Sortable<UiState<ArrayList<Post>>>?) {
+        if (postListState != null && adapter is PostAdapter && !postListState.data.loading && postListState.data.error == null) {
+            val a = adapter as PostAdapter
+            a.dataSet.clear()
+            a.dataSet.addAll(postListState.data.data ?: arrayListOf())
+            a.dataSet.sortBy { it.createdAt }
+            if (postListState.sortBy == "addedAtDesc") a.dataSet.reverse()
+            a.notifyDataSetChanged()
+        }
+    }
+
+
 }

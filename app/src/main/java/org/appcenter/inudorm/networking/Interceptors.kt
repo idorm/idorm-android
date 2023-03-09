@@ -86,6 +86,10 @@ class ResponseInterceptor : Interceptor {
                         type
                     ) // parsed ResponseWrapper
                         ?: throw IOException("${response.code} 에러 발생.")
+                IDormLogger.e(
+                    this,
+                    " ${result.code} |  ${result.code.asEnumOrDefault<ErrorCode>(null)}"
+                )
                 throw IDormError(
                     (result.code.asEnumOrDefault<ErrorCode>(null) ?: ErrorCode.UNKNOWN_ERROR)
                 )

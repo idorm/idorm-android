@@ -90,7 +90,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView2"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:mateListState="@{viewModel.mateListState}" />
+                    app:sortBy="@{viewModel.mateListState.sortBy}" />
 
                 <TextView
                     android:id="@+id/textView3"
@@ -123,7 +123,7 @@
 
                     app:layout_constraintStart_toEndOf="@+id/textView3"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:mateListState="@{viewModel.mateListState}" />
+                    app:sortBy="@{viewModel.mateListState.sortBy}" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

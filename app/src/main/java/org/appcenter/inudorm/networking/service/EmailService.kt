@@ -30,7 +30,7 @@ interface EmailService {
      * @return data가 빈 Data
      */
     @POST("verifyCode/{email}")
-    suspend fun verifyRegisterCode(@Path("email") email:String, @Body body: RequestBody) : EmailVerifyResponseDto
+    suspend fun verifyRegisterCode(@Path("email") email:String, @Body body: RequestBody)
 
     /**
      * 비밀번호 변경 시에 인증코드 검증을 위한 API
@@ -39,5 +39,5 @@ interface EmailService {
      * @return data가 빈 Data
      */
     @POST("verifyCode/password/{email}")
-    suspend fun verifyForgotPWEmail(@Path("email") email:String, @Body body: RequestBody) : EmailVerifyResponseDto
+    suspend fun verifyForgotPWEmail(@Path("email") email:String, @Body body: RequestBody)
 }

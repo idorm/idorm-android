@@ -19,6 +19,9 @@ class IDormError(val error: ErrorCode) : IOException() {
 
 }
 
+/**
+ * 메시지는 사용자 친화적으로 바꿀 필요가 있습니다. String Resource로 뺄 계획도 있어요.
+ */
 enum class ErrorCode(val error: String, val message: String) {
     /**
      * 400 BAD_REQUEST : 잘못된 요청
@@ -61,7 +64,7 @@ enum class ErrorCode(val error: String, val message: String) {
      * 404 NOT_FOUND : Resource 를 찾을 수 없음
      */
     EMAIL_NOT_FOUND(StatusCode.NOT_FOUND.name, "등록된 이메일이 없습니다."),
-    MEMBER_NOT_FOUND(StatusCode.NOT_FOUND.name, "등록된 멤버가 없습니다."),
+    MEMBER_NOT_FOUND(StatusCode.NOT_FOUND.name, "아이디 또는 비밀버호가 일치하지 않습니다."),
     FILE_NOT_FOUND(StatusCode.NOT_FOUND.name, "등록된 파일이 없습니다."),
     MATCHING_INFO_NOT_FOUND(StatusCode.NOT_FOUND.name, "등록된 매칭정보가 없습니다."),
     COMMENT_NOT_FOUND(StatusCode.NOT_FOUND.name, "등록된 댓글이 없습니다."),

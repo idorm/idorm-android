@@ -19,6 +19,8 @@ import org.appcenter.inudorm.networking.UIErrorHandler
 import org.appcenter.inudorm.presentation.MainActivity
 import org.appcenter.inudorm.presentation.mypage.community.CommentListActivity
 import org.appcenter.inudorm.presentation.mypage.community.PostListActivity
+import org.appcenter.inudorm.presentation.mypage.community.liked_post_list.LikedPostListActivity
+import org.appcenter.inudorm.presentation.mypage.community.wrote_post_list.WrotePostListActivity
 import org.appcenter.inudorm.presentation.mypage.matching.DisLikedMateListActivity
 import org.appcenter.inudorm.presentation.mypage.matching.LikedMateListActivity
 import org.appcenter.inudorm.presentation.mypage.matching.MyMatchingProfileActivity
@@ -27,6 +29,7 @@ import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.util.CustomDialog
 import org.appcenter.inudorm.util.DialogButton
 import org.appcenter.inudorm.util.IDormLogger
+import org.appcenter.inudorm.util.OkDialog
 import org.appcenter.inudorm.util.WindowUtil.setStatusBarColor
 
 class MyPageFragment : Fragment() {
@@ -70,7 +73,7 @@ class MyPageFragment : Fragment() {
     }
 
     fun openPostsWrote() {
-        startActivity(Intent(requireContext(), PostListActivity::class.java))
+        startActivity(Intent(requireContext(), WrotePostListActivity::class.java))
     }
 
     fun openCommentsWrote() {
@@ -78,7 +81,7 @@ class MyPageFragment : Fragment() {
     }
 
     fun openPostsLiked() {
-        startActivity(Intent(requireContext(), PostListActivity::class.java))
+        startActivity(Intent(requireContext(), LikedPostListActivity::class.java))
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -106,10 +109,11 @@ class MyPageFragment : Fragment() {
                         prefsRepository,
                         it.myInfo.error!!
                     ) { e ->
+                        IDormLogger.i(this@MyPageFragment, "Error Handler called")
                         when (e.error) {
-                            ErrorCode.UNAUTHORIZED_MEMBER -> {
+                            else -> {
+                                OkDialog(e.error.message)
                             }
-                            else -> {}
                         }
                     }
                 }

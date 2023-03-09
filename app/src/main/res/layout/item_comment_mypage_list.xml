@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="comment"
+            type="org.appcenter.inudorm.model.board.Comment" />
+
+    </data>
+
+    <LinearLayout
+        android:id="@+id/commentParent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/deletedComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="삭제된 댓글입니다." />
+
+            <LinearLayout
+                android:id="@+id/validComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="105dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginVertical="16dp">
+
+                    <org.appcenter.inudorm.presentation.component.BoardProfile
+                        android:id="@+id/writer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:nickname="@{comment.nickname}"
+                        app:profileUrl="@{comment.profileUrl}"
+                        app:timeElapsed="@{comment.createdAt}" />
+
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="21dp"
+
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/notosans_medium"
+                        android:includeFontPadding="false"
+                        android:text="@{comment.content}"
+
+                        android:textColor="@color/iDorm_gray_400"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="@+id/writer"
+                        app:layout_constraintTop_toBottomOf="@+id/writer" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/viewPost"
+                        android:layout_width="wrap_content"
+
+                        android:layout_height="30dp"
+                        android:layout_margin="3sp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/view_button_round_10_gray_100"
+                        android:fontFamily="@font/notosans_regular"
+
+                        android:includeFontPadding="false"
+                        android:text="본문 확인"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="@+id/writer"
+                        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+
+        </FrameLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/iDorm_gray_200" />
+    </LinearLayout>
+</layout>

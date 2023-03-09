@@ -14,8 +14,10 @@ import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityLikedMateListBinding
+import org.appcenter.inudorm.model.MatchingInfo
 import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter
 import org.appcenter.inudorm.presentation.matching.UserMutationEvent
+import org.appcenter.inudorm.presentation.mypage.myinfo.UiState
 import org.appcenter.inudorm.util.ButtonType
 import org.appcenter.inudorm.util.CustomDialog
 import org.appcenter.inudorm.util.DialogButton
@@ -57,12 +59,12 @@ abstract class MateListActivity : AppCompatActivity() {
         viewModel.getMates()
     }
 
-    private val collector = FlowCollector<MateListState> { value ->
-        if (value.mates.data == null && value.mates.error != null) {
+    private val collector = FlowCollector<Sortable<UiState<ArrayList<MatchingInfo>>>> { value ->
+        if (value.data.data == null && value.data.error != null) {
             // Todo: Handle Error
             IDormLogger.e(this@MateListActivity, value.toString())
             CustomDialog(
-                value.mates.error?.message ?: getString(R.string.unknownError),
+                value.data.error?.message ?: getString(R.string.unknownError),
                 positiveButton = DialogButton("확인")
             ).show(this@MateListActivity)
         }

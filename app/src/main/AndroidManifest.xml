@@ -13,6 +13,7 @@
         <package android:name="com.mailplug.aeolos2" />
     </queries>
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,6 +21,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.IDorm.White">
+
+        <service
+            android:name=".service.FCMService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
         <profileable android:shell="true" />
         <meta-data
@@ -34,6 +44,27 @@
         <meta-data
             android:name="io.sentry.traces.user-interaction.enable"
             android:value="true" />
+
+        <activity
+            android:name=".presentation.mypage.community.wrote_post_list.WrotePostListActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.IDorm.White"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".presentation.mypage.community.liked_post_list.LikedPostListActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.IDorm.White"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".presentation.mypage.community.CommentListActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.IDorm.White"
+            tools:ignore="LockedOrientationActivity" >
+
+        </activity>
 
         <activity
             android:name=".presentation.mypage.matching.DisLikedMateListActivity"
@@ -103,9 +134,8 @@
             android:name=".presentation.board.PostDetailActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"
             android:windowSoftInputMode="stateAlwaysHidden"
-            />
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".presentation.calendar.ScheduleDetailActivity"
             android:exported="false"
@@ -118,16 +148,6 @@
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".presentation.mypage.DisikedMateListActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".presentation.mypage.community.CommentListActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".presentation.mypage.community.PostListActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />

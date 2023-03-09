@@ -8,8 +8,6 @@ import org.appcenter.inudorm.presentation.mypage.myinfo.UiState
 import org.appcenter.inudorm.usecase.DeleteLikedMatchingInfo
 import org.appcenter.inudorm.usecase.GetLikedMates
 
-data class MateListState(var sortBy: String, var mates: UiState<ArrayList<MatchingInfo>>)
-
 class LikedMateListViewModel : MateListViewModel() {
     override val getUseCase = GetLikedMates()
 

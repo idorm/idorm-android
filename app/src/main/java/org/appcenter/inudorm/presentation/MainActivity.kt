@@ -16,6 +16,7 @@ import org.appcenter.inudorm.databinding.ActivityMainBinding
 import org.appcenter.inudorm.presentation.board.BoardFragment
 import org.appcenter.inudorm.presentation.matching.MatchingFragment
 import org.appcenter.inudorm.presentation.mypage.MyPageFragment
+import org.appcenter.inudorm.service.FCMService
 
 
 class MainActivity : BottomNavigationView.OnNavigationItemSelectedListener, OnSnackBarCallListener,
@@ -32,7 +33,6 @@ class MainActivity : BottomNavigationView.OnNavigationItemSelectedListener, OnSn
         binding.bottomNavigation.setOnNavigationItemSelectedListener(this)
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, HomeFragment()).commit()
-
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
