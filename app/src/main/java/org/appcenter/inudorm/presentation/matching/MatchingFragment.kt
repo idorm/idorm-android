@@ -197,7 +197,7 @@ class MatchingFragment : Fragment(), CardStackListener {
                         when (err.error) {
                             ErrorCode.DUPLICATE_DISLIKED_MEMBER -> {}
                             ErrorCode.DUPLICATE_LIKED_MEMBER -> {}
-                            ErrorCode.MATCHING_INFO_NOT_FOUND -> {
+                            ErrorCode.MATCHINGINFO_NOT_FOUND -> {
                                 // Todo: 매칭정보 비공개. 다이얼로그 띄워서 온보딩으로 연결
                                 CustomDialog(
                                     "룸메이트 매칭을 위해\n우선 매칭 이미지를 만들어 주세요.",
@@ -209,7 +209,7 @@ class MatchingFragment : Fragment(), CardStackListener {
                                         })
                                 ).show(this@MatchingFragment.requireContext())
                             }
-                            ErrorCode.ILLEGAL_STATEMENT_MATCHING_INFO_NON_PUBLIC -> {
+                            ErrorCode.ILLEGAL_STATEMENT_MATCHINGINFO_NON_PUBLIC -> {
                                 CustomDialog(
                                     "룸메이트 매칭을 위해\n" +
                                             "우선 내 매칭 이미지를\n" +
@@ -227,8 +227,6 @@ class MatchingFragment : Fragment(), CardStackListener {
                 }
             }
         }
-
-
     }
 
     private fun setupFilter() {

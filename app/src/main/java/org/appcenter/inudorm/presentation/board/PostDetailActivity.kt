@@ -7,12 +7,15 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.LoadingActivity
+import org.appcenter.inudorm.OnSnackBarCallListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityPostDetailBinding
 import org.appcenter.inudorm.model.SelectItem
@@ -33,7 +36,7 @@ private val Context.dataStore by preferencesDataStore(name = "prefs")
 /**
  * 커뮤니티 글 보기 페이지에서 눌러서 들어가는 페이지. PostList
  */
-class PostDetailActivity : LoadingActivity() {
+class PostDetailActivity : LoadingActivity(), OnSnackBarCallListener {
 
     private val binding: ActivityPostDetailBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_post_detail)
@@ -309,5 +312,15 @@ class PostDetailActivity : LoadingActivity() {
     companion object {
         const val DETAIL_FINISHED = 3485
         const val EDITOR_OPEN = 7661
+    }
+
+    override fun onSnackBarCalled(message: String, duration: Int) {
+        Snackbar.make(binding.root, message, duration)
+            .apply {
+                anchorView = binding.root
+                view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text).textAlignment =
+                    View.TEXT_ALIGNMENT_CENTER
+            }
+            .show()
     }
 }

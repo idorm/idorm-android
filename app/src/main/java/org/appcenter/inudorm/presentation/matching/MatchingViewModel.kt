@@ -69,7 +69,7 @@ class MatchingViewModel : ViewModel() {
     fun getMates(
         loadMode: LoadMode,
         filter: RoomMateFilter = _matchingState.value.filter,
-        size: Int
+        size: Int,
     ) {
         _matchingState.update {
             it.copy(
@@ -112,7 +112,7 @@ class MatchingViewModel : ViewModel() {
     fun addLikedMate(id: Int) {
         viewModelScope.launch {
             kotlin.runCatching {
-                AddLikedMatchingInfo().run(id)
+                AddLikedOrDislikedMatchingInfo().run(MutateFavoriteRequestDto(id, true))
             }.onSuccess {
                 _userMutationEvent.emit(
                     UserMutationEvent.AddLikedMatchingInfo(
@@ -127,7 +127,7 @@ class MatchingViewModel : ViewModel() {
     fun deleteLikedMate(id: Int) {
         viewModelScope.launch {
             kotlin.runCatching {
-                DeleteLikedMatchingInfo().run(id)
+                DeleteLikeOrDislikeMatchingInfo().run(MutateFavoriteRequestDto(id, true))
             }.onSuccess {
                 _userMutationEvent.emit(
                     UserMutationEvent.DeleteLikedMatchingInfo(
@@ -142,7 +142,7 @@ class MatchingViewModel : ViewModel() {
     fun addDislikedMate(id: Int) {
         viewModelScope.launch {
             kotlin.runCatching {
-                AddDislikedMatchingInfo().run(id)
+                AddLikedOrDislikedMatchingInfo().run(MutateFavoriteRequestDto(id, false))
             }.onSuccess {
                 _userMutationEvent.emit(
                     UserMutationEvent.AddDislikedMatchingInfo(
@@ -157,7 +157,7 @@ class MatchingViewModel : ViewModel() {
     fun deleteDislikedMate(id: Int) {
         viewModelScope.launch {
             kotlin.runCatching {
-                DeleteDislikedMatchingInfo().run(id)
+                DeleteLikeOrDislikeMatchingInfo().run(MutateFavoriteRequestDto(id, false))
             }.onSuccess {
                 _userMutationEvent.emit(
                     UserMutationEvent.DeleteDislikedMatchingInfo(

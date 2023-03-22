@@ -23,8 +23,8 @@ interface MemberService {
      * @param body {email:String, password:String} Json RequestBody object
      * @return data가 빈 Data
      */
-    @POST("login")
-    suspend fun login(@Body body: RequestBody): Response<User>
+    @POST("/v2/login")
+    suspend fun login(@Body body: RequestBody, @Header("fcm-key") fcmKey: String): Response<User>
 
     /**
      * 회원가입 API

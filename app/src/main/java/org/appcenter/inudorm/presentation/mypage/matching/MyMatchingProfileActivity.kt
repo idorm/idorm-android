@@ -8,8 +8,12 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityMyMatchingProfileBinding
+import org.appcenter.inudorm.networking.ErrorCode
+import org.appcenter.inudorm.networking.UIErrorHandler
+import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.util.CustomDialog
 import org.appcenter.inudorm.util.DialogButton
+import org.appcenter.inudorm.util.OkDialog
 
 class MyMatchingProfileActivity : AppCompatActivity() {
     val binding: ActivityMyMatchingProfileBinding by lazy {
@@ -27,10 +31,22 @@ class MyMatchingProfileActivity : AppCompatActivity() {
         lifecycleScope.launch {
             viewModel.myPageState.collect {
                 if (!it.loading && it.error != null) {
-                    CustomDialog(
-                        it.error.message ?: getString(R.string.unknownError),
-                        positiveButton = DialogButton("확인")
-                    ).show(this@MyMatchingProfileActivity)
+                    UIErrorHandler.handle(
+                        this@MyMatchingProfileActivity,
+                        PrefsRepository(this@MyMatchingProfileActivity),
+                        it.error,
+                    ) { e ->
+                        when (e.error) {
+                            ErrorCode.MATCHINGINFO_NOT_FOUND -> {
+                                OkDialog(
+                                    e.error.message
+                                ) { finish() }.show(this@MyMatchingProfileActivity)
+                            }
+                            else -> {
+                                OkDialog(getString(R.string.unknownError)).show(this@MyMatchingProfileActivity)
+                            }
+                        }
+                    }
                 }
             }
         }

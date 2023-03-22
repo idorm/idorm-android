@@ -1,9 +1,12 @@
 package org.appcenter.inudorm
 
 import android.app.Dialog
+import android.view.View
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
 
 open class LoadingActivity : AppCompatActivity() {
     private val dialog: Dialog by lazy {
@@ -23,4 +26,5 @@ open class LoadingActivity : AppCompatActivity() {
             dialog.dismiss()
         }
     }
+
 }

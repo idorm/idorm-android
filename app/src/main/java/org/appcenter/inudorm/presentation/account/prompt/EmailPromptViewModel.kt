@@ -41,6 +41,9 @@ class EmailPromptViewModel(private val purpose: EmailPromptPurpose) : ViewModelW
                     }
                 }.onFailure {
                     showToast("이메일 전송에 실패한 것 같습니다.")
+                    _emailLoading.update {
+                        false
+                    }
                 }
             }
         } else {

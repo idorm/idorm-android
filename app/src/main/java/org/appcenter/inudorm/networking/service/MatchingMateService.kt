@@ -16,21 +16,21 @@ interface MatchingMateService {
     suspend fun likedMatchingInfo(): ArrayList<MatchingInfo>
 
     @POST("/member/matching/dislike/{id}")
-    suspend fun addDislikedMatchingInfo(@Path("id") id: Int)
+    suspend fun addLikedOrDislikedMatchingInfo(
+        @Path("id") id: Int,
+        @Query("matchingType") matchingType: Boolean,
+    )
 
     @DELETE("/member/matching/dislike/{id}")
-    suspend fun deleteDislikeMatchingInfo(@Path("id") id: Int)
-
-    @POST("/member/matching/like/{id}")
-    suspend fun addLikedMatchingInfo(@Path("id") id: Int)
-
-    @DELETE("/member/matching/like/{id}")
-    suspend fun deleteLikeMatchingInfo(@Path("id") id: Int)
+    suspend fun deleteLikeOrDislikeMatchingInfo(
+        @Path("id") id: Int,
+        @Query("matchingType") matchingType: Boolean,
+    )
 
     @GET("/member/matching/like")
-    suspend fun getLikedMatchingMates() : ArrayList<MatchingInfo>
+    suspend fun getLikedMatchingMates(): ArrayList<MatchingInfo>
 
     @GET("/member/matching/dislike")
-    suspend fun getDisLikedMatchingMates() : ArrayList<MatchingInfo>
+    suspend fun getDisLikedMatchingMates(): ArrayList<MatchingInfo>
 
 }

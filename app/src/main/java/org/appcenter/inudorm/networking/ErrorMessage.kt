@@ -42,7 +42,7 @@ enum class ErrorCode(val error: String, val message: String) {
     ILLEGAL_ARGUMENT_SELF(StatusCode.BAD_REQUEST.name, "본인은 해당 요청의 설정 대상이 될 수 없습니다."),
     ILLEGAL_ARGUMENT_SAME_PK(StatusCode.BAD_REQUEST.name, "부모 식별자와 자식 식별자가 같을 수 없습니다."),
 
-    ILLEGAL_STATEMENT_MATCHING_INFO_NON_PUBLIC(StatusCode.BAD_REQUEST.name, "매칭정보가 비공개 입니다."),
+    ILLEGAL_STATEMENT_MATCHINGINFO_NON_PUBLIC(StatusCode.BAD_REQUEST.name, "매칭정보가 비공개 입니다."),
 
     /**
      * 401 UNAUTHORIZED : 인증되지 않은 사용자
@@ -66,7 +66,7 @@ enum class ErrorCode(val error: String, val message: String) {
     EMAIL_NOT_FOUND(StatusCode.NOT_FOUND.name, "등록된 이메일이 없습니다."),
     MEMBER_NOT_FOUND(StatusCode.NOT_FOUND.name, "아이디 또는 비밀버호가 일치하지 않습니다."),
     FILE_NOT_FOUND(StatusCode.NOT_FOUND.name, "등록된 파일이 없습니다."),
-    MATCHING_INFO_NOT_FOUND(StatusCode.NOT_FOUND.name, "등록된 매칭정보가 없습니다."),
+    MATCHINGINFO_NOT_FOUND(StatusCode.NOT_FOUND.name, "등록된 매칭정보가 없습니다."),
     COMMENT_NOT_FOUND(StatusCode.NOT_FOUND.name, "등록된 댓글이 없습니다."),
     POST_LIKED_MEMBER_NOT_FOUND(StatusCode.NOT_FOUND.name, "멤버가 게시글에 공감하지 않았습니다."),
     POST_NOT_FOUND(StatusCode.NOT_FOUND.name, "등록된 게시글이 없습니다."),
@@ -82,7 +82,7 @@ enum class ErrorCode(val error: String, val message: String) {
     DUPLICATE_MEMBER(StatusCode.CONFLICT.name, "이미 등록된 멤버 입니다."),
     DUPLICATE_NICKNAME(StatusCode.CONFLICT.name, "이미 등록된 닉네임 입니다."),
     DUPLICATE_SAME_NICKNAME(StatusCode.CONFLICT.name, "기존의 닉네임과 같습니다."),
-    DUPLICATE_MATCHING_INFO(StatusCode.CONFLICT.name, "매칭정보가 이미 등록되어 있습니다."),
+    DUPLICATE_MATCHINGINFO(StatusCode.CONFLICT.name, "매칭정보가 이미 등록되어 있습니다."),
     DUPLICATE_LIKED_MEMBER(StatusCode.CONFLICT.name, "이미 좋아요한 멤버 입니다."),
     DUPLICATE_DISLIKED_MEMBER(StatusCode.CONFLICT.name, "이미 싫어요한 멤버 입니다."),
     DUPLICATE_LIKED(StatusCode.CONFLICT.name, "공감은 한 번만 가능합니다."),

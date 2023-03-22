@@ -179,6 +179,7 @@ object BoardBinding {
                 .plusHours(9).toString(DateTimeFormat.forPattern("MM월 dd일"))
 
         val elapsed = (currentDateTime.millis - dateTime.millis) / 1000
+        IDormLogger.d(this, "$dateTime | $currentDateTime")
         if (elapsed < -10)
             assert(false) { "시간 계산 오류 $dateTime | $currentDateTime" }
 

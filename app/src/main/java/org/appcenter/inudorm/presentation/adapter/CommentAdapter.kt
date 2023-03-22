@@ -90,6 +90,7 @@ class CommentAdapter(
         }
 
         val subComments = _dataSet[position].subComments
+        IDormLogger.d(this, subComments.toString())
         val validSubComments = subComments?.filter { !it.isDeleted } as ArrayList<Comment>
         if (validSubComments.size > 0) {
             setDeleted(_dataSet[position].isDeleted)

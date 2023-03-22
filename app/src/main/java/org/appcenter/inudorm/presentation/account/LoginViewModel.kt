@@ -7,7 +7,9 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import org.appcenter.inudorm.networking.ErrorCode
 import org.appcenter.inudorm.networking.IDormError
+import org.appcenter.inudorm.presentation.mypage.myinfo.UiState
 import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.usecase.Login
 import org.appcenter.inudorm.usecase.UserInputParams
@@ -46,16 +48,13 @@ inline fun <T> Result<T>.onExpectedError(
     return this
 }
 
-
-class LoginState(var success: Boolean, var message: String?)
-
 class LoginViewModel(private val prefsRepository: PrefsRepository) : ViewModel() {
     private val TAG = "[LoginViewModel]"
 
-    val email = MutableLiveData<String>("")
-    val password = MutableLiveData<String>("")
-    private val _loginState = MutableStateFlow(LoginState(false, null))
-    val loginState: StateFlow<LoginState>
+    val email = MutableLiveData("")
+    val password = MutableLiveData("")
+    private val _loginState = MutableStateFlow(UiState<Boolean>(null))
+    val loginState: StateFlow<UiState<Boolean>>
         get() = _loginState
 
 
@@ -64,31 +63,20 @@ class LoginViewModel(private val prefsRepository: PrefsRepository) : ViewModel()
         if (emailValidator(email.value!!) && passwordValidator(password.value!!)) {
             IDormLogger.i(this, "입력조건충족")
             viewModelScope.launch {
-                kotlin.runCatching {
-                    Login(prefsRepository).run(UserInputParams(email.value!!, password.value!!))
-                }.onSuccess {
-                    IDormLogger.i(this, "로긘 성공!")
-                    _loginState.emit(LoginState(true, "로그인 성공"))
-                }.onError {
-                    _loginState.emit(
-                        LoginState(
-                            false,
-                            message = it.message
+                _loginState.emit(
+                    Login(prefsRepository).run(
+                        UserInputParams(
+                            email.value!!,
+                            password.value!!
                         )
                     )
-                    IDormLogger.i(this@LoginViewModel, "로그인 실패,,,")
-                }.onExpectedError {
-                    _loginState.emit(
-                        LoginState(
-                            false,
-                            message = it.message
-                        )
-                    )
-                }
+                )
             }
         } else {
             viewModelScope.launch {
-                _loginState.emit(LoginState(false, "비밀번호의 형식이 올바르지 않습니다."))
+                _loginState.emit(
+                    UiState(error = IDormError(ErrorCode.INVALID_REQEUST_PARAM))
+                )
             }
         }
 

@@ -4,26 +4,25 @@ import kotlinx.coroutines.delay
 import org.appcenter.inudorm.model.MatchingInfo
 import org.appcenter.inudorm.model.RoomMateFilter
 import org.appcenter.inudorm.networking.RetrofitInstance
+import org.appcenter.inudorm.usecase.MutateFavoriteRequestDto
 
 class RoomMateRepository {
     suspend fun fetchRoomMates(params: RoomMateFilter): ArrayList<MatchingInfo> {
         return RetrofitInstance.service.filterMatchingInfo(params)
     }
+
     suspend fun fetchLikedMatchingInfoList(): ArrayList<MatchingInfo> {
         return RetrofitInstance.service.likedMatchingInfo()
     }
-    suspend fun addDislikedMatchingInfo(id:Int) {
-        return RetrofitInstance.service.addDislikedMatchingInfo(id)
+
+    suspend fun addLikedOrDislikedMatchingInfo(params: MutateFavoriteRequestDto) {
+        return RetrofitInstance.service.addLikedOrDislikedMatchingInfo(params.id, params.isLiked)
     }
-    suspend fun deleteDislikedMatchingInfo(id:Int) {
-        return RetrofitInstance.service.deleteDislikeMatchingInfo(id)
+
+    suspend fun deleteLikeOrDislikeMatchingInfo(params: MutateFavoriteRequestDto) {
+        return RetrofitInstance.service.deleteLikeOrDislikeMatchingInfo(params.id, params.isLiked)
     }
-    suspend fun addLikedMatchingInfo(id:Int) {
-        return RetrofitInstance.service.addLikedMatchingInfo(id)
-    }
-    suspend fun deleteLikedMatchingInfo(id:Int) {
-        return RetrofitInstance.service.deleteLikeMatchingInfo(id)
-    }
+
     suspend fun reportMatchingInfo(id: Int) {
         return delay(2000L)
     }
@@ -32,11 +31,11 @@ class RoomMateRepository {
         return RetrofitInstance.service.setMatchingInfoVisibility(visibility)
     }
 
-    suspend fun getLikedMatchingMates() : ArrayList<MatchingInfo> {
+    suspend fun getLikedMatchingMates(): ArrayList<MatchingInfo> {
         return RetrofitInstance.service.getLikedMatchingMates()
     }
 
-    suspend fun getDisLikedMatchingMates() : ArrayList<MatchingInfo> {
+    suspend fun getDisLikedMatchingMates(): ArrayList<MatchingInfo> {
         return RetrofitInstance.service.getDisLikedMatchingMates()
     }
 

@@ -5,8 +5,9 @@ import kotlinx.coroutines.launch
 import org.appcenter.inudorm.model.MatchingInfo
 import org.appcenter.inudorm.presentation.matching.UserMutationEvent
 import org.appcenter.inudorm.presentation.mypage.myinfo.UiState
-import org.appcenter.inudorm.usecase.DeleteLikedMatchingInfo
+import org.appcenter.inudorm.usecase.DeleteLikeOrDislikeMatchingInfo
 import org.appcenter.inudorm.usecase.GetLikedMates
+import org.appcenter.inudorm.usecase.MutateFavoriteRequestDto
 
 class LikedMateListViewModel : MateListViewModel() {
     override val getUseCase = GetLikedMates()
@@ -14,7 +15,7 @@ class LikedMateListViewModel : MateListViewModel() {
     override fun deleteMate(id: Int) {
         viewModelScope.launch {
             val result = kotlin.runCatching {
-                DeleteLikedMatchingInfo().run(id)
+                DeleteLikeOrDislikeMatchingInfo().run(MutateFavoriteRequestDto(id, true))
             }.getOrNull()
             _userMutationState.emit(
                 UserMutationEvent.DeleteLikedMatchingInfo(id, result != null)
