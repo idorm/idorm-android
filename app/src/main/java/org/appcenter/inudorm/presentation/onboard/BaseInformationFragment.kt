@@ -14,8 +14,9 @@ import android.text.Editable
     import org.appcenter.inudorm.databinding.FragmentBaseInformationBinding
     import org.appcenter.inudorm.model.OnboardQuestion
     import org.appcenter.inudorm.presentation.adapter.OnboardRVAdapter
+import org.appcenter.inudorm.util.IDormLogger
 
-    class BaseInformationFragment : Fragment() {
+class BaseInformationFragment : Fragment() {
 
     companion object {
         fun newInstance() = BaseInformationFragment()
@@ -38,12 +39,12 @@ import android.text.Editable
     }
 
     private fun initBind(){
-        val question1 = OnboardQuestion("기상시간을 알려주세요.","(필수)",View.GONE, )
+        val question1 = OnboardQuestion("기상시간을 알려주세요.","(필수)",View.GONE,  )
         val question2 = OnboardQuestion("정리정돈은 얼마나 하시나요?","(필수)",View.GONE)
         val question3 = OnboardQuestion("샤워는 주로 언제/몇 분 동안 하시나요?","(필수)",View.GONE)
         val question4 = OnboardQuestion("룸메와 연락할 개인 오픈채팅 링크를 알려주세요.","(필수)",View.GONE)
-        val question5 = OnboardQuestion("MBTI를 알려주세요.",null,View.GONE)
-        val question6 = OnboardQuestion("미래의 룸메에게 하고 싶은 말은?",null,View.VISIBLE,"100", "0")
+        val question5 = OnboardQuestion("MBTI를 알려주세요.",null,View.GONE, 4)
+        val question6 = OnboardQuestion("미래의 룸메에게 하고 싶은 말은?",null,View.VISIBLE,100, 0)
 
         val list = arrayListOf<OnboardQuestion>(question1, question2, question3, question4, question5, question6)
 
@@ -67,5 +68,8 @@ import android.text.Editable
                 }
             }
         })
+        binding.doneButton.setOnClickListener {
+            IDormLogger.i(this, (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet.toString())
+        }
     }
 }

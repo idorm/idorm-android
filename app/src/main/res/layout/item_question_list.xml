@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/notosans_medium"
             android:includeFontPadding="false"
-            android:text="@{question.currentLen}"
+            android:text="@{question.currentLen.toString()}"
             tools:text="16"
             android:visibility="@{question.visibility}"
             android:textColor="@color/iDorm_blue"
@@ -97,7 +97,7 @@
             android:includeFontPadding="false"
             android:textColor="@color/iDorm_gray_300"
             android:textSize="14sp"
-            android:text="@{question.maxLen}"
+            android:text="@{question.maxLen.toString()}"
             tools:text="100"
             android:visibility="@{question.visibility}"
             android:layout_marginRight="2dp"
@@ -135,20 +135,20 @@
             >
 
             <com.google.android.material.textfield.TextInputEditText
-                android:theme="@style/Widget.DesignSystem.TextInputEditText.FilledBox.Inside"
                 android:id="@+id/onboardField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:gravity="top"
-                android:maxLength="16"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:fontFamily="@font/notosans_medium"
-                android:includeFontPadding="false"
-                android:textColor="@color/black"
+                android:gravity="top"
                 android:hint="@string/inputText"
-                />
+                android:includeFontPadding="false"
+                android:maxLength="@{question.maxLen}"
+                android:text="@{question.answer}"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:theme="@style/Widget.DesignSystem.TextInputEditText.FilledBox.Inside" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
