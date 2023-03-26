@@ -7,6 +7,10 @@
         <variable
             name="question"
             type="org.appcenter.inudorm.model.OnboardQuestion" />
+
+        <variable
+            name="baseInfoViewModel"
+            type="org.appcenter.inudorm.presentation.onboard.BaseInformationViewModel" />
         
     </data>
 
@@ -54,25 +58,87 @@
             app:layout_constraintTop_toTopOf="@id/questionText"
             app:layout_constraintBottom_toBottomOf="@+id/questionText" />
 
-        <!-- TODO : app:endIconMode="custom"으로 변경해서 더 많은 옵션 넣어야 함-->
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.DesignSystem.TextInputLayout.OutlinedBox"
-            app:endIconMode="custom"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/currentLen"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_medium"
+            android:includeFontPadding="false"
+            android:text="16"
+            tools:text="16"
+            android:visibility="invisible"
+            android:textColor="@color/iDorm_blue"
+            android:textSize="14sp"
+            android:layout_marginRight="2dp"
+            app:layout_constraintEnd_toStartOf="@+id/slash"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/slash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_medium"
+            android:includeFontPadding="false"
+            android:text="/"
+            android:visibility="invisible"
+            android:textColor="@color/iDorm_blue"
+            android:textSize="14sp"
+            android:layout_marginRight="2dp"
+            app:layout_constraintEnd_toStartOf="@+id/maxLen"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/maxLen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_medium"
+            android:includeFontPadding="false"
+            android:textColor="@color/iDorm_gray_300"
+            android:textSize="14sp"
+            android:visibility="invisible"
+            android:layout_marginRight="2dp"
+            app:layout_constraintEnd_toStartOf="@+id/textUnit"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_medium"
+            android:includeFontPadding="false"
+            android:textColor="@color/iDorm_gray_300"
+            android:textSize="14sp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputOnboard"
+            style="@style/Widget.DesignSystem.TextInputLayout.OutlinedBox"
+             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:endIconMode="custom"
+            app:errorEnabled="true"
             android:layout_marginTop="8dp"
+            app:hintEnabled="false"
             app:layout_constraintStart_toStartOf="@id/questionText"
             app:layout_constraintTop_toBottomOf="@id/questionText"
-            app:hintEnabled="false"
+
             >
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/answer"
+                android:theme="@style/Widget.DesignSystem.TextInputEditText.FilledBox.Inside"
+                android:id="@+id/onboardField"
                 android:layout_width="match_parent"
-                android:layout_height="51dp"
+                android:layout_height="wrap_content"
                 android:textSize="14sp"
-
-
+                android:gravity="top"
+                android:maxLength="16"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:fontFamily="@font/notosans_medium"
                 android:includeFontPadding="false"
                 android:textColor="@color/black"

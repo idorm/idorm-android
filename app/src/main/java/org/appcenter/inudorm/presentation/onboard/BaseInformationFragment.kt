@@ -2,20 +2,20 @@ package org.appcenter.inudorm.presentation.onboard
 
 import android.os.Bundle
 import android.text.Editable
-import android.text.TextWatcher
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import org.appcenter.inudorm.R
-import org.appcenter.inudorm.databinding.FragmentBaseInformationBinding
-import org.appcenter.inudorm.model.OnboardQuestion
-import org.appcenter.inudorm.presentation.adapter.OnboardRVAdapter
+    import android.text.TextWatcher
+    import android.view.LayoutInflater
+    import android.view.View
+    import android.view.ViewGroup
+    import androidx.databinding.DataBindingUtil
+    import androidx.fragment.app.Fragment
+    import androidx.fragment.app.viewModels
+    import androidx.recyclerview.widget.LinearLayoutManager
+    import org.appcenter.inudorm.R
+    import org.appcenter.inudorm.databinding.FragmentBaseInformationBinding
+    import org.appcenter.inudorm.model.OnboardQuestion
+    import org.appcenter.inudorm.presentation.adapter.OnboardRVAdapter
 
-class BaseInformationFragment : Fragment() {
+    class BaseInformationFragment : Fragment() {
 
     companion object {
         fun newInstance() = BaseInformationFragment()
@@ -38,12 +38,12 @@ class BaseInformationFragment : Fragment() {
     }
 
     private fun initBind(){
-        val question1 = OnboardQuestion("기상시간을 알려주세요.","(필수)")
-        val question2 = OnboardQuestion("정리정돈은 얼마나 하시나요?","(필수)")
-        val question3 = OnboardQuestion("샤워는 주로 언제/몇 분 동안 하시나요?","(필수)")
-        val question4 = OnboardQuestion("연락을 위한 개인 오픈채팅 링크를 알려주세요.","(필수)")
-        val question5 = OnboardQuestion("MBTI를 알려주세요.",null)
-        val question6 = OnboardQuestion("미래의 룸메에게 하고 싶은 말은?",null)
+        val question1 = OnboardQuestion("기상시간을 알려주세요.","(필수)",1)
+        val question2 = OnboardQuestion("정리정돈은 얼마나 하시나요?","(필수)",1)
+        val question3 = OnboardQuestion("샤워는 주로 언제/몇 분 동안 하시나요?","(필수)",1)
+        val question4 = OnboardQuestion("룸메와 연락할 개인 오픈채팅 링크를 알려주세요.","(필수)",1)
+        val question5 = OnboardQuestion("MBTI를 알려주세요.",null,1)
+        val question6 = OnboardQuestion("미래의 룸메에게 하고 싶은 말은?",null,1)
 
         val list = arrayListOf<OnboardQuestion>(question1, question2, question3, question4, question5, question6)
 

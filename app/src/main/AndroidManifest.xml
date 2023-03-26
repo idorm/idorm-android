@@ -157,7 +157,14 @@
             android:label="@string/title_activity_onboard"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".presentation.account.FindPassActivity"
             android:exported="true"
@@ -170,11 +177,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.Blue"
             tools:ignore="LockedOrientationActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".presentation.account.WelcomeActivity"

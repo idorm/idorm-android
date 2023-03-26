@@ -27,6 +27,7 @@ object ValidatorBinding {
                 && focusedView.id == rootView.findViewById<TextInputEditText>(R.id.passwordCheckField).id
     }
 
+
     @JvmStatic
     @BindingAdapter("passwordValidator")
     fun TextInputLayout.passwordInputValidator(pwState: PasswordState) {
@@ -135,5 +136,7 @@ object ValidatorBinding {
         text = span
 
     }
+
+
 
 }
