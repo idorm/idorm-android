@@ -91,6 +91,7 @@ class PostDetailActivity : LoadingActivity(), OnSnackBarCallListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val postId = intent.getIntExtra("id", -9999)
+        IDormLogger.d(this, postId.toString())
         binding.viewModel = viewModel
         binding.activity = this
         binding.lifecycleOwner = this

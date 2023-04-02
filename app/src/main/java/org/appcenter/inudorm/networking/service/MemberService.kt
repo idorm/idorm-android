@@ -24,7 +24,7 @@ interface MemberService {
      * @return data가 빈 Data
      */
     @POST("/v2/login")
-    suspend fun login(@Body body: RequestBody, @Header("fcm-key") fcmKey: String): Response<User>
+    suspend fun login(@Body body: RequestBody, @Header("fcm-token") fcmKey: String): Response<User>
 
     /**
      * 회원가입 API
@@ -72,5 +72,7 @@ interface MemberService {
     @PATCH("member/password")
     suspend fun changePassword(@Body body: ChangePasswordDto): User
 
+    @PATCH("member/fcm")
+    suspend fun updateFcmToken(@Header("fcm-token") token: String)
 
 }

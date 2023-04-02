@@ -2,12 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+
     <uses-sdk tools:overrideLibrary="androidx.core.splashscreen" />
 
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <queries>
         <package android:name="com.mailplug.aeolos2" />
@@ -18,9 +20,22 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.IDorm.White">
+        android:theme="@style/Theme.IDorm.White"
+        android:usesCleartextTraffic="true">
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notification" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/iDorm_blue" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="POST" />
 
         <service
             android:name=".service.FCMService"
@@ -62,7 +77,7 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
-            tools:ignore="LockedOrientationActivity" >
+            tools:ignore="LockedOrientationActivity">
 
         </activity>
 
@@ -158,11 +173,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
             tools:ignore="LockedOrientationActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity
@@ -177,6 +187,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.Blue"
             tools:ignore="LockedOrientationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity
@@ -214,6 +229,20 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
             tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".NotificationHubActivity"
+            android:exported="true"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <action android:name="NOTICE" />
+                <action android:name="COMMENT" />
+                <action android:name="SUBCOMMENT" />
+                <action android:name="TOPPOST" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>

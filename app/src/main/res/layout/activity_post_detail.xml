@@ -341,7 +341,7 @@
                     android:layout_marginStart="10sp"
                     android:background="@drawable/view_edit_text_pill_gray_100"
                     android:hint="@string/enterCommentHint"
-                    android:onTextChanged="@{viewModel.setCommentInput}"
+                    android:onTextChanged="@{viewModel::setCommentInput}"
                     android:padding="10sp"
                     android:paddingEnd="35sp"
                     android:text="@{viewModel.commentState.content}"

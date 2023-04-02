@@ -211,7 +211,7 @@ object BoardBinding {
                 LocalDateTime.parse(time, DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss"))
                     .toDateTime(DateTimeZone.UTC)
             val currentDateTime =
-                LocalDateTime.now().toDateTime(DateTimeZone.forID("Asia/Seoul"))
+                LocalDateTime.now().toDateTime(DateTimeZone.UTC)
             val dateString =
                 LocalDateTime.parse(time, DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss"))
                     .plusHours(9).toString(DateTimeFormat.forPattern("MM월 dd일"))

@@ -63,4 +63,8 @@ class UserRepository {
     suspend fun changePassword(params: ChangePasswordDto): User {
         return RetrofitInstance.service.changePassword(params)
     }
+
+    suspend fun updateFcmToken(token: String) {
+        RetrofitInstance.service.updateFcmToken(token)
+    }
 }

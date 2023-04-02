@@ -11,6 +11,7 @@ import android.os.Build
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import kotlinx.coroutines.CoroutineScope
@@ -24,10 +25,12 @@ import org.appcenter.inudorm.util.IDormLogger
 class FCMService : FirebaseMessagingService() {
 
     enum class NotificationChannel(val id: String, val displayName: String, val desc: String) {
-        Calendar("calendar", "캘린더", "캘린더 알림을 활성화합니다."),
-        Comment("comment", "댓글", "댓글 알림을 활성화합니다."),
-        SubComment("subComment", "대댓글", "대댓글 알림을 활성화합니다."),
-        Announcement("announcement", "공지", "공지 알림을 활성화합니다.");
+        Calendar("CALENDAR", "캘린더", "캘린더 알림을 활성화합니다."),
+        Comment("COMMENT", "댓글", "댓글 알림을 활성화합니다."),
+        SubComment("SUBCOMMENT", "대댓글", "대댓글 알림을 활성화합니다."),
+        TopPost("TOPPOST", "인기 게시글", "인기 게시글 알림을 활성화합니다."),
+        Announcement("ANNOUNCEMENT", "공지", "공지 알림을 활성화합니다."),
+        None("NONE", "알림", "분류가 제대로 되지 않은 경우 등의 공지입니다.");
 
         companion object {
             private val map = NotificationChannel.values().associateBy { it.id }
@@ -74,10 +77,11 @@ class FCMService : FirebaseMessagingService() {
         message: String,
         pendingIntent: PendingIntent,
         @DrawableRes
-        icon: Int = R.mipmap.ic_launcher,
+        icon: Int = R.drawable.ic_notification,
     ) {
         val notification = NotificationCompat.Builder(this, channel.id)
             .setSmallIcon(icon)
+            .setColor(ContextCompat.getColor(this, R.color.iDorm_blue))
             .setContentTitle(title) //푸시알림의 제목
             .setContentText(message) //푸시알림의 내용
             .setChannelId(channel.id)
@@ -100,32 +104,26 @@ class FCMService : FirebaseMessagingService() {
 
         // Check if message contains a data payload.
         if (remoteMessage.data.isNotEmpty()) {
-            // data, 거의 쓸일 없음
-            IDormLogger.d(this, "Message data payload: ${remoteMessage.data}")
-        }
+            val channelId = remoteMessage.data["channelId"]
+            val title = remoteMessage.data["title"]
+            val content = remoteMessage.data["content"]
 
-        // Check if message contains a notification payload.
-        remoteMessage.notification?.let {
-            IDormLogger.d(
-                this,
-                "Message Notification \nTitle: ${it.title}\nBody: ${it.body}\nChannel Id: ${it.channelId}"
-            )
-            // 안드로이드 버전이 알림 채널을 지원하는지? (오레오 이상)
-            val notificationChannel = NotificationChannel.fromId(it.channelId ?: "") ?: return
+            IDormLogger.d(this, "Message data payload: ${remoteMessage.data}")
+            val notificationChannel = NotificationChannel.fromId(channelId ?: "") ?: return
             if (
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.O &&
-                notificationManager.getNotificationChannel(it.channelId ?: "") == null
+                notificationManager.getNotificationChannel(channelId ?: "") == null
             ) {
                 createChannel(
-                    it.channelId ?: "",
+                    channelId ?: "",
                     notificationChannel.displayName,
                     notificationChannel.desc,
                 )
             }
             createNotification(
                 notificationChannel,
-                it.title ?: "",
-                it.body ?: "",
+                title ?: "",
+                content ?: "",
                 PendingIntent.getActivity(
                     applicationContext,
                     33,
@@ -134,7 +132,6 @@ class FCMService : FirebaseMessagingService() {
                 ),
             )
         }
-
     }
 
 }
