@@ -55,7 +55,7 @@ class UserRepository {
         return RetrofitInstance.service.withdrawMember().isSuccessful
     }
 
-    suspend fun changeNickName(params: ChangeNickNameDto): User {
+    suspend fun changeNickName(params: ChangeNickNameDto) {
         return RetrofitInstance.service.changeNickname(params)
     }
 

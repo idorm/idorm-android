@@ -127,7 +127,6 @@ class BoardFragment : Fragment() {
         // 클릭된 메뉴 아이템의 아이디 마다 when 구절로 클릭시 동작을 설정한다.
         when (item.itemId) {
             R.id.openNoti -> {
-                Toast.makeText(requireContext(), "알림 창 열기", Toast.LENGTH_SHORT).show()
             }
         }
         return super.onOptionsItemSelected(item)

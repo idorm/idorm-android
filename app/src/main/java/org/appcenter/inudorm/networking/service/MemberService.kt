@@ -64,7 +64,7 @@ interface MemberService {
      * @return data가 빈 Data
      */
     @PATCH("member/nickname")
-    suspend fun changeNickname(@Body body: ChangeNickNameDto): User
+    suspend fun changeNickname(@Body body: ChangeNickNameDto)
 
     /**
      * 로그인된 사용자 정보 중 비밀번호만 업데이트 하는 API

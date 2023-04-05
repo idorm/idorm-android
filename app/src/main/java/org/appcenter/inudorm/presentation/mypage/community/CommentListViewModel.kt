@@ -12,7 +12,6 @@ import org.appcenter.inudorm.presentation.mypage.matching.Sortable
 import org.appcenter.inudorm.presentation.mypage.myinfo.UiState
 import org.appcenter.inudorm.usecase.GetWroteComments
 
-
 class CommentListViewModel : ViewModel() {
     private val _commentListState =
         MutableStateFlow(Sortable("addedAtDesc", UiState<ArrayList<Comment>>()))
@@ -29,50 +28,7 @@ class CommentListViewModel : ViewModel() {
     fun getComments() {
         viewModelScope.launch {
             _commentListState.update {
-                //GetWroteComments().run(null)
-                it.copy(
-                    data = UiState(
-                        data = arrayListOf(
-                            Comment(
-                                1,
-                                "댓글1",
-                                "2023-03-01 03:02:22",
-                                false,
-                                3,
-                                "닉네임",
-                                null, null, null
-                            ),
-                            Comment(
-                                2,
-                                "댓글2",
-                                "2023-03-01 03:02:22",
-                                false,
-                                3,
-                                "닉네임",
-                                null, null, null
-                            ),
-                            Comment(
-                                3,
-                                "댓글3",
-                                "2023-03-01 03:02:22",
-                                false,
-                                3,
-                                "닉네임",
-                                null, null, null
-                            ),
-                            Comment(
-                                4,
-                                "댓글4",
-                                "2023-03-01 03:02:22",
-                                false,
-                                3,
-                                "닉네임",
-                                null, null, null
-                            ),
-                        )
-                    )
-                )
-
+                Sortable(it.sortBy, GetWroteComments().run(null))
             }
         }
     }

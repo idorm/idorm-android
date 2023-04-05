@@ -61,19 +61,16 @@ class ChangePasswordActivity : PromptActivity() {
         if (binding.pager.currentItem == pagerAdapter.itemCount - 1)
             when (binding.pager.currentItem) {
                 0 -> {
-                    Toast.makeText(this, "암호화된 코드를 갖고 프래그먼트 생성", Toast.LENGTH_SHORT).show()
                     val fragment = CodePromptFragment()
                     fragment.arguments = data
                     addPage(fragment)
                 }
                 1 -> {
-                    Toast.makeText(this, "비밀번호 설정 프래그먼트 생성", Toast.LENGTH_SHORT).show()
                     val fragment = PasswordPromptFragment()
                     fragment.arguments = data
                     addPage(fragment)
                 }
                 2 -> {
-                    Toast.makeText(this, "비밀번호 변경 시도", Toast.LENGTH_SHORT).show()
                     val password = changePassBundle.getString("password")
                     lifecycleScope.launch {
                         kotlin.runCatching {

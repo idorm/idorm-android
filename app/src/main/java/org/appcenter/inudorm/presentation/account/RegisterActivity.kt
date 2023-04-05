@@ -100,7 +100,6 @@ class RegisterActivity : PromptActivity() {
         val agreed = true
         if (nickname.matches("^[A-Za-zㄱ-ㅎ가-힣0-9]{2,8}$".toRegex())) {
             if (agreed) {
-                Toast.makeText(this, "회원가입 시도", Toast.LENGTH_SHORT).show()
                 _register(email, password, nickname)
             } else {
                 CustomDialog("약관에 동의해야 합니다.", positiveButton = DialogButton("확인")).show(

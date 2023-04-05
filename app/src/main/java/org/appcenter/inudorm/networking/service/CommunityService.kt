@@ -84,7 +84,7 @@ interface CommunityService {
     @GET("member/posts/like")
     suspend fun getLikedPosts(): ArrayList<Post>
 
-    @GET("member/comments/write")
+    @GET("member/comments")
     suspend fun getWroteComments(): ArrayList<Comment>
 
 
