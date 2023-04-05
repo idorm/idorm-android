@@ -3,7 +3,8 @@ package org.appcenter.inudorm.presentation.onboard
 import android.os.Bundle
 import android.text.Editable
     import android.text.TextWatcher
-    import android.view.LayoutInflater
+import android.util.Log
+import android.view.LayoutInflater
     import android.view.View
     import android.view.ViewGroup
     import androidx.databinding.DataBindingUtil
@@ -69,6 +70,7 @@ class BaseInformationFragment : Fragment() {
             }
         })
         binding.doneButton.setOnClickListener {
+            Log.d("안녕", binding.age1.text.toString() )
             IDormLogger.i(this, (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet.toString())
         }
     }

@@ -2,6 +2,7 @@ package org.appcenter.inudorm.presentation.mypage.matching
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -23,9 +24,9 @@ class MyMatchingProfileActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.activity = this;
-        binding.viewModel = viewModel;
-        binding.lifecycleOwner = this;
+        binding.activity = this
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
         viewModel.getMatchingInfo()
 
         lifecycleScope.launch {
@@ -40,7 +41,7 @@ class MyMatchingProfileActivity : AppCompatActivity() {
                             ErrorCode.MATCHINGINFO_NOT_FOUND -> {
                                 OkDialog(
                                     e.error.message
-                                ) { finish() }.show(this@MyMatchingProfileActivity)
+                                ) { editImage() }.show(this@MyMatchingProfileActivity)
                             }
                             else -> {
                                 OkDialog(getString(R.string.unknownError)).show(this@MyMatchingProfileActivity)
@@ -52,6 +53,7 @@ class MyMatchingProfileActivity : AppCompatActivity() {
         }
 
     }
+
 
     fun editImage() {
         startActivity(

@@ -10,7 +10,6 @@ import org.appcenter.inudorm.presentation.onboard.AdditionalInformationFragment
 import org.appcenter.inudorm.presentation.onboard.BaseInformationFragment
 
 class OnboardActivity : PromptActivity() {
-
     private var onBoardBundle: Bundle = Bundle()
 
     private val binding: ActivityOnboardBinding by lazy {

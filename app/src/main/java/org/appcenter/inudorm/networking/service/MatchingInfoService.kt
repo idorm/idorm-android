@@ -18,7 +18,6 @@ interface MatchingInfoService {
      * @param body MatchingInfo를 Serialize한 것의 RequestBody
      * @return data가 빈 Data
      */
-    @POST("/member/matchinginfo")
     suspend fun saveMatchingInfo(@Body body: RequestBody): Nothing
 
     @PATCH("member/matchinginfo")

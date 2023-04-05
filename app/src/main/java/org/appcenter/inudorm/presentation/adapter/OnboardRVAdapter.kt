@@ -40,13 +40,9 @@ class OnboardRVAdapter (private val _dataSet: ArrayList<OnboardQuestion>, contex
 
 
         holder.view.onboardField.addTextChangedListener {
-
             _dataSet[position].answer = it.toString()
-
             binding.currentLen.text = ((it ?: "").length.toString())
-
             validator(holder, it.toString().length)
-
         }
 
 
