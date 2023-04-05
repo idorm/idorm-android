@@ -1,5 +1,6 @@
 package org.appcenter.inudorm.presentation.mypage.matching
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -10,9 +11,8 @@ import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityMyMatchingProfileBinding
 import org.appcenter.inudorm.networking.ErrorCode
 import org.appcenter.inudorm.networking.UIErrorHandler
+import org.appcenter.inudorm.presentation.account.OnboardActivity
 import org.appcenter.inudorm.repository.PrefsRepository
-import org.appcenter.inudorm.util.CustomDialog
-import org.appcenter.inudorm.util.DialogButton
 import org.appcenter.inudorm.util.OkDialog
 
 class MyMatchingProfileActivity : AppCompatActivity() {
@@ -54,6 +54,8 @@ class MyMatchingProfileActivity : AppCompatActivity() {
     }
 
     fun editImage() {
-
+        startActivity(
+            Intent(this, OnboardActivity::class.java)
+        )
     }
 }

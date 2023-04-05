@@ -10,7 +10,7 @@ import org.appcenter.inudorm.presentation.onboard.AdditionalInformationFragment
 import org.appcenter.inudorm.presentation.onboard.BaseInformationFragment
 
 class OnboardActivity : PromptActivity() {
-    //TODO : 유즈케이스랑 리사이클러뷰 등록 좀 부탁합니당. 혹시 이거 할 때 되면 말해 줭! 나 구조 설명 좀 듣구 싶어성ㅎㅎㅎ
+
     private var onBoardBundle: Bundle = Bundle()
 
     private val binding: ActivityOnboardBinding by lazy {

@@ -11,10 +11,6 @@ data class OnboardQuestion(
     var currentLen : Int? = 0,
     var answer : String = ""
 
-
-
-
-
     //var validator: (String) -> Boolean
 
 )
