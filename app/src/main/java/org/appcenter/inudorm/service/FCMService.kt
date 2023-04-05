@@ -18,8 +18,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.App
+import org.appcenter.inudorm.NotificationHubActivity
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.presentation.MainActivity
+import org.appcenter.inudorm.presentation.board.PostDetailActivity
 import org.appcenter.inudorm.util.IDormLogger
 
 class FCMService : FirebaseMessagingService() {
@@ -120,6 +122,12 @@ class FCMService : FirebaseMessagingService() {
                     notificationChannel.desc,
                 )
             }
+            val bundle = remoteMessage.toIntent().extras
+            val intent = Intent(this, NotificationHubActivity::class.java)
+            if (bundle != null) {
+                intent.putExtras(bundle)
+            }
+
             createNotification(
                 notificationChannel,
                 title ?: "",
@@ -127,7 +135,7 @@ class FCMService : FirebaseMessagingService() {
                 PendingIntent.getActivity(
                     applicationContext,
                     33,
-                    Intent(this@FCMService, MainActivity::class.java),
+                    intent,
                     PendingIntent.FLAG_IMMUTABLE
                 ),
             )
