@@ -30,6 +30,24 @@ class ChangePasswordActivity : PromptActivity() {
         DataBindingUtil.setContentView(this, R.layout.activity_find_pass)
     }
 
+    override fun onBackPressed() { // 스텝이 첫번째일 경우 원래 백버튼 이벤트 리스너 호출
+        when (binding.pager.currentItem) {
+            0 -> {
+                super.onBackPressed()
+            }
+            2 -> {
+                super.onBackPressed()
+                super.onBackPressed()
+                super.onBackPressed()
+            }
+            else -> {
+                binding.pager.currentItem--
+                pagerAdapter.deleteFragment(binding.pager.currentItem + 1)
+                setToolbarIcon()
+            }
+        }
+    }
+
     private var changePassBundle: Bundle = Bundle()
     private val prefsRepository: PrefsRepository by lazy {
         PrefsRepository(this)

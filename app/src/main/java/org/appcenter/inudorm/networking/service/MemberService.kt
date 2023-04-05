@@ -69,7 +69,7 @@ interface MemberService {
     /**
      * 로그인된 사용자 정보 중 비밀번호만 업데이트 하는 API
      */
-    @PATCH("member/password")
+    @PATCH("password")
     suspend fun changePassword(@Body body: ChangePasswordDto): User
 
     @PATCH("member/fcm")
