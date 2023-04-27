@@ -15,13 +15,13 @@ interface MatchingMateService {
     @POST("/member/matching/like")
     suspend fun likedMatchingInfo(): ArrayList<MatchingInfo>
 
-    @POST("/member/matching/dislike/{id}")
+    @POST("/member/matching/{id}")
     suspend fun addLikedOrDislikedMatchingInfo(
         @Path("id") id: Int,
         @Query("matchingType") matchingType: Boolean,
     )
 
-    @DELETE("/member/matching/dislike/{id}")
+    @DELETE("/member/matching/{id}")
     suspend fun deleteLikeOrDislikeMatchingInfo(
         @Path("id") id: Int,
         @Query("matchingType") matchingType: Boolean,
