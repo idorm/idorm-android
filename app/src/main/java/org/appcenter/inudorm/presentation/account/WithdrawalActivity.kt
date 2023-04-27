@@ -34,9 +34,12 @@ class WithdrawalActivity : AppCompatActivity() {
         }
     }
 
-    private val signOutButton = DialogButton(getString(R.string.ok), onClick = {
-        signOutAndGoLogin()
-    })
+    // requires context.
+    private val signOutButton by lazy {
+        DialogButton(getString(R.string.ok), onClick = {
+            signOutAndGoLogin()
+        })
+    }
 
     private fun signOutAndGoLogin() {
         lifecycleScope.launch {
