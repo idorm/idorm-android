@@ -7,6 +7,7 @@ import org.appcenter.inudorm.presentation.mypage.community.PostListActivity
 
 class WrotePostListActivity : PostListActivity() {
     val viewModel: WrotePostListViewModel by viewModels()
+    override val title: String = "내가 쓴 글"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.viewModel = viewModel

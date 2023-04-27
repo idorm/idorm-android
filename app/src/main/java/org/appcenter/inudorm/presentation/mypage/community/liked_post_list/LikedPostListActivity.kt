@@ -8,10 +8,10 @@ import org.appcenter.inudorm.presentation.mypage.community.wrote_post_list.Wrote
 
 class LikedPostListActivity : PostListActivity() {
     val viewModel: LikedPostListViewModel by viewModels()
+    override val title: String = "공감한 글"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.toolbarText.text = "공감한 글"
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         binding.postList.adapter = PostAdapter(arrayListOf()) {

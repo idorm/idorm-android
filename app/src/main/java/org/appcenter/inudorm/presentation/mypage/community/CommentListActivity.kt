@@ -2,6 +2,7 @@ package org.appcenter.inudorm.presentation.mypage.community
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -30,12 +31,26 @@ class CommentListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        binding.toolbarText.text = "내가 쓴 댓글"
+
         binding.commentListRecycler.adapter = CommentListAdapter(arrayListOf()) {
             goDetail(it.postId)
         }
         viewModel.getComments()
-
-
-
     }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // 클릭된 메뉴 아이템의 아이디 마다 when 구절로 클릭시 동작을 설정한다.
+        when (item.itemId) {
+            android.R.id.home -> { // 메뉴 버튼, 사실상 백버튼으로 취급하면 됩니다!
+                this.onBackPressed()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 }
