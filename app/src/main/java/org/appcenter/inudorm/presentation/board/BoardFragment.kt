@@ -125,10 +125,6 @@ class BoardFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // 클릭된 메뉴 아이템의 아이디 마다 when 구절로 클릭시 동작을 설정한다.
-        when (item.itemId) {
-            R.id.openNoti -> {
-            }
-        }
         return super.onOptionsItemSelected(item)
     }
 

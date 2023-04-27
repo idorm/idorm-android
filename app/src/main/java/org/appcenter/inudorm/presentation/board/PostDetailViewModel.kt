@@ -150,7 +150,8 @@ class PostDetailViewModel : ViewModel() {
             _postDetailState.update {
                 it.copy(
                     data = it.data?.copy(
-                        isLiked = !it.data.isLiked
+                        isLiked = !it.data.isLiked,
+                        likesCount = if (!it.data.isLiked) it.data.likesCount + 1 else it.data.likesCount - 1
                     )
                 )
             }

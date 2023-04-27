@@ -35,7 +35,7 @@ abstract class MateListActivity : AppCompatActivity() {
     val binding: ActivityLikedMateListBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_liked_mate_list)
     }
-    abstract val title : String
+    abstract val title: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +45,7 @@ abstract class MateListActivity : AppCompatActivity() {
             adapter = mateAdapter
             layoutManager = mLayoutManager
         }
+
         lifecycleScope.launch {
             viewModel.mateListState.collect(collector)
         }
@@ -52,7 +53,12 @@ abstract class MateListActivity : AppCompatActivity() {
             viewModel.userMutationState.collect(userMutationCollector)
         }
 
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+
         binding.toolbarText.text = title
+
 
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
@@ -74,7 +80,8 @@ abstract class MateListActivity : AppCompatActivity() {
         IDormLogger.i(this, it.toString())
         when (it) {
             is UserMutationEvent.DeleteDislikedMatchingInfo,
-            is UserMutationEvent.DeleteLikedMatchingInfo -> {
+            is UserMutationEvent.DeleteLikedMatchingInfo,
+            -> {
                 viewModel.getMates()
             }
             is UserMutationEvent.ReportMatchingInfo -> {}
