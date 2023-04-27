@@ -1,6 +1,8 @@
 package org.appcenter.inudorm.repository
 
+import io.sentry.protocol.Response
 import org.appcenter.inudorm.model.MatchingInfo
+import org.appcenter.inudorm.model.OnbaordInfo
 import org.appcenter.inudorm.networking.RetrofitInstance
 
 /**
@@ -10,4 +12,9 @@ class MatchingInfoRepository {
     suspend fun fetchMatchingInfo(): MatchingInfo {
         return RetrofitInstance.service.lookupMatchingInfo()
     }
+
+    suspend fun saveMatchingInfo(params: OnbaordInfo): OnbaordInfo {
+        return RetrofitInstance.service.saveMatchingInfo(params)
+    }
+
 }

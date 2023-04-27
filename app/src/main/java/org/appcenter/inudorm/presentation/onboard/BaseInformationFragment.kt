@@ -3,18 +3,19 @@ package org.appcenter.inudorm.presentation.onboard
 import android.os.Bundle
 import android.text.Editable
     import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
     import android.view.View
     import android.view.ViewGroup
-    import androidx.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
     import androidx.fragment.app.Fragment
     import androidx.fragment.app.viewModels
     import androidx.recyclerview.widget.LinearLayoutManager
     import org.appcenter.inudorm.R
     import org.appcenter.inudorm.databinding.FragmentBaseInformationBinding
-    import org.appcenter.inudorm.model.OnboardQuestion
+import org.appcenter.inudorm.model.OnbaordInfo
+import org.appcenter.inudorm.model.OnboardQuestion
     import org.appcenter.inudorm.presentation.adapter.OnboardRVAdapter
+import org.appcenter.inudorm.usecase.CreateOnboard
 import org.appcenter.inudorm.util.IDormLogger
 
 class BaseInformationFragment : Fragment() {
@@ -70,7 +71,6 @@ class BaseInformationFragment : Fragment() {
             }
         })
         binding.doneButton.setOnClickListener {
-            Log.d("안녕", binding.age1.text.toString() )
             IDormLogger.i(this, (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet.toString())
         }
     }

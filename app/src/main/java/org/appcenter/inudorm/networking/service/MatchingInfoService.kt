@@ -1,7 +1,8 @@
 package org.appcenter.inudorm.networking.service
 
-import okhttp3.RequestBody
+import io.sentry.protocol.Response
 import org.appcenter.inudorm.model.MatchingInfo
+import org.appcenter.inudorm.model.OnbaordInfo
 import retrofit2.http.*
 
 
@@ -18,7 +19,7 @@ interface MatchingInfoService {
      * @param body MatchingInfo를 Serialize한 것의 RequestBody
      * @return data가 빈 Data
      */
-    suspend fun saveMatchingInfo(@Body body: RequestBody): Nothing
+    suspend fun saveMatchingInfo(@Body body: OnbaordInfo): OnbaordInfo
 
     @PATCH("member/matchinginfo")
     suspend fun setMatchingInfoVisibility(@Query("isMatchingInfoPublic") visibility: Boolean)
