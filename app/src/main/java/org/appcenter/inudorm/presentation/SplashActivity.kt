@@ -24,6 +24,7 @@ import org.appcenter.inudorm.R
 import org.appcenter.inudorm.presentation.account.LoginActivity
 import org.appcenter.inudorm.presentation.account.onError
 import org.appcenter.inudorm.presentation.account.onExpectedError
+import org.appcenter.inudorm.presentation.board.PostDetailActivity
 import org.appcenter.inudorm.presentation.mypage.myinfo.UiState
 import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.usecase.LoginRefresh
@@ -112,6 +113,40 @@ class SplashActivity : AppCompatActivity() {
             }
         }
     }
+
+
+    private fun handleFallback() {
+        startActivity(Intent(this, MainActivity::class.java))
+        return
+    }
+    private fun moveWithMainStack(intent: Intent) {
+        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(intent)
+        return
+    }
+    private fun handleLink() {
+        val uri = intent.data
+        if (uri == null) { // 올바르지 않은 Uri Fallback
+            handleFallback()
+            return
+        }
+        val path = uri.getQueryParameter("path")
+        val contentId = uri.getQueryParameter("contentId")
+        if (path.isNullOrEmpty() || contentId.isNullOrEmpty()) {
+            handleFallback()
+            return
+        }
+
+        IDormLogger.d(this, "$path |  $contentId")
+        when (path) {
+            "post" -> {
+                val intent = Intent(this, PostDetailActivity::class.java)
+                intent.putExtra("id", contentId.toIntOrNull())
+                moveWithMainStack(intent)
+            }
+        }
+
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -128,7 +163,7 @@ class SplashActivity : AppCompatActivity() {
                 if (isSuccess) {
                     IDormLogger.i(this, "${App.savedUser} loaded!!!")
                     if (App.savedUser != null) {
-                        goHome()
+                        handleLink()
                     } else {
                         goLogin()
                     }
