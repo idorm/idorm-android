@@ -18,16 +18,16 @@ class EditPostActivity : EditorActivity() {
                 when (it) {
                     is State.Success<*> -> {
                         this@EditPostActivity.setLoadingState(false)
-                        OkDialog("게시글이 수정되었어요.") {
+                        OkDialog("게시글이 수정되었어요.", onOk = {
                             setResult(WritePostActivity.EDITOR_FINISHED)
                             finish()
-                        }.show(this@EditPostActivity)
+                        }, cancelable = false).show(this@EditPostActivity)
                     }
                     is State.Error -> {
                         this@EditPostActivity.setLoadingState(false)
-                        OkDialog("게시글 수정에 실패했어요..", "오류") {
+                        OkDialog("게시글 수정에 실패했어요..", "오류", onOk = {
                             finish()
-                        }.show(this@EditPostActivity)
+                        }).show(this@EditPostActivity)
                     }
                     is State.Loading -> {
                         this@EditPostActivity.setLoadingState(true)

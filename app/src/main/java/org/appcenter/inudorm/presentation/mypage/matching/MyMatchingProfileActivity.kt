@@ -40,8 +40,9 @@ class MyMatchingProfileActivity : AppCompatActivity() {
                         when (e.error) {
                             ErrorCode.MATCHINGINFO_NOT_FOUND -> {
                                 OkDialog(
-                                    e.error.message
-                                ) { editImage() }.show(this@MyMatchingProfileActivity)
+                                    e.error.message,
+                                    onOk = { editImage() }
+                                ).show(this@MyMatchingProfileActivity)
                             }
                             else -> {
                                 OkDialog(getString(R.string.unknownError)).show(this@MyMatchingProfileActivity)

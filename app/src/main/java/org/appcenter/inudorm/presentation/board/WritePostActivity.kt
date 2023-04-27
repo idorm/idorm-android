@@ -36,16 +36,16 @@ class WritePostActivity : EditorActivity() {
                 when (it) {
                     is State.Success<*> -> {
                         this@WritePostActivity.setLoadingState(false)
-                        OkDialog("게시글이 등록되었습니다.") {
+                        OkDialog("게시글이 등록되었습니다.", onOk = {
                             setResult(EDITOR_FINISHED)
                             finish()
-                        }.show(this@WritePostActivity)
+                        }, cancelable = false).show(this@WritePostActivity)
                     }
                     is State.Error -> {
                         this@WritePostActivity.setLoadingState(false)
-                        OkDialog("게시글 작성에 실패했습니다..", "오류") {
+                        OkDialog("게시글 작성에 실패했습니다..", "오류", {
                             finish()
-                        }.show(this@WritePostActivity)
+                        }).show(this@WritePostActivity)
                     }
                     is State.Loading -> {
                         this@WritePostActivity.setLoadingState(true)

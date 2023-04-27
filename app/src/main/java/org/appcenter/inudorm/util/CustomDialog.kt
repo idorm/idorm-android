@@ -40,11 +40,17 @@ class OkCancelDialog(text: String, titleText: String? = "", onOk: () -> Unit) :
         negativeButton = DialogButton("취소")
     )
 
-class OkDialog(text: String, titleText: String? = "", onOk: (() -> Unit)? = null) :
+class OkDialog(
+    text: String,
+    titleText: String? = "",
+    onOk: (() -> Unit)? = null,
+    cancelable: Boolean? = true,
+) :
     CustomDialog(
         text,
         titleText,
         positiveButton = DialogButton("확인", onClick = onOk),
+        cancelable = cancelable
     )
 
 // Todo: Dialog 코드 개똥방구임 확장성 개똥..; 나중에 꼭 리팩토링 하자;
@@ -59,6 +65,7 @@ open class CustomDialog(
     private val titleText: String? = "",
     private val positiveButton: DialogButton? = null,
     private val negativeButton: DialogButton? = null,
+    private val cancelable: Boolean? = true,
 ) {
 
     fun show(context: Context) {
@@ -67,6 +74,7 @@ open class CustomDialog(
         val customLayout = inflater.inflate(R.layout.layout_dialog, null)
         val build = AlertDialog.Builder(context).apply {
             setView(customLayout)
+            setCancelable(cancelable ?: true)
         }
 
         val dialog = build.create()
