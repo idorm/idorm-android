@@ -8,11 +8,14 @@ import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.LoadingActivity
 import org.appcenter.inudorm.OnSnackBarCallListener
@@ -20,6 +23,7 @@ import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityPostDetailBinding
 import org.appcenter.inudorm.model.SelectItem
 import org.appcenter.inudorm.model.board.Comment
+import org.appcenter.inudorm.networking.ErrorCode
 import org.appcenter.inudorm.networking.UIErrorHandler
 import org.appcenter.inudorm.presentation.ListBottomSheet
 import org.appcenter.inudorm.presentation.adapter.CommentAdapter
@@ -88,9 +92,10 @@ class PostDetailActivity : LoadingActivity(), OnSnackBarCallListener {
         }
     }
 
+    private var postId: Int? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val postId = intent.getIntExtra("id", -9999)
+        postId = intent.getIntExtra("id", -9999)
         IDormLogger.d(this, postId.toString())
         binding.viewModel = viewModel
         binding.activity = this
@@ -101,9 +106,17 @@ class PostDetailActivity : LoadingActivity(), OnSnackBarCallListener {
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowTitleEnabled(false)
         }
-        viewModel.getPost(postId)
+
+        if (postId == null) {
+            OkDialog("글을 불러올 수 없습니다.", "오류", {
+                finish()
+            }, false)
+            return
+        }
+
+        viewModel.getPost(postId!!)
         binding.refreshLayout.setOnRefreshListener {
-            viewModel.getPost(postId)
+            viewModel.getPost(postId!!)
         }
         binding.images.adapter = ImageViewAdapter(arrayListOf()) { idx, imageUrl ->
             val intent = Intent(this, ImageViewPager::class.java)
@@ -115,6 +128,7 @@ class PostDetailActivity : LoadingActivity(), OnSnackBarCallListener {
             startActivity(intent)
         }
 
+        // FIXME: 워매 이딴 코드는 뭐여 ;;
         lifecycleScope.launch {
             viewModel.postDetailState.collect {
                 if (!it.loading && it.error == null && it.data != null) {
@@ -159,7 +173,7 @@ class PostDetailActivity : LoadingActivity(), OnSnackBarCallListener {
                                             positiveButton = DialogButton("확인", onClick = {
                                                 viewModel.deleteComment(
                                                     comment.commentId,
-                                                    postId
+                                                    postId!!
                                                 )
                                             }),
                                             negativeButton = DialogButton("취소")
@@ -196,6 +210,11 @@ class PostDetailActivity : LoadingActivity(), OnSnackBarCallListener {
             }
         }
         lifecycleScope.launch {
+            viewModel.postLikeResult.collect {
+                handleState(it)
+            }
+        }
+        lifecycleScope.launch {
             viewModel.sortState.collect {
                 val adapter = (binding.comments.adapter as CommentAdapter?)
                 // Adapter가 null이 아니면 데이터 로드도 완료된 것
@@ -208,6 +227,7 @@ class PostDetailActivity : LoadingActivity(), OnSnackBarCallListener {
         }
 
     }
+
 
     private fun handleState(state: State?, goBack: Boolean = false) {
         when (state) {
@@ -222,7 +242,12 @@ class PostDetailActivity : LoadingActivity(), OnSnackBarCallListener {
             is State.Error -> {
                 setLoadingState(false)
                 // FIXME: 큰일남. 의존성 주입으로 PrefsRepository를 액세스해야 할 것 같음.
-                UIErrorHandler.handle(this, PrefsRepository(this), state.error)
+                UIErrorHandler.handle(this, PrefsRepository(this), state.error, handleIDormError = {
+                    Toast.makeText(this@PostDetailActivity, it.message, Toast.LENGTH_SHORT).show()
+                    if (it.error == ErrorCode.CANNOT_LIKED_SELF) viewModel.getPost(
+                        postId ?: viewModel.postDetailState.value.data?.postId ?: -999
+                    )
+                })
             }
 
             is State.Loading -> {
@@ -237,6 +262,7 @@ class PostDetailActivity : LoadingActivity(), OnSnackBarCallListener {
         menuInflater.inflate(R.menu.post_detail_menu, menu)
         return true
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 

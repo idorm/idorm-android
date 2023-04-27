@@ -9,6 +9,8 @@ import kotlinx.coroutines.launch
 import org.appcenter.inudorm.model.User
 import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.model.board.WriteCommentDto
+import org.appcenter.inudorm.networking.ErrorCode
+import org.appcenter.inudorm.networking.IDormError
 import org.appcenter.inudorm.presentation.mypage.myinfo.UiState
 import org.appcenter.inudorm.presentation.mypage.myinfo.runCatch
 import org.appcenter.inudorm.usecase.*
@@ -139,6 +141,12 @@ class PostDetailViewModel : ViewModel() {
 
     fun toggleLike() {
         viewModelScope.launch {
+            if (userState.value.data?.memberId == postDetailState.value.data?.memberId) {
+                _postLikeResult.emit(
+                    State.Error(IDormError(ErrorCode.CANNOT_LIKED_SELF))
+                )
+                return@launch
+            }
             _postLikeResult.emit(
                 ToggleLikePost().run(
                     ToggleLikePost.Param(
