@@ -9,25 +9,29 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.appcenter.inudorm.networking.ErrorCode
+import org.appcenter.inudorm.networking.IDormError
 import org.appcenter.inudorm.usecase.SendAuthCode
 import org.appcenter.inudorm.usecase.SendAuthCodeParams
 import org.appcenter.inudorm.util.DialogButton
+import org.appcenter.inudorm.util.State
 import org.appcenter.inudorm.util.ViewModelWithEvent
 import org.appcenter.inudorm.util.emailValidator
 
 
 class EmailPromptViewModel(private val purpose: EmailPromptPurpose) : ViewModelWithEvent() {
     val email = MutableLiveData("")
-    private val _emailLoading: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    val emailLoading: StateFlow<Boolean>
-        get() = _emailLoading
+    private val _emailResultState: MutableStateFlow<State<Boolean>> =
+        MutableStateFlow(State.Initial())
+    val emailResultState: StateFlow<State<Boolean>>
+        get() = _emailResultState
 
     fun submit() {
         val mail = email.value!!
         if (emailValidator(mail)) { // 올바른 메일인지 체크좀 할게요..
             viewModelScope.launch {
-                _emailLoading.update {
-                    true
+                _emailResultState.update {
+                    State.Loading()
                 }
                 kotlin.runCatching {
                     SendAuthCode().run(SendAuthCodeParams(purpose, email.value!!))
@@ -36,13 +40,27 @@ class EmailPromptViewModel(private val purpose: EmailPromptPurpose) : ViewModelW
                     bundle.putString("email", mail)
                     bundle.putSerializable("purpose", purpose)
                     mergeBundleWithPaging(bundle)
-                    _emailLoading.update {
-                        false
+                    _emailResultState.update {
+                        State.Success(true)
                     }
-                }.onFailure {
-                    showToast("이메일 전송에 실패한 것 같습니다.")
-                    _emailLoading.update {
-                        false
+                }.onFailure { e ->
+                    // MEMBER_NOT_FOUND 만 예외처리, 추후 새로운 아키텍처로 이전
+                    if (e is IDormError) {
+                        when (e.error) {
+                            ErrorCode.MEMBER_NOT_FOUND -> {
+                                showToast("존재하지 않는 회원입니다.")
+                                _emailResultState.update {
+                                    State.Error(e)
+                                }
+                                return@launch
+                            }
+                            else -> {}
+                        }
+
+                    }
+                    showToast(e.message ?: "알 수 없는 오류입니다.")
+                    _emailResultState.update {
+                        State.Error(e)
                     }
                 }
             }
