@@ -41,7 +41,8 @@ class MyMatchingProfileActivity : AppCompatActivity() {
                             ErrorCode.MATCHINGINFO_NOT_FOUND -> {
                                 OkDialog(
                                     e.error.message,
-                                    onOk = { editImage() }
+                                    onOk = { editImage() },
+                                    cancelable = false
                                 ).show(this@MyMatchingProfileActivity)
                             }
                             else -> {
@@ -60,5 +61,6 @@ class MyMatchingProfileActivity : AppCompatActivity() {
         startActivity(
             Intent(this, OnboardActivity::class.java)
         )
+        finish()
     }
 }

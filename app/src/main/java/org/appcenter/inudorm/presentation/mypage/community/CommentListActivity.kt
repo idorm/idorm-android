@@ -31,6 +31,7 @@ class CommentListActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         binding.commentListRecycler.adapter = CommentListAdapter(arrayListOf()) {
+            goDetail(it.postId)
         }
         viewModel.getComments()
 

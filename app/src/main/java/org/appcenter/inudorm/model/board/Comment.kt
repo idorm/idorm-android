@@ -14,4 +14,5 @@ data class Comment(
     val parentCommentId: Int?,
     val profileUrl: String?,
     var subComments: ArrayList<Comment>?,
+    val postId: Int,
 ) : Parcelable
