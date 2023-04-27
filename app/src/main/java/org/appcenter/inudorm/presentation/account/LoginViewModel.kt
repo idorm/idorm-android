@@ -75,7 +75,7 @@ class LoginViewModel(private val prefsRepository: PrefsRepository) : ViewModel()
         } else {
             viewModelScope.launch {
                 _loginState.emit(
-                    UiState(error = IDormError(ErrorCode.INVALID_REQEUST_PARAM))
+                    UiState(error = java.lang.RuntimeException("아이디나 비밀번호가 올바르지 않아요."))
                 )
             }
         }

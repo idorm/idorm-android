@@ -1,6 +1,7 @@
 package org.appcenter.inudorm.networking
 
 import android.content.Context
+import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -53,6 +54,10 @@ object UIErrorHandler {
                 if (handleIDormError == null)
                     openSnackBar(error.message)
                 else handleIDormError(error)
+            }
+            else -> {
+                IDormLogger.e(this, error.toString())
+                Toast.makeText(context, error.message ?: "알 수 없는 오류입니다.", Toast.LENGTH_SHORT).show()
             }
         }
     }
