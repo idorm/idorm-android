@@ -50,6 +50,8 @@ class PostDetailActivity : LoadingActivity(), OnSnackBarCallListener {
         getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     }
 
+    private lateinit var bottomSheet: RadioButtonListBottomSheet
+
     fun writeComment() {
         imm.hideSoftInputFromWindow(binding.commentInput.windowToken, 0)
         viewModel.writeComment()
@@ -101,10 +103,11 @@ class PostDetailActivity : LoadingActivity(), OnSnackBarCallListener {
         reasonValues.forEachIndexed { idx, value ->
             reportReasons.add(CheckableItem(value, reasonTexts[idx], false, false, ""))
         }
-        RadioButtonListBottomSheet(reportReasons) { reasonType, reason ->
+        bottomSheet = RadioButtonListBottomSheet(reportReasons) { reasonType, reason ->
             if (reason.isNullOrEmpty()) return@RadioButtonListBottomSheet
             viewModel.report(comment.commentId, Content.COMMENT, reasonType ?: "", reason)
-        }.show(
+        }
+        bottomSheet.show(
             this@PostDetailActivity.supportFragmentManager,
             ListBottomSheet.TAG
         )
@@ -118,10 +121,11 @@ class PostDetailActivity : LoadingActivity(), OnSnackBarCallListener {
         reasonValues.forEachIndexed { idx, value ->
             reportReasons.add(CheckableItem(value, reasonTexts[idx], false, false, ""))
         }
-        RadioButtonListBottomSheet(reportReasons) { reasonType, reason ->
+        bottomSheet = RadioButtonListBottomSheet(reportReasons) { reasonType, reason ->
             if (reason.isNullOrEmpty()) return@RadioButtonListBottomSheet
             viewModel.report(post.postId, Content.POST, reasonType ?: "", reason)
-        }.show(
+        }
+        bottomSheet.show(
             this@PostDetailActivity.supportFragmentManager,
             ListBottomSheet.TAG
         )
@@ -248,18 +252,26 @@ class PostDetailActivity : LoadingActivity(), OnSnackBarCallListener {
         lifecycleScope.launch {
             viewModel.postReportResult.collect {
                 if (it.isSuccess()) {
-                    OkDialog("신고가 완료됐어요. 불편을 드려서 죄송해요.").show(this@PostDetailActivity)
+                    OkDialog("신고가 완료됐어요. 불편을 드려서 죄송해요.", onOk = {
+                        bottomSheet.dismiss()
+                    }).show(this@PostDetailActivity)
                 } else if (it is org.appcenter.inudorm.util.State.Error) {
-                    OkDialog(it.error.message ?: "신고에 실패했어요. ").show(this@PostDetailActivity)
+                    OkDialog(it.error.message ?: "신고에 실패했어요. ", onOk = {
+                        bottomSheet.dismiss()
+                    }).show(this@PostDetailActivity)
                 }
             }
         }
         lifecycleScope.launch {
             viewModel.commentReportResult.collect {
                 if (it.isSuccess()) {
-                    OkDialog("신고가 완료됐어요. 불편을 드려서 죄송해요.").show(this@PostDetailActivity)
+                    OkDialog("신고가 완료됐어요. 불편을 드려서 죄송해요.", onOk = {
+                        bottomSheet.dismiss()
+                    }).show(this@PostDetailActivity)
                 } else if (it is org.appcenter.inudorm.util.State.Error) {
-                    OkDialog(it.error.message ?: "신고에 실패했어요. ").show(this@PostDetailActivity)
+                    OkDialog(it.error.message ?: "신고에 실패했어요. ", onOk = {
+                        bottomSheet.dismiss()
+                    }).show(this@PostDetailActivity)
                 }
             }
         }
