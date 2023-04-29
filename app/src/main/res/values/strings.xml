@@ -174,7 +174,7 @@
     <string name="commentNotiText">커뮤니티 댓글 알림 받기</string>
     <string name="nestedCommentNotiText">커뮤니티 답글 알림 받기</string>
     <string name="appInfoNotiText">어플 정보 알림 받기</string>
-    
+
     <!--WithdrawalActivity-->
     <!--<string name="withdrawalText">회원 탈퇴</string>-->
     <string name="withdrawalConfirmText">idorm과 이별을 원하시나요?\n너무 슬퍼요 😥</string>
@@ -185,15 +185,15 @@
     <string name="answerBadUserText">불쾌감을 주는 사용자가 있어요.</string>
     <string name="etcText">기타</string>
     <string name="withdrawalCationText">idorm 탈퇴 전 알아두셔야 해요!</string>
-    
+
     <string name="caution1">📌 idorm 탈퇴 후에도 커뮤니티 내에는\n작성하신 글과 댓글은 남아 있어요.</string>
     <string name="caution2">📌 프로필과 내 정보 데이터가 사라지며\n다시 복구할 수 없어요.</string>
     <string name="caution3">📌 그 밖의 사항들</string>
 
     <string name="withdrawalCancelInteraction">다시 생각해볼래요❤</string>
     <string name="withdrawalDoneInteraction">탈퇴</string>
-    
-    
+
+
     <!--BottomSheetRoommateMatchingDialogue-->
     <string name="declarationInteraction">신고하기</string>
     <string name="matchingImageViolence">idorm 가이드라인에 위배되는 매칭 프로필 이미지</string>
@@ -212,7 +212,6 @@
     <string name="signout">로그아웃</string>
 
     <string name="editImage">이미지 편집</string>
-
 
 
     <!--OnboardActivity-->
@@ -244,4 +243,35 @@
     <string name="postWrote">내가 쓴 글</string>
     <string name="commentsWrote">내가 쓴 댓글</string>
     <string name="postsLiked">추천한 글</string>
+    <string name="selectReportReason">신고 사유를 선택해주세요.</string>
+
+    <string-array name="reportReasons1_text">
+        <item>도배</item>
+        <item>광고 / 스팸</item>
+        <item>음란물 / 선정성</item>
+        <item>욕설</item>
+        <item>사칭 / 허위</item>
+        <item>기타</item>
+    </string-array>
+    <string-array name="reportReasons1_value">
+        <item>PLASTER</item>
+        <item>ADVERTISING_SPAM</item>
+        <item>OBSCENE_MATERIAL</item>
+        <item>ABUSE</item>
+        <item>FALSE_INFORMATION</item>
+        <item>ETC</item>
+    </string-array>
+
+    <string-array name="reportReasons2_text">
+        <item>불건전한 닉네임 / 프로필사진</item>
+        <item>욕설</item>
+        <item>사칭 / 허위</item>
+        <item>기타</item>
+    </string-array>
+    <string-array name="reportReasons2_value">
+        <item>MEMBER</item>
+        <item>POST</item>
+        <item>COMMENT</item>
+        <item>ETC</item>
+    </string-array>
 </resources>

@@ -1,5 +1,6 @@
 package org.appcenter.inudorm.presentation.mypage.matching
 
+import CheckableItem
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
@@ -16,13 +17,13 @@ import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityLikedMateListBinding
 import org.appcenter.inudorm.model.MatchingInfo
+import org.appcenter.inudorm.presentation.ListBottomSheet
 import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter
+import org.appcenter.inudorm.presentation.board.Content
+import org.appcenter.inudorm.presentation.board.RadioButtonListBottomSheet
 import org.appcenter.inudorm.presentation.matching.UserMutationEvent
 import org.appcenter.inudorm.presentation.mypage.myinfo.UiState
-import org.appcenter.inudorm.util.ButtonType
-import org.appcenter.inudorm.util.CustomDialog
-import org.appcenter.inudorm.util.DialogButton
-import org.appcenter.inudorm.util.IDormLogger
+import org.appcenter.inudorm.util.*
 
 abstract class MateListActivity : AppCompatActivity() {
 
@@ -37,7 +38,27 @@ abstract class MateListActivity : AppCompatActivity() {
         DataBindingUtil.setContentView(this, R.layout.activity_liked_mate_list)
     }
     abstract val title: String
+    fun handleMemberReport(memberId: Int) {
+        val reasonTexts = resources.getStringArray(R.array.reportReasons1_text)
+        val reasonValues = resources.getStringArray(R.array.reportReasons1_value)
+        val reportReasons: ArrayList<CheckableItem> = arrayListOf()
 
+        reasonValues.forEachIndexed { idx, value ->
+            reportReasons.add(CheckableItem(value, reasonTexts[idx], false, false, ""))
+        }
+        RadioButtonListBottomSheet(reportReasons) { reasonType, reason ->
+            if (reason.isNullOrEmpty()) return@RadioButtonListBottomSheet
+            viewModel.reportMate(
+                memberId,
+                reason,
+                reasonType ?: "",
+                Content.MEMBER
+            )
+        }.show(
+            this@MateListActivity.supportFragmentManager,
+            ListBottomSheet.TAG
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,7 +115,10 @@ abstract class MateListActivity : AppCompatActivity() {
             is UserMutationEvent.DeleteDislikedMatchingInfo,
             is UserMutationEvent.DeleteLikedMatchingInfo,
             -> {
-                viewModel.getMates()
+                if (it.mutation.state.isSuccess()) viewModel.getMates()
+                else if (it.mutation.state is State.Error) {
+                    OkDialog((it.mutation.state as State.Error).error.message ?: "알 수 없는 오류입니다.")
+                }
             }
             is UserMutationEvent.ReportMatchingInfo -> {}
             else -> {}

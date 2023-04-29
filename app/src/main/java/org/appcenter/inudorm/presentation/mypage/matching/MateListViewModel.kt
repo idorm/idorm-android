@@ -5,10 +5,12 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.model.MatchingInfo
-import org.appcenter.inudorm.model.Mate
+import org.appcenter.inudorm.model.ReportRequestDto
+import org.appcenter.inudorm.presentation.board.Content
+import org.appcenter.inudorm.presentation.matching.Mutation
 import org.appcenter.inudorm.presentation.matching.UserMutationEvent
 import org.appcenter.inudorm.presentation.mypage.myinfo.UiState
-import org.appcenter.inudorm.usecase.ReportMatchingInfo
+import org.appcenter.inudorm.usecase.Report
 import org.appcenter.inudorm.usecase.UseCase
 
 
@@ -67,13 +69,18 @@ abstract class MateListViewModel : ViewModel() {
         }
     }
 
-    fun reportMate(id: Int) {
+    fun reportMate(
+        id: Int,
+        reason: String,
+        reasonType: String,
+        reportType: Content,
+    ) {
         viewModelScope.launch {
-            val result = kotlin.runCatching {
-                ReportMatchingInfo().run(id)
-            }.getOrNull()
+            val params = ReportRequestDto(id, reason, reasonType, reportType)
             _userMutationState.emit(
-                UserMutationEvent.ReportMatchingInfo(id, result != null)
+                UserMutationEvent.ReportMatchingInfo(
+                    Mutation(params, Report().run(params))
+                )
             )
         }
     }

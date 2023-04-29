@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.appcenter.inudorm.model.ReportRequestDto
 import org.appcenter.inudorm.model.User
 import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.model.board.WriteCommentDto
@@ -14,6 +15,12 @@ import org.appcenter.inudorm.networking.IDormError
 import org.appcenter.inudorm.presentation.mypage.myinfo.UiState
 import org.appcenter.inudorm.presentation.mypage.myinfo.runCatch
 import org.appcenter.inudorm.usecase.*
+
+enum class Content {
+    POST,
+    COMMENT,
+    MEMBER
+}
 
 class PostDetailViewModel : ViewModel() {
     // Todo: MutableStateFlow를 Redux 처럼 쓸 수 있지 않을까요?!
@@ -42,16 +49,18 @@ class PostDetailViewModel : ViewModel() {
     val commentDeleteResult: StateFlow<State?>
         get() = _commentDeleteResult
 
-    private val _commentReportResult = MutableStateFlow<State?>(null)
-    val commentReportResult: StateFlow<State?>
+    private val _commentReportResult =
+        MutableStateFlow<org.appcenter.inudorm.util.State<Boolean>>(org.appcenter.inudorm.util.State.Initial())
+    val commentReportResult: StateFlow<org.appcenter.inudorm.util.State<Boolean>>
         get() = _commentReportResult
 
     private val _postLikeResult = MutableStateFlow<State?>(null)
     val postLikeResult: StateFlow<State?>
         get() = _postLikeResult
 
-    private val _postReportResult = MutableStateFlow<State?>(null)
-    val postReportResult: StateFlow<State?>
+    private val _postReportResult =
+        MutableStateFlow<org.appcenter.inudorm.util.State<Boolean>>(org.appcenter.inudorm.util.State.Initial())
+    val postReportResult: StateFlow<org.appcenter.inudorm.util.State<Boolean>>
         get() = _postReportResult
 
     private val _postDeleteResult = MutableStateFlow<State?>(null)
@@ -98,6 +107,7 @@ class PostDetailViewModel : ViewModel() {
             it.copy(content = "")
         }
         viewModelScope.launch {
+            _commentWriteResult.emit(State.Loading)
             val state =
                 WriteComment().run(
                     _commentState.value.copy(
@@ -113,28 +123,31 @@ class PostDetailViewModel : ViewModel() {
 
     fun deletePost() {
         viewModelScope.launch {
+            _postDeleteResult.emit(State.Loading)
             val state = DeletePost().run(postDetailState.value.data?.postId!!)
             _postDeleteResult.emit(state)
         }
     }
 
-    fun reportPost() {
-        viewModelScope.launch {
-            val state = ReportPost().run(postDetailState.value.data?.postId!!)
-            _postReportResult.emit(state)
-        }
-    }
-
     fun deleteComment(commentId: Int, postId: Int) {
         viewModelScope.launch {
+            _commentDeleteResult.emit(State.Loading)
             val state = DeleteComment().run(DeleteComment.Param(commentId, postId))
             _commentDeleteResult.emit(state)
         }
     }
 
-    fun reportComment(id: Int) {
+    fun report(id: Int, contentType: Content, reasonType: String, reason: String) {
         viewModelScope.launch {
-            val state = ReportComment().run(id)
+            _commentReportResult.emit(org.appcenter.inudorm.util.State.Loading())
+            val state = Report().run(
+                ReportRequestDto(
+                    memberOrPostOrCommentId = id,
+                    reason = reason,
+                    reasonType = reasonType,
+                    reportType = contentType
+                )
+            )
             _commentReportResult.emit(state)
         }
     }

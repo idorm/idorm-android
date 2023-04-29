@@ -1,5 +1,6 @@
 package org.appcenter.inudorm.presentation.board
 
+import CheckableItem
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -14,8 +15,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.flow.FlowCollector
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.LoadingActivity
 import org.appcenter.inudorm.OnSnackBarCallListener
@@ -23,6 +22,7 @@ import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityPostDetailBinding
 import org.appcenter.inudorm.model.SelectItem
 import org.appcenter.inudorm.model.board.Comment
+import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.networking.ErrorCode
 import org.appcenter.inudorm.networking.UIErrorHandler
 import org.appcenter.inudorm.presentation.ListBottomSheet
@@ -92,6 +92,73 @@ class PostDetailActivity : LoadingActivity(), OnSnackBarCallListener {
         }
     }
 
+    private val handleReportComment = { comment: Comment ->
+        // Todo: 신고 사유 모달
+        val reasonTexts = resources.getStringArray(R.array.reportReasons1_text)
+        val reasonValues = resources.getStringArray(R.array.reportReasons1_value)
+        val reportReasons: ArrayList<CheckableItem> = arrayListOf()
+
+        reasonValues.forEachIndexed { idx, value ->
+            reportReasons.add(CheckableItem(value, reasonTexts[idx], false, false, ""))
+        }
+        RadioButtonListBottomSheet(reportReasons) { reasonType, reason ->
+            if (reason.isNullOrEmpty()) return@RadioButtonListBottomSheet
+            viewModel.report(comment.commentId, Content.COMMENT, reasonType ?: "", reason)
+        }.show(
+            this@PostDetailActivity.supportFragmentManager,
+            ListBottomSheet.TAG
+        )
+    }
+
+    private val handleReportPost = { post: Post ->
+        val reasonTexts = resources.getStringArray(R.array.reportReasons1_text)
+        val reasonValues = resources.getStringArray(R.array.reportReasons1_value)
+        val reportReasons: ArrayList<CheckableItem> = arrayListOf()
+
+        reasonValues.forEachIndexed { idx, value ->
+            reportReasons.add(CheckableItem(value, reasonTexts[idx], false, false, ""))
+        }
+        RadioButtonListBottomSheet(reportReasons) { reasonType, reason ->
+            if (reason.isNullOrEmpty()) return@RadioButtonListBottomSheet
+            viewModel.report(post.postId, Content.POST, reasonType ?: "", reason)
+        }.show(
+            this@PostDetailActivity.supportFragmentManager,
+            ListBottomSheet.TAG
+        )
+
+    }
+
+    private val handleCommentMenuClicked = { comment: Comment ->
+        val menus = arrayListOf(
+            SelectItem(
+                "신고하기",
+                "report",
+                desc = "idorm의 커뮤니티 가이드라인에 위배되는 게시글"
+            ),
+        )
+        if (viewModel.userState.value.data?.memberId == comment.memberId)
+            menus.add(
+                0, SelectItem("댓글 삭제", "delete", R.drawable.ic_delete),
+            )
+
+        ListBottomSheet(menus) {
+            IDormLogger.i(this, it.value)
+            when (it.value) {
+                "report" -> handleReportComment(comment)
+                "delete" -> CustomDialog(
+                    "댓글을 삭제하시겠습니까?",
+                    positiveButton = DialogButton("확인", onClick = {
+                        viewModel.deleteComment(
+                            comment.commentId,
+                            postId!!
+                        )
+                    }),
+                    negativeButton = DialogButton("취소")
+                ).show(this@PostDetailActivity)
+            }
+        }.show(supportFragmentManager, "TAG")
+    }
+
     private var postId: Int? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -144,43 +211,7 @@ class PostDetailActivity : LoadingActivity(), OnSnackBarCallListener {
                     binding.comments.adapter =
                         CommentAdapter(
                             comments,
-                            onCommentInteractionOpened = { comment ->
-                                val menus = arrayListOf(
-                                    SelectItem(
-                                        "신고하기",
-                                        "report",
-                                        desc = "idorm의 커뮤니티 가이드라인에 위배되는 게시글"
-                                    ),
-                                )
-                                if (viewModel.userState.value.data?.memberId == comment.memberId)
-                                    menus.add(
-                                        0, SelectItem("댓글 삭제", "delete", R.drawable.ic_delete),
-                                    )
-
-                                ListBottomSheet(menus) {
-                                    IDormLogger.i(this, it.value)
-                                    when (it.value) {
-                                        "report" -> CustomDialog(
-                                            "댓글을 신고하시겠습니까?",
-                                            positiveButton = DialogButton("확인", onClick = {
-                                                viewModel.reportComment(comment.commentId)
-                                            }),
-                                            negativeButton = DialogButton("취소")
-                                        ).show(this@PostDetailActivity)
-
-                                        "delete" -> CustomDialog(
-                                            "댓글을 삭제하시겠습니까?",
-                                            positiveButton = DialogButton("확인", onClick = {
-                                                viewModel.deleteComment(
-                                                    comment.commentId,
-                                                    postId!!
-                                                )
-                                            }),
-                                            negativeButton = DialogButton("취소")
-                                        ).show(this@PostDetailActivity)
-                                    }
-                                }.show(supportFragmentManager, "TAG")
-                            },
+                            onCommentInteractionOpened = handleCommentMenuClicked,
                             onWriteSubCommentClicked = { idx, comment ->
                                 viewModel.setParentComment(comment.commentId)
                                 binding.commentInput.requestFocus()
@@ -215,6 +246,24 @@ class PostDetailActivity : LoadingActivity(), OnSnackBarCallListener {
             }
         }
         lifecycleScope.launch {
+            viewModel.postReportResult.collect {
+                if (it.isSuccess()) {
+                    OkDialog("신고가 완료됐어요. 불편을 드려서 죄송해요.").show(this@PostDetailActivity)
+                } else if (it is org.appcenter.inudorm.util.State.Error) {
+                    OkDialog(it.error.message ?: "신고에 실패했어요. ").show(this@PostDetailActivity)
+                }
+            }
+        }
+        lifecycleScope.launch {
+            viewModel.commentReportResult.collect {
+                if (it.isSuccess()) {
+                    OkDialog("신고가 완료됐어요. 불편을 드려서 죄송해요.").show(this@PostDetailActivity)
+                } else if (it is org.appcenter.inudorm.util.State.Error) {
+                    OkDialog(it.error.message ?: "신고에 실패했어요. ").show(this@PostDetailActivity)
+                }
+            }
+        }
+        lifecycleScope.launch {
             viewModel.sortState.collect {
                 val adapter = (binding.comments.adapter as CommentAdapter?)
                 // Adapter가 null이 아니면 데이터 로드도 완료된 것
@@ -225,7 +274,6 @@ class PostDetailActivity : LoadingActivity(), OnSnackBarCallListener {
 
             }
         }
-
     }
 
 
@@ -322,9 +370,7 @@ class PostDetailActivity : LoadingActivity(), OnSnackBarCallListener {
                         }
 
                         "report" -> {
-                            OkCancelDialog("게시글을 신고할까요?") {
-                                viewModel.reportPost()
-                            }.show(this@PostDetailActivity)
+                            handleReportPost(viewModel.postDetailState.value.data!!)
                         }
 
                     }

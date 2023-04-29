@@ -1,10 +1,7 @@
 package org.appcenter.inudorm.repository
 
 import org.appcenter.inudorm.App.Companion.gson
-import org.appcenter.inudorm.model.ChangeNickNameDto
-import org.appcenter.inudorm.model.ChangePasswordDto
-import org.appcenter.inudorm.model.EmailVerifyResponseDto
-import org.appcenter.inudorm.model.User
+import org.appcenter.inudorm.model.*
 import org.appcenter.inudorm.networking.RetrofitInstance
 import org.appcenter.inudorm.networking.createJsonRequestBody
 import org.appcenter.inudorm.usecase.CodeVerifyParams
@@ -67,4 +64,10 @@ class UserRepository {
     suspend fun updateFcmToken(token: String) {
         RetrofitInstance.service.updateFcmToken(token)
     }
+
+
+    suspend fun report(body: ReportRequestDto) {
+        return RetrofitInstance.service.report(body)
+    }
+
 }

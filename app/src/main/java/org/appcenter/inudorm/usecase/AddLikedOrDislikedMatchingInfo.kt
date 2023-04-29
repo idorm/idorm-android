@@ -4,8 +4,9 @@ import org.appcenter.inudorm.App.Companion.roomMateRepository
 
 data class MutateFavoriteRequestDto(val id: Int, val isLiked: Boolean)
 
-class AddLikedOrDislikedMatchingInfo : UseCase<MutateFavoriteRequestDto, Unit>() {
-    override suspend fun onExecute(params: MutateFavoriteRequestDto): Unit {
-        return roomMateRepository.addLikedOrDislikedMatchingInfo(params)
+class AddLikedOrDislikedMatchingInfo : ResultUseCase<MutateFavoriteRequestDto, Boolean>() {
+    override suspend fun onExecute(params: MutateFavoriteRequestDto): Boolean {
+        roomMateRepository.addLikedOrDislikedMatchingInfo(params)
+        return true
     }
 }

@@ -2,6 +2,7 @@ package org.appcenter.inudorm.presentation.mypage.matching
 
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import org.appcenter.inudorm.presentation.matching.Mutation
 import org.appcenter.inudorm.presentation.matching.UserMutationEvent
 import org.appcenter.inudorm.usecase.DeleteLikeOrDislikeMatchingInfo
 import org.appcenter.inudorm.usecase.GetDisLikedMates
@@ -12,11 +13,11 @@ class DisLikedMateListViewModel : MateListViewModel() {
 
     override fun deleteMate(id: Int) {
         viewModelScope.launch {
-            val result = kotlin.runCatching {
-                DeleteLikeOrDislikeMatchingInfo().run(MutateFavoriteRequestDto(id, false))
-            }.getOrNull()
+            val params = MutateFavoriteRequestDto(id, false)
             _userMutationState.emit(
-                UserMutationEvent.DeleteDislikedMatchingInfo(id, result != null)
+                UserMutationEvent.DeleteDislikedMatchingInfo(
+                    Mutation(params, DeleteLikeOrDislikeMatchingInfo().run(params))
+                )
             )
         }
     }

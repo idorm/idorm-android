@@ -1,5 +1,6 @@
 package org.appcenter.inudorm.presentation.matching
 
+import CheckableItem
 import android.animation.ArgbEvaluator
 import android.content.ActivityNotFoundException
 import android.content.Context
@@ -21,6 +22,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.yuyakaido.android.cardstackview.*
+import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentMatchingBinding
@@ -30,14 +32,17 @@ import org.appcenter.inudorm.model.SelectItem
 import org.appcenter.inudorm.networking.ErrorCode
 import org.appcenter.inudorm.networking.UIErrorHandler
 import org.appcenter.inudorm.presentation.ListBottomSheet
+import org.appcenter.inudorm.presentation.LoadingFragment
 import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter
+import org.appcenter.inudorm.presentation.board.Content
+import org.appcenter.inudorm.presentation.board.RadioButtonListBottomSheet
 import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.util.*
 import org.appcenter.inudorm.util.WindowUtil.setStatusBarColor
 
 const val FILTER_RESULT_CODE = 1226
 
-class MatchingFragment : Fragment(), CardStackListener {
+class MatchingFragment : LoadingFragment(), CardStackListener {
 
     private val TAG = "MatchingFragment"
 
@@ -80,6 +85,30 @@ class MatchingFragment : Fragment(), CardStackListener {
         )
     }
 
+    private fun handleMemberReport(memberId: Int) {
+        val reasonTexts = resources.getStringArray(R.array.reportReasons1_text)
+        val reasonValues = resources.getStringArray(R.array.reportReasons1_value)
+        val reportReasons: ArrayList<CheckableItem> = arrayListOf()
+
+        reasonValues.forEachIndexed { idx, value ->
+            reportReasons.add(CheckableItem(value, reasonTexts[idx], false, false, ""))
+        }
+        RadioButtonListBottomSheet(reportReasons) { reasonType, reason ->
+            if (reason.isNullOrEmpty()) return@RadioButtonListBottomSheet
+            viewModel.reportMatchingInfo(
+                memberId,
+                reason,
+                reasonType ?: "",
+                Content.MEMBER
+            )
+        }.show(
+            this@MatchingFragment.parentFragmentManager,
+            ListBottomSheet.TAG
+        )
+    }
+
+    private lateinit var modalBottomSheet: ListBottomSheet
+
     private fun setupCardStackView() {
         val setting = SwipeAnimationSetting.Builder()
             .setDirection(Direction.Right)
@@ -94,7 +123,7 @@ class MatchingFragment : Fragment(), CardStackListener {
         }
 
         adapter = RoomMateAdapter(true, ArrayList()) {
-            val modalBottomSheet = ListBottomSheet(
+            modalBottomSheet = ListBottomSheet(
                 arrayListOf(
                     SelectItem(
                         "신고하기",
@@ -104,12 +133,8 @@ class MatchingFragment : Fragment(), CardStackListener {
                 )
             ) {
                 if (it.value == "report") {
-                    CustomDialog(
-                        "게시글을 신고하고 싶으신가요?",
-                        positiveButton = DialogButton("확인", onClick = {
-                            viewModel.reportMatchingInfo(getCurrentItem().matchingInfoId)
-                        })
-                    ).show(this@MatchingFragment.requireContext())
+                    // Todo: 신고 사유 모달
+                    handleMemberReport(getCurrentItem().memberId)
                 }
             }
             modalBottomSheet.show(
@@ -147,6 +172,10 @@ class MatchingFragment : Fragment(), CardStackListener {
         setupFilter()
     }
 
+    private val userMutationCollector = FlowCollector<UserMutationEvent> {
+
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setupCardStackView()
@@ -155,33 +184,32 @@ class MatchingFragment : Fragment(), CardStackListener {
         binding.lifecycleOwner = requireActivity()
         viewModel.getMates(LoadMode.Update, size = 10)
         lifecycleScope.launch {
-            viewModel.userMutationEvent.collect { state ->
-                when (state) {
+            viewModel.userMutationEvent.collect { event ->
+                setLoadingState(event?.mutation?.state?.isLoading() ?: false)
+                when (event) {
                     is UserMutationEvent.AddLikedMatchingInfo -> {
-                        if (state.success == false)
+                        if (event.mutation.state.isError())
                             binding.cardStackView.rewind()
                     }
                     is UserMutationEvent.AddDislikedMatchingInfo -> {
-                        if (state.success == false)
+                        if (event.mutation.state.isError())
                             binding.cardStackView.rewind()
                     }
                     is UserMutationEvent.ReportMatchingInfo -> {
-                        if (state.success == true) CustomDialog(
-                            "사용자를 신고했습니다.",
-                            positiveButton = DialogButton("확인")
-                        ).show(
-                            this@MatchingFragment.requireContext()
-                        )
-                        else CustomDialog(
-                            "사용자 신고에 실패했습니다.",
-                            positiveButton = DialogButton("확인")
-                        ).show(this@MatchingFragment.requireContext())
+                        if (event.mutation.state.isSuccess())
+                            OkDialog("사용자를 신고했어요. 불편을 드려 죄송해요.", onOk = {
+                                modalBottomSheet.dismissAllowingStateLoss()
+                            }).show(this@MatchingFragment.requireContext())
+                        else if (event.mutation.state.isError())
+                            OkDialog("사용자 신고에 실패했어요.", onOk = {
+                                modalBottomSheet.dismissAllowingStateLoss()
+                            }).show(this@MatchingFragment.requireContext())
                     }
                     is UserMutationEvent.DeleteLikedMatchingInfo -> {
-                        if (state.success == true) binding.cardStackView.rewind()
+                        if (event.mutation.state.isSuccess()) binding.cardStackView.rewind()
                     }
                     is UserMutationEvent.DeleteDislikedMatchingInfo -> {
-                        if (state.success == true) binding.cardStackView.rewind()
+                        if (event.mutation.state.isSuccess()) binding.cardStackView.rewind()
                     }
                     else -> {}
                 }

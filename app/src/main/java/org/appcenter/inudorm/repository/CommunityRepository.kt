@@ -7,6 +7,7 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.appcenter.inudorm.model.Dorm
+import org.appcenter.inudorm.model.ReportRequestDto
 import org.appcenter.inudorm.model.board.Comment
 import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.model.board.PostEditDto
@@ -82,9 +83,6 @@ class CommunityRepository {
         return RetrofitInstance.service.deleteComment(commentId, postId)
     }
 
-    suspend fun reportComment(commentId: Int) {
-//        return RetrofitInstance.service.reportComment(commentId)
-    }
 
 
     suspend fun getWrotePosts(): ArrayList<Post> {

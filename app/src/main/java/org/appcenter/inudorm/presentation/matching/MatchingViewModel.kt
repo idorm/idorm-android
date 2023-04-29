@@ -9,9 +9,12 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.App.Companion.localFilterRepository
 import org.appcenter.inudorm.model.MatchingInfo
+import org.appcenter.inudorm.model.ReportRequestDto
 import org.appcenter.inudorm.model.RoomMateFilter
+import org.appcenter.inudorm.presentation.board.Content
 import org.appcenter.inudorm.usecase.*
 import org.appcenter.inudorm.util.IDormLogger
+import org.appcenter.inudorm.util.State
 
 // Todo: Change Member type
 data class MatchingState(
@@ -28,19 +31,29 @@ enum class LoadMode {
     Update
 }
 
-sealed class UserMutationEvent {
-    data class AddLikedMatchingInfo(val id: Int, val success: Boolean?) :
-        UserMutationEvent();
-    data class AddDislikedMatchingInfo(val id: Int, val success: Boolean?) :
-        UserMutationEvent();
-    data class DeleteLikedMatchingInfo(val id: Int, val success: Boolean?) :
-        UserMutationEvent();
-    data class DeleteDislikedMatchingInfo(val id: Int, val success: Boolean?) :
-        UserMutationEvent();
-    data class ReportMatchingInfo(val id: Int, val success: Boolean?) :
-        UserMutationEvent();
-    data class SetMatchingInfoVisibility(val success: Boolean?) : UserMutationEvent();
+sealed class MutationEvent(open val mutation: Mutation<*, *>) {}
+sealed class UserMutationEvent(override val mutation: Mutation<*, *>) : MutationEvent(mutation) {
+    data class AddLikedMatchingInfo(override val mutation: Mutation<MutateFavoriteRequestDto, Boolean>) :
+        UserMutationEvent(mutation)
+
+    data class DeleteLikedMatchingInfo(override val mutation: Mutation<MutateFavoriteRequestDto, Boolean>) :
+        UserMutationEvent(mutation)
+
+    class AddDislikedMatchingInfo(override val mutation: Mutation<MutateFavoriteRequestDto, Boolean>) :
+        UserMutationEvent(mutation)
+
+    class DeleteDislikedMatchingInfo(override val mutation: Mutation<MutateFavoriteRequestDto, Boolean>) :
+        UserMutationEvent(mutation)
+
+    class ReportMatchingInfo(override val mutation: Mutation<ReportRequestDto, Boolean>) :
+        UserMutationEvent(mutation)
+
+    class SetMatchingInfoVisibility(override val mutation: Mutation<Boolean, Boolean>) :
+        UserMutationEvent(mutation)
 }
+
+data class Mutation<P, R>(val request: P, val state: State<R>)
+
 
 class MatchingViewModel : ViewModel() {
     private val _matchingState: MutableStateFlow<MatchingState> = MutableStateFlow(
@@ -51,6 +64,7 @@ class MatchingViewModel : ViewModel() {
     )
     val matchingState: StateFlow<MatchingState>
         get() = _matchingState
+
 
     private val _userMutationEvent: MutableStateFlow<UserMutationEvent?> = MutableStateFlow(null)
     val userMutationEvent: MutableStateFlow<UserMutationEvent?>
@@ -111,98 +125,91 @@ class MatchingViewModel : ViewModel() {
 
     fun addLikedMate(id: Int) {
         viewModelScope.launch {
-            kotlin.runCatching {
-                AddLikedOrDislikedMatchingInfo().run(MutateFavoriteRequestDto(id, true))
-            }.onSuccess {
-                _userMutationEvent.emit(
-                    UserMutationEvent.AddLikedMatchingInfo(
-                        id,
-                        true,
+            val params = MutateFavoriteRequestDto(id, true)
+
+            _userMutationEvent.emit(
+                UserMutationEvent.AddLikedMatchingInfo(
+                    Mutation(
+                        params,
+                        AddLikedOrDislikedMatchingInfo().run(params)
                     )
                 )
-            }
+            )
         }
     }
 
     fun deleteLikedMate(id: Int) {
         viewModelScope.launch {
-            kotlin.runCatching {
-                DeleteLikeOrDislikeMatchingInfo().run(MutateFavoriteRequestDto(id, true))
-            }.onSuccess {
-                _userMutationEvent.emit(
-                    UserMutationEvent.DeleteLikedMatchingInfo(
-                        id,
-                        true,
+
+            val params = MutateFavoriteRequestDto(id, true)
+            _userMutationEvent.emit(
+                UserMutationEvent.DeleteLikedMatchingInfo(
+                    Mutation(
+                        params,
+                        DeleteLikeOrDislikeMatchingInfo().run(params)
                     )
                 )
-            }
+            )
         }
     }
 
     fun addDislikedMate(id: Int) {
         viewModelScope.launch {
-            kotlin.runCatching {
-                AddLikedOrDislikedMatchingInfo().run(MutateFavoriteRequestDto(id, false))
-            }.onSuccess {
-                _userMutationEvent.emit(
-                    UserMutationEvent.AddDislikedMatchingInfo(
-                        id,
-                        true,
+            val params = MutateFavoriteRequestDto(id, false)
+            _userMutationEvent.emit(
+                UserMutationEvent.AddDislikedMatchingInfo(
+                    Mutation(
+                        params,
+                        AddLikedOrDislikedMatchingInfo().run(params)
                     )
                 )
-            }
+            )
         }
     }
 
     fun deleteDislikedMate(id: Int) {
         viewModelScope.launch {
-            kotlin.runCatching {
-                DeleteLikeOrDislikeMatchingInfo().run(MutateFavoriteRequestDto(id, false))
-            }.onSuccess {
-                _userMutationEvent.emit(
-                    UserMutationEvent.DeleteDislikedMatchingInfo(
-                        id,
-                        true,
+            val params = MutateFavoriteRequestDto(id, false)
+            _userMutationEvent.emit(
+                UserMutationEvent.DeleteDislikedMatchingInfo(
+                    Mutation(
+                        params,
+                        DeleteLikeOrDislikeMatchingInfo().run(params)
                     )
                 )
-            }
+            )
         }
     }
 
-    fun reportMatchingInfo(id: Int) {
+    fun reportMatchingInfo(id: Int, reason: String, reasonType: String, reportType: Content) {
         viewModelScope.launch {
-            kotlin.runCatching {
-                ReportMatchingInfo().run(id)
-            }.onSuccess {
-                _userMutationEvent.emit(
-                    UserMutationEvent.ReportMatchingInfo(
-                        id, true
-                    )
+            val params = ReportRequestDto(id, reason, reasonType, reportType)
+            _userMutationEvent.emit(
+                UserMutationEvent.ReportMatchingInfo(
+                    Mutation(params, Report().run(params))
                 )
-            }
+            )
         }
     }
 
     fun setMatchingInfoVisibility(isMatchingInfoPublic: Boolean) {
         viewModelScope.launch {
-            kotlin.runCatching {
-                SetMatchingInfoVisibility().run(isMatchingInfoPublic)
-            }.onSuccess {
-                _userMutationEvent.emit(
-                    UserMutationEvent.SetMatchingInfoVisibility(
-                        true
+            _userMutationEvent.emit(
+                UserMutationEvent.SetMatchingInfoVisibility(
+                    Mutation(
+                        isMatchingInfoPublic,
+                        SetMatchingInfoVisibility().run(isMatchingInfoPublic)
                     )
                 )
-                _matchingState.update {
-                    it.copy(
-                        error = null
-                    )
-                }
-                getMates(LoadMode.Update, size = 10)
+            )
+            _matchingState.update {
+                it.copy(
+                    error = null
+                )
             }
+            getMates(LoadMode.Update, size = 10)
         }
     }
-
 }
 
 class MatchingViewModelFactory :

@@ -3,6 +3,7 @@ package org.appcenter.inudorm.networking.service
 import okhttp3.RequestBody
 import org.appcenter.inudorm.model.ChangeNickNameDto
 import org.appcenter.inudorm.model.ChangePasswordDto
+import org.appcenter.inudorm.model.ReportRequestDto
 import org.appcenter.inudorm.model.User
 import retrofit2.Response
 import retrofit2.http.*
@@ -74,5 +75,9 @@ interface MemberService {
 
     @PATCH("member/fcm")
     suspend fun updateFcmToken(@Header("fcm-token") token: String)
+
+    @POST("member/report")
+    suspend fun report(@Body body: ReportRequestDto)
+
 
 }
