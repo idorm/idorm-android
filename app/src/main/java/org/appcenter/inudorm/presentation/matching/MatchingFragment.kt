@@ -359,7 +359,6 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
 
 
     override fun onCardSwiped(direction: Direction?) {
-        Toast.makeText(requireContext(), direction.toString(), Toast.LENGTH_SHORT).show()
         lifecycleScope.launch {
             matchingViewUtil.animateToColor(binding.circle, matchingViewUtil.blue, 250)
         }

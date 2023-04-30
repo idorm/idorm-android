@@ -3,7 +3,9 @@ package org.appcenter.inudorm.presentation.account
 import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
+import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -28,6 +30,14 @@ class LoginActivity : LoadingActivity(), OnSnackBarCallListener {
     private lateinit var prefsRepository: PrefsRepository
     private lateinit var viewModel: LoginViewModel
     private lateinit var binding: ActivityLoginBinding
+
+    // 화면 터치 시 키보드 내리기
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        val imm: InputMethodManager =
+            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        return super.dispatchTouchEvent(ev)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
