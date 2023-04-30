@@ -3,6 +3,8 @@ package org.appcenter.inudorm.presentation.account
 import CheckableItem
 import android.content.Intent
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -37,6 +39,13 @@ class RegisterActivity : PromptActivity() {
         // 특정 페이지 테스트용입니다.
 //        addPage(NickNamePromptFragment())
 //        binding.pager.currentItem++
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        val imm: InputMethodManager =
+            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        return super.dispatchTouchEvent(ev)
     }
 
     private fun getInitPages(): ArrayList<Fragment> {

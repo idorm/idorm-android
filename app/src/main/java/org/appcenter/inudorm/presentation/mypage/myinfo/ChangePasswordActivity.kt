@@ -2,6 +2,8 @@ package org.appcenter.inudorm.presentation.mypage.myinfo
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -29,7 +31,12 @@ class ChangePasswordActivity : PromptActivity() {
     private val binding: ActivityFindPassBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_find_pass)
     }
-
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        val imm: InputMethodManager =
+            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        return super.dispatchTouchEvent(ev)
+    }
     override fun onBackPressed() { // 스텝이 첫번째일 경우 원래 백버튼 이벤트 리스너 호출
         when (binding.pager.currentItem) {
             0 -> {

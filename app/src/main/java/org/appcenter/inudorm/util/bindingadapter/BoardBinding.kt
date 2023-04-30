@@ -19,6 +19,7 @@ import org.appcenter.inudorm.presentation.matching.LoadMode
 import org.appcenter.inudorm.presentation.mypage.matching.Sortable
 import org.appcenter.inudorm.presentation.mypage.myinfo.UiState
 import org.appcenter.inudorm.util.IDormLogger
+import org.appcenter.inudorm.util.State
 import org.appcenter.inudorm.util.bindingadapter.BoardBinding.bindBoard
 import org.joda.time.DateTimeZone
 import org.joda.time.LocalDateTime
@@ -166,6 +167,19 @@ object BoardBinding {
 
             }
     }
+
+    @JvmStatic
+    @BindingAdapter("postState")
+    fun RecyclerView.bindTopBoardState(state: State<ArrayList<Post>>) {
+        if (state !is State.Initial)
+            if (adapter is PopularPostAdapter && !state.isLoading() && state is State.Success) {
+                val a = adapter as PopularPostAdapter
+                a.dataSet = ArrayList(state.data!!)
+                // 리스트에 추가하고
+                a.notifyDataSetChanged()
+            }
+    }
+
 
     fun getElapsedTime(timeText: String): String {
         val time = timeText.replace("T", " ")

@@ -14,6 +14,7 @@
             type="org.appcenter.inudorm.presentation.mypage.MyPageViewModel" />
     </data>
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -71,285 +72,303 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout17"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="24dp"
-            android:layout_marginStart="72dp"
-            android:layout_marginTop="180dp"
-            android:background="@drawable/view_layout_my_page_card_background"
-            android:elevation="4dp"
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="16dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout9">
-
-            <TextView
-                android:id="@+id/roommateMatchingText"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-
-                android:fontFamily="@font/notosans_bold"
-                android:gravity="center"
-                android:includeFontPadding="false"
-                android:text="@string/roommateMatchingText"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/constraintLayout9">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout_2"
                 android:layout_width="match_parent"
-                android:layout_height="102dp"
-                android:layout_marginStart="1dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintStart_toStartOf="@+id/roommateMatchingText"
-                app:layout_constraintTop_toBottomOf="@+id/roommateMatchingText">
+                android:layout_height="wrap_content"
+                android:paddingBottom="24sp">
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/matchingImageButton"
-                    android:layout_width="0dp"
-                    android:layout_height="102dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/view_button_round_12_gray_100"
-                    android:drawableTop="@drawable/ic_matching_image_setting"
-                    android:drawablePadding="8dp"
-
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout17"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="24dp"
+                    android:layout_marginStart="72dp"
+                    android:layout_marginTop="180dp"
+                    android:background="@drawable/view_layout_my_page_card_background"
                     android:elevation="4dp"
-                    android:fontFamily="@font/notosans_regular"
-                    android:includeFontPadding="false"
-                    android:paddingVertical="12dp"
-                    android:shadowColor="@color/iDorm_shadow"
-
-                    android:shadowDy="2"
-                    android:shadowRadius="4"
-                    android:text="@string/matchingManageInteraction"
-                    android:textColor="@color/black"
-
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/dislikedRoomMatesButton"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintHorizontal_chainStyle="spread_inside"
-                    app:layout_constraintHorizontal_weight="1"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="16dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/dislikedRoomMatesButton"
-                    android:layout_width="0dp"
-                    android:layout_height="102dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/view_button_round_12_gray_100"
-                    android:drawableTop="@drawable/ic_disliked_mate_setting"
+                    <TextView
+                        android:id="@+id/roommateMatchingText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="24dp"
+
+                        android:fontFamily="@font/notosans_bold"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text="@string/roommateMatchingText"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="102dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintStart_toStartOf="@+id/roommateMatchingText"
+                        app:layout_constraintTop_toBottomOf="@+id/roommateMatchingText">
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/matchingImageButton"
+                            android:layout_width="0dp"
+                            android:layout_height="102dp"
+                            android:layout_marginEnd="10dp"
+                            android:background="@drawable/view_button_round_12_gray_100"
+                            android:drawableTop="@drawable/ic_matching_image_setting"
+                            android:drawablePadding="8dp"
+
+                            android:elevation="4dp"
+                            android:fontFamily="@font/notosans_regular"
+                            android:includeFontPadding="false"
+                            android:paddingVertical="12dp"
+                            android:shadowColor="@color/iDorm_shadow"
+
+                            android:shadowDy="2"
+                            android:shadowRadius="4"
+                            android:text="@string/matchingManageInteraction"
+                            android:textColor="@color/black"
+
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/dislikedRoomMatesButton"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintHorizontal_chainStyle="spread_inside"
+                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/dislikedRoomMatesButton"
+                            android:layout_width="0dp"
+                            android:layout_height="102dp"
+                            android:layout_marginEnd="10dp"
+                            android:background="@drawable/view_button_round_12_gray_100"
+                            android:drawableTop="@drawable/ic_disliked_mate_setting"
 
 
-                    android:drawablePadding="8dp"
+                            android:drawablePadding="8dp"
+                            android:elevation="4dp"
+                            android:fontFamily="@font/notosans_regular"
+                            android:includeFontPadding="false"
+                            android:paddingVertical="12dp"
+
+                            android:shadowColor="@color/iDorm_shadow"
+                            android:shadowDy="2"
+                            android:shadowRadius="4"
+                            android:text="@string/dislikedmateManageInteraction"
+
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/likedRoomMatesButton"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintStart_toEndOf="@+id/matchingImageButton"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/likedRoomMatesButton"
+                            android:layout_width="0dp"
+                            android:layout_height="102dp"
+                            android:background="@drawable/view_button_round_12_gray_100"
+                            android:drawableTop="@drawable/ic_liked_mate_setting"
+                            android:drawablePadding="8dp"
+
+
+                            android:elevation="4dp"
+                            android:fontFamily="@font/notosans_regular"
+                            android:includeFontPadding="false"
+                            android:paddingVertical="12dp"
+                            android:shadowColor="@color/iDorm_shadow"
+
+                            android:shadowDy="2"
+                            android:shadowRadius="4"
+                            android:text="@string/likedmateManageInteraction"
+                            android:textColor="@color/black"
+
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintStart_toEndOf="@+id/dislikedRoomMatesButton"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switchBtn"
+                        style="@style/Widget.DesignSystem.Switch"
+
+                        android:layout_marginStart="2dp"
+                        android:layout_marginTop="16dp"
+                        android:checked="@{viewModel.myPageState.matchingInfo.data.isMatchingInfoPublic}"
+                        android:enabled="@{viewModel.myPageState.matchingInfo.error == null &amp;&amp; !viewModel.myPageState.matchingInfo.loading}"
+                        android:fontFamily="@font/notosans_medium"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:onClick="@{() -> viewModel.toggleMatchingInfoVisibility()}"
+                        android:text="@string/showMyImageSwitchText"
+
+                        android:textColor="@color/iDorm_gray_400"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout_2"
+                        app:switchPadding="8dp" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="24dp"
+                    android:layout_marginStart="72dp"
+                    android:background="@drawable/view_layout_my_page_card_background"
                     android:elevation="4dp"
-                    android:fontFamily="@font/notosans_regular"
-                    android:includeFontPadding="false"
-                    android:paddingVertical="12dp"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout17">
 
-                    android:shadowColor="@color/iDorm_shadow"
-                    android:shadowDy="2"
-                    android:shadowRadius="4"
-                    android:text="@string/dislikedmateManageInteraction"
+                    <TextView
+                        android:id="@+id/communityTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="24dp"
 
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/likedRoomMatesButton"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintStart_toEndOf="@+id/matchingImageButton"
-                    app:layout_constraintTop_toTopOf="parent" />
+                        android:fontFamily="@font/notosans_bold"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text="@string/mypageCommunity"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/likedRoomMatesButton"
-                    android:layout_width="0dp"
-                    android:layout_height="102dp"
-                    android:background="@drawable/view_button_round_12_gray_100"
-                    android:drawableTop="@drawable/ic_liked_mate_setting"
-                    android:drawablePadding="8dp"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/communityArea"
+                        android:layout_width="match_parent"
+                        android:layout_height="102dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintStart_toStartOf="@+id/communityTitle"
+                        app:layout_constraintTop_toBottomOf="@+id/communityTitle">
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/postsWrote"
+                            android:layout_width="0dp"
+                            android:layout_height="102dp"
+                            android:layout_marginEnd="10dp"
+                            android:background="@drawable/view_button_round_12_gray_100"
+                            android:drawableTop="@drawable/ic_write_circled"
+                            android:drawablePadding="8dp"
+
+                            android:elevation="4dp"
+                            android:fontFamily="@font/notosans_regular"
+                            android:includeFontPadding="false"
+                            android:onClick="@{() -> fragment.openPostsWrote()}"
+                            android:paddingVertical="12dp"
+
+                            android:shadowColor="@color/iDorm_shadow"
+                            android:shadowDy="2"
+                            android:shadowRadius="4"
+                            android:text="@string/postWrote"
+                            android:textColor="@color/black"
+
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/commentsWrote"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintHorizontal_chainStyle="spread_inside"
+                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/commentsWrote"
+                            android:layout_width="0dp"
+                            android:layout_height="102dp"
+                            android:layout_marginEnd="10dp"
+                            android:background="@drawable/view_button_round_12_gray_100"
+                            android:drawableTop="@drawable/ic_comments_wrote"
 
 
-                    android:elevation="4dp"
-                    android:fontFamily="@font/notosans_regular"
-                    android:includeFontPadding="false"
-                    android:paddingVertical="12dp"
-                    android:shadowColor="@color/iDorm_shadow"
+                            android:drawablePadding="8dp"
+                            android:elevation="4dp"
+                            android:fontFamily="@font/notosans_regular"
+                            android:includeFontPadding="false"
+                            android:onClick="@{() -> fragment.openCommentsWrote()}"
 
-                    android:shadowDy="2"
-                    android:shadowRadius="4"
-                    android:text="@string/likedmateManageInteraction"
-                    android:textColor="@color/black"
+                            android:paddingVertical="12dp"
+                            android:shadowColor="@color/iDorm_shadow"
+                            android:shadowDy="2"
+                            android:shadowRadius="4"
+                            android:text="@string/commentsWrote"
 
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintStart_toEndOf="@+id/dislikedRoomMatesButton"
-                    app:layout_constraintTop_toTopOf="parent" />
+                            android:textColor="@color/black"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/postsLiked"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintStart_toEndOf="@+id/postsWrote"
+                            app:layout_constraintTop_toTopOf="parent" />
 
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/postsLiked"
+                            android:layout_width="0dp"
+                            android:layout_height="102dp"
+                            android:background="@drawable/view_button_round_12_gray_100"
+                            android:drawableTop="@drawable/ic_like_circled"
+                            android:drawablePadding="8dp"
+
+                            android:elevation="4dp"
+                            android:fontFamily="@font/notosans_regular"
+                            android:includeFontPadding="false"
+                            android:onClick="@{() -> fragment.openPostsLiked()}"
+                            android:paddingVertical="12dp"
+
+                            android:shadowColor="@color/iDorm_shadow"
+                            android:shadowDy="2"
+                            android:shadowRadius="4"
+                            android:text="@string/postsLiked"
+                            android:textColor="@color/black"
+
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintStart_toEndOf="@+id/commentsWrote"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switchBtn"
-                style="@style/Widget.DesignSystem.Switch"
+        </ScrollView>
 
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="16dp"
-                android:checked="@{viewModel.myPageState.matchingInfo.data.isMatchingInfoPublic}"
-                android:enabled="@{viewModel.myPageState.matchingInfo.error == null &amp;&amp; !viewModel.myPageState.matchingInfo.loading}"
-                android:fontFamily="@font/notosans_medium"
-                android:gravity="center"
-                android:includeFontPadding="false"
-                android:onClick="@{() -> viewModel.toggleMatchingInfoVisibility()}"
-                android:text="@string/showMyImageSwitchText"
-
-                android:textColor="@color/iDorm_gray_400"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout_2"
-                app:switchPadding="8dp" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="24dp"
-            android:layout_marginStart="72dp"
-            android:background="@drawable/view_layout_my_page_card_background"
-            android:elevation="4dp"
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout17">
-
-            <TextView
-                android:id="@+id/communityTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-
-                android:fontFamily="@font/notosans_bold"
-                android:gravity="center"
-                android:includeFontPadding="false"
-                android:text="@string/mypageCommunity"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/communityArea"
-                android:layout_width="match_parent"
-                android:layout_height="102dp"
-                android:layout_marginStart="1dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintStart_toStartOf="@+id/communityTitle"
-                app:layout_constraintTop_toBottomOf="@+id/communityTitle">
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/postsWrote"
-                    android:layout_width="0dp"
-                    android:layout_height="102dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/view_button_round_12_gray_100"
-                    android:drawableTop="@drawable/ic_write_circled"
-                    android:drawablePadding="8dp"
-
-                    android:elevation="4dp"
-                    android:fontFamily="@font/notosans_regular"
-                    android:includeFontPadding="false"
-                    android:onClick="@{() -> fragment.openPostsWrote()}"
-                    android:paddingVertical="12dp"
-
-                    android:shadowColor="@color/iDorm_shadow"
-                    android:shadowDy="2"
-                    android:shadowRadius="4"
-                    android:text="@string/postWrote"
-                    android:textColor="@color/black"
-
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/commentsWrote"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintHorizontal_chainStyle="spread_inside"
-                    app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/commentsWrote"
-                    android:layout_width="0dp"
-                    android:layout_height="102dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/view_button_round_12_gray_100"
-                    android:drawableTop="@drawable/ic_comments_wrote"
-
-
-                    android:drawablePadding="8dp"
-                    android:elevation="4dp"
-                    android:fontFamily="@font/notosans_regular"
-                    android:includeFontPadding="false"
-                    android:onClick="@{() -> fragment.openCommentsWrote()}"
-
-                    android:paddingVertical="12dp"
-                    android:shadowColor="@color/iDorm_shadow"
-                    android:shadowDy="2"
-                    android:shadowRadius="4"
-                    android:text="@string/commentsWrote"
-
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/postsLiked"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintStart_toEndOf="@+id/postsWrote"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/postsLiked"
-                    android:layout_width="0dp"
-                    android:layout_height="102dp"
-                    android:background="@drawable/view_button_round_12_gray_100"
-                    android:drawableTop="@drawable/ic_like_circled"
-                    android:drawablePadding="8dp"
-
-                    android:elevation="4dp"
-                    android:fontFamily="@font/notosans_regular"
-                    android:includeFontPadding="false"
-                    android:onClick="@{() -> fragment.openPostsLiked()}"
-                    android:paddingVertical="12dp"
-
-                    android:shadowColor="@color/iDorm_shadow"
-                    android:shadowDy="2"
-                    android:shadowRadius="4"
-                    android:text="@string/postsLiked"
-                    android:textColor="@color/black"
-
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintStart_toEndOf="@+id/commentsWrote"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

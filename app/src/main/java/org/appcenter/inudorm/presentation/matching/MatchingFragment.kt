@@ -86,14 +86,14 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
     }
 
     private fun handleMemberReport(memberId: Int) {
-        val reasonTexts = resources.getStringArray(R.array.reportReasons1_text)
-        val reasonValues = resources.getStringArray(R.array.reportReasons1_value)
+        val reasonTexts = resources.getStringArray(R.array.memberReportReasons_text)
+        val reasonValues = resources.getStringArray(R.array.memberReportReasons_value)
         val reportReasons: ArrayList<CheckableItem> = arrayListOf()
 
         reasonValues.forEachIndexed { idx, value ->
             reportReasons.add(CheckableItem(value, reasonTexts[idx], false, false, ""))
         }
-        RadioButtonListBottomSheet(reportReasons) { reasonType, reason ->
+        modalBottomSheet = RadioButtonListBottomSheet(reportReasons) { reasonType, reason ->
             if (reason.isNullOrEmpty()) return@RadioButtonListBottomSheet
             viewModel.reportMatchingInfo(
                 memberId,
@@ -101,13 +101,14 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
                 reasonType ?: "",
                 Content.MEMBER
             )
-        }.show(
+        }
+        modalBottomSheet.show(
             this@MatchingFragment.parentFragmentManager,
             ListBottomSheet.TAG
         )
     }
 
-    private lateinit var modalBottomSheet: ListBottomSheet
+    private lateinit var modalBottomSheet: RadioButtonListBottomSheet
 
     private fun setupCardStackView() {
         val setting = SwipeAnimationSetting.Builder()
@@ -123,7 +124,7 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
         }
 
         adapter = RoomMateAdapter(true, ArrayList()) {
-            modalBottomSheet = ListBottomSheet(
+            ListBottomSheet(
                 arrayListOf(
                     SelectItem(
                         "신고하기",
@@ -198,11 +199,11 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
                     is UserMutationEvent.ReportMatchingInfo -> {
                         if (event.mutation.state.isSuccess())
                             OkDialog("사용자를 신고했어요. 불편을 드려 죄송해요.", onOk = {
-                                modalBottomSheet.dismissAllowingStateLoss()
+                                modalBottomSheet.dismiss()
                             }).show(this@MatchingFragment.requireContext())
                         else if (event.mutation.state.isError())
                             OkDialog("사용자 신고에 실패했어요.", onOk = {
-                                modalBottomSheet.dismissAllowingStateLoss()
+                                modalBottomSheet.dismiss()
                             }).show(this@MatchingFragment.requireContext())
                     }
                     is UserMutationEvent.DeleteLikedMatchingInfo -> {
@@ -358,7 +359,6 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
 
 
     override fun onCardSwiped(direction: Direction?) {
-        Toast.makeText(requireContext(), direction.toString(), Toast.LENGTH_SHORT).show()
         lifecycleScope.launch {
             matchingViewUtil.animateToColor(binding.circle, matchingViewUtil.blue, 250)
         }

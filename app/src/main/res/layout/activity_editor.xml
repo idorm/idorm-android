@@ -27,7 +27,7 @@
             android:layout_height="44dp"
             android:background="@null"
             android:textAlignment="center"
-            android:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
+            android:theme="@style/App.ToolbarMenuItem"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
