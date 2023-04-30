@@ -30,6 +30,7 @@ class Login(private val prefsRepository: PrefsRepository) :
 
     private suspend fun loginWithInput(params: UserInputParams): UiState<Boolean> {
         return kotlin.runCatching {
+            prefsRepository.signOut() // 로그아웃 먼저 하자잉~
             val tokenTask = FirebaseMessaging.getInstance().token
             try {
                 tokenTask.await()

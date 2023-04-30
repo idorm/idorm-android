@@ -57,10 +57,18 @@ class LoginActivity : LoadingActivity(), OnSnackBarCallListener {
                             PrefsRepository(this@LoginActivity),
                             state.error,
                             {
-                                OkDialog(it.message ?: "알 수 없는 오류입니다.").show(this@LoginActivity)
+                                OkDialog(
+                                    it.message ?: "알 수 없는 오류입니다.",
+                                ).show(
+                                    this@LoginActivity
+                                )
                             }
                         ) {
-                            OkDialog(it.message).show(this@LoginActivity)
+                            OkDialog(
+                                it.message,
+                            ).show(
+                                this@LoginActivity
+                            )
                         }
 
                     }

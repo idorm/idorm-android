@@ -12,39 +12,35 @@ import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.usecase.Withdraw
 import org.appcenter.inudorm.util.CustomDialog
 import org.appcenter.inudorm.util.DialogButton
+import org.appcenter.inudorm.util.OkDialog
 
 class WithdrawalActivity : AppCompatActivity() {
     fun withdraw() {
         lifecycleScope.launch {
             kotlin.runCatching {
-                Withdraw().run(null)
+                Withdraw(prefsRepository).run(null)
             }.onSuccess {
-                CustomDialog(
+                OkDialog(
                     getString(R.string.withdrawSuccess),
                     "탈퇴 완료",
-                    positiveButton = signOutButton
-                )
+                    onOk = { goLogin() }).show(this@WithdrawalActivity)
 
             }.onFailure {
-                CustomDialog(
+                OkDialog(
                     getString(R.string.withdrawFailure),
-                    positiveButton = signOutButton
-                )
+                    "탈퇴 실패",
+                    onOk = { goLogin() }).show(this@WithdrawalActivity)
+
             }
         }
     }
 
-    // requires context.
-    private val signOutButton by lazy {
-        DialogButton(getString(R.string.ok), onClick = {
-            signOutAndGoLogin()
-        })
-    }
-
-    private fun signOutAndGoLogin() {
+    private fun goLogin() {
         lifecycleScope.launch {
             prefsRepository.signOut()
         }
+        finish() // withdrawal
+        finish() // main
         startActivity(Intent(this@WithdrawalActivity, LoginActivity::class.java))
     }
 
