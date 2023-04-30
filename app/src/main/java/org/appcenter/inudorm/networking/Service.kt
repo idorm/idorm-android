@@ -7,7 +7,8 @@ import org.appcenter.inudorm.networking.service.*
 /**
  * 여러 서비스들을 합친 Service Interface 입니다.
  */
-interface Service : EmailService, MatchingInfoService, MemberService, MatchingMateService, CommunityService
+interface Service : EmailService, MatchingInfoService, MemberService, MatchingMateService,
+    CommunityService, CalendarService
 
 fun createJsonRequestBody(content: String): RequestBody =
     RequestBody.create(

@@ -244,6 +244,7 @@
     <string name="commentsWrote">내가 쓴 댓글</string>
     <string name="postsLiked">추천한 글</string>
     <string name="selectReportReason">신고 사유를 선택해주세요.</string>
+    <string name="checkNotice">기숙사 공지사항 확인하기</string>
 
     <string-array name="reportReasons1_text">
         <item>도배</item>

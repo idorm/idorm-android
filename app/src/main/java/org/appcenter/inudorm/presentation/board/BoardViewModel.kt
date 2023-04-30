@@ -64,11 +64,13 @@ data class InfinityScrollState<T>(
 
 class BoardViewModel : ViewModel() {
     private val _boardUiState =
-        MutableStateFlow(BoardUiState(
-            SelectItem("제${Dorm.DORM1.text}기숙사", Dorm.DORM1.name),
-            InfinityScrollState.empty(),
-            InfinityScrollState.empty()
-        ))
+        MutableStateFlow(
+            BoardUiState(
+                SelectItem("제${Dorm.DORM1.text}기숙사", Dorm.DORM1.name),
+                InfinityScrollState.empty(),
+                InfinityScrollState.empty()
+            )
+        )
     val boardUiState: StateFlow<BoardUiState>
         get() = _boardUiState
 
@@ -85,13 +87,21 @@ class BoardViewModel : ViewModel() {
             }
             kotlin.runCatching {
                 val posts =
-                    GetPosts().run(GetPostParams(BoardType.Regular,
-                        getDorm(),
-                        _boardUiState.value.page))
+                    GetPosts().run(
+                        GetPostParams(
+                            BoardType.Regular,
+                            getDorm(),
+                            _boardUiState.value.page
+                        )
+                    )
                 val topPosts =
-                    GetPosts().run(GetPostParams(BoardType.Top,
-                        getDorm(),
-                        _boardUiState.value.page))
+                    GetPosts().run(
+                        GetPostParams(
+                            BoardType.Top,
+                            getDorm(),
+                            0
+                        )
+                    )
                 boardUiState.value.copy(
                     posts = InfinityScrollState.data(posts, LoadMode.Update),
                     topPosts = InfinityScrollState.data(topPosts, LoadMode.Update)

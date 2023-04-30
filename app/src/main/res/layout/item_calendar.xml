@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="calendar"
+            type="org.appcenter.inudorm.model.Calendar" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/calendarParent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/view_round_stroke"
+        android:padding="16sp"
+        android:layout_marginBottom="10sp">
+
+        <LinearLayout
+            android:id="@+id/dot"
+            android:layout_width="7sp"
+            android:layout_height="7sp"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="10sp"
+            android:background="@color/iDorm_blue"
+            android:orientation="vertical"
+            app:layout_constraintCircleRadius="50sp"
+            app:layout_constraintEnd_toStartOf="@id/date"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/date" />
+
+        <LinearLayout
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10sp"
+            app:layout_constraintStart_toEndOf="@id/dot"
+            app:layout_constraintTop_toTopOf="@id/dot">
+
+            <TextView
+                date="@{calendar.startDate}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                tools:text="12월 13일" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" ~ "
+                android:textColor="@color/black" />
+
+            <TextView
+                date="@{calendar.endDate}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                tools:text="12월 13일" />
+        </LinearLayout>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/dorms"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/date"
+            app:layout_constraintTop_toBottomOf="@id/date">
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/iDorm_gray_100"
+                android:text="1 기숙사"
+                android:textColor="@color/iDorm_gray_400"
+                app:chipCornerRadius="0sp"
+                dormVisibility="@{calendar.dorm1Yn}"
+
+                />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/iDorm_gray_100"
+                android:text="2 기숙사"
+                android:textColor="@color/iDorm_gray_400"
+                app:chipCornerRadius="0sp"
+                dormVisibility="@{calendar.dorm2Yn}"
+
+                />
+
+            <com.google.android.material.chip.Chip
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/iDorm_gray_100"
+                android:text="3 기숙사"
+                android:textColor="@color/iDorm_gray_400"
+                dormVisibility="@{calendar.dorm3Yn}"
+
+                app:chipCornerRadius="0sp" />
+        </com.google.android.material.chip.ChipGroup>
+
+        <LinearLayout
+            android:id="@+id/time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/dorms"
+            app:layout_constraintTop_toBottomOf="@id/dorms">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosans_medium"
+                android:includeFontPadding="false"
+                android:text="시간 "
+                android:textColor="@color/iDorm_gray_300" />
+
+            <TextView
+                time="@{calendar.startTime}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosans_medium"
+                android:includeFontPadding="false"
+                android:textColor="@color/iDorm_gray_400"
+                tools:text="오전 10:00" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosans_medium"
+                android:includeFontPadding="false"
+                android:text=" ~ "
+                android:textColor="@color/iDorm_gray_400" />
+
+            <TextView
+                time="@{calendar.endTime}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosans_medium"
+                android:includeFontPadding="false"
+                android:textColor="@color/iDorm_gray_400"
+                tools:text="오후 07:00" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/time"
+            app:layout_constraintTop_toBottomOf="@id/time">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosans_medium"
+                android:includeFontPadding="false"
+                android:text="장소 "
+                android:textColor="@color/iDorm_gray_300" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosans_medium"
+                android:includeFontPadding="false"
+                android:text="@{calendar.location}"
+                android:textColor="@color/iDorm_gray_400"
+                tools:text="기숙사 현관" />
+
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/checkButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24sp"
+            android:text="@string/checkNotice"
+            android:theme="@style/Widget.DesignSystem.AppCompatButton.blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/time" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -21,6 +21,7 @@ class App : Application() {
         val localFilterRepository = LocalFilterRepository()
         val matchingInfoRepository = MatchingInfoRepository()
         val communityRepository = CommunityRepository()
+        val calendarRepository = CalendarRepository()
     }
 
 

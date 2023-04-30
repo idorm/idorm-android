@@ -1,145 +1,252 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.HomeFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout7"
+    <data>
+
+        <variable
+            name="viewModel"
+            type="org.appcenter.inudorm.presentation.HomeViewModel" />
+
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="44dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
-
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="22dp"
-            android:src="@drawable/ic_alram"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="44dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
-
-        <TextView
-            android:id="@+id/semesterNum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-
-            android:fontFamily="@font/notosans_bold"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:text="@string/semesterNum"
-            android:textColor="@color/iDorm_blue"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/semesterText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:fontFamily="@font/notosans_bold"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:text="@string/semesterText"
-            android:textColor="@color/iDorm_blue"
-            android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@+id/semesterNum"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/roommateMatchingText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_marginStart="6dp"
-            android:fontFamily="@font/notosans_bold"
-
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:text="@string/roommateMatchingText"
-            android:textColor="@color/iDorm_gray_400"
-            android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@+id/semesterText"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/withIdormText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:fontFamily="@font/notosans_bold"
-
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:text="@string/withIdormText"
-            android:textColor="@color/iDorm_gray_400"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/semesterNum"
-            app:layout_constraintTop_toBottomOf="@+id/semesterText" />
-
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="43dp"
-            android:layout_marginEnd="24dp"
-            android:src="@drawable/ic_character_main"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/loginButton"
-            style="@style/Widget.DesignSystem.AppCompatButton.blue"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginStart="24dp"
+            android:layout_height="0dp"
+            tools:context=".presentation.HomeFragment">
 
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/view_button_round_6"
-
-            android:drawableRight="@drawable/ic_matching_interaction"
-            android:drawablePadding="-24dp"
-            android:elevation="6dp"
-            android:fontFamily="@font/notosans_medium"
-            android:includeFontPadding="false"
-            android:paddingHorizontal="62dp"
-
-            android:shadowColor="#36000000"
-            android:shadowDy="4"
-            android:shadowRadius="6"
-
-            android:text="@string/RoomMateMatchingInteraction"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-
-            app:layout_constraintBottom_toBottomOf="@+id/imageView6"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout7"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="22dp"
+                    android:src="@drawable/ic_alram"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/matchingMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="36sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
+
+                <TextView
+                    android:id="@+id/semesterNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+
+                    android:fontFamily="@font/notosans_bold"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="@string/semesterNum"
+                    android:textColor="@color/iDorm_blue"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/semesterText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:fontFamily="@font/notosans_bold"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="@string/semesterText"
+                    android:textColor="@color/iDorm_blue"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toEndOf="@+id/semesterNum"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/roommateMatchingText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginStart="6dp"
+                    android:fontFamily="@font/notosans_bold"
+
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="@string/roommateMatchingText"
+                    android:textColor="@color/iDorm_gray_400"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toEndOf="@+id/semesterText"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/withIdormText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:fontFamily="@font/notosans_bold"
+
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="@string/withIdormText"
+                    android:textColor="@color/iDorm_gray_400"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="@+id/semesterNum"
+                    app:layout_constraintTop_toBottomOf="@+id/semesterText" />
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="43dp"
+                    android:layout_marginEnd="24dp"
+                    android:src="@drawable/ic_character_main"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/loginButton"
+                    style="@style/Widget.DesignSystem.AppCompatButton.blue"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginStart="24dp"
+
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/view_button_round_6"
+
+                    android:drawableRight="@drawable/ic_matching_interaction"
+                    android:drawablePadding="-24dp"
+                    android:elevation="6dp"
+                    android:fontFamily="@font/notosans_medium"
+                    android:includeFontPadding="false"
+                    android:paddingHorizontal="62dp"
+
+                    android:shadowColor="#36000000"
+                    android:shadowDy="4"
+                    android:shadowRadius="6"
+
+                    android:text="@string/RoomMateMatchingInteraction"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/popularPosts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="12sp"
+                android:background="@color/iDorm_gray_100"
+                android:orientation="horizontal"
+                android:paddingHorizontal="24sp"
+                android:paddingVertical="10sp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/matchingMessage"
+                app:postState="@{viewModel.topPostState}"
+                tools:listitem="@layout/item_popular_post" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="32sp"
+                android:orientation="vertical"
+                android:paddingHorizontal="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/popularPosts">
+
+                <LinearLayout
+                    android:id="@+id/calendarMessage_top"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosans_medium"
+                        android:includeFontPadding="false"
+                        android:text="인천대 "
+                        android:textColor="@color/iDorm_gray_400"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosans_bold"
+                        android:includeFontPadding="false"
+                        android:text="기숙사 일정"
+                        android:textColor="@color/iDorm_blue"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosans_medium"
+                        android:includeFontPadding="false"
+                        android:text="아이돔에서 확인해요."
+                        android:textColor="@color/iDorm_gray_400"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosans_medium"
+                        android:includeFontPadding="false"
+                        android:text="Beta"
+                        android:textColor="@color/iDorm_gray_200"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/officialEvents"
+                    calendarState="@{viewModel.calendarState}"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginVertical="12sp"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/matchingMessage"
+                    tools:listitem="@layout/item_calendar" />
+
+
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</layout>
