@@ -274,4 +274,18 @@
         <item>COMMENT</item>
         <item>ETC</item>
     </string-array>
+
+
+    <string-array name="memberReportReasons_text">
+        <item>닉네임</item>
+        <item>프로필 사진</item>
+        <item>매칭정보</item>
+        <item>기타</item>
+    </string-array>
+    <string-array name="memberReportReasons_value">
+        <item>NICKNAME</item>
+        <item>PROFILE_PHOTO</item>
+        <item>MATCHINGINFO</item>
+        <item>ETC</item>
+    </string-array>
 </resources>

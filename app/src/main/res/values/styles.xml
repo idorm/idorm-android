@@ -138,5 +138,16 @@
         <item name="android:background">@drawable/spinner_drawable</item>
     </style>
 
+
+
+    <style name="App.ToolbarMenuItem" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/notosans_bold</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="actionMenuTextColor">#000000</item> <!--액션 메뉴의 텍스트 색상-->
+        <item name="colorControlNormal">#000000</item>
+    </style>
+
 </resources>
 

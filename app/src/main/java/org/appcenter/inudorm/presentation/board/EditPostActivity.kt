@@ -48,7 +48,10 @@ class EditPostActivity : EditorActivity() {
                 finish()
             }
             R.id.doneButton -> {
-                viewModel.editPost()
+                if (viewModel.title.value.isNullOrEmpty() || viewModel.content.value.isNullOrEmpty())
+                    OkDialog("제목과 내용을 모두 입력해주세요.").show(this)
+                else
+                    viewModel.editPost()
             }
         }
         return true

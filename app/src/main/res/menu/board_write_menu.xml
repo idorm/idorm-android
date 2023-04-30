@@ -6,6 +6,7 @@
         android:enabled="true"
         android:title="완료"
         app:showAsAction="always"
+        android:iconTint="@color/black"
 
         />
 </menu>

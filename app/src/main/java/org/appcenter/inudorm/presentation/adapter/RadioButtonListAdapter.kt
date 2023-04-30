@@ -24,7 +24,7 @@ class RadioButtonListAdapter(
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.item_bottom_sheet_agreement, viewGroup, false)
 
-        return ViewHolder(view,) {
+        return ViewHolder(view) {
             IDormLogger.i(this@RadioButtonListAdapter, "clicked")
             onItemClick(it, itemList[it])
         }
@@ -55,10 +55,11 @@ class RadioButtonListAdapter(
         RecyclerView.ViewHolder(view) {
         val title: TextView = view.findViewById(R.id.title)
         val radioButton: RadioButton = view.findViewById(R.id.radioButton)
-        val link: TextView = view.findViewById(R.id.detail)
+        private val link: TextView = view.findViewById(R.id.detail)
+        private val menuItem: View = view.findViewById(R.id.menuItem)
 
         init {
-            radioButton.setOnClickListener {
+            menuItem.setOnClickListener {
                 IDormLogger.i(this@ViewHolder, "clicked inside")
                 onItemClicked(adapterPosition)
             }
