@@ -16,6 +16,7 @@ import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentMyPageBinding
 import org.appcenter.inudorm.networking.ErrorCode
 import org.appcenter.inudorm.networking.UIErrorHandler
+import org.appcenter.inudorm.presentation.LoadingFragment
 import org.appcenter.inudorm.presentation.MainActivity
 import org.appcenter.inudorm.presentation.mypage.community.CommentListActivity
 import org.appcenter.inudorm.presentation.mypage.community.PostListActivity
@@ -32,7 +33,7 @@ import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.OkDialog
 import org.appcenter.inudorm.util.WindowUtil.setStatusBarColor
 
-class MyPageFragment : Fragment() {
+class MyPageFragment : LoadingFragment() {
 
     companion object {
         fun newInstance() = MyPageFragment()

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.launch
+import org.appcenter.inudorm.LoadingActivity
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityLikedMateListBinding
 import org.appcenter.inudorm.model.MatchingInfo
@@ -25,7 +26,7 @@ import org.appcenter.inudorm.presentation.matching.UserMutationEvent
 import org.appcenter.inudorm.presentation.mypage.myinfo.UiState
 import org.appcenter.inudorm.util.*
 
-abstract class MateListActivity : AppCompatActivity() {
+abstract class MateListActivity : LoadingActivity() {
 
     abstract var mateAdapter: RoomMateAdapter
     private val mLayoutManager: LinearLayoutManager by lazy {
@@ -99,6 +100,7 @@ abstract class MateListActivity : AppCompatActivity() {
     }
 
     private val collector = FlowCollector<Sortable<UiState<ArrayList<MatchingInfo>>>> { value ->
+        setLoadingState(value.data.loading)
         if (value.data.data == null && value.data.error != null) {
             // Todo: Handle Error
             IDormLogger.e(this@MateListActivity, value.toString())
@@ -111,6 +113,8 @@ abstract class MateListActivity : AppCompatActivity() {
 
     private val userMutationCollector = FlowCollector<UserMutationEvent> {
         IDormLogger.i(this, it.toString())
+        setLoadingState(it.mutation.state.isLoading())
+
         when (it) {
             is UserMutationEvent.DeleteDislikedMatchingInfo,
             is UserMutationEvent.DeleteLikedMatchingInfo,

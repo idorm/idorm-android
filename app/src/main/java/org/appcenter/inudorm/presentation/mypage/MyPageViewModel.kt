@@ -81,9 +81,9 @@ class MyPageViewModel : ViewModel() {
         viewModelScope.launch {
             _myPageState.update {
                 it.copy(
-                    myInfo = Result(loading = false),
-                    matchingInfo = Result(loading = false),
-                    matchingInfoToggleState = Result(loading = false),
+                    myInfo = Result(loading = true),
+                    matchingInfo = Result(loading = true),
+                    matchingInfoToggleState = Result(loading = true),
                 )
             }
             kotlin.runCatching {

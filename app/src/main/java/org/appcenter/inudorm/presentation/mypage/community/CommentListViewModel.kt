@@ -28,6 +28,14 @@ class CommentListViewModel : ViewModel() {
     fun getComments() {
         viewModelScope.launch {
             _commentListState.update {
+                it.copy(
+                    data = it.data.copy(
+                        loading = true,
+                        data = null
+                    )
+                )
+            }
+            _commentListState.update {
                 Sortable(it.sortBy, GetWroteComments().run(null))
             }
         }

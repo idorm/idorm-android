@@ -6,6 +6,9 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+import org.appcenter.inudorm.LoadingActivity
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityCommentListBinding
 import org.appcenter.inudorm.presentation.adapter.CommentListAdapter
@@ -15,11 +18,12 @@ import org.appcenter.inudorm.presentation.board.PostDetailActivity
 /**
  * 내가 쓴 댓글 등 댓글 리스트를 보여주는 액티비티
  */
-class CommentListActivity : AppCompatActivity() {
+class CommentListActivity : LoadingActivity() {
 
     private val binding: ActivityCommentListBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_comment_list)
     }
+
     fun goDetail(id: Int) {
         val intent = Intent(this, PostDetailActivity::class.java)
         intent.putExtra("id", id)
@@ -42,7 +46,13 @@ class CommentListActivity : AppCompatActivity() {
             goDetail(it.postId)
         }
         viewModel.getComments()
+        lifecycleScope.launch {
+            viewModel.commentListState.collect { sortable ->
+                setLoadingState(sortable.data.loading)
+            }
+        }
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // 클릭된 메뉴 아이템의 아이디 마다 when 구절로 클릭시 동작을 설정한다.
         when (item.itemId) {

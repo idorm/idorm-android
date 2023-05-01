@@ -10,6 +10,14 @@ class LikedPostListViewModel : PostListViewModel() {
     override fun getPosts() {
         viewModelScope.launch {
             postListState.update {
+                it.copy(
+                    data = it.data.copy(
+                        loading = true,
+                        data = null
+                    )
+                )
+            }
+            postListState.update {
                 GetLikedPosts().run(null)
             }
         }

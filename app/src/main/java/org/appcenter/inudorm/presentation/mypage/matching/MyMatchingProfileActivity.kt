@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
+import org.appcenter.inudorm.LoadingActivity
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityMyMatchingProfileBinding
 import org.appcenter.inudorm.networking.ErrorCode
@@ -16,7 +17,7 @@ import org.appcenter.inudorm.presentation.account.OnboardActivity
 import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.util.OkDialog
 
-class MyMatchingProfileActivity : AppCompatActivity() {
+class MyMatchingProfileActivity : LoadingActivity() {
     val binding: ActivityMyMatchingProfileBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_my_matching_profile)
     }
@@ -31,6 +32,7 @@ class MyMatchingProfileActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             viewModel.myPageState.collect {
+                setLoadingState(it.loading)
                 if (!it.loading && it.error != null) {
                     UIErrorHandler.handle(
                         this@MyMatchingProfileActivity,

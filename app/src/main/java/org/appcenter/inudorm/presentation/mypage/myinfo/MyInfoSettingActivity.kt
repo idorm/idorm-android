@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.App
+import org.appcenter.inudorm.LoadingActivity
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityMyInformationSettingBinding
 import org.appcenter.inudorm.presentation.account.LoginActivity
@@ -20,7 +21,7 @@ import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.util.WindowUtil.setStatusBarColor
 import kotlin.reflect.KClass
 
-class MyInfoSettingActivity : AppCompatActivity() {
+class MyInfoSettingActivity : LoadingActivity() {
 
     private val viewModel: MyInfoSettingViewModel by viewModels()
     private val binding: ActivityMyInformationSettingBinding by lazy {

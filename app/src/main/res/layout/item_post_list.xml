@@ -95,13 +95,13 @@
                     android:layout_marginStart="4dp"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
-                    app:timeElapsed="@{post.createdAt}"
                     android:textColor="@color/iDorm_gray_300"
                     android:textSize="12sp"
-
                     app:layout_constraintBottom_toBottomOf="parent"
+
                     app:layout_constraintStart_toEndOf="@+id/dot"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:timeElapsed="@{post.createdAt}" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

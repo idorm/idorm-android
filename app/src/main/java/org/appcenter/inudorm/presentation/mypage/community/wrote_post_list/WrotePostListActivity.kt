@@ -2,6 +2,8 @@ package org.appcenter.inudorm.presentation.mypage.community.wrote_post_list
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import org.appcenter.inudorm.presentation.adapter.PostAdapter
 import org.appcenter.inudorm.presentation.mypage.community.PostListActivity
 
@@ -17,6 +19,12 @@ class WrotePostListActivity : PostListActivity() {
 
         }
         viewModel.getPosts()
+
+        lifecycleScope.launch {
+            viewModel.postListState.collect { sortable ->
+                setLoadingState(sortable.data.loading)
+            }
+        }
 
     }
 
