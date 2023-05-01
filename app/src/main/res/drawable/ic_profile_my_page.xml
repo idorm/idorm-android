@@ -2,7 +2,7 @@
     android:width="76dp"
     android:height="76dp"
     android:viewportWidth="76"
-    android:viewportHeight="76">
+    android:viewportHeight="73">
   <path
       android:pathData="M4,14C4,7.373 9.373,2 36,2H60C66.627,2 72,7.373 72,14V58C72,64.627 66.627,70 60,70H16C9.373,70 4,64.627 4,58V14Z"
       android:fillColor="@color/iDorm_red"/>

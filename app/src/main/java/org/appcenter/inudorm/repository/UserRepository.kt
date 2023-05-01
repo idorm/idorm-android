@@ -1,7 +1,11 @@
 package org.appcenter.inudorm.repository
 
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import org.appcenter.inudorm.App.Companion.gson
 import org.appcenter.inudorm.model.*
+import org.appcenter.inudorm.model.board.Photo
 import org.appcenter.inudorm.networking.RetrofitInstance
 import org.appcenter.inudorm.networking.createJsonRequestBody
 import org.appcenter.inudorm.usecase.CodeVerifyParams
@@ -68,6 +72,14 @@ class UserRepository {
 
     suspend fun report(body: ReportRequestDto) {
         return RetrofitInstance.service.report(body)
+    }
+
+    suspend fun updateProfilePhoto(photo: Photo) {
+        val requestFile = photo.file?.asRequestBody("image/jpg".toMediaTypeOrNull())
+            ?: throw java.lang.RuntimeException("이미지 RequestBody 변환 실패.")
+        return RetrofitInstance.service.updateProfilePhoto(
+            MultipartBody.Part.createFormData("file", photo.image?.name, requestFile)
+        )
     }
 
 }

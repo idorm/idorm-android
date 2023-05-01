@@ -7,15 +7,27 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.model.User
+import org.appcenter.inudorm.model.board.Photo
+import org.appcenter.inudorm.presentation.matching.Mutation
+import org.appcenter.inudorm.presentation.matching.MyInfoMutationEvent
 import org.appcenter.inudorm.usecase.LoginRefresh
+import org.appcenter.inudorm.usecase.UpdateProfilePhoto
+import org.appcenter.inudorm.util.State
 import kotlin.reflect.KProperty
 import kotlin.reflect.KSuspendFunction1
 import kotlin.reflect.jvm.isAccessible
+
 
 class MyInfoSettingViewModel : ViewModel() {
     private val _myPageState: MutableStateFlow<UiState<User>> = MutableStateFlow(UiState())
     val myPageState: StateFlow<UiState<User>>
         get() = _myPageState
+
+    private val _myInfoMutationEvent: MutableStateFlow<MyInfoMutationEvent?> =
+        MutableStateFlow(null)
+    val myInfoMutationEvent: StateFlow<MyInfoMutationEvent?>
+        get() = _myInfoMutationEvent
+
 
     fun getUser() {
         viewModelScope.launch {
@@ -25,6 +37,16 @@ class MyInfoSettingViewModel : ViewModel() {
                 )
             }
             runCatch(this@MyInfoSettingViewModel::_myPageState, LoginRefresh()::run, null)
+        }
+    }
+
+    fun updateProfilePhoto(photo: Photo) {
+        viewModelScope.launch {
+            _myInfoMutationEvent.emit(
+                MyInfoMutationEvent.UpdateProfilePhoto(
+                    Mutation(photo, UpdateProfilePhoto().run(photo))
+                )
+            )
         }
     }
 }

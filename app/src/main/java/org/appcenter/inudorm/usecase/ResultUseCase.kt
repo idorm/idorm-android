@@ -12,7 +12,13 @@ abstract class ResultUseCase<P, R> {
             IDormLogger.d(this, "Running UseCase $this with following params: $params")
             return kotlin.runCatching {
                 State.Success(onExecute(params))
-            }.getOrElse { State.Error(it) }
+            }.getOrElse {
+                IDormLogger.e(
+                    this,
+                    "Exception ${it.javaClass.canonicalName} occurred while running UseCase: $this\nDetail: ${it.stackTraceToString()}"
+                )
+                State.Error(it)
+            }
         } catch (e: Exception) {
             IDormLogger.e(
                 this,

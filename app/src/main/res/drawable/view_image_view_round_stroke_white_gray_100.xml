@@ -6,21 +6,12 @@
         android:right="0dp"
         android:top="0dp">
         <shape android:shape="rectangle">
-            <solid android:color="@color/white"/>
-            <corners
-                android:radius="12dp"/>
+            <solid android:color="@color/white" />
+            <stroke
+                android:width="4dp"
+                android:color="@color/iDorm_gray_100" />
+            <corners android:radius="12dp" />
         </shape>
     </item>
 
-    <item
-        android:bottom="4dp"
-        android:left="4dp"
-        android:right="4dp"
-        android:top="4dp">
-        <shape android:shape="rectangle">
-            <solid android:color="@color/iDorm_gray_100"/>
-            <corners
-                android:radius="12dp"/>
-        </shape>
-    </item>
 </layer-list>

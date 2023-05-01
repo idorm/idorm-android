@@ -1,5 +1,6 @@
 package org.appcenter.inudorm.networking.service
 
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.appcenter.inudorm.model.ChangeNickNameDto
 import org.appcenter.inudorm.model.ChangePasswordDto
@@ -78,6 +79,10 @@ interface MemberService {
 
     @POST("member/report")
     suspend fun report(@Body body: ReportRequestDto)
+
+    @Multipart
+    @POST("member/profile-photo")
+    suspend fun updateProfilePhoto(@Part file: MultipartBody.Part)
 
 
 }
