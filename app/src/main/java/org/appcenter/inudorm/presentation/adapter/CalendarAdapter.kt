@@ -1,6 +1,7 @@
 package org.appcenter.inudorm.presentation.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -48,6 +49,13 @@ class CalendarAdapter(
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         _dataSet[position].let {
             viewHolder.viewBinding.calendar = it
+            if (it.startTime.isNullOrEmpty() && it.endTime.isNullOrEmpty()) {
+                viewHolder.viewBinding.time.visibility = View.GONE
+            }
+            if (it.startDate.isNullOrEmpty() && it.endDate.isNullOrEmpty()) {
+                viewHolder.viewBinding.time.visibility = View.GONE
+            }
+            if (it.content.isNullOrEmpty()) viewHolder.viewBinding.content.visibility = View.GONE
             viewHolder.viewBinding.executePendingBindings()
         }
         viewHolder.viewBinding.checkButton.setOnClickListener {
