@@ -22,6 +22,11 @@ class LikedPostListActivity : PostListActivity() {
         }
         viewModel.getPosts()
 
+        binding.refreshLayout.setOnRefreshListener {
+            viewModel.getPosts()
+        }
+
+
         lifecycleScope.launch {
             viewModel.postListState.collect { sortable ->
                 setLoadingState(sortable.data.loading)

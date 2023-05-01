@@ -84,9 +84,13 @@ abstract class MateListActivity : LoadingActivity() {
         binding.toolbarText.text = title
 
 
+
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         viewModel.getMates()
+        binding.refreshLayout.setOnRefreshListener {
+            viewModel.getMates()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

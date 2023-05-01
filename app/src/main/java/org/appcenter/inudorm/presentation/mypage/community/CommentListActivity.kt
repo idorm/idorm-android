@@ -46,11 +46,17 @@ class CommentListActivity : LoadingActivity() {
             goDetail(it.postId)
         }
         viewModel.getComments()
+
+        binding.refreshLayout.setOnRefreshListener {
+            viewModel.getComments()
+        }
+
         lifecycleScope.launch {
             viewModel.commentListState.collect { sortable ->
                 setLoadingState(sortable.data.loading)
             }
         }
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

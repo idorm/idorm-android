@@ -126,19 +126,24 @@
         </RadioGroup>
 
         <!--        Todo: RecyclerView Data binding-->
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/commentListRecycler"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="14dp"
-            android:orientation="vertical"
-            app:commentListState="@{viewModel.commentListState}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+            app:loading="@{viewModel.commentListState.data.loading}">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/commentListRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="14dp"
+                android:orientation="vertical"
+                app:commentListState="@{viewModel.commentListState}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

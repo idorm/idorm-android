@@ -129,14 +129,23 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </RadioGroup>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mateList"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="14dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-            app:mateListState="@{viewModel.mateListState}" />
+            app:loading="@{viewModel.mateListState.data.loading}">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mateList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="14dp"
+
+                app:mateListState="@{viewModel.mateListState}" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
