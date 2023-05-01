@@ -1,6 +1,6 @@
 package org.appcenter.inudorm.model
 
-data class OnbaordInfo (
+data class OnboardInfo (
     val age: Int,
     val cleanUpStatus: String,
     var dormCategory: Dorm,
@@ -14,6 +14,6 @@ data class OnbaordInfo (
     val mbti: String,
     val openKakaoLink: String,
     val showerTime: String,
-    val wakeUpTime: String,
+    val wakeupTime: String,
     val wishText: String,
 )

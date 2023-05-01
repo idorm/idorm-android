@@ -20,9 +20,15 @@ enum class Dorm(val text: String, val elementId: Int) {
     }
 }
 
-enum class Gender(val text: String) {
-    MALE("남성"),
-    FEMALE("여성")
+enum class Gender(val text: String, val elementId: Int) {
+    MALE("남성", R.id.man),
+    FEMALE("여성", R.id.woman);
+
+    companion object {
+        private val elementIdToGender = Gender.values().associateBy { it.elementId }
+        infix fun fromElementId(value: Int) = elementIdToGender[value]
+    }
+
 }
 
 enum class JoinPeriod(val text: String, val elementId: Int) {

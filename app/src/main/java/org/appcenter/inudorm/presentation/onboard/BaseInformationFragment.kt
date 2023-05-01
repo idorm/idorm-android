@@ -6,17 +6,29 @@ import android.text.Editable
 import android.view.LayoutInflater
     import android.view.View
     import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
     import androidx.fragment.app.Fragment
     import androidx.fragment.app.viewModels
-    import androidx.recyclerview.widget.LinearLayoutManager
-    import org.appcenter.inudorm.R
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import org.appcenter.inudorm.R
     import org.appcenter.inudorm.databinding.FragmentBaseInformationBinding
-import org.appcenter.inudorm.model.OnbaordInfo
-import org.appcenter.inudorm.model.OnboardQuestion
-    import org.appcenter.inudorm.presentation.adapter.OnboardRVAdapter
-import org.appcenter.inudorm.usecase.CreateOnboard
+import org.appcenter.inudorm.model.*
+import org.appcenter.inudorm.presentation.account.prompt.EmailPromptPurpose
+import org.appcenter.inudorm.presentation.adapter.OnboardRVAdapter
+import org.appcenter.inudorm.presentation.matching.BaseInfoMutationEvent
 import org.appcenter.inudorm.util.IDormLogger
+import org.appcenter.inudorm.util.OkDialog
+
+
+enum class BaseInfoPurpose{
+    Create,
+    Edit
+}
 
 class BaseInformationFragment : Fragment() {
 
@@ -24,9 +36,20 @@ class BaseInformationFragment : Fragment() {
         fun newInstance() = BaseInformationFragment()
     }
 
-    private val viewModel: BaseInformationViewModel by viewModels()
+    private lateinit var viewModel: BaseInformationViewModel
     private lateinit var binding: FragmentBaseInformationBinding
     lateinit var adapter: OnboardRVAdapter
+
+    private fun getPurposeFromBundle(): BaseInfoPurpose { // Fragment가 전달받은 Bundle을 풀어해쳐 이메일 입력을 받는 목적을 가져와요..
+        val bundle = this.arguments
+        return if (bundle != null) {
+            bundle.getSerializable("purpose") as BaseInfoPurpose
+        } else {
+            BaseInfoPurpose.Create
+        }
+    }
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,9 +82,19 @@ class BaseInformationFragment : Fragment() {
 
     }
 
+    private fun toast(str : String?){
+        Toast.makeText(context, str ?: "알 수 없는 오류입니다.", Toast.LENGTH_SHORT).show()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.age1.addTextChangedListener(object : TextWatcher {
+
+        viewModel = ViewModelProvider(
+            viewModelStore,
+            BaseInfoViewModelFactory(getPurposeFromBundle())
+        )[BaseInformationViewModel::class.java]
+
+            binding.age1.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun afterTextChanged(s: Editable?) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -71,7 +104,43 @@ class BaseInformationFragment : Fragment() {
             }
         })
         binding.doneButton.setOnClickListener {
-            IDormLogger.i(this, (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet.toString())
+            viewModel.submit(OnboardInfo(
+                dormCategory = Dorm.fromElementId(binding.dormGroup.checkedChipId)!!,
+                gender = Gender.fromElementId(binding.genderGroup.checkedChipId)!!,
+                joinPeriod = JoinPeriod.fromElementId(binding.joinPeriodGroup.checkedChipId)!!,
+                isSnoring = binding.snoring.isChecked,
+                isGrinding = binding.grinding.isChecked,
+                isSmoking = binding.smoking.isChecked,
+                isAllowedFood = binding.eatingInside.isChecked,
+                isWearEarphones = binding.wearEarphones.isChecked,
+                age = (binding.age1.text.toString() + binding.age2.text.toString()).toInt(),
+                wakeupTime = (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[0].answer,
+                cleanUpStatus = (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[1].answer,
+                showerTime = (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[2].answer,
+                openKakaoLink = (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[3].answer,
+                mbti = (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[4].answer,
+                wishText = (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[5].answer,
+            ))
+        }
+
+        lifecycleScope.launch{
+            viewModel.baseInfoMutationEvent.collect{
+                when(it) {
+                    is BaseInfoMutationEvent.CreateBaseInfo -> {
+                        if(it.mutation.state.isSuccess())
+                            OkDialog("매칭 이미지가 저장되었습니다.")
+                        if(it.mutation.state.isError())
+                            OkDialog("매칭 이미지 저장에 실패했습니다.")
+                    }
+                    is BaseInfoMutationEvent.EditBaseInfo -> {
+                        if(it.mutation.state.isSuccess())
+                            OkDialog("매칭 이미지가 수정되었습니다.")
+                        if(it.mutation.state.isError())
+                            OkDialog("매칭 이미지 수정에 실패했습니다.")
+                    }
+                    else -> {}
+                }
+            }
         }
     }
 }
