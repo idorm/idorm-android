@@ -3,15 +3,13 @@ package org.appcenter.inudorm.presentation.board
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentBoardBinding
@@ -22,6 +20,7 @@ import org.appcenter.inudorm.presentation.adapter.PopularPostAdapter
 import org.appcenter.inudorm.presentation.adapter.PostAdapter
 import org.appcenter.inudorm.presentation.board.PostDetailActivity.Companion.DETAIL_FINISHED
 import org.appcenter.inudorm.presentation.board.WritePostActivity.Companion.EDITOR_FINISHED
+import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.WindowUtil.setStatusBarColor
 
 class BoardFragment : Fragment() {
@@ -96,14 +95,14 @@ class BoardFragment : Fragment() {
         binding.posts.adapter = PostAdapter(ArrayList()) {
             goDetail(it.postId)
         }
-        binding.posts.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (!recyclerView.canScrollVertically(1)) {
-                    viewModel.addPages()
-                }
+
+        binding.nestedScrollView.viewTreeObserver.addOnScrollChangedListener {
+            if (binding.nestedScrollView.getChildAt(0)
+                    .getBottom() <= (binding.nestedScrollView.getHeight() + binding.nestedScrollView.getScrollY())
+            ) {
+                viewModel.addPages()
             }
-        })
+        }
         binding.refreshLayout.setOnRefreshListener {
             viewModel.setPage(0)
             viewModel.getAllPosts()

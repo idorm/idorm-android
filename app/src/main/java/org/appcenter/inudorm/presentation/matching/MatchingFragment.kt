@@ -137,8 +137,7 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
                     // Todo: 신고 사유 모달
                     handleMemberReport(getCurrentItem().memberId)
                 }
-            }
-            modalBottomSheet.show(
+            }.show(
                 requireActivity().supportFragmentManager,
                 ListBottomSheet.TAG
             )
