@@ -15,6 +15,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import com.nguyenhoanglam.imagepicker.model.ImagePickerConfig
 import com.nguyenhoanglam.imagepicker.ui.imagepicker.registerImagePicker
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.App
 import org.appcenter.inudorm.LoadingActivity
@@ -23,9 +24,11 @@ import org.appcenter.inudorm.databinding.ActivityMyInformationSettingBinding
 import org.appcenter.inudorm.model.board.Photo
 import org.appcenter.inudorm.presentation.account.LoginActivity
 import org.appcenter.inudorm.presentation.account.WithdrawalActivity
+import org.appcenter.inudorm.presentation.matching.MyInfoMutationEvent
 import org.appcenter.inudorm.presentation.mypage.NotificationSettingActivity
 import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.util.ImageUri
+import org.appcenter.inudorm.util.OkDialog
 import org.appcenter.inudorm.util.WindowUtil.setStatusBarColor
 import java.io.File
 import kotlin.reflect.KClass
@@ -158,6 +161,17 @@ class MyInfoSettingActivity : LoadingActivity() {
         binding.activity = this
         binding.lifecycleOwner = this
         viewModel.getUser()
+        lifecycleScope.launch {
+            viewModel.myInfoMutationEvent.collect {
+                if (it is MyInfoMutationEvent.UpdateProfilePhoto) {
+                    setLoadingState(it.mutation.state.isLoading())
+                    if (it.mutation.state.isSuccess()) OkDialog(
+                        "프로필 사진이 저장됐어요.",
+                        onOk = { viewModel.getUser() }).show(this@MyInfoSettingActivity)
+                    if (it.mutation.state.isError()) OkDialog("프로필 사진 등록에 실패했어요.").show(this@MyInfoSettingActivity)
+                }
+            }
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

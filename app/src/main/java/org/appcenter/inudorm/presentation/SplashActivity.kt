@@ -91,7 +91,8 @@ class SplashActivity : AppCompatActivity() {
             // FCM SDK (and your app) can post notifications.
         } else {
             // TODO: Inform user that that your app will not show notifications.
-            Toast.makeText(this, "아이돔의 유용한 알림들을 받지 않아요. 언제든 다시 활성활 할 수 있어요.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "아이돔의 유용한 알림들을 받지 않아요. 언제든 다시 활성활 할 수 있어요.", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
@@ -117,13 +118,17 @@ class SplashActivity : AppCompatActivity() {
 
     private fun handleFallback() {
         startActivity(Intent(this, MainActivity::class.java))
+        finish()
         return
     }
+
     private fun moveWithMainStack(intent: Intent) {
         startActivity(Intent(this, MainActivity::class.java))
         startActivity(intent)
+        finish()
         return
     }
+
     private fun handleLink() {
         val uri = intent.data
         if (uri == null) { // 올바르지 않은 Uri Fallback
@@ -147,6 +152,7 @@ class SplashActivity : AppCompatActivity() {
         }
 
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
