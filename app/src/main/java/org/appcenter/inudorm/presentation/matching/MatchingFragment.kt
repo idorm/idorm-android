@@ -23,6 +23,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.yuyakaido.android.cardstackview.*
 import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentMatchingBinding
@@ -173,8 +174,41 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
         setupFilter()
     }
 
-    private val userMutationCollector = FlowCollector<UserMutationEvent> {
-
+    private val userMutationCollector = FlowCollector<UserMutationEvent?> { event ->
+        setLoadingState(event?.mutation?.state?.isLoading() ?: false)
+        when (event) {
+            is UserMutationEvent.AddLikedMatchingInfo -> {
+                if (event.mutation.state.isSuccess()) {
+                    mutationEventStack.push(event)
+                }
+                if (event.mutation.state.isError())
+                    binding.cardStackView.rewind()
+            }
+            is UserMutationEvent.AddDislikedMatchingInfo -> {
+                if (event.mutation.state.isSuccess()) {
+                    mutationEventStack.push(event)
+                }
+                if (event.mutation.state.isError())
+                    binding.cardStackView.rewind()
+            }
+            is UserMutationEvent.ReportMatchingInfo -> {
+                if (event.mutation.state.isSuccess())
+                    OkDialog("사용자를 신고했어요. 불편을 드려 죄송해요.", onOk = {
+                        modalBottomSheet.dismiss()
+                    }).show(this@MatchingFragment.requireContext())
+                else if (event.mutation.state.isError())
+                    OkDialog("사용자 신고에 실패했어요.", onOk = {
+                        modalBottomSheet.dismiss()
+                    }).show(this@MatchingFragment.requireContext())
+            }
+            is UserMutationEvent.DeleteLikedMatchingInfo -> {
+                if (event.mutation.state.isSuccess()) binding.cardStackView.rewind()
+            }
+            is UserMutationEvent.DeleteDislikedMatchingInfo -> {
+                if (event.mutation.state.isSuccess()) binding.cardStackView.rewind()
+            }
+            else -> {}
+        }
     }
 
     private val mutationEventStack = Stack<UserMutationEvent>()
@@ -187,42 +221,7 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
         binding.lifecycleOwner = requireActivity()
         viewModel.getMates(LoadMode.Update, size = 10)
         lifecycleScope.launch {
-            viewModel.userMutationEvent.collect { event ->
-                setLoadingState(event?.mutation?.state?.isLoading() ?: false)
-                when (event) {
-                    is UserMutationEvent.AddLikedMatchingInfo -> {
-                        if (event.mutation.state.isSuccess()) {
-                            mutationEventStack.push(event)
-                        }
-                        if (event.mutation.state.isError())
-                            binding.cardStackView.rewind()
-                    }
-                    is UserMutationEvent.AddDislikedMatchingInfo -> {
-                        if (event.mutation.state.isSuccess()) {
-                            mutationEventStack.push(event)
-                        }
-                        if (event.mutation.state.isError())
-                            binding.cardStackView.rewind()
-                    }
-                    is UserMutationEvent.ReportMatchingInfo -> {
-                        if (event.mutation.state.isSuccess())
-                            OkDialog("사용자를 신고했어요. 불편을 드려 죄송해요.", onOk = {
-                                modalBottomSheet.dismiss()
-                            }).show(this@MatchingFragment.requireContext())
-                        else if (event.mutation.state.isError())
-                            OkDialog("사용자 신고에 실패했어요.", onOk = {
-                                modalBottomSheet.dismiss()
-                            }).show(this@MatchingFragment.requireContext())
-                    }
-                    is UserMutationEvent.DeleteLikedMatchingInfo -> {
-                        if (event.mutation.state.isSuccess()) binding.cardStackView.rewind()
-                    }
-                    is UserMutationEvent.DeleteDislikedMatchingInfo -> {
-                        if (event.mutation.state.isSuccess()) binding.cardStackView.rewind()
-                    }
-                    else -> {}
-                }
-            }
+            viewModel.userMutationEvent.collect(userMutationCollector)
         }
         // StateFlow 를 watching 해서 무언가를 호출해야 하는 상황이면 차라리 Activity/Fragment 코드에 해주는게 나을 것 같음.
         // 왜냐? View 에 바인딩 하게 되면 주제가 안맞음.
