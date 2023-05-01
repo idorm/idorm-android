@@ -39,6 +39,7 @@ import org.appcenter.inudorm.presentation.board.RadioButtonListBottomSheet
 import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.util.*
 import org.appcenter.inudorm.util.WindowUtil.setStatusBarColor
+import java.util.Stack
 
 const val FILTER_RESULT_CODE = 1226
 
@@ -176,6 +177,8 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
 
     }
 
+    private val mutationEventStack = Stack<UserMutationEvent>()
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setupCardStackView()
@@ -188,10 +191,16 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
                 setLoadingState(event?.mutation?.state?.isLoading() ?: false)
                 when (event) {
                     is UserMutationEvent.AddLikedMatchingInfo -> {
+                        if (event.mutation.state.isSuccess()) {
+                            mutationEventStack.push(event)
+                        }
                         if (event.mutation.state.isError())
                             binding.cardStackView.rewind()
                     }
                     is UserMutationEvent.AddDislikedMatchingInfo -> {
+                        if (event.mutation.state.isSuccess()) {
+                            mutationEventStack.push(event)
+                        }
                         if (event.mutation.state.isError())
                             binding.cardStackView.rewind()
                     }
@@ -281,6 +290,7 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
         }
     }
 
+
     private fun setupControlButton() {
         binding.dislikeButton.setOnClickListener {
             binding.cardStackView.swipeTo(Direction.Left)
@@ -290,8 +300,8 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
         }
 
         binding.backButton.setOnClickListener {
-            if (layoutManager.topPosition > 0)
-                when (viewModel.userMutationEvent.value) {
+            if (layoutManager.topPosition > 0) {
+                when (mutationEventStack.pop()) {
                     is UserMutationEvent.AddDislikedMatchingInfo -> {
                         viewModel.deleteDislikedMate(getCurrentItem(1).memberId)
                     }
@@ -299,7 +309,8 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
                         viewModel.deleteLikedMate(getCurrentItem(1).memberId)
                     }
                     else -> {}
-                } else Toast.makeText(
+                }
+            } else Toast.makeText(
                 this@MatchingFragment.requireContext(),
                 "처음 카드에요.",
                 Toast.LENGTH_SHORT
