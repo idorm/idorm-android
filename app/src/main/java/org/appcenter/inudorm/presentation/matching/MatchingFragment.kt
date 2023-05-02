@@ -18,12 +18,10 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.yuyakaido.android.cardstackview.*
 import kotlinx.coroutines.flow.FlowCollector
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentMatchingBinding
@@ -34,9 +32,11 @@ import org.appcenter.inudorm.networking.ErrorCode
 import org.appcenter.inudorm.networking.UIErrorHandler
 import org.appcenter.inudorm.presentation.ListBottomSheet
 import org.appcenter.inudorm.presentation.LoadingFragment
+import org.appcenter.inudorm.presentation.account.OnboardActivity
 import org.appcenter.inudorm.presentation.adapter.RoomMateAdapter
 import org.appcenter.inudorm.presentation.board.Content
 import org.appcenter.inudorm.presentation.board.RadioButtonListBottomSheet
+import org.appcenter.inudorm.presentation.onboard.BaseInfoPurpose
 import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.util.*
 import org.appcenter.inudorm.util.WindowUtil.setStatusBarColor
@@ -241,7 +241,7 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
                                         "프로필 이미지 만들기",
                                         ButtonType.Filled,
                                         onClick = {
-                                            // Todo: 온보딩 연결!!
+                                            editImage()
                                         })
                                 ).show(this@MatchingFragment.requireContext())
                             }
@@ -391,6 +391,11 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
     override fun onDetach() {
         requireActivity().window.statusBarColor = Color.WHITE
         super.onDetach()
+    }
+    fun editImage() {
+        val intent = Intent(requireContext(), OnboardActivity::class.java)
+        intent.putExtra("purpose", BaseInfoPurpose.Create)
+        startActivity(intent)
     }
 
 }
