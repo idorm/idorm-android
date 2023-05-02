@@ -1,26 +1,24 @@
 package org.appcenter.inudorm.presentation.onboard
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
     import android.text.TextWatcher
 import android.view.LayoutInflater
     import android.view.View
     import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
     import androidx.fragment.app.Fragment
-    import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
     import org.appcenter.inudorm.databinding.FragmentBaseInformationBinding
 import org.appcenter.inudorm.model.*
-import org.appcenter.inudorm.presentation.account.prompt.EmailPromptPurpose
 import org.appcenter.inudorm.presentation.adapter.OnboardRVAdapter
 import org.appcenter.inudorm.presentation.matching.BaseInfoMutationEvent
+import org.appcenter.inudorm.presentation.mypage.matching.MyMatchingProfileActivity
 import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.OkDialog
 
@@ -42,10 +40,12 @@ class BaseInformationFragment : Fragment() {
 
     private fun getPurposeFromBundle(): BaseInfoPurpose { // Fragment가 전달받은 Bundle을 풀어해쳐 이메일 입력을 받는 목적을 가져와요..
         val bundle = this.arguments
+        IDormLogger.d(this, bundle.toString()+"이건 먼지")
+
         return if (bundle != null) {
             bundle.getSerializable("purpose") as BaseInfoPurpose
         } else {
-            BaseInfoPurpose.Create
+            BaseInfoPurpose.Edit
         }
     }
 
@@ -82,9 +82,6 @@ class BaseInformationFragment : Fragment() {
 
     }
 
-    private fun toast(str : String?){
-        Toast.makeText(context, str ?: "알 수 없는 오류입니다.", Toast.LENGTH_SHORT).show()
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -122,23 +119,37 @@ class BaseInformationFragment : Fragment() {
                 wishText = (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[5].answer,
             ))
         }
-
         lifecycleScope.launch{
             viewModel.baseInfoMutationEvent.collect{
                 when(it) {
                     is BaseInfoMutationEvent.CreateBaseInfo -> {
-                        if(it.mutation.state.isSuccess())
-                            OkDialog("매칭 이미지가 저장되었습니다.")
+                        if(it.mutation.state.isSuccess()){
+                            OkDialog("매칭 이미지가 저장되었습니다.", onOk = {
+                                val intent = Intent(requireContext(), MyMatchingProfileActivity::class.java)
+                                startActivity(intent)
+                            }).show(requireContext())
+                        }
                         if(it.mutation.state.isError())
-                            OkDialog("매칭 이미지 저장에 실패했습니다.")
+                            OkDialog("매칭 이미지 저장에 실패했습니다.", onOk = {
+                                val intent = Intent(requireContext(), MyMatchingProfileActivity::class.java)
+                                startActivity(intent)
+                            }).show(requireContext())
                     }
                     is BaseInfoMutationEvent.EditBaseInfo -> {
                         if(it.mutation.state.isSuccess())
-                            OkDialog("매칭 이미지가 수정되었습니다.")
+                            OkDialog("매칭 이미지가 수정되었습니다.", onOk = {
+                                val intent = Intent(requireContext(), MyMatchingProfileActivity::class.java)
+                                startActivity(intent)
+                            }).show(requireContext())
                         if(it.mutation.state.isError())
-                            OkDialog("매칭 이미지 수정에 실패했습니다.")
+                            OkDialog("매칭 이미지 수정에 실패했습니다", onOk = {
+                                val intent = Intent(requireContext(), MyMatchingProfileActivity::class.java)
+                                startActivity(intent)
+                            }).show(requireContext())
                     }
-                    else -> {}
+                    else -> {
+                        OkDialog("알 수 없는 오류가 발생했습니다.")
+                    }
                 }
             }
         }

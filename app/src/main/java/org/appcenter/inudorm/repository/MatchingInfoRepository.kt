@@ -21,7 +21,7 @@ class MatchingInfoRepository {
     }
 
     suspend fun editMatchingInfo(params: OnboardParams): OnboardInfo {
-        val str = gson.toJson(params)
+        val str = gson.toJson(params.onboardInfo)
         return RetrofitInstance.service.editMatchingInfo(createJsonRequestBody(str))
     }
 }

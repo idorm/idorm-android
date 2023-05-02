@@ -7,6 +7,7 @@ import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityOnboardBinding
 import org.appcenter.inudorm.presentation.PromptActivity
 import org.appcenter.inudorm.presentation.onboard.AdditionalInformationFragment
+import org.appcenter.inudorm.presentation.onboard.BaseInfoPurpose
 import org.appcenter.inudorm.presentation.onboard.BaseInformationFragment
 
 class OnboardActivity : PromptActivity() {
@@ -29,7 +30,10 @@ class OnboardActivity : PromptActivity() {
     private fun getInitPages() : ArrayList<Fragment> {
         val initPage = ArrayList<Fragment>()
         val baseFragment = BaseInformationFragment()
-            val additionalFragment = AdditionalInformationFragment()
+        val additionalFragment = AdditionalInformationFragment()
+        val bundle = Bundle()
+        bundle.putSerializable("purpose", BaseInfoPurpose.Create)
+        baseFragment.arguments = bundle
         initPage.add(baseFragment)
         initPage.add(additionalFragment)
         return initPage
