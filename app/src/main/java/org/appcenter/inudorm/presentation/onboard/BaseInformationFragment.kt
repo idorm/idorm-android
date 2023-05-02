@@ -19,6 +19,7 @@ import org.appcenter.inudorm.model.*
 import org.appcenter.inudorm.presentation.adapter.OnboardRVAdapter
 import org.appcenter.inudorm.presentation.matching.BaseInfoMutationEvent
 import org.appcenter.inudorm.presentation.mypage.matching.MyMatchingProfileActivity
+import org.appcenter.inudorm.usecase.GetMatchingInfo
 import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.OkDialog
 
@@ -40,6 +41,7 @@ class BaseInformationFragment : Fragment() {
 
     private fun getPurposeFromBundle(): BaseInfoPurpose { // Fragment가 전달받은 Bundle을 풀어해쳐 이메일 입력을 받는 목적을 가져와요..
         val bundle = this.arguments
+        IDormLogger.d(this, bundle.toString()+"먼지")
         return if (bundle != null) {
             bundle.getSerializable("purpose") as BaseInfoPurpose
         } else {
@@ -73,10 +75,27 @@ class BaseInformationFragment : Fragment() {
 
         adapter = OnboardRVAdapter(list, requireContext())
 
+
         binding.baseInfoRecycler.layoutManager = LinearLayoutManager(this.context)
         with(binding){
             baseInfoRecycler.adapter = adapter
         }
+
+
+
+    }
+
+
+    private fun initInfo(purpose: BaseInfoPurpose) {
+        if (purpose == BaseInfoPurpose.Edit) {
+            //IDormLogger.d(this, GetMatchingInfo().run(null).showerTime+"먼지")
+            (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[0].answer = "된 건가"
+
+        }
+    }
+
+
+    private fun checkInfo(age : Int, wakeupTime : String, cleanUpStatus : String, showerTime : String, openKakaoLink : String, mbti : String, wishText : String){
 
     }
 
@@ -89,6 +108,7 @@ class BaseInformationFragment : Fragment() {
             BaseInfoViewModelFactory(getPurposeFromBundle())
         )[BaseInformationViewModel::class.java]
 
+
             binding.age1.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun afterTextChanged(s: Editable?) {}
@@ -99,25 +119,44 @@ class BaseInformationFragment : Fragment() {
             }
         })
         binding.doneButton.setOnClickListener {
+            val dormCategory = Dorm.fromElementId(binding.dormGroup.checkedChipId)!!
+            val gender = Gender.fromElementId(binding.genderGroup.checkedChipId)!!
+            val joinPeriod = JoinPeriod.fromElementId(binding.joinPeriodGroup.checkedChipId)!!
+            val isSnoring = binding.snoring.isChecked
+            val isGrinding = binding.grinding.isChecked
+            val isSmoking = binding.smoking.isChecked
+            val isAllowedFood = binding.eatingInside.isChecked
+            val isWearEarphones = binding.wearEarphones.isChecked
+            val age = (binding.age1.text.toString() + binding.age2.text.toString()).toInt()
+            val wakeupTime = (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[0].answer
+            val cleanUpStatus = (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[1].answer
+            val showerTime = (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[2].answer
+            val openKakaoLink = (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[3].answer
+            val mbti = (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[4].answer
+            val wishText = (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[5].answer
+
+            checkInfo(age, wakeupTime, cleanUpStatus, showerTime, openKakaoLink, mbti, wishText)
+
             viewModel.submit(OnboardInfo(
-                dormCategory = Dorm.fromElementId(binding.dormGroup.checkedChipId)!!,
-                gender = Gender.fromElementId(binding.genderGroup.checkedChipId)!!,
-                joinPeriod = JoinPeriod.fromElementId(binding.joinPeriodGroup.checkedChipId)!!,
-                isSnoring = binding.snoring.isChecked,
-                isGrinding = binding.grinding.isChecked,
-                isSmoking = binding.smoking.isChecked,
-                isAllowedFood = binding.eatingInside.isChecked,
-                isWearEarphones = binding.wearEarphones.isChecked,
-                age = (binding.age1.text.toString() + binding.age2.text.toString()).toInt(),
-                wakeupTime = (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[0].answer,
-                cleanUpStatus = (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[1].answer,
-                showerTime = (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[2].answer,
-                openKakaoLink = (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[3].answer,
-                mbti = (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[4].answer,
-                wishText = (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[5].answer,
+                dormCategory = dormCategory,
+                gender = gender,
+                joinPeriod = joinPeriod,
+                isSnoring = isSnoring,
+                isGrinding = isGrinding,
+                isSmoking = isSmoking,
+                isAllowedFood = isAllowedFood,
+                isWearEarphones = isWearEarphones,
+                age = age,
+                wakeupTime = wakeupTime,
+                cleanUpStatus = cleanUpStatus,
+                showerTime = showerTime,
+                openKakaoLink = openKakaoLink,
+                mbti = mbti,
+                wishText = wishText,
             ))
         }
         lifecycleScope.launch{
+            initInfo(getPurposeFromBundle())
             viewModel.baseInfoMutationEvent.collect{
                 when(it) {
                     is BaseInfoMutationEvent.CreateBaseInfo -> {
