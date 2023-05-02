@@ -9,6 +9,7 @@ import org.appcenter.inudorm.presentation.PromptActivity
 import org.appcenter.inudorm.presentation.onboard.AdditionalInformationFragment
 import org.appcenter.inudorm.presentation.onboard.BaseInfoPurpose
 import org.appcenter.inudorm.presentation.onboard.BaseInformationFragment
+import org.appcenter.inudorm.util.IDormLogger
 
 class OnboardActivity : PromptActivity() {
     private var onBoardBundle: Bundle = Bundle()
@@ -31,9 +32,12 @@ class OnboardActivity : PromptActivity() {
         val initPage = ArrayList<Fragment>()
         val baseFragment = BaseInformationFragment()
         val additionalFragment = AdditionalInformationFragment()
+        val onboardIntent = intent
         val bundle = Bundle()
-        bundle.putSerializable("purpose", BaseInfoPurpose.Create)
+
+        bundle.putSerializable("purpose", onboardIntent.getSerializableExtra("purpose"))
         baseFragment.arguments = bundle
+
         initPage.add(baseFragment)
         initPage.add(additionalFragment)
         return initPage
