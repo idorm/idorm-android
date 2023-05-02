@@ -40,12 +40,10 @@ class BaseInformationFragment : Fragment() {
 
     private fun getPurposeFromBundle(): BaseInfoPurpose { // Fragment가 전달받은 Bundle을 풀어해쳐 이메일 입력을 받는 목적을 가져와요..
         val bundle = this.arguments
-        IDormLogger.d(this, bundle.toString()+"이건 먼지")
-
         return if (bundle != null) {
             bundle.getSerializable("purpose") as BaseInfoPurpose
         } else {
-            BaseInfoPurpose.Edit
+            BaseInfoPurpose.Create
         }
     }
 
