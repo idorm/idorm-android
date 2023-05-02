@@ -64,4 +64,10 @@ class MyMatchingProfileActivity : LoadingActivity() {
         startActivity(intent)
         finish()
     }
+
+    fun editImage() {
+        val intent = Intent(this, OnboardActivity::class.java)
+        intent.putExtra("purpose", BaseInfoPurpose.Create)
+        startActivity(intent)
+    }
 }
