@@ -74,7 +74,7 @@
 
                 android:fontFamily="@font/notosans_medium"
                 android:includeFontPadding="false"
-                android:onClick="@{() -> activity.editImage()}"
+                android:onClick="@{() -> activity.createImage()}"
                 android:paddingHorizontal="26dp"
                 android:text="@string/editImage"
                 android:textColor="@color/iDorm_gray_400"
