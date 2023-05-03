@@ -21,7 +21,7 @@ android {
         applicationId "org.appcenter.inudorm"
         minSdk 23
         targetSdk 33
-        versionCode 4
+        versionCode 6
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -59,6 +59,7 @@ def jodaTimeVersion = "2.12.2"
 def imagePickerVersion = "1.5.5"
 
 dependencies {
+    implementation 'androidx.core:core-splashscreen:1.0.0-alpha01'
     implementation 'io.sentry:sentry-android:6.13.1'
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
