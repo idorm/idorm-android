@@ -12,11 +12,13 @@ enum class Dorm(val text: String, val elementId: Int) {
 
     companion object {
         private val elementIdToDorm = values().associateBy { it.elementId }
+        private val dormToElementId = values().associateBy { it.text }
 
         /**
          * layout id를 이용해 Dorm을 가져옵니다.
          */
         infix fun fromElementId(value: Int) = elementIdToDorm[value]
+        infix fun fromDorm(value: String) = dormToElementId[value]
     }
 }
 

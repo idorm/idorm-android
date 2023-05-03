@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.datastore.preferences.preferencesDataStore
 import com.google.gson.Gson
+import org.appcenter.inudorm.model.OnboardInfo
 import org.appcenter.inudorm.model.User
 import org.appcenter.inudorm.repository.*
 
@@ -27,4 +28,4 @@ class App : Application() {
 
 }
 
-data class Prefs(val token: String?)
+data class Prefs(val token: String?, val matchingInfo: OnboardInfo)

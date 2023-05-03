@@ -12,6 +12,8 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import org.appcenter.inudorm.App
 import org.appcenter.inudorm.Prefs
+import org.appcenter.inudorm.model.OnboardInfo
+import org.appcenter.inudorm.repository.PrefsRepository.PreferenceKeys.MATCHING_INFO
 import org.appcenter.inudorm.repository.PrefsRepository.PreferenceKeys.TOKEN
 import java.io.IOException
 
@@ -20,6 +22,7 @@ private val Context.dataStore by preferencesDataStore(name = "prefs")
 class PrefsRepository(private val context: Context) {
     private object PreferenceKeys {
         val TOKEN = stringPreferencesKey("token")
+        val MATCHING_INFO = stringPreferencesKey("matchingInfo")
     }
 
     suspend fun getUserToken(): Flow<String?> = context.dataStore.data.catch { exception ->
@@ -33,6 +36,21 @@ class PrefsRepository(private val context: Context) {
         mapUserPrefs(it)
     }
 
+    suspend fun getMatchingInfo(): Flow<OnboardInfo?> = context.dataStore.data.catch { exception ->
+        if (exception is IOException) {
+            Log.e("Error reading preferences: ", exception.toString())
+            emit(emptyPreferences())
+        } else {
+            throw exception
+        }
+    }.map {
+        mapMatchingInfo(it)
+    }
+
+    suspend fun setMatchingInfo(matchingInfo: OnboardInfo) = context.dataStore.edit {prefs ->
+        prefs[MATCHING_INFO] = App.gson.toJson(matchingInfo)
+    }
+
     suspend fun setUserToken(token: String?) = context.dataStore.edit { preferences ->
         preferences[TOKEN] = token ?: ""
     }
@@ -44,10 +62,15 @@ class PrefsRepository(private val context: Context) {
 
     private fun mapPrefs(prefs: Preferences): Prefs {
         val user = mapUserPrefs(prefs)
-        return Prefs(user)
+        val matchingInfo = mapMatchingInfo(prefs)
+        return Prefs(user, matchingInfo!!)
     }
 
     private fun mapUserPrefs(preferences: Preferences): String? {
         return preferences[TOKEN]
+    }
+
+    private fun mapMatchingInfo(preferences: Preferences): OnboardInfo? {
+        return App.gson.fromJson(preferences[MATCHING_INFO], OnboardInfo::class.java)
     }
 }

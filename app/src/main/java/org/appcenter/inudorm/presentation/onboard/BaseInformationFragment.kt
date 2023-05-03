@@ -12,16 +12,20 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
     import org.appcenter.inudorm.databinding.FragmentBaseInformationBinding
 import org.appcenter.inudorm.model.*
+import org.appcenter.inudorm.networking.UIErrorHandler
 import org.appcenter.inudorm.presentation.adapter.OnboardRVAdapter
 import org.appcenter.inudorm.presentation.matching.BaseInfoMutationEvent
 import org.appcenter.inudorm.presentation.mypage.matching.MyMatchingProfileActivity
-import org.appcenter.inudorm.usecase.GetMatchingInfo
+import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.OkDialog
+import org.appcenter.inudorm.networking.ErrorCode
+import org.appcenter.inudorm.util.State
 
 
 enum class BaseInfoPurpose{
@@ -41,7 +45,6 @@ class BaseInformationFragment : Fragment() {
 
     private fun getPurposeFromBundle(): BaseInfoPurpose { // Fragment가 전달받은 Bundle을 풀어해쳐 이메일 입력을 받는 목적을 가져와요..
         val bundle = this.arguments
-        IDormLogger.d(this, bundle.toString()+"먼지")
         return if (bundle != null) {
             bundle.getSerializable("purpose") as BaseInfoPurpose
         } else {
@@ -49,7 +52,9 @@ class BaseInformationFragment : Fragment() {
         }
     }
 
-
+    private val prefsRepository by lazy {
+        PrefsRepository(requireContext())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -80,23 +85,58 @@ class BaseInformationFragment : Fragment() {
         with(binding){
             baseInfoRecycler.adapter = adapter
         }
-
-
-
     }
 
 
-    private fun initInfo(purpose: BaseInfoPurpose) {
-        if (purpose == BaseInfoPurpose.Edit) {
-            //IDormLogger.d(this, GetMatchingInfo().run(null).showerTime+"먼지")
-            (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[0].answer = "된 건가"
 
+    private suspend fun initInfo(purpose: BaseInfoPurpose) {
+        if (purpose == BaseInfoPurpose.Edit) {
+            val onboardInfo = prefsRepository.getMatchingInfo().firstOrNull()
+            if(onboardInfo == null){
+                OkDialog("저장된 정보가 없습니다.")
+                return
+            }
+            binding.dormGroup.check(onboardInfo.dormCategory.elementId)
+            binding.genderGroup.check(onboardInfo.gender.elementId)
+            binding.joinPeriodGroup.check(onboardInfo.joinPeriod.elementId)
+            binding.snoring.isChecked = onboardInfo.isSnoring
+            binding.grinding.isChecked = onboardInfo.isGrinding
+            binding.smoking.isChecked = onboardInfo.isSmoking
+            binding.snoring.isChecked = onboardInfo.isSnoring
+            binding.eatingInside.isChecked = onboardInfo.isAllowedFood
+            binding.age1.setText(onboardInfo.age.toString()[0].toString())
+            binding.age2.setText(onboardInfo.age.toString()[1].toString())
+            (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[0].answer = onboardInfo.wakeupTime
+            (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[1].answer = onboardInfo.cleanUpStatus
+            (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[2].answer = onboardInfo.showerTime
+            (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[3].answer = onboardInfo.openKakaoLink
+            (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[4].answer = onboardInfo.mbti
+            (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[5].answer = onboardInfo.wishText
         }
     }
 
+    private fun checkInfo(age : Int, wakeupTime : String, cleanUpStatus : String, showerTime : String, openKakaoLink : String, mbti: String) : Boolean{
 
-    private fun checkInfo(age : Int, wakeupTime : String, cleanUpStatus : String, showerTime : String, openKakaoLink : String, mbti : String, wishText : String){
+        if(age < 20) {
+            OkDialog("나이는 20살 이상만 입력이 가능합니다").show(requireContext())
+            return false}
+        if(wakeupTime.isEmpty()) {
+            OkDialog("기상 시간을 입력해 주세요" ).show(requireContext())
+            return false}
+        if(cleanUpStatus.isEmpty()) {
+            OkDialog("정리 정돈 정도를 입력해 주세요").show(requireContext())
+            return false}
+        if(showerTime.isEmpty()) {
+            OkDialog("샤워 시간을 입력해 주세요").show(requireContext())
+            return false}
+        if(openKakaoLink.isEmpty()) {
+            OkDialog("룸메와 연락할 오픈 채팅 링크를 입력해 주세요").show(requireContext())
+            return false}
+        if(mbti.isNotEmpty() && mbti.length != 4) {
+            OkDialog("MBTI를 확인해 주세요.").show(requireContext())
+            return false}
 
+        return true
     }
 
 
@@ -135,29 +175,29 @@ class BaseInformationFragment : Fragment() {
             val mbti = (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[4].answer
             val wishText = (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[5].answer
 
-            checkInfo(age, wakeupTime, cleanUpStatus, showerTime, openKakaoLink, mbti, wishText)
-
-            viewModel.submit(OnboardInfo(
-                dormCategory = dormCategory,
-                gender = gender,
-                joinPeriod = joinPeriod,
-                isSnoring = isSnoring,
-                isGrinding = isGrinding,
-                isSmoking = isSmoking,
-                isAllowedFood = isAllowedFood,
-                isWearEarphones = isWearEarphones,
-                age = age,
-                wakeupTime = wakeupTime,
-                cleanUpStatus = cleanUpStatus,
-                showerTime = showerTime,
-                openKakaoLink = openKakaoLink,
-                mbti = mbti,
-                wishText = wishText,
-            ))
+            if(checkInfo(age, wakeupTime, cleanUpStatus, showerTime, openKakaoLink, mbti)){
+                viewModel.submit(OnboardInfo(
+                    dormCategory = dormCategory,
+                    gender = gender,
+                    joinPeriod = joinPeriod,
+                    isSnoring = isSnoring,
+                    isGrinding = isGrinding,
+                    isSmoking = isSmoking,
+                    isAllowedFood = isAllowedFood,
+                    isWearEarphones = isWearEarphones,
+                    age = age,
+                    wakeupTime = wakeupTime,
+                    cleanUpStatus = cleanUpStatus,
+                    showerTime = showerTime,
+                    openKakaoLink = openKakaoLink,
+                    mbti = mbti,
+                    wishText = wishText,
+                ))
+            }
         }
         lifecycleScope.launch{
-            initInfo(getPurposeFromBundle())
             viewModel.baseInfoMutationEvent.collect{
+                initInfo(getPurposeFromBundle())
                 when(it) {
                     is BaseInfoMutationEvent.CreateBaseInfo -> {
                         if(it.mutation.state.isSuccess()){
@@ -166,11 +206,41 @@ class BaseInformationFragment : Fragment() {
                                 startActivity(intent)
                             }).show(requireContext())
                         }
-                        if(it.mutation.state.isError())
-                            OkDialog("매칭 이미지 저장에 실패했습니다.", onOk = {
-                                val intent = Intent(requireContext(), MyMatchingProfileActivity::class.java)
-                                startActivity(intent)
-                            }).show(requireContext())
+                        if(it.mutation.state.isError()){
+                            UIErrorHandler.handle(
+                                requireContext(),
+                                prefsRepository,
+                                (it.mutation.state as State.Error).error
+                            ){ e ->
+                                when (e.error) {
+                                    ErrorCode.FIELD_REQUIRED -> {
+                                        OkDialog(
+                                            e.error.message,
+                                            onOk = {  },
+                                            cancelable = false
+                                        ).show(requireContext())
+                                    }
+                                    ErrorCode.MATCHINGINFO_NOT_FOUND -> {
+                                        OkDialog(
+                                            e.error.message,
+                                            onOk = {  },
+                                            cancelable = false
+                                        ).show(requireContext())
+                                    }
+                                    ErrorCode.DUPLICATE_MATCHINGINFO -> {
+                                        OkDialog(
+                                            e.error.message,
+                                            onOk = {  },
+                                            cancelable = false
+                                        ).show(requireContext())
+                                    }
+                                else -> {
+                                    OkDialog(getString(R.string.unknownError)).show(requireContext())
+                                }
+                                }
+                            }
+                        }
+
                     }
                     is BaseInfoMutationEvent.EditBaseInfo -> {
                         if(it.mutation.state.isSuccess())

@@ -1,6 +1,7 @@
 package org.appcenter.inudorm.presentation.adapter
 import android.content.Context
 import android.content.res.ColorStateList
+import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -37,6 +38,7 @@ class OnboardRVAdapter (private val _dataSet: ArrayList<OnboardQuestion>, contex
     override fun onBindViewHolder(holder: ViewHolder, position : Int) {
 
         holder.view.question = dataSet[position]
+
 
 
         holder.view.onboardField.addTextChangedListener {
