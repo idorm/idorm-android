@@ -14,9 +14,9 @@
         android:id="@+id/calendarParent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10sp"
         android:background="@drawable/view_round_stroke"
-        android:padding="16sp"
-        android:layout_marginBottom="10sp">
+        android:padding="16sp">
 
         <LinearLayout
             android:id="@+id/dot"
@@ -65,14 +65,13 @@
             android:id="@+id/content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/date"
-            app:layout_constraintStart_toStartOf="@id/date"
-            android:textColor="@color/black"
-            android:textSize="14sp"
             android:fontFamily="@font/notosans_regular"
             android:includeFontPadding="false"
             android:text="@{calendar.content}"
-            />
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/date"
+            app:layout_constraintTop_toBottomOf="@id/date" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/dorms"
@@ -82,34 +81,34 @@
             app:layout_constraintTop_toBottomOf="@id/content">
 
             <com.google.android.material.chip.Chip
+                dormVisibility="@{calendar.dorm1Yn}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/iDorm_gray_100"
                 android:text="1 기숙사"
                 android:textColor="@color/iDorm_gray_400"
                 app:chipCornerRadius="0sp"
-                dormVisibility="@{calendar.dorm1Yn}"
 
                 />
 
             <com.google.android.material.chip.Chip
+                dormVisibility="@{calendar.dorm2Yn}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/iDorm_gray_100"
                 android:text="2 기숙사"
                 android:textColor="@color/iDorm_gray_400"
                 app:chipCornerRadius="0sp"
-                dormVisibility="@{calendar.dorm2Yn}"
 
                 />
 
             <com.google.android.material.chip.Chip
+                dormVisibility="@{calendar.dorm3Yn}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/iDorm_gray_100"
                 android:text="3 기숙사"
                 android:textColor="@color/iDorm_gray_400"
-                dormVisibility="@{calendar.dorm3Yn}"
 
                 app:chipCornerRadius="0sp" />
         </com.google.android.material.chip.ChipGroup>
@@ -184,14 +183,16 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/checkButton"
+            style="@style/Widget.DesignSystem.AppCompatButton.blue"
             android:layout_width="0dp"
+
             android:layout_height="wrap_content"
             android:layout_marginTop="24sp"
+            android:background="@drawable/view_button_round_6"
             android:text="@string/checkNotice"
-            android:theme="@style/Widget.DesignSystem.AppCompatButton.blue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/time" />
+            app:layout_constraintTop_toBottomOf="@id/location" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
