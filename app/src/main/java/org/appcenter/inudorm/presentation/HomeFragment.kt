@@ -19,11 +19,13 @@ import org.appcenter.inudorm.databinding.FragmentHomeBinding
 import org.appcenter.inudorm.model.Calendar
 import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.networking.UIErrorHandler
+import org.appcenter.inudorm.presentation.account.OnboardActivity
 import org.appcenter.inudorm.presentation.adapter.CalendarAdapter
 import org.appcenter.inudorm.presentation.adapter.PopularPostAdapter
 import org.appcenter.inudorm.presentation.board.BoardFragment
 import org.appcenter.inudorm.presentation.board.PostDetailActivity
 import org.appcenter.inudorm.presentation.board.WritePostActivity
+import org.appcenter.inudorm.presentation.onboard.BaseInfoPurpose
 import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.util.State
 import org.appcenter.inudorm.util.WindowUtil.setStatusBarColor
@@ -106,7 +108,7 @@ class HomeFragment : LoadingFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        // TODO: Use the ViewModel
+
         binding.popularPosts.adapter = PopularPostAdapter(ArrayList()) {
             val intent = Intent(requireContext(), PostDetailActivity::class.java)
             intent.putExtra("id", it.postId)
@@ -115,10 +117,17 @@ class HomeFragment : LoadingFragment() {
         binding.officialEvents.adapter = CalendarAdapter(arrayListOf()) {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.url)))
         }
+
         viewModel.getTopPosts()
         viewModel.getCalendars()
         binding.viewModel = viewModel
         binding.lifecycleOwner = this.requireActivity()
+        binding.startMatching.setOnClickListener {
+            // 매칭 정보 상태에 따라 분기
+            val intent = Intent(requireContext(), OnboardActivity::class.java)
+            intent.putExtra("purpose", BaseInfoPurpose.Create)
+            startActivity(intent)
+        }
 
         lifecycleScope.launch {
             viewModel.topPostState.collect(topPostsCollector)

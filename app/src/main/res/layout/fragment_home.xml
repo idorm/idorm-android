@@ -123,7 +123,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/loginButton"
+                    android:id="@+id/startMatching"
                     style="@style/Widget.DesignSystem.AppCompatButton.blue"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
