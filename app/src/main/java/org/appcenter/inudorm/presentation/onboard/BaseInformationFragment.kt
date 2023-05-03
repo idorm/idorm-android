@@ -220,13 +220,6 @@ class BaseInformationFragment : Fragment() {
                                             cancelable = false
                                         ).show(requireContext())
                                     }
-                                    ErrorCode.MATCHINGINFO_NOT_FOUND -> {
-                                        OkDialog(
-                                            e.error.message,
-                                            onOk = {  },
-                                            cancelable = false
-                                        ).show(requireContext())
-                                    }
                                     ErrorCode.DUPLICATE_MATCHINGINFO -> {
                                         OkDialog(
                                             e.error.message,
@@ -249,10 +242,31 @@ class BaseInformationFragment : Fragment() {
                                 startActivity(intent)
                             }).show(requireContext())
                         if(it.mutation.state.isError())
-                            OkDialog("매칭 이미지 수정에 실패했습니다", onOk = {
-                                val intent = Intent(requireContext(), MyMatchingProfileActivity::class.java)
-                                startActivity(intent)
-                            }).show(requireContext())
+                            UIErrorHandler.handle(
+                                requireContext(),
+                                prefsRepository,
+                                (it.mutation.state as State.Error).error
+                            ){ e ->
+                                when (e.error) {
+                                    ErrorCode.FIELD_REQUIRED -> {
+                                        OkDialog(
+                                            e.error.message,
+                                            onOk = {  },
+                                            cancelable = false
+                                        ).show(requireContext())
+                                    }
+                                    ErrorCode.MATCHINGINFO_NOT_FOUND -> {
+                                        OkDialog(
+                                            e.error.message,
+                                            onOk = {  },
+                                            cancelable = false
+                                        ).show(requireContext())
+                                    }
+                                    else -> {
+                                        OkDialog(getString(R.string.unknownError)).show(requireContext())
+                                    }
+                                }
+                            }
                     }
                     else -> {
                         OkDialog("알 수 없는 오류가 발생했습니다.")
