@@ -1,5 +1,6 @@
 package org.appcenter.inudorm.usecase
 
+import io.sentry.Sentry
 import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.State
 
@@ -13,6 +14,7 @@ abstract class ResultUseCase<P, R> {
             return kotlin.runCatching {
                 State.Success(onExecute(params))
             }.getOrElse {
+                Sentry.captureException(it)
                 IDormLogger.e(
                     this,
                     "Exception ${it.javaClass.canonicalName} occurred while running UseCase: $this\nDetail: ${it.stackTraceToString()}"

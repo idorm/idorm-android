@@ -13,8 +13,7 @@ abstract class UseCase<ParamT, ResultT>() {
             Log.d(TAG, "Running UseCase $this with following params: $params")
             return onExecute(params)
         } catch (e: Exception) {
-            if (e !is IDormError)
-                Sentry.captureException(e)
+            Sentry.captureException(e)
             IDormLogger.e(
                 this,
                 "Exception ${e.javaClass.canonicalName} occurred while running UseCase: $this\nDetail: ${e.stackTraceToString()}"
