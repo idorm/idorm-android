@@ -59,6 +59,13 @@ def jodaTimeVersion = "2.12.2"
 def imagePickerVersion = "1.5.5"
 
 dependencies {
+    // This dependency is downloaded from the Google’s Maven repository.
+    // So, make sure you also include that repository in your project's build.gradle file.
+    implementation 'com.google.android.play:app-update:2.0.1'
+
+    // For Kotlin users also add the Kotlin extensions library for Play In-App Update:
+    implementation 'com.google.android.play:app-update-ktx:2.0.1'
+
     implementation 'androidx.core:core-splashscreen:1.0.0-alpha01'
     implementation 'io.sentry:sentry-android:6.13.1'
     implementation 'androidx.core:core-ktx:1.9.0'
@@ -70,6 +77,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging-ktx:23.1.2'
     implementation 'com.google.firebase:firebase-core:21.1.1'
     implementation 'com.google.firebase:firebase-analytics-ktx:21.2.0'
+    implementation 'com.google.firebase:firebase-config-ktx:21.0.2'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

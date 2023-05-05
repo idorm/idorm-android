@@ -23,6 +23,7 @@ import androidx.lifecycle.lifecycleScope
 import com.yuyakaido.android.cardstackview.*
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.launch
+import org.appcenter.inudorm.App
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentMatchingBinding
 import org.appcenter.inudorm.model.MatchingInfo
@@ -219,6 +220,16 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
         setupControlButton()
         binding.matchingViewModel = viewModel
         binding.lifecycleOwner = requireActivity()
+
+        if (App.isMatchingPeriod) {
+            binding.matching.visibility = View.VISIBLE
+            binding.preparing.visibility = View.GONE
+        } else if (!App.isMatchingPeriod && App.whenMatchingStarts != "null") {
+            binding.matching.visibility = View.GONE
+            binding.preparing.visibility = View.VISIBLE
+            return
+        }
+
         viewModel.getMates(LoadMode.Update, size = 10)
         lifecycleScope.launch {
             viewModel.userMutationEvent.collect(userMutationCollector)
@@ -392,6 +403,7 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
         requireActivity().window.statusBarColor = Color.WHITE
         super.onDetach()
     }
+
     fun editImage() {
         val intent = Intent(requireContext(), OnboardActivity::class.java)
         intent.putExtra("purpose", BaseInfoPurpose.Create)

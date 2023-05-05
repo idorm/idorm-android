@@ -22,6 +22,7 @@ abstract class ResultUseCase<P, R> {
                 State.Error(it)
             }
         } catch (e: Exception) {
+            Sentry.captureException(e)
             IDormLogger.e(
                 this,
                 "Exception ${e.javaClass.canonicalName} occurred while running UseCase: $this\nDetail: ${e.stackTraceToString()}"

@@ -15,6 +15,8 @@ class App : Application() {
     companion object {
         var token: String? = null
         var savedUser: User? = null
+        var isMatchingPeriod: Boolean = false
+        var whenMatchingStarts: String = "null"
         val gson = Gson()
 
         val userRepository = UserRepository()

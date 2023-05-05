@@ -16,7 +16,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
+import com.google.android.play.core.appupdate.AppUpdateManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.ActivityResult
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.UpdateAvailability
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
+import com.google.firebase.remoteconfig.ktx.remoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
@@ -28,10 +38,11 @@ import org.appcenter.inudorm.presentation.account.LoginActivity
 import org.appcenter.inudorm.presentation.account.onError
 import org.appcenter.inudorm.presentation.account.onExpectedError
 import org.appcenter.inudorm.presentation.board.PostDetailActivity
-import org.appcenter.inudorm.presentation.mypage.myinfo.UiState
 import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.usecase.LoginRefresh
 import org.appcenter.inudorm.util.IDormLogger
+import org.appcenter.inudorm.util.OkDialog
+import kotlin.system.exitProcess
 
 class SplashActivity : AppCompatActivity() {
 
@@ -132,6 +143,64 @@ class SplashActivity : AppCompatActivity() {
         return
     }
 
+    private val appUpdateManager: AppUpdateManager by lazy {
+        AppUpdateManagerFactory.create(this)
+    }
+
+    private fun restartApplication() {
+        val packageManager = packageManager
+        val intent = packageManager.getLaunchIntentForPackage(packageName)
+        val componentName = intent!!.component
+        val mainIntent = Intent.makeRestartActivityTask(componentName)
+        startActivity(mainIntent)
+        exitProcess(0)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        appUpdateManager
+            .appUpdateInfo
+            .addOnSuccessListener { appUpdateInfo ->
+                // 업데이트가 중단됐을 때
+                if (appUpdateInfo.updateAvailability()
+                    == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS
+                ) {
+                    appUpdateManager.startUpdateFlowForResult(
+                        appUpdateInfo,
+                        AppUpdateType.IMMEDIATE,
+                        this,
+                        UPDATE_REQ_CODE
+                    )
+                }
+            }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == UPDATE_REQ_CODE) {
+            when (resultCode) {
+                RESULT_OK -> {
+                    OkDialog("업데이트가 완료됐습니다. 앱을 재실행합니다.", onOk = {
+                        restartApplication()
+                    }).show(this)
+                }
+                RESULT_CANCELED -> {
+                    OkDialog("업데이트 후 이용하시기 바랍니다.", onOk = {
+                        finish()
+                        exitProcess(0)
+                    }).show(this)
+                }
+                ActivityResult.RESULT_IN_APP_UPDATE_FAILED -> {
+                    OkDialog("업데이트에 실패했습니다. 앱을 재실행합니다.", onOk = {
+                        restartApplication()
+                    }).show(this)
+                }
+            }
+        }
+    }
+
+
     private fun handleLink() {
         val uri = intent.data
         if (uri == null) { // 올바르지 않은 Uri Fallback
@@ -156,19 +225,61 @@ class SplashActivity : AppCompatActivity() {
 
     }
 
-    private var isReady = false
+    private var isLoginSuccess = false
+    private var isRemoteConfigReady = false
+    private val remoteConfig: FirebaseRemoteConfig by lazy {
+        Firebase.remoteConfig
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val splashScreen = installSplashScreen()
         setContentView(R.layout.activity_splash)
 
+        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+
+        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+            ) {
+                appUpdateManager.startUpdateFlowForResult(
+                    appUpdateInfo,
+                    AppUpdateType.IMMEDIATE,
+                    this,
+                    UPDATE_REQ_CODE
+                )
+            }
+        }
+
+        val configSettings = remoteConfigSettings {
+            minimumFetchIntervalInSeconds = 3600
+        }
+        remoteConfig.fetch(0)
+        remoteConfig.setConfigSettingsAsync(configSettings)
+        remoteConfig.setDefaultsAsync(R.xml.remote_config_default)
+        remoteConfig.activate().addOnCompleteListener {
+            if (it.isSuccessful) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    remoteConfig.all.forEach { (t, u) ->
+                        IDormLogger.d(this@SplashActivity, "$t : $u")
+                    }
+                }
+                App.isMatchingPeriod = remoteConfig.getBoolean("isMatchingPeriod")
+                App.whenMatchingStarts = remoteConfig.getString("whenMatchingStarts")
+
+            } else if (it.isCanceled) {
+                App.isMatchingPeriod = false
+                App.whenMatchingStarts = "null"
+            }
+        }
+
         val content = findViewById<View>(android.R.id.content)
         content.viewTreeObserver.addOnPreDrawListener(
             object : ViewTreeObserver.OnPreDrawListener {
                 override fun onPreDraw(): Boolean {
                     // Check if the initial data is ready.
-                    return if (isReady) {
+                    return if (isLoginSuccess && isRemoteConfigReady) {
                         // The content is ready; start drawing.
                         content.viewTreeObserver.removeOnPreDrawListener(this)
                         true
@@ -198,7 +309,7 @@ class SplashActivity : AppCompatActivity() {
                 } else {
                     goLogin()
                 }
-                isReady = false
+                isLoginSuccess = false
             }
         }
     }

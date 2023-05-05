@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?><!-- START xml_defaults -->
+<defaultsMap>
+    <entry>
+        <key>isMatchingPeriod</key>
+        <value>false</value>
+    </entry>
+    <entry>
+        <key>whenMatchingStarts</key>
+        <value>null</value>
+    </entry>
+</defaultsMap><!-- END xml_defaults -->
