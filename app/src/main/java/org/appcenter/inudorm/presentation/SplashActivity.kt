@@ -227,72 +227,12 @@ class SplashActivity : AppCompatActivity() {
 
     private var isLoginSuccess = false
     private var isRemoteConfigReady = false
+    private var isUpdateCheckSuccess = false
     private val remoteConfig: FirebaseRemoteConfig by lazy {
         Firebase.remoteConfig
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        val splashScreen = installSplashScreen()
-        setContentView(R.layout.activity_splash)
-
-        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
-
-        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-                && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
-            ) {
-                appUpdateManager.startUpdateFlowForResult(
-                    appUpdateInfo,
-                    AppUpdateType.IMMEDIATE,
-                    this,
-                    UPDATE_REQ_CODE
-                )
-            }
-        }
-
-        val configSettings = remoteConfigSettings {
-            minimumFetchIntervalInSeconds = 3600
-        }
-        remoteConfig.fetch(0)
-        remoteConfig.setConfigSettingsAsync(configSettings)
-        remoteConfig.setDefaultsAsync(R.xml.remote_config_default)
-        remoteConfig.activate().addOnCompleteListener {
-            if (it.isSuccessful) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    remoteConfig.all.forEach { (t, u) ->
-                        IDormLogger.d(this@SplashActivity, "$t : $u")
-                    }
-                }
-                App.isMatchingPeriod = remoteConfig.getBoolean("isMatchingPeriod")
-                App.whenMatchingStarts = remoteConfig.getString("whenMatchingStarts")
-
-            } else if (it.isCanceled) {
-                App.isMatchingPeriod = false
-                App.whenMatchingStarts = "null"
-            }
-        }
-
-        val content = findViewById<View>(android.R.id.content)
-        content.viewTreeObserver.addOnPreDrawListener(
-            object : ViewTreeObserver.OnPreDrawListener {
-                override fun onPreDraw(): Boolean {
-                    // Check if the initial data is ready.
-                    return if (isLoginSuccess && isRemoteConfigReady) {
-                        // The content is ready; start drawing.
-                        content.viewTreeObserver.removeOnPreDrawListener(this)
-                        true
-                    } else {
-                        // The content is not ready; suspend.
-                        false
-                    }
-                }
-            }
-        )
-        prefsRepository = PrefsRepository(applicationContext)
-
-
+    fun checkLogin() {
         lifecycleScope.launch {
             loginRefresh().catch { exception ->
                 Log.e("Error reading preferences: ", exception.toString())
@@ -312,5 +252,70 @@ class SplashActivity : AppCompatActivity() {
                 isLoginSuccess = false
             }
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val splashScreen = installSplashScreen()
+        setContentView(R.layout.activity_splash)
+
+        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+
+        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+            ) {
+                isUpdateCheckSuccess = true
+                appUpdateManager.startUpdateFlowForResult(
+                    appUpdateInfo,
+                    AppUpdateType.IMMEDIATE,
+                    this@SplashActivity,
+                    UPDATE_REQ_CODE
+                )
+            } else {
+                val configSettings = remoteConfigSettings {
+                    minimumFetchIntervalInSeconds = 3600
+                }
+                remoteConfig.fetch(0)
+                remoteConfig.setConfigSettingsAsync(configSettings)
+                remoteConfig.setDefaultsAsync(R.xml.remote_config_default)
+                remoteConfig.activate().addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            remoteConfig.all.forEach { (t, u) ->
+                                IDormLogger.d(this@SplashActivity, "$t : $u")
+                            }
+                        }
+                        App.isMatchingPeriod = remoteConfig.getBoolean("isMatchingPeriod")
+                        App.whenMatchingStarts = remoteConfig.getString("whenMatchingStarts")
+                        checkLogin()
+                    } else if (it.isCanceled) {
+                        App.isMatchingPeriod = false
+                        App.whenMatchingStarts = "null"
+                    }
+                }
+            }
+        }
+
+        val content = findViewById<View>(android.R.id.content)
+        content.viewTreeObserver.addOnPreDrawListener(
+            object : ViewTreeObserver.OnPreDrawListener {
+                override fun onPreDraw(): Boolean {
+                    // Check if the initial data is ready.
+                    return if (isLoginSuccess && isRemoteConfigReady && isUpdateCheckSuccess) {
+                        // The content is ready; start drawing.
+                        content.viewTreeObserver.removeOnPreDrawListener(this)
+                        true
+                    } else {
+                        // The content is not ready; suspend.
+                        false
+                    }
+                }
+            }
+        )
+        prefsRepository = PrefsRepository(applicationContext)
+
+
     }
 }
