@@ -103,7 +103,7 @@
             android:fontFamily="@font/notosans_medium"
             android:includeFontPadding="false"
             android:onClick="@{() -> emailViewModel.submit()}"
-            android:text="@string/getCodeInteraction"
+            android:text="@string/CertificationContinueInteraction"
 
             android:textColor="@color/white"
             android:textSize="14sp"

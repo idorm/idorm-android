@@ -79,7 +79,6 @@
                     style="@style/Widget.DesignSystem.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="14dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/resendArea"
@@ -87,6 +86,7 @@
                     app:suffixTextColor="@color/iDorm_blue"
                     app:hintEnabled="false"
                     timerBehavior="@{codeViewModel.timer}"
+                    android:layout_marginTop="14dp"
                     >
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -147,7 +147,7 @@
 
             android:includeFontPadding="false"
             android:onClick="@{() -> codeViewModel.submit()}"
-            android:text="@string/CertificationCompletedInteraction"
+            android:text="@string/CertificationContinueInteraction"
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"

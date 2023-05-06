@@ -69,8 +69,8 @@ enum class ErrorCode(val error: String, val message: String) {
     /**
      * 401 UNAUTHORIZED : 인증되지 않은 사용자
      */
-    INVALID_CODE(StatusCode.UNAUTHORIZED.name, "올바르지 않은 코드 입니다."),
-    EXPIRED_CODE(StatusCode.UNAUTHORIZED.name, "이메일 인증 유효시간이 초과되었습니다."),
+    INVALID_CODE(StatusCode.UNAUTHORIZED.name, "인증번호를 다시 확인해주세요."),
+    EXPIRED_CODE(StatusCode.UNAUTHORIZED.name, "인증번호가 만료되었습니다."),
     UNAUTHORIZED_MEMBER(StatusCode.UNAUTHORIZED.name, "로그인이 필요합니다."),
     UNAUTHORIZED_PASSWORD(StatusCode.UNAUTHORIZED.name, "올바르지 않은 비밀번호 입니다."),
     UNAUTHORIZED_EMAIL(StatusCode.UNAUTHORIZED.name, "인증이 되지 않은 이메일입니다."),
@@ -115,7 +115,7 @@ enum class ErrorCode(val error: String, val message: String) {
 
     DUPLICATE_EMAIL(StatusCode.CONFLICT.name, "이미 등록된 이메일 입니다."),
     DUPLICATE_MEMBER(StatusCode.CONFLICT.name, "이미 등록된 멤버 입니다."),
-    DUPLICATE_NICKNAME(StatusCode.CONFLICT.name, "이미 등록된 닉네임 입니다."),
+    DUPLICATE_NICKNAME(StatusCode.CONFLICT.name, "이미 존재하는 닉네임 입니다."),
     DUPLICATE_SAME_NICKNAME(StatusCode.CONFLICT.name, "기존의 닉네임과 같습니다."),
     DUPLICATE_MATCHINGINFO(StatusCode.CONFLICT.name, "매칭정보가 이미 등록되어 있습니다."),
     DUPLICATE_LIKED_MEMBER(StatusCode.CONFLICT.name, "이미 좋아요한 멤버 입니다."),

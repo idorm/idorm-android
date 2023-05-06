@@ -68,7 +68,7 @@
                 android:text="@={viewModel.title}"
 
                 android:textColorHint="@color/iDorm_gray_200"
-                android:textSize="20sp" />
+                android:textSize="20sp"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/imageView"

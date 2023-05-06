@@ -116,8 +116,7 @@
                     android:id="@+id/imageView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="43dp"
-                    android:layout_marginEnd="24dp"
+                    android:layout_marginVertical="43dp"
                     android:src="@drawable/ic_character_main"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -127,18 +126,13 @@
                     style="@style/Widget.DesignSystem.AppCompatButton.blue"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
-                    android:layout_marginStart="24dp"
-
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginBottom="11dp"
                     android:background="@drawable/view_button_round_6"
 
-                    android:drawableRight="@drawable/ic_matching_interaction"
-                    android:drawablePadding="-24dp"
-                    android:elevation="6dp"
+                    android:elevation="10dp"
                     android:fontFamily="@font/notosans_medium"
                     android:includeFontPadding="false"
-                    android:paddingHorizontal="62dp"
 
                     android:shadowColor="#36000000"
                     android:shadowDy="4"
@@ -146,7 +140,7 @@
 
                     android:text="@string/RoomMateMatchingInteraction"
                     android:textColor="@color/white"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
 
                     app:layout_constraintBottom_toBottomOf="@+id/imageView6"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -160,11 +154,10 @@
                 android:id="@+id/popularPosts"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="12sp"
                 android:background="@color/iDorm_gray_100"
                 android:orientation="horizontal"
                 android:paddingHorizontal="24sp"
-                android:paddingVertical="10sp"
+                android:paddingVertical="12sp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/matchingMessage"
@@ -191,9 +184,10 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/notosans_medium"
                         android:includeFontPadding="false"
-                        android:text="인천대 "
+                        android:text="인천대"
                         android:textColor="@color/iDorm_gray_400"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:layout_marginEnd="8dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -217,12 +211,13 @@
                         android:includeFontPadding="false"
                         android:text="아이돔에서 확인해요."
                         android:textColor="@color/iDorm_gray_400"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:layout_marginEnd="4dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/notosans_medium"
+                        android:fontFamily="@font/notosans_bold"
                         android:includeFontPadding="false"
                         android:text="Beta"
                         android:textColor="@color/iDorm_gray_200"
