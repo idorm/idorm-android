@@ -74,7 +74,7 @@ class BoardViewModel : ViewModel() {
     val boardUiState: StateFlow<BoardUiState>
         get() = _boardUiState
 
-    fun getDorm() =
+    private fun getDorm() =
         Dorm.values().find { _boardUiState.value.selectedDorm.value == it.name } ?: Dorm.DORM1
 
     fun getAllPosts() {

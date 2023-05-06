@@ -76,8 +76,12 @@ class PostDetailActivity : LoadingActivity(), OnSnackBarCallListener {
                 comments[index] = comment.copy(subComments = subComments)
             }
         }
-        if (sort == "asc")
+        if (sort == "asc") {
             comments.reverse()
+            comments.forEach {
+                it.subComments?.reverse()
+            }
+        }
         return comments
 
     }

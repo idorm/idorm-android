@@ -109,8 +109,6 @@ class BoardFragment : Fragment() {
         }
 
         viewModel.getAllPosts()
-
-        // TODO: Use the ViewModel
     }
 
     fun openSelector() {
@@ -123,7 +121,6 @@ class BoardFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // 클릭된 메뉴 아이템의 아이디 마다 when 구절로 클릭시 동작을 설정한다.
         return super.onOptionsItemSelected(item)
     }
 

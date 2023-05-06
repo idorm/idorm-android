@@ -11,7 +11,7 @@ class GetSinglePost : UseCase<Int, Post>() {
         val post = communityRepository.getSinglePost(params)
 
         return if (post.comments != null) {
-            // 부모 있는거 / 없는거로 분리
+            // 부모 있는거 / 없는거로 그룹화
             val groupedComments = post.comments?.groupBy {
                 it.parentCommentId
             }
