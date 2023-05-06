@@ -25,21 +25,21 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:layout_width="wrap_content"
+                android:layout_width="130sp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20sp"
+                android:layout_marginBottom="14sp"
                 android:backgroundTint="@color/iDorm_blue"
                 android:fontFamily="@font/notosans_bold"
                 android:gravity="center"
                 android:includeFontPadding="false"
                 android:onClick="@{() -> fragment.write()}"
-                android:paddingHorizontal="20dp"
+                android:paddingVertical="10sp"
                 android:text="글쓰기"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:icon="@drawable/ic_write"
                 app:iconGravity="textStart"
-                app:iconSize="22sp"
+                app:iconSize="24sp"
                 app:iconTint="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -61,6 +61,7 @@
                     android:id="@+id/bottomSheetSelector"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="10sp"
                     android:onClick="@{() -> fragment.openSelector()}">
 
                     <TextView
@@ -70,7 +71,8 @@
                         android:fontFamily="@font/notosans_bold"
                         android:text="@{viewModel.boardUiState.selectedDorm.title}"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        tools:text = "인천대 제1기숙사"/>
 
                     <ImageView
                         android:layout_width="10sp"
@@ -101,9 +103,9 @@
                             android:id="@+id/popularPosts"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginVertical="12sp"
                             android:orientation="horizontal"
-                            android:padding="18sp"
+                            android:paddingVertical="12sp"
+                            android:paddingLeft="24sp"
                             android:background="@color/iDorm_gray_100"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             app:layout_constraintStart_toStartOf="parent"
@@ -117,6 +119,8 @@
                             android:layout_height="match_parent"
                             android:orientation="vertical"
                             android:overScrollMode="never"
+                            android:paddingBottom="12sp"
+                            android:background="@color/iDorm_gray_100"
                             app:board="@{viewModel.boardUiState.posts}"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             app:layout_constraintTop_toBottomOf="@id/popularPosts"

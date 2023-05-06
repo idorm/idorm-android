@@ -147,7 +147,7 @@
 
             android:includeFontPadding="false"
             android:onClick="@{() -> codeViewModel.submit()}"
-            android:text="@string/CertificationCompletedInteraction"
+            android:text="@string/CertificationContinueInteraction"
             android:textColor="@color/white"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -87,7 +87,9 @@
                                 android:textColor="@color/black"
                                 android:textSize="16sp"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/writer" />
+                                app:layout_constraintTop_toBottomOf="@+id/writer"
+                                android:layout_marginTop="12sp"
+                                tools:text="더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스"/>
 
                             <TextView
                                 android:id="@+id/content"
@@ -99,7 +101,9 @@
                                 android:textColor="@color/black"
                                 android:textSize="14sp"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/title" />
+                                app:layout_constraintTop_toBottomOf="@+id/title"
+                                android:layout_marginTop="12sp"
+                                tools:text="더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 더미 텍스트 "/>
 
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/images"
@@ -125,11 +129,14 @@
                                 android:layout_height="1dp"
                                 android:background="@color/iDorm_gray_200" />
 
+
+
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:paddingHorizontal="24sp"
-                                android:paddingVertical="14sp">
+                                android:layout_height="match_parent"
+                                android:paddingLeft="19sp"
+                                android:paddingRight="24sp"
+                                android:paddingVertical="17sp">
 
                                 <ImageView
                                     android:id="@+id/imageView2"
@@ -146,7 +153,7 @@
                                     android:layout_width="wrap_content"
 
                                     android:layout_height="18dp"
-                                    android:fontFamily="@font/notosans_medium"
+                                    android:fontFamily="@font/notosans_regular"
                                     android:includeFontPadding="false"
                                     android:text="@{Integer.toString(viewModel.postDetailState.data.likesCount)}"
                                     android:textColor="@color/iDorm_gray_300"
@@ -171,7 +178,7 @@
 
                                     android:layout_width="wrap_content"
                                     android:layout_height="18dp"
-                                    android:fontFamily="@font/notosans_medium"
+                                    android:fontFamily="@font/notosans_regular"
                                     android:includeFontPadding="false"
                                     android:text="@{Integer.toString(viewModel.postDetailState.data.commentsCount)}"
                                     android:textColor="@color/iDorm_gray_300"
@@ -193,7 +200,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="18dp"
-                                    android:fontFamily="@font/notosans_medium"
+                                    android:fontFamily="@font/notosans_regular"
                                     android:includeFontPadding="false"
                                     android:text="@{Integer.toString(viewModel.postDetailState.data.imagesCount)}"
                                     android:textColor="@color/iDorm_gray_300"
@@ -204,29 +211,31 @@
 
                                 <androidx.appcompat.widget.AppCompatToggleButton
                                     android:id="@+id/likeButton"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="65sp"
+                                    android:layout_height="30sp"
                                     android:background="@drawable/selector_button_toggle"
                                     android:checked="@{viewModel.postDetailState.data.liked}"
                                     android:onClick="@{() -> viewModel.toggleLike()}"
                                     android:textColor="@color/selector_toggle_button_text"
+                                    android:fontFamily="@font/notosans_regular"
+                                    android:textSize="12sp"
+                                    android:includeFontPadding="false"
                                     android:textOff="공감하기"
                                     android:textOn="공감하기"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
 
-
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/iDorm_gray_200" />
-
-
                         </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/iDorm_gray_200"
+                            app:layout_constraintBottom_toBottomOf="@+id/postInteraction" />
 
                         <LinearLayout
                             android:id="@+id/commentSort"
@@ -237,10 +246,11 @@
                             android:paddingVertical="8sp"
                             app:layout_constraintTop_toBottomOf="@id/postInteraction">
 
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginEnd="8sp"
+                                android:layout_marginEnd="12sp"
                                 android:onClick="@{() -> viewModel.setSort(`asc`)}"
                                 android:text="등록순"
                                 android:textColor="@color/selector_enabled_text"
@@ -317,6 +327,8 @@
                     android:fontFamily="@font/notosans_medium"
                     android:text="익명"
                     android:textSize="12sp"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -325,7 +337,7 @@
                     android:id="@+id/anonymousRadioButton"
                     android:layout_width="17dp"
                     android:layout_height="17dp"
-                    android:layout_marginLeft="10sp"
+                    android:layout_marginLeft="5.5sp"
                     android:background="@drawable/selector_radiobutton"
                     android:button="@null"
                     android:checked="@{viewModel.commentState.isAnonymous}"
@@ -338,17 +350,23 @@
                     android:id="@+id/commentInput"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10sp"
+                    android:layout_marginStart="5sp"
                     android:background="@drawable/view_edit_text_pill_gray_100"
                     android:hint="@string/enterCommentHint"
                     android:onTextChanged="@{viewModel::setCommentInput}"
-                    android:padding="10sp"
-                    android:paddingEnd="35sp"
+                    android:paddingVertical="10sp"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="35sp"
                     android:text="@{viewModel.commentState.content}"
+                    android:textSize="12sp"
+                    android:textColor="@color/iDorm_gray_400"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/anonymousRadioButton"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="eodvdvdvdvdvdvdvdvdddbdvdvdvdvdvdvdvdvdvdv"/>
 
                 <ImageButton
                     android:layout_width="wrap_content"

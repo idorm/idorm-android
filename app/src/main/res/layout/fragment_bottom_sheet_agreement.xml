@@ -34,12 +34,13 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/submit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24sp"
+            android:layout_height="53dp"
+            android:layout_marginTop="28dp"
             android:background="@drawable/view_button_round_10"
             android:text="@string/completeRegistration"
             android:textColor="@color/white"
-            app:layout_constraintTop_toBottomOf="@id/itemRecyclerView" />
+            app:layout_constraintTop_toBottomOf="@id/itemRecyclerView"
+            tools:layout_editor_absoluteX="24dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

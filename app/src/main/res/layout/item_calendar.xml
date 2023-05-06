@@ -16,26 +16,26 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10sp"
         android:background="@drawable/view_round_stroke"
-        android:padding="16sp">
+        android:padding="22sp">
 
-        <LinearLayout
+        <ImageView
             android:id="@+id/dot"
-            android:layout_width="7sp"
-            android:layout_height="7sp"
-            android:layout_marginLeft="10sp"
-            android:layout_marginTop="10sp"
-            android:background="@color/iDorm_blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12sp"
+            android:background="@drawable/ic_circle_idorm_blue"
             android:orientation="vertical"
             app:layout_constraintCircleRadius="50sp"
             app:layout_constraintEnd_toStartOf="@id/date"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/date" />
+            app:layout_constraintTop_toTopOf="@id/date"/>
+
 
         <LinearLayout
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10sp"
+            android:layout_marginLeft="12sp"
             app:layout_constraintStart_toEndOf="@id/dot"
             app:layout_constraintTop_toTopOf="@id/dot">
 
@@ -44,6 +44,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:textSize="14sp"
                 tools:text="12월 13일" />
 
 
@@ -51,6 +54,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" ~ "
+                android:textSize="14sp"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
                 android:textColor="@color/black" />
 
             <TextView
@@ -58,6 +64,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:textSize="14sp"
                 tools:text="12월 13일" />
         </LinearLayout>
 
@@ -70,22 +79,53 @@
             android:text="@{calendar.content}"
             android:textColor="@color/black"
             android:textSize="14sp"
+            android:paddingRight="40sp"
+            android:layout_marginTop="2sp"
             app:layout_constraintStart_toStartOf="@id/date"
-            app:layout_constraintTop_toBottomOf="@id/date" />
+            app:layout_constraintTop_toBottomOf="@id/date"
+            tools:text="인천대학교 정주대학 2.0 프로그램 시험운영 및 설명운 조사 가나다라마바사" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/checkButton"
+            android:layout_width="24dp"
+
+            android:layout_height="24dp"
+            android:background="@drawable/ic_right_arrow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.886"
+            android:layout_marginTop="12sp"
+            app:layout_constraintStart_toEndOf="@+id/content"
+            app:layout_constraintTop_toTopOf="@+id/date" />
+
+        <TextView
+            android:id="@+id/hasCalendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:text="일정이 있는 기숙사"
+            android:textColor="@color/iDorm_gray_300"
+            android:textSize="12sp"
+            android:layout_marginTop="14dp"
+            app:layout_constraintStart_toStartOf="@id/content"
+            app:layout_constraintTop_toBottomOf="@id/content" />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/dorms"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/content"
-            app:layout_constraintTop_toBottomOf="@id/content">
+            app:layout_constraintStart_toStartOf="@id/hasCalendar"
+            app:layout_constraintTop_toBottomOf="@id/hasCalendar">
 
             <com.google.android.material.chip.Chip
                 dormVisibility="@{calendar.dorm1Yn}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/iDorm_gray_100"
+                android:backgroundTint="@color/iDorm_gray_200"
                 android:text="1 기숙사"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:textSize="12sp"
                 android:textColor="@color/iDorm_gray_400"
                 app:chipCornerRadius="0sp"
 
@@ -95,8 +135,11 @@
                 dormVisibility="@{calendar.dorm2Yn}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/iDorm_gray_100"
+                android:backgroundTint="@color/iDorm_gray_200"
                 android:text="2 기숙사"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:textSize="12sp"
                 android:textColor="@color/iDorm_gray_400"
                 app:chipCornerRadius="0sp"
 
@@ -106,8 +149,11 @@
                 dormVisibility="@{calendar.dorm3Yn}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/iDorm_gray_100"
+                android:backgroundTint="@color/iDorm_gray_200"
                 android:text="3 기숙사"
+                android:fontFamily="@font/notosans_regular"
+                android:includeFontPadding="false"
+                android:textSize="12sp"
                 android:textColor="@color/iDorm_gray_400"
 
                 app:chipCornerRadius="0sp" />
@@ -117,22 +163,26 @@
             android:id="@+id/time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="@id/dorms"
             app:layout_constraintTop_toBottomOf="@id/dorms">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/notosans_medium"
+                android:fontFamily="@font/notosans_regular"
+                android:textSize="12sp"
                 android:includeFontPadding="false"
                 android:text="시간 "
-                android:textColor="@color/iDorm_gray_300" />
+                android:textColor="@color/iDorm_gray_300"
+                android:layout_marginEnd="4dp"/>
 
             <TextView
                 time="@{calendar.startTime}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/notosans_medium"
+                android:fontFamily="@font/notosans_regular"
+                android:textSize="12sp"
                 android:includeFontPadding="false"
                 android:textColor="@color/iDorm_gray_400"
                 tools:text="오전 10:00" />
@@ -140,7 +190,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/notosans_medium"
+                android:fontFamily="@font/notosans_regular"
+                android:textSize="12sp"
                 android:includeFontPadding="false"
                 android:text=" ~ "
                 android:textColor="@color/iDorm_gray_400" />
@@ -149,7 +200,8 @@
                 time="@{calendar.endTime}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/notosans_medium"
+                android:fontFamily="@font/notosans_regular"
+                android:textSize="12sp"
                 android:includeFontPadding="false"
                 android:textColor="@color/iDorm_gray_400"
                 tools:text="오후 07:00" />
@@ -159,21 +211,25 @@
             android:id="@+id/location"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             app:layout_constraintStart_toStartOf="@id/time"
             app:layout_constraintTop_toBottomOf="@id/time">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/notosans_medium"
+                android:fontFamily="@font/notosans_regular"
+                android:textSize="12sp"
                 android:includeFontPadding="false"
                 android:text="장소 "
-                android:textColor="@color/iDorm_gray_300" />
+                android:textColor="@color/iDorm_gray_300"
+                android:layout_marginEnd="4dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/notosans_medium"
+                android:fontFamily="@font/notosans_regular"
+                android:textSize="12sp"
                 android:includeFontPadding="false"
                 android:text="@{calendar.location}"
                 android:textColor="@color/iDorm_gray_400"
@@ -181,18 +237,7 @@
 
         </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/checkButton"
-            style="@style/Widget.DesignSystem.AppCompatButton.blue"
-            android:layout_width="0dp"
 
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24sp"
-            android:background="@drawable/view_button_round_6"
-            android:text="@string/checkNotice"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/location" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

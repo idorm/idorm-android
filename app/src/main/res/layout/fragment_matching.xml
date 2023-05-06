@@ -30,13 +30,15 @@
                 android:id="@+id/graphic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/graphic_ready" />
+                android:src="@drawable/graphic_ready"
+                android:layout_marginBottom="24sp"/>
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/notosans_bold"
+                android:includeFontPadding="false"
                 android:text="룸메이트 매칭"
                 android:textColor="@color/iDorm_gray_300"
                 android:textSize="16sp" />
@@ -44,7 +46,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center">
+                android:gravity="center"
+                android:layout_marginBottom="12sp">
 
                 <TextView
                     android:id="@+id/date"
@@ -72,6 +75,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/notosans_medium"
                 android:text="여름방학 룸메이트 매칭 시즌에 만나요."
+                android:includeFontPadding="false"
                 android:textColor="@color/iDorm_gray_300"
                 android:textSize="14sp" />
 
