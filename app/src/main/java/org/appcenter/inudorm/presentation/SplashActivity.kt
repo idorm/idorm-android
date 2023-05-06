@@ -232,10 +232,11 @@ class SplashActivity : AppCompatActivity() {
         Firebase.remoteConfig
     }
 
-    fun checkLogin() {
+    private fun checkLogin() {
         lifecycleScope.launch {
             loginRefresh().catch { exception ->
                 Log.e("Error reading preferences: ", exception.toString())
+                isLoginSuccess = true
                 emit(false)
             }.collect { isSuccess ->
                 IDormLogger.i(this, "성공여부: $isSuccess")
@@ -249,9 +250,64 @@ class SplashActivity : AppCompatActivity() {
                 } else {
                     goLogin()
                 }
-                isLoginSuccess = false
+                isLoginSuccess = true
             }
         }
+    }
+
+    private fun initFRC(onSuccess: () -> Unit) {
+        val configSettings = remoteConfigSettings {
+            minimumFetchIntervalInSeconds = 3600
+        }
+        remoteConfig.fetch(0)
+        remoteConfig.setConfigSettingsAsync(configSettings)
+        remoteConfig.setDefaultsAsync(R.xml.remote_config_default)
+        remoteConfig.activate().addOnCompleteListener {
+            isRemoteConfigReady = true
+            if (it.isSuccessful) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    remoteConfig.all.forEach { (t, u) ->
+                        IDormLogger.d(this@SplashActivity, "$t : $u")
+                    }
+                }
+                App.isMatchingPeriod = remoteConfig.getBoolean("isMatchingPeriod")
+                App.whenMatchingStarts = remoteConfig.getString("whenMatchingStarts")
+                onSuccess()
+            } else if (it.isCanceled) {
+                App.isMatchingPeriod = false
+                App.whenMatchingStarts = "null"
+            }
+        }
+    }
+
+    private fun checkUpdate(onSuccess: () -> Unit) {
+        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+
+        appUpdateInfoTask.addOnCompleteListener { result ->
+            isUpdateCheckSuccess = true
+            if (result.isSuccessful) {
+                val appUpdateInfo = result.result
+                if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
+                ) {
+                    appUpdateManager.startUpdateFlowForResult(
+                        appUpdateInfo,
+                        AppUpdateType.IMMEDIATE,
+                        this@SplashActivity,
+                        UPDATE_REQ_CODE
+                    )
+                } else {
+                    onSuccess()
+                }
+            } else if (result.isCanceled || result.exception != null) {
+                if (result.exception !is com.google.android.play.core.appupdate.internal.zzy) {
+                    OkDialog("앱 업데이트 체크에 실패했어요. 앱을 종료할게요.", onOk = { exitProcess(1) }).show(this)
+                } else {
+                    onSuccess()
+                }
+            }
+        }
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -260,41 +316,10 @@ class SplashActivity : AppCompatActivity() {
         val splashScreen = installSplashScreen()
         setContentView(R.layout.activity_splash)
 
-        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
-
-        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-                && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
-            ) {
-                isUpdateCheckSuccess = true
-                appUpdateManager.startUpdateFlowForResult(
-                    appUpdateInfo,
-                    AppUpdateType.IMMEDIATE,
-                    this@SplashActivity,
-                    UPDATE_REQ_CODE
-                )
-            } else {
-                val configSettings = remoteConfigSettings {
-                    minimumFetchIntervalInSeconds = 3600
-                }
-                remoteConfig.fetch(0)
-                remoteConfig.setConfigSettingsAsync(configSettings)
-                remoteConfig.setDefaultsAsync(R.xml.remote_config_default)
-                remoteConfig.activate().addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            remoteConfig.all.forEach { (t, u) ->
-                                IDormLogger.d(this@SplashActivity, "$t : $u")
-                            }
-                        }
-                        App.isMatchingPeriod = remoteConfig.getBoolean("isMatchingPeriod")
-                        App.whenMatchingStarts = remoteConfig.getString("whenMatchingStarts")
-                        checkLogin()
-                    } else if (it.isCanceled) {
-                        App.isMatchingPeriod = false
-                        App.whenMatchingStarts = "null"
-                    }
-                }
+        //  Todo: 우선 콜백지옥..
+        checkUpdate {
+            initFRC {
+                checkLogin()
             }
         }
 
