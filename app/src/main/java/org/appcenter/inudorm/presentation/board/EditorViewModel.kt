@@ -34,7 +34,7 @@ open class EditorViewModel : ViewModel() {
             it.copy(
                 postId = post.postId,
                 dormCategory = post.dormCategory,
-                anonymous = post.isAnonymous(),
+                anonymous = post.isAnonymous,
                 images = post.postPhotos ?: arrayListOf(),
             )
         }

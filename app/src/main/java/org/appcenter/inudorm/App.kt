@@ -4,8 +4,10 @@ import android.app.Application
 import android.content.Context
 import androidx.datastore.preferences.preferencesDataStore
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import org.appcenter.inudorm.model.OnboardInfo
 import org.appcenter.inudorm.model.User
+import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.repository.*
 
 // 사용되는 파일에서 클래스 밖에 선언하면 싱글톤으로 사용 가능합니다.
@@ -17,7 +19,8 @@ class App : Application() {
         var savedUser: User? = null
         var isMatchingPeriod: Boolean = false
         var whenMatchingStarts: String = "null"
-        val gson = Gson()
+        val gson: Gson =
+            GsonBuilder().registerTypeAdapter(Post::class.java, Post.NICKNAME_DESERIALIZER).create()
 
         val userRepository = UserRepository()
         val roomMateRepository = RoomMateRepository()

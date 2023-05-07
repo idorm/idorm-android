@@ -1,8 +1,15 @@
 package org.appcenter.inudorm.model.board
 
 import android.os.Parcelable
+import com.google.gson.Gson
+import com.google.gson.JsonDeserializationContext
+import com.google.gson.JsonDeserializer
+import com.google.gson.JsonElement
+import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.WriteWith
 import org.appcenter.inudorm.model.Dorm
+import java.lang.reflect.Type
 
 @Parcelize
 data class Post(
@@ -13,17 +20,28 @@ data class Post(
     val imagesCount: Int = 0,
     val likesCount: Int = 0,
     val isLiked: Boolean = false,
-    val nickname: String,
     val postPhotos: ArrayList<Photo>? = null,
     val postId: Int,
     val profileUrl: String? = null,
     val title: String,
     val updatedAt: String? = null,
     val memberId: Int,
-    val dormCategory: Dorm
+    val dormCategory: Dorm,
+    val nickname: String?,
+    var isWithdrew: Boolean = false,
+    var isAnonymous: Boolean = false,
 ) : Parcelable {
+    companion object {
+        val NICKNAME_DESERIALIZER =
+            JsonDeserializer { json, typeOfT, context ->
+                val jsonObject = json?.asJsonObject ?: return@JsonDeserializer null
+                val nicknameJsonElement = jsonObject.get("nickname")
+                if (nicknameJsonElement == null || nicknameJsonElement.isJsonNull)
+                    jsonObject.addProperty("nickname", "탈퇴한 회원")
+                return@JsonDeserializer Gson().fromJson(jsonObject, Post::class.java)
+            }
+    }
 
-    fun isAnonymous() = nickname == "anonymous"
     fun isCommentEmpty(): Boolean {
         if (comments == null) return true
         // 하나라도 deleted가 false 이거나 subComment가 null이 아닌 걸 찾으면
