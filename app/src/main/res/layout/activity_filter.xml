@@ -7,7 +7,7 @@
 
         <variable
             name="filterViewModel"
-            type="org.appcenter.inudorm.presentation.FilterViewModel" />
+            type="org.appcenter.inudorm.presentation.matching.FilterViewModel" />
     </data>
 
 

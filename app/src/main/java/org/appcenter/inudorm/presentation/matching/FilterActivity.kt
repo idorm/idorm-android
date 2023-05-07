@@ -15,8 +15,6 @@ import org.appcenter.inudorm.model.Dorm
 import org.appcenter.inudorm.model.JoinPeriod
 import org.appcenter.inudorm.model.RoomMateFilter
 import org.appcenter.inudorm.model.Taste
-import org.appcenter.inudorm.presentation.FilterViewModel
-import org.appcenter.inudorm.presentation.FilterViewModelFactory
 import org.appcenter.inudorm.util.IDormLogger
 
 val defaultFilter =

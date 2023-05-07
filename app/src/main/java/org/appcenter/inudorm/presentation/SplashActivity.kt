@@ -315,6 +315,7 @@ class SplashActivity : AppCompatActivity() {
 
         val splashScreen = installSplashScreen()
         setContentView(R.layout.activity_splash)
+        askNotificationPermission()
 
         //  Todo: 우선 콜백지옥..
         checkUpdate {

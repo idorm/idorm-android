@@ -1,4 +1,4 @@
-package org.appcenter.inudorm.presentation
+package org.appcenter.inudorm.presentation.matching
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

@@ -21,7 +21,6 @@ class App : Application() {
 
         val userRepository = UserRepository()
         val roomMateRepository = RoomMateRepository()
-        val localFilterRepository = LocalFilterRepository()
         val matchingInfoRepository = MatchingInfoRepository()
         val communityRepository = CommunityRepository()
         val calendarRepository = CalendarRepository()
