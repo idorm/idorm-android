@@ -1,6 +1,7 @@
 package org.appcenter.inudorm.presentation.board
 
 import CheckableItem
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -15,6 +16,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
+import com.kakao.sdk.common.util.KakaoCustomTabsClient
+import com.kakao.sdk.share.ShareClient
+import com.kakao.sdk.share.WebSharerClient
+import com.kakao.sdk.template.model.FeedTemplate
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.LoadingActivity
 import org.appcenter.inudorm.OnSnackBarCallListener
@@ -356,15 +361,61 @@ class PostDetailActivity : LoadingActivity(), OnSnackBarCallListener {
                     IDormLogger.i(this, it.value)
                     when (it.value) {
                         "share" -> {
-                            val sendIntent: Intent = Intent().apply {
-                                action = Intent.ACTION_SEND
-                                putExtra(Intent.EXTRA_TEXT, "텍스트 공유로 테스트. 앱링크로 대체해야 합니다.")
-                                type = "text/plain"
+                            val templateId = 93479L
+                            val post = viewModel.postDetailState.value.data!!
+                            val photo =
+                                if (post.postPhotos == null || post.postPhotos.size < 1) ""
+                                else post.postPhotos[0].photoUrl
+                            val templateArgs = mapOf(
+                                "title" to post.title,
+                                "nickname" to (post.nickname ?: "탈퇴한 회원"),
+                                "contentId" to post.postId.toString(),
+                                "likeCount" to post.likesCount.toString(),
+                                "summarizedContent" to post.content,
+                                "thumbnail" to photo,
+                                "userProfile" to (post.profileUrl ?: ""),
+                                "commentCount" to post.commentsCount.toString()
+                            )
+                            if (ShareClient.instance.isKakaoTalkSharingAvailable(this)) {
+                                // 카카오톡으로 카카오톡 공유 가능
+
+                                ShareClient.instance.shareCustom(
+                                    this,
+                                    templateId,
+                                    templateArgs = templateArgs
+                                ) { sharingResult, error ->
+                                    if (error != null) {
+                                        IDormLogger.e(this, "카카오톡 공유 실패: ${error}")
+                                    } else if (sharingResult != null) {
+                                        IDormLogger.i(this, "카카오톡 공유 성공 ${sharingResult.intent}")
+                                        startActivity(sharingResult.intent)
+
+                                        // 카카오톡 공유에 성공했지만 아래 경고 메시지가 존재할 경우 일부 컨텐츠가 정상 동작하지 않을 수 있습니다.
+                                        IDormLogger.d(
+                                            this,
+                                            "Warning Msg: ${sharingResult.warningMsg}"
+                                        )
+                                        IDormLogger.d(
+                                            this,
+                                            "Argument Msg: ${sharingResult.argumentMsg}"
+                                        )
+                                    }
+                                }
+                            } else {
+                                val sharerUrl =
+                                    WebSharerClient.instance.makeCustomUrl(templateId, templateArgs)
+                                try {
+                                    KakaoCustomTabsClient.openWithDefault(this, sharerUrl)
+                                } catch (e: UnsupportedOperationException) {
+                                    // CustomTabsServiceConnection 지원 브라우저가 없을 때 예외처리
+                                    try {
+                                        KakaoCustomTabsClient.open(this, sharerUrl)
+                                    } catch (e: ActivityNotFoundException) {
+                                        // 디바이스에 설치된 인터넷 브라우저가 없을 때 예외처리
+                                    }
+                                }
+
                             }
-
-                            val shareIntent = Intent.createChooser(sendIntent, null)
-                            startActivity(shareIntent)
-
                         }
 
                         "delete" -> {
