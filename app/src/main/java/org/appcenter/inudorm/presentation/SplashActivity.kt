@@ -300,7 +300,8 @@ class SplashActivity : AppCompatActivity() {
                     onSuccess()
                 }
             } else if (result.isCanceled || result.exception != null) {
-                if (result.exception !is com.google.android.play.core.appupdate.internal.zzy) {
+                result.exception?.printStackTrace()
+                if (result.exception !is com.google.android.play.core.appupdate.internal.zzy && result.exception !is com.google.android.play.core.install.InstallException) {
                     OkDialog("앱 업데이트 체크에 실패했어요. 앱을 종료할게요.", onOk = { exitProcess(1) }).show(this)
                 } else {
                     onSuccess()
@@ -315,6 +316,7 @@ class SplashActivity : AppCompatActivity() {
 
         val splashScreen = installSplashScreen()
         setContentView(R.layout.activity_splash)
+        askNotificationPermission()
 
         //  Todo: 우선 콜백지옥..
         checkUpdate {

@@ -30,12 +30,16 @@ android {
     buildTypes {
         release {
             resValue "string", "SENTRY_DSN", properties.getProperty("SENTRY_DSN")
+            resValue "string", "kakaoScheme", ("kakao" + properties.getProperty("KAKAO_APP_KEY"))
+            resValue "string", "kakaoAppKey", properties.getProperty("KAKAO_APP_KEY")
             minifyEnabled false
             signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
             resValue "string", "SENTRY_DSN", properties.getProperty("SENTRY_DSN")
+            resValue "string", "kakaoScheme", ("kakao" + properties.getProperty("KAKAO_APP_KEY"))
+            resValue "string", "kakaoAppKey", properties.getProperty("KAKAO_APP_KEY")
         }
     }
     compileOptions {
@@ -114,6 +118,9 @@ dependencies {
     implementation "joda-time:joda-time:$jodaTimeVersion"
     // ImagePicker
     implementation "com.github.nguyenhoanglam:ImagePicker:$imagePickerVersion"
+
+    implementation "com.kakao.sdk:v2-share:2.13.0" // 메시지(카카오톡 공유)
+
 
 
 }

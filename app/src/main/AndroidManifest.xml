@@ -12,11 +12,13 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <queries>
-        <package android:name="com.mailplug.aeolos2" />
+        <package android:name="com.google.android.gm" />
+        <package android:name="com.kakao.talk" />
     </queries>
 
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -198,6 +200,9 @@
                 <data
                     android:host="action"
                     android:scheme="idorm" />
+                <data android:host="kakaolink"
+                    android:scheme="@string/kakaoScheme" />
+
             </intent-filter>
 
 

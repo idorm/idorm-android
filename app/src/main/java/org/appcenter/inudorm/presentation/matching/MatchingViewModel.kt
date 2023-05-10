@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.appcenter.inudorm.App.Companion.localFilterRepository
 import org.appcenter.inudorm.model.MatchingInfo
 import org.appcenter.inudorm.model.ReportRequestDto
 import org.appcenter.inudorm.model.RoomMateFilter
@@ -59,7 +58,7 @@ class MatchingViewModel : ViewModel() {
     private val _matchingState: MutableStateFlow<MatchingState> = MutableStateFlow(
         MatchingState(
             mates = arrayListOf(),
-            filter = localFilterRepository.roomMateFilter,
+            filter = defaultFilter,
         )
     )
     val matchingState: StateFlow<MatchingState>
@@ -72,6 +71,24 @@ class MatchingViewModel : ViewModel() {
 
     fun refresh() {
         getMates(LoadMode.Update, size = 10)
+    }
+
+    suspend fun fetchTargetedDorm() {
+        _matchingState.update {
+            it.copy(isLoading = true)
+        }
+        kotlin.runCatching {
+            GetMatchingInfo().run(null)
+        }.onSuccess { matchingInfo ->
+            _matchingState.update {
+                it.copy(
+                    filter = it.filter.copy(
+                        dormCategory = matchingInfo.dormCategory
+                    ),
+                    isLoading = false
+                )
+            }
+        }
     }
 
 

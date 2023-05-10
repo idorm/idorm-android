@@ -220,8 +220,8 @@
                                     android:fontFamily="@font/notosans_regular"
                                     android:textSize="12sp"
                                     android:includeFontPadding="false"
-                                    android:textOff="공감하기"
-                                    android:textOn="공감하기"
+                                    android:textOff="@string/enableLike"
+                                    android:textOn="@string/disableLike"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />

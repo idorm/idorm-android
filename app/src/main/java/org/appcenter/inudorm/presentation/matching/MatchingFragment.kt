@@ -230,7 +230,10 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
             return
         }
 
-        viewModel.getMates(LoadMode.Update, size = 10)
+        lifecycleScope.launch {
+            viewModel.fetchTargetedDorm()
+            viewModel.getMates(LoadMode.Update, size = 10)
+        }
         lifecycleScope.launch {
             viewModel.userMutationEvent.collect(userMutationCollector)
         }

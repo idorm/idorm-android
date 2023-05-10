@@ -6,7 +6,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.networking.IDormError
-import org.appcenter.inudorm.repository.UserRepository
 import org.appcenter.inudorm.usecase.CheckIfCodeCorrect
 import org.appcenter.inudorm.usecase.CodeVerifyParams
 import org.appcenter.inudorm.usecase.SendAuthCode
@@ -15,7 +14,7 @@ import org.appcenter.inudorm.util.DialogButton
 import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.ViewModelWithEvent
 
-private const val initialTime = 60 * 3
+private const val initialTime = 60 * 5
 
 /**
  * 사용된 UseCase
@@ -25,8 +24,7 @@ private const val initialTime = 60 * 3
 class CodePromptViewModel(private val email: String, private val purpose: EmailPromptPurpose) :
     ViewModelWithEvent() {
     val code = MutableLiveData("")
-    val userRepository = UserRepository()
-    private var _timer = MutableLiveData(initialTime) // Todo: 3분으로 수정
+    private var _timer = MutableLiveData(initialTime)
     private lateinit var a: Job
 
     val timer: LiveData<Int>

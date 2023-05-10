@@ -74,12 +74,16 @@ class UserRepository {
         return RetrofitInstance.service.report(body)
     }
 
-    suspend fun updateProfilePhoto(photo: Photo) {
-        val requestFile = photo.file?.asRequestBody("image/jpg".toMediaTypeOrNull())
+    suspend fun updateProfilePhoto(photo: Photo?) {
+        val requestFile = photo?.file?.asRequestBody("image/jpg".toMediaTypeOrNull())
             ?: throw java.lang.RuntimeException("이미지 RequestBody 변환 실패.")
         return RetrofitInstance.service.updateProfilePhoto(
-            MultipartBody.Part.createFormData("file", photo.image?.name, requestFile)
+            MultipartBody.Part.createFormData("file", photo?.image?.name, requestFile)
         )
+    }
+
+    suspend fun deleteProfilePhoto() {
+        return RetrofitInstance.service.deleteProfilePhoto();
     }
 
 }
