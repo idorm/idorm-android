@@ -363,8 +363,10 @@ class PostDetailActivity : LoadingActivity(), OnSnackBarCallListener {
                         "share" -> {
                             val templateId = 93479L
                             val post = viewModel.postDetailState.value.data!!
+                            val defaultProfileImage = "https://idorm-admin.s3.ap-northeast-2.amazonaws.com/profileImage.png"
+                            val defaultThumbnailImage = "https://idorm-admin.s3.ap-northeast-2.amazonaws.com/nadomi.png"
                             val photo =
-                                if (post.postPhotos == null || post.postPhotos.size < 1) ""
+                                if (post.postPhotos == null || post.postPhotos.size < 1) defaultThumbnailImage
                                 else post.postPhotos[0].photoUrl
                             val templateArgs = mapOf(
                                 "title" to post.title,
@@ -373,7 +375,7 @@ class PostDetailActivity : LoadingActivity(), OnSnackBarCallListener {
                                 "likeCount" to post.likesCount.toString(),
                                 "summarizedContent" to post.content,
                                 "thumbnail" to photo,
-                                "userProfile" to (post.profileUrl ?: ""),
+                                "userProfile" to (post.profileUrl ?: defaultProfileImage),
                                 "commentCount" to post.commentsCount.toString()
                             )
                             if (ShareClient.instance.isKakaoTalkSharingAvailable(this)) {

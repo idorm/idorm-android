@@ -10,6 +10,7 @@ import org.appcenter.inudorm.model.User
 import org.appcenter.inudorm.model.board.Photo
 import org.appcenter.inudorm.presentation.matching.Mutation
 import org.appcenter.inudorm.presentation.matching.MyInfoMutationEvent
+import org.appcenter.inudorm.usecase.DeleteProfilePhoto
 import org.appcenter.inudorm.usecase.LoginRefresh
 import org.appcenter.inudorm.usecase.UpdateProfilePhoto
 import org.appcenter.inudorm.util.State
@@ -40,11 +41,21 @@ class MyInfoSettingViewModel : ViewModel() {
         }
     }
 
-    fun updateProfilePhoto(photo: Photo) {
+    fun updateProfilePhoto(photo: Photo?) {
         viewModelScope.launch {
             _myInfoMutationEvent.emit(
                 MyInfoMutationEvent.UpdateProfilePhoto(
                     Mutation(photo, UpdateProfilePhoto().run(photo))
+                )
+            )
+        }
+    }
+
+    fun deleteProfilePhoto() {
+        viewModelScope.launch {
+            _myInfoMutationEvent.emit(
+                MyInfoMutationEvent.DeleteProfilePhoto(
+                    Mutation(null, DeleteProfilePhoto().run(null))
                 )
             )
         }

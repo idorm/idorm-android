@@ -11,6 +11,7 @@ import org.appcenter.inudorm.model.SelectItem
 import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.presentation.matching.LoadMode
 import org.appcenter.inudorm.usecase.BoardType
+import org.appcenter.inudorm.usecase.GetMatchingInfo
 import org.appcenter.inudorm.usecase.GetPostParams
 import org.appcenter.inudorm.usecase.GetPosts
 
@@ -76,6 +77,20 @@ class BoardViewModel : ViewModel() {
 
     private fun getDorm() =
         Dorm.values().find { _boardUiState.value.selectedDorm.value == it.name } ?: Dorm.DORM1
+
+    suspend fun loadInitialHome() {
+
+        val dorm = kotlin.runCatching {
+            GetMatchingInfo().run(null).dormCategory
+        }.getOrNull() ?: Dorm.DORM1
+        _boardUiState.update {
+            it.copy(
+                posts = InfinityScrollState.loading(),
+                topPosts = InfinityScrollState.loading(),
+                selectedDorm = SelectItem("제${dorm.text}기숙사", dorm.name),
+            )
+        }
+    }
 
     fun getAllPosts() {
         viewModelScope.launch {

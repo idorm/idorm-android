@@ -5,10 +5,7 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import org.appcenter.inudorm.R
-import org.appcenter.inudorm.util.CustomDialog
-import org.appcenter.inudorm.util.DialogButton
 import org.appcenter.inudorm.util.OkDialog
-
 
 class WritePostActivity : EditorActivity() {
     override val viewModel: WritePostViewModel by viewModels()

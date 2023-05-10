@@ -19,7 +19,7 @@ class NotificationHubActivity : AppCompatActivity() {
             val channel = NotificationChannel.fromId(channelId ?: "NONE")
             val mainIntent = Intent(this, MainActivity::class.java)
             val contentId = bundle.getString("contentId")?.toIntOrNull()
-            IDormLogger.d(this, contentId.toString())
+
             when (channel) {
                 NotificationChannel.Comment,
                 NotificationChannel.SubComment,

@@ -42,13 +42,11 @@ class EmailPromptFragment : Fragment() {
         }
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
         val purpose = getPurposeFromBundle()
-        Log.d("[EmilPromptFragment]", "I got $purpose")
 
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_email_prompt, container, false)
@@ -58,6 +56,7 @@ class EmailPromptFragment : Fragment() {
             EmailPromptViewModelFactory(purpose)
         )[EmailPromptViewModel::class.java]
         binding.emailViewModel = viewModel
+
         return binding.root
     }
 

@@ -9,8 +9,10 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentBoardBinding
 import org.appcenter.inudorm.model.Dorm
@@ -83,7 +85,7 @@ class BoardFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(BoardViewModel::class.java)
+        viewModel = ViewModelProvider(this)[BoardViewModel::class.java]
         binding.viewModel = viewModel
         binding.fragment = this
         binding.lifecycleOwner = requireActivity()
@@ -108,7 +110,11 @@ class BoardFragment : Fragment() {
             viewModel.getAllPosts()
         }
 
-        viewModel.getAllPosts()
+        lifecycleScope.launch {
+            viewModel.loadInitialHome()
+            viewModel.getAllPosts()
+        }
+
     }
 
     fun openSelector() {

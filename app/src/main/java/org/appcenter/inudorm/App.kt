@@ -37,7 +37,6 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        IDormLogger.d(this, "kakao_app_key: ${getString(R.string.kakaoAppKey)}")
         KakaoSdk.init(this, getString(R.string.kakaoAppKey))
     }
 

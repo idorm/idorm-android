@@ -3,6 +3,7 @@ package org.appcenter.inudorm.networking
 import android.os.Build
 import androidx.annotation.RequiresApi
 import okhttp3.OkHttpClient
+import okhttp3.Protocol
 import org.appcenter.inudorm.App
 import org.appcenter.inudorm.networking.Constants.Companion.BASE_URL
 import retrofit2.Retrofit
