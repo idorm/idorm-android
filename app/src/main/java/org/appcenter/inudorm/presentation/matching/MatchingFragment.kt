@@ -120,10 +120,10 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
             .build()
         layoutManager = CardStackLayoutManager(activity, this).apply {
             setStackFrom(StackFrom.Bottom)
-            setScaleInterval(1.0F)
+            setScaleInterval(0.95F)
             setSwipeAnimationSetting(setting)
             setCanScrollVertical(false)
-            setVisibleCount(4)
+            setVisibleCount(3)
         }
 
         adapter = RoomMateAdapter(true, ArrayList()) {

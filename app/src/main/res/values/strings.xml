@@ -109,7 +109,7 @@
     <string name="genderCardText">성별</string>
     <string name="ageCardText">24</string>
     <string name="ageCardUnit">세</string>
-    <string name="mbtiCardText">MBTI⠀</string>
+    <string name="mbtiCardText">MBTI&#160;&#160;&#160;&#160;&#160;&#160;</string>
 
     <string name="snoringCardText">코골이 없음</string>
     <string name="grindingCardText">이갈이 없음</string>

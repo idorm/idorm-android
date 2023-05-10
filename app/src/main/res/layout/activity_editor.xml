@@ -27,6 +27,7 @@
             android:layout_height="44dp"
             android:background="@null"
             android:textAlignment="center"
+            android:layout_marginRight="10sp"
             android:theme="@style/App.ToolbarMenuItem"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -67,8 +68,10 @@
                 android:includeFontPadding="false"
                 android:text="@={viewModel.title}"
 
+                android:paddingBottom="17dp"
+
                 android:textColorHint="@color/iDorm_gray_200"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/imageView"
@@ -91,6 +94,7 @@
                 android:includeFontPadding="false"
                 android:padding="3sp"
                 android:text="@={viewModel.content}"
+                android:layout_marginTop="16sp"
                 android:textColorHint="@color/iDorm_gray_200"
                 android:textSize="16sp" />
 
@@ -133,6 +137,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageIcon"
                 app:layout_constraintTop_toTopOf="parent"
+                android:textColor="@color/black"
+                tools:text="0/10"
 
                 />
 
@@ -143,6 +149,7 @@
                 android:fontFamily="@font/notosans_medium"
                 android:text="익명"
                 android:textSize="12sp"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/anonymousRadioButton"
                 app:layout_constraintTop_toTopOf="parent"

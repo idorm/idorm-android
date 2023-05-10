@@ -12,6 +12,8 @@ import com.google.android.material.textfield.TextInputLayout.END_ICON_CLEAR_TEXT
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ItemQuestionListBinding
 import org.appcenter.inudorm.model.OnboardQuestion
+import org.appcenter.inudorm.util.IDormLogger
+import java.util.regex.Pattern
 
 class OnboardRVAdapter (private val _dataSet: ArrayList<OnboardQuestion>, context: Context): RecyclerView.Adapter<OnboardRVAdapter.ViewHolder>()  {
 
@@ -39,13 +41,14 @@ class OnboardRVAdapter (private val _dataSet: ArrayList<OnboardQuestion>, contex
 
         holder.view.question = dataSet[position]
 
-
-
         holder.view.onboardField.addTextChangedListener {
             _dataSet[position].answer = it.toString()
             binding.currentLen.text = ((it ?: "").length.toString())
+            //if(position == 4) MbtiValidator(holder, it.toString())
             validator(holder, it.toString().length)
+
         }
+
 
 
     }
@@ -55,6 +58,19 @@ class OnboardRVAdapter (private val _dataSet: ArrayList<OnboardQuestion>, contex
     inner class ViewHolder(var view: ItemQuestionListBinding) : RecyclerView.ViewHolder(view.root){
     }
 
+    private fun MbtiValidator(holder: ViewHolder, input : String){
+        var filterAlphaNumSpace = InputFilter { source, _, _, _, _, _ ->
+            val ps = Pattern.compile("^[a-zA-Z]+$")
+            if (!ps.matcher(source).matches()) {
+                ""
+            } else source
+        }
+
+
+        holder.view.onboardField.filters  = arrayOf(filterAlphaNumSpace)
+
+
+    }
     private fun validator(holder: ViewHolder, inputLength : Int){
         if (inputLength > 0){
             setSuccessIcon(holder)

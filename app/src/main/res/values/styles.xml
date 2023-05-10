@@ -24,8 +24,8 @@
         <item name="chipBackgroundColor">@color/white</item>
         <item name="chipStrokeWidth">0dp</item>
         <item name="android:textColor">@color/iDorm_blue</item>
-        <item name="fontFamily">@font/notosans_medium</item>
-        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/notosans_bold</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="NewDialog">
@@ -46,7 +46,7 @@
         <item name="materialThemeOverlay">@style/ThemeOverlay.MyApp.Chip.Choice</item>
         <item name="chipBackgroundColor">@color/white</item>
         <item name="chipStrokeColor">@color/white</item>
-        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipStrokeWidth">3dp</item>
 
         <item name="android:textColor">@color/black</item>
         <item name="fontFamily">@font/notosans_medium</item>
@@ -145,7 +145,7 @@
         <item name="fontFamily">@font/notosans_bold</item>
         <item name="textAllCaps">true</item>
         <item name="android:textStyle">bold</item>
-        <item name="actionMenuTextColor">#000000</item> <!--액션 메뉴의 텍스트 색상-->
+        <item name="actionMenuTextColor">@color/iDorm_gray_300</item> <!--액션 메뉴의 텍스트 색상-->
         <item name="colorControlNormal">#000000</item>
     </style>
 
