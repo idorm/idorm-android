@@ -11,13 +11,12 @@
     <androidx.cardview.widget.CardView
         android:layout_width="42sp"
         android:layout_height="42sp"
-        app:cardCornerRadius="8sp">
+        app:cardElevation="0dp">
 
         <ImageView
             android:id="@+id/profileImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
             android:background="@drawable/ic_profile_my_page"/>
 
     </androidx.cardview.widget.CardView>
