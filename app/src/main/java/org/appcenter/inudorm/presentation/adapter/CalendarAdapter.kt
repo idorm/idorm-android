@@ -61,6 +61,9 @@ class CalendarAdapter(
         viewHolder.viewBinding.checkButton.setOnClickListener {
             onClicked(_dataSet[position])
         }
+        viewHolder.viewBinding.calendarParent.setOnClickListener {
+            onClicked(_dataSet[position])
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
