@@ -27,7 +27,7 @@
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:layout_width="130sp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="14sp"
+                android:layout_marginBottom="24sp"
                 android:backgroundTint="@color/iDorm_blue"
                 android:fontFamily="@font/notosans_bold"
                 android:gravity="center"
