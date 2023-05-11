@@ -60,18 +60,20 @@
 
 
             <com.google.android.material.textfield.TextInputEditText
+                android:theme="@style/Widget.DesignSystem.TextInputEditText.Line"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/iDorm_gray_200"
                 android:fontFamily="@font/notosans_bold"
                 android:hint="@string/titleHint"
                 android:includeFontPadding="false"
-                android:text="@={viewModel.title}"
-
                 android:paddingBottom="17dp"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/iDorm_gray_200"
 
+
+                android:text="@={viewModel.title}"
                 android:textColorHint="@color/iDorm_gray_200"
-                android:textSize="20sp" />
+                android:textSize="20sp"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/imageView"
@@ -85,6 +87,7 @@
                 tools:listitem="@layout/item_board_image" />
 
             <com.google.android.material.textfield.TextInputEditText
+                android:theme="@style/Widget.DesignSystem.TextInputEditText.Line"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
@@ -94,7 +97,7 @@
                 android:includeFontPadding="false"
                 android:padding="3sp"
                 android:text="@={viewModel.content}"
-                android:layout_marginTop="16sp"
+                android:layout_marginTop="12sp"
                 android:textColorHint="@color/iDorm_gray_200"
                 android:textSize="16sp" />
 
@@ -162,7 +165,7 @@
                 android:id="@+id/anonymousRadioButton"
                 android:layout_width="17dp"
                 android:layout_height="17dp"
-                android:background="@drawable/selector_radiobutton"
+                android:background="@drawable/selector_radiobutton_background_gray"
                 android:button="@null"
                 android:checked="@{viewModel.editorState.anonymous}"
                 android:onClick="@{() -> viewModel.toggleAnonymous()}"
