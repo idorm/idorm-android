@@ -127,14 +127,15 @@
                     android:fontFamily="@font/notosans_medium"
                     android:includeFontPadding="false"
 
+                    android:letterSpacing="0.02"
                     android:shadowColor="#36000000"
                     android:shadowDy="4"
-                    android:shadowRadius="6"
 
+                    android:shadowRadius="6"
                     android:text="@string/RoomMateMatchingInteraction"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
 
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView6"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
