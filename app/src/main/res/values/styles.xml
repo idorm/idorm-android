@@ -115,7 +115,7 @@
         <item name="background">@drawable/view_edit_text_round_gray_100</item>
     </style>
 
-    <!--TextInoutEditText-->
+    <!--TextInputEditText-->
     <style name="Widget.DesignSystem.TextInputEditText.FilledBox.Inside" parent="Widget.Material3.TextInputEditText.FilledBox">
         <item name="colorControlNormal">@color/iDorm_blue</item>
         <item name="colorControlActivated">@color/iDorm_blue</item>
@@ -127,6 +127,16 @@
 
     <style name="Widget.DesignSystem.AppCompatButton.blue" parent="Widget.MaterialComponents.Button">
         <item name="backgroundTint">@color/selector_button_blue_background_color</item>
+    </style>
+
+    <!-- TextInputEditText_has just a line -->
+    <style name="Widget.DesignSystem.TextInputEditText.Line" parent="">
+        <item name="colorPrimary">@color/iDorm_blue</item>
+        <item name="colorControlNormal">@color/iDorm_blue</item>
+        <item name="colorControlActivated">@color/iDorm_blue</item>
+        <item name="colorControlHighlight">@color/iDorm_blue</item>
+        <item name="colorAccent">@color/iDorm_blue</item>
+        <item name="android:cursorVisible">true</item>
     </style>
 
     <!--  ImageView Style  -->
