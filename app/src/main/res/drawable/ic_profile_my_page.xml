@@ -2,14 +2,10 @@
     android:width="76dp"
     android:height="76dp"
     android:viewportWidth="76"
-    android:viewportHeight="73">
-  <path
-      android:pathData="M4,14C4,7.373 9.373,2 36,2H60C66.627,2 72,7.373 72,14V58C72,64.627 66.627,70 60,70H16C9.373,70 4,64.627 4,58V14Z"
-      android:fillColor="@color/iDorm_red"/>
+    android:viewportHeight="72">
   <path
       android:pathData="M4,14C4,7.373 9.373,2 16,2H60C66.627,2 72,7.373 72,14V58C72,64.627 66.627,70 60,70H16C9.373,70 4,64.627 4,58V14Z"
       android:fillColor="#F2F5FA"/>
-
   <path
       android:pathData="M38.001,45.207C28.292,45.207 20,46.691 20,52.636C20,58.58 28.239,60.118 38.001,60.118C47.711,60.118 56,58.631 56,52.689C56,46.747 47.763,45.207 38.001,45.207Z"
       android:strokeLineJoin="round"
