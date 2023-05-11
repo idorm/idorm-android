@@ -90,8 +90,8 @@
                     style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="true"
 
+                    android:checked="true"
                     android:text="@string/firstDormInteraction" />
 
                 <com.google.android.material.chip.Chip
@@ -216,7 +216,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="2dp"
-            android:fontFamily="@font/notosans_bold"
+            android:fontFamily="@font/notosans_medium"
             android:includeFontPadding="false"
             android:text="@string/disleksGuideText"
             android:textColor="@color/iDorm_gray_300"
@@ -326,7 +326,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="2dp"
-            android:fontFamily="@font/notosans_bold"
+            android:fontFamily="@font/notosans_medium"
             android:includeFontPadding="false"
             android:text="@string/ageGuideText"
             android:textColor="@color/iDorm_gray_300"
@@ -412,19 +412,42 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintWidth_percent="0.3" />
+            app:layout_constraintEnd_toEndOf="parent"/>
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@id/initializationButton"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/view_button_round_6_gray_100"
+
+            android:fontFamily="@font/notosans_medium"
+            android:includeFontPadding="false"
+            android:text="@string/initializationInteraction"
+
+            android:textColor="@color/iDorm_gray_400"
+            android:textSize="16sp"
+            android:theme="@style/Widget.DesignSystem.MaterialButton.withIcon"
+
+            app:backgroundTint="@color/iDorm_gray_100"
+            app:cornerRadius="6dp"
+            app:icon="@drawable/ic_initialization"
+            app:iconGravity="textStart"
+
+            app:iconTint="@color/iDorm_gray_400"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/filterDoneButton"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!--
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/initializationButton"
             android:layout_width="0dp"
             android:layout_height="52dp"
 
-
             android:layout_marginBottom="20dp"
             android:background="@drawable/view_button_round_6_gray_100"
             android:drawableLeft="@drawable/ic_initialization"
-            android:drawablePadding="10dp"
             android:fontFamily="@font/notosans_medium"
             android:includeFontPadding="false"
 
@@ -436,6 +459,9 @@
             app:layout_constraintEnd_toStartOf="@+id/filterDoneButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintWidth_percent="0.5" />
+        -->
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
