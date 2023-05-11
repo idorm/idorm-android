@@ -83,11 +83,12 @@
                         android:layout_width="67dp"
 
                         android:layout_height="30dp"
+                        android:layout_marginLeft="2dp"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/view_button_round_4_gray_100"
+                        android:elevation="0dp"
                         android:fontFamily="@font/notosans_regular"
-                        android:elevation="0sp"
-
+                        android:stateListAnimator="@null"
                         android:includeFontPadding="false"
                         android:text="답글 쓰기"
                         android:textColor="@color/black"
