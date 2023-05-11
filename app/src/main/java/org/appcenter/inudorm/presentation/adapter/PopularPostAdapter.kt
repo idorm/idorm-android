@@ -2,11 +2,14 @@ package org.appcenter.inudorm.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.core.view.marginStart
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ItemPopularPostBinding
 import org.appcenter.inudorm.model.board.Post
+import org.appcenter.inudorm.util.IDormLogger
 
 class PopularPostAdapter(
     private var _dataSet: ArrayList<Post>,
@@ -51,9 +54,24 @@ class PopularPostAdapter(
         viewHolder.viewBinding.popularPostParent.setOnClickListener {
             onClicked(_dataSet[position])
         }
+
+        setPopularPostMargin(viewHolder, position)
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = dataSet.size
+
+    private fun setPopularPostMargin(viewHolder: PostViewHolder, position: Int) {
+        val layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+
+        viewHolder.viewBinding.popularPostLinear.layoutParams = layoutParams
+
+        layoutParams.setMargins(0,0,24,0)
+        if(position == 0) layoutParams.setMargins(72, 0,24,0)
+        if(position == _dataSet.size -1)  layoutParams.setMargins(0, 0,72,0)
+    }
 
 }

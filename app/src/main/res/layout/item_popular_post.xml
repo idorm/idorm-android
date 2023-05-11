@@ -10,149 +10,157 @@
             type="org.appcenter.inudorm.model.board.Post" />
     </data>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/popularPostParent"
-        android:layout_width="138sp"
-        android:layout_height="132sp"
-        android:layout_margin="3sp"
-        android:layout_marginEnd="8sp"
-        android:elevation="0sp"
-        app:cardCornerRadius="8sp">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/popularPostLinear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="3dp"
+        android:layout_marginRight="8dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/popularPostParent"
+            android:layout_width="138sp"
+            android:layout_height="132sp"
+            app:cardElevation="0dp"
+            app:cardCornerRadius="8sp">
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="13dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="10sp"
-                android:background="@color/white">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView4"
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="21dp"
-                    android:fontFamily="@font/notosans_bold"
-                    android:includeFontPadding="false"
-                    android:text="인기"
-                    android:textColor="@color/iDorm_blue"
-                    android:textSize="12sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="13dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="10sp"
+                    android:background="@color/white">
 
-                <TextView
-                    android:id="@+id/textView5"
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="21dp"
+                        android:fontFamily="@font/notosans_bold"
+                        android:includeFontPadding="false"
+                        android:text="인기"
+                        android:textColor="@color/iDorm_blue"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="match_parent"
+                        android:layout_height="60sp"
+
+                        android:layout_marginTop="4dp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/notosans_regular"
+                        android:includeFontPadding="false"
+                        android:maxLines="2"
+                        android:text="@{post.title}"
+                        android:textColor="@color/black"
+
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60sp"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="13dp"
+                    android:paddingBottom="9sp">
 
-                    android:layout_marginTop="4dp"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/notosans_regular"
-                    android:includeFontPadding="false"
-                    android:maxLines="2"
-                    android:text="@{post.title}"
-                    android:textColor="@color/black"
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="18sp"
+                        android:layout_height="18sp"
+                        android:src="@drawable/ic_thumb"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="wrap_content"
 
+                        android:layout_height="18dp"
+                        android:fontFamily="@font/notosans_medium"
+                        android:includeFontPadding="false"
+                        android:text="@{Integer.toString(post.likesCount)}"
+                        android:textColor="@color/iDorm_gray_400"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView2"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="18sp"
 
+                        android:layout_height="18sp"
+                        android:layout_marginStart="8dp"
+                        android:src="@drawable/ic_comment"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView6"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="13dp"
-                android:paddingBottom="9sp">
+                    <TextView
+                        android:id="@+id/textView7"
 
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="18sp"
-                    android:layout_height="18sp"
-                    android:src="@drawable/ic_thumb"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="18dp"
+                        android:fontFamily="@font/notosans_medium"
+                        android:includeFontPadding="false"
+                        android:text="@{Integer.toString(post.commentsCount)}"
+                        android:textColor="@color/iDorm_gray_400"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView3"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
+                    <ImageView
+                        android:id="@+id/imageView4"
 
-                    android:layout_height="18dp"
-                    android:fontFamily="@font/notosans_medium"
-                    android:includeFontPadding="false"
-                    android:text="@{Integer.toString(post.likesCount)}"
-                    android:textColor="@color/iDorm_gray_400"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView2"
-                    app:layout_constraintTop_toTopOf="parent" />
+                        android:layout_width="18sp"
+                        android:layout_height="18sp"
+                        android:layout_marginStart="8dp"
+                        android:src="@drawable/ic_img"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView7"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="18sp"
-
-                    android:layout_height="18sp"
-                    android:layout_marginStart="8dp"
-                    android:src="@drawable/ic_comment"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textView6"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textView7"
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="18dp"
-                    android:fontFamily="@font/notosans_medium"
-                    android:includeFontPadding="false"
-                    android:text="@{Integer.toString(post.commentsCount)}"
-                    android:textColor="@color/iDorm_gray_400"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView3"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/imageView4"
-
-                    android:layout_width="18sp"
-                    android:layout_height="18sp"
-                    android:layout_marginStart="8dp"
-                    android:src="@drawable/ic_img"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textView7"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="18dp"
-                    android:fontFamily="@font/notosans_medium"
-                    android:includeFontPadding="false"
-                    android:text="@{Integer.toString(post.imagesCount)}"
-                    android:textColor="@color/iDorm_gray_400"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView4"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="18dp"
+                        android:fontFamily="@font/notosans_medium"
+                        android:includeFontPadding="false"
+                        android:text="@{Integer.toString(post.imagesCount)}"
+                        android:textColor="@color/iDorm_gray_400"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView4"
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
 </layout>

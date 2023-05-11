@@ -150,7 +150,6 @@
                 android:layout_height="wrap_content"
                 android:background="@color/iDorm_gray_100"
                 android:orientation="horizontal"
-                android:paddingHorizontal="24sp"
                 android:paddingVertical="12sp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintStart_toStartOf="parent"
