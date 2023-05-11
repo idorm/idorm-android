@@ -132,6 +132,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10sp"
                 android:fontFamily="@font/notosans_medium"
+                android:onClick="@{() -> activity.openImagePicker()}"
                 android:text="@{viewModel.editorState.images.size() + ` / 10`}"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
