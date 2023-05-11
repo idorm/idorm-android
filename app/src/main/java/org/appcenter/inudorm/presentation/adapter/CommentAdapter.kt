@@ -81,7 +81,6 @@ class CommentAdapter(
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: CommentViewHolder, position: Int) {
-
         fun setDeleted(deleted: Boolean) {
             viewHolder.viewBinding.validComment.visibility =
                 if (deleted) View.GONE else View.VISIBLE
@@ -102,6 +101,8 @@ class CommentAdapter(
 //            adapter.notifyDataSetChanged()
             viewHolder.viewBinding.subCommentArea.visibility = View.VISIBLE
 
+
+
         } else {
             if (_dataSet[position].isDeleted)
                 viewHolder.viewBinding.deletedComment.visibility = View.GONE
@@ -110,6 +111,7 @@ class CommentAdapter(
             }
 
             viewHolder.viewBinding.subCommentArea.visibility = View.GONE
+            viewHolder.viewBinding.materialDivider.visibility = View.VISIBLE
         }
 
         _dataSet[position].let {

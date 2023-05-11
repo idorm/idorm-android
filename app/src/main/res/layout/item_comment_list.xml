@@ -132,7 +132,8 @@
                     android:id="@+id/materialDivider"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/iDorm_gray_100">
+                    android:background="@color/iDorm_gray_100"
+                    android:visibility="gone">
 
                 </com.google.android.material.divider.MaterialDivider>
             </LinearLayout>

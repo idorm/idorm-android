@@ -67,7 +67,7 @@ class NestedCommentAdapter(
             viewHolder.viewBinding.executePendingBindings()
         }
         viewHolder.viewBinding.materialDivider.visibility =
-            if (position == _dataSet.size - 1) View.GONE else View.VISIBLE
+            if (position == _dataSet.size - 1) View.VISIBLE else View.GONE
         viewHolder.viewBinding.subCommentArea.visibility = View.GONE
         viewHolder.viewBinding.openCommentInteraction.setOnClickListener {
             onCommentInteractionOpened(_dataSet[position])
