@@ -153,6 +153,15 @@
 
     <style name="SpinnerStyle">
         <item name="android:background">@drawable/spinner_drawable</item>
+
+
+    </style>
+
+
+    <!--  Material Button with icon  -->
+    <style name="Widget.DesignSystem.MaterialButton.withIcon" parent="">
+        <item name="android:letterSpacing">0.02</item>
+        <item name="iconPadding">16dp</item>
     </style>
 
 
