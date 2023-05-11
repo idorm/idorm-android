@@ -30,7 +30,7 @@
                 android:id="@+id/graphic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/graphic_ready"
+                android:src="@drawable/ic_character_ready"
                 android:layout_marginBottom="24sp"/>
 
             <TextView
