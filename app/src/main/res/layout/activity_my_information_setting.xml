@@ -65,16 +65,17 @@
                     android:layout_height="68dp"
                     android:layout_margin="24dp"
                     android:layout_marginTop="24dp"
-                    android:background="@drawable/view_image_view_round_stroke_white_gray_100"
                     android:clipToOutline="true"
                     android:elevation="4dp"
+                    android:background="@drawable/view_button_round_12_white"
                     android:onClick="@{() -> activity.selectProfileImage()}"
                     android:scaleType="centerCrop"
                     app:imageUrl="@{viewModel.myPageState.data.profilePhotoUrl}"
+                    app:layout_constraintBottom_toTopOf="@+id/constraintLayout8"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@mipmap/ic_launcher" />
+                    tools:src="@drawable/ic_profile_my_page" />
 
                 <LinearLayout
                     android:id="@+id/constraintLayout8"
