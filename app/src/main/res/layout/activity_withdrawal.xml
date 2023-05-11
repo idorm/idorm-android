@@ -55,7 +55,8 @@
                     android:id="@+id/constraintLayout14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="24dp"
+                    android:paddingHorizontal="24dp"
+                    android:paddingVertical="36dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -103,6 +104,8 @@
                         android:text="@string/withdrawalCationText"
                         android:textColor="@color/black"
                         android:textSize="20sp"
+
+                        android:layout_marginTop="12dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -159,7 +162,7 @@
                         android:textColor="@color/iDorm_gray_400"
                         android:textSize="16sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+                        app:layout_constraintTop_toBottomOf="@+id/textView17"/>
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -168,6 +171,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="24dp"
+
+                    android:layout_marginTop="141dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout21">
