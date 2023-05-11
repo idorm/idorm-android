@@ -22,7 +22,7 @@
         <ImageView
             android:id="@+id/idormLogoGray"
             android:layout_width="54dp"
-            android:layout_height="wrap_content"
+            android:layout_height="18dp"
             android:src="@drawable/ic_idorm_logo_gray"
 
             app:layout_constraintStart_toStartOf="parent"
