@@ -104,7 +104,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/subCommentArea"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/iDorm_matching_screen">
 
