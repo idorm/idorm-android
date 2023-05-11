@@ -127,10 +127,7 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
-            tools:ignore="LockedOrientationActivity">
-
-
-        </activity>
+            tools:ignore="LockedOrientationActivity"></activity>
         <activity
             android:name=".presentation.board.WritePostActivity"
             android:exported="true"

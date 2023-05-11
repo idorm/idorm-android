@@ -125,6 +125,7 @@
                 android:text="1 기숙사"
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
+                android:clickable="false"
                 android:textSize="12sp"
                 android:textColor="@color/iDorm_gray_400"
                 app:chipCornerRadius="0sp"
@@ -140,6 +141,7 @@
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
                 android:textSize="12sp"
+                android:clickable="false"
                 android:textColor="@color/iDorm_gray_400"
                 app:chipCornerRadius="0sp"
 
@@ -154,6 +156,7 @@
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
                 android:textSize="12sp"
+                android:clickable="false"
                 android:textColor="@color/iDorm_gray_400"
 
                 app:chipCornerRadius="0sp" />

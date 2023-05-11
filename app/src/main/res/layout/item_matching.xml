@@ -19,8 +19,8 @@
     <FrameLayout
         android:id="@+id/card"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20sp">
+        android:layout_height="match_parent"
+        android:layout_margin="24sp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -271,12 +271,12 @@
                         app:layout_constraintEnd_toEndOf="@+id/showerTimeCardText"
                         app:layout_constraintStart_toStartOf="@+id/showerTimeCardText"
                         app:layout_constraintTop_toBottomOf="@+id/showerTimeCardText"
-                        tools:text="MBTI INTJ" />
+                        tools:text="MBTI      INTJ" />
 
                     <TextView
                         android:id="@+id/textView12"
                         android:layout_width="match_parent"
-                        android:layout_height="104dp"
+                        android:layout_height="104sp"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/view_layout_item_matiching_background"
                         android:fontFamily="@font/notosans_medium"

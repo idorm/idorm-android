@@ -16,6 +16,7 @@
         android:layout_height="132sp"
         android:layout_margin="3sp"
         android:layout_marginEnd="8sp"
+        android:elevation="0sp"
         app:cardCornerRadius="8sp">
 
 
