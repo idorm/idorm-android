@@ -250,12 +250,13 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
                             ErrorCode.MATCHINGINFO_NOT_FOUND -> {
                                 // Todo: 매칭정보 비공개. 다이얼로그 띄워서 온보딩으로 연결
                                 CustomDialog(
-                                    "룸메이트 매칭을 위해\n우선 매칭 이미지를 만들어 주세요.",
+                                    titleText = "매칭 이미지가 아직 없어요. \uD83D\uDE05",
+                                    text = "룸메이트 매칭을 위해\n우선 매칭 이미지를 만들어 주세요.",
                                     positiveButton = DialogButton(
                                         "프로필 이미지 만들기",
                                         ButtonType.Filled,
                                         onClick = {
-                                            editImage()
+                                            createImage()
                                         })
                                 ).show(this@MatchingFragment.requireContext())
                             }
@@ -407,7 +408,7 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
         super.onDetach()
     }
 
-    fun editImage() {
+    private fun createImage() {
         val intent = Intent(requireContext(), OnboardActivity::class.java)
         intent.putExtra("purpose", BaseInfoPurpose.Create)
         startActivity(intent)

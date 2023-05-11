@@ -92,7 +92,8 @@ enum class ErrorCode(val error: String, val message: String) {
     DISLIKEDMEMBER_NOT_FOUND(StatusCode.NOT_FOUND.name, "싫어요한 멤버가 없습니다."),
     LIKEDMEMBER_NOT_FOUND(StatusCode.NOT_FOUND.name, "좋아요한 멤버가 없습니다."),
     FILE_NOT_FOUND(StatusCode.NOT_FOUND.name, "등록된 파일이 없습니다."),
-    MATCHINGINFO_NOT_FOUND(StatusCode.NOT_FOUND.name, "등록된 매칭정보가 없습니다."),
+    MATCHINGINFO_NOT_FOUND(StatusCode.NOT_FOUND.name, "룸메이트 매칭을 위해서\n" +
+            "우선 매칭 이미지를 만들어 주세요."),
     COMMENT_NOT_FOUND(StatusCode.NOT_FOUND.name, "등록된 댓글이 없습니다."),
     POSTLIKEDMEMBER_NOT_FOUND(StatusCode.NOT_FOUND.name, "멤버가 게시글에 공감하지 않았습니다."),
     POST_NOT_FOUND(StatusCode.NOT_FOUND.name, "등록된 게시글이 없습니다."),
