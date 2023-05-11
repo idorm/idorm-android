@@ -85,6 +85,7 @@
                     app:suffixText="03:00"
                     app:suffixTextColor="@color/iDorm_blue"
                     app:hintEnabled="false"
+                    app:expandedHintEnabled="false"
                     timerBehavior="@{codeViewModel.timer}"
                     android:layout_marginTop="14dp"
                     >
