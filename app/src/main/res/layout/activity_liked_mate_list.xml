@@ -46,12 +46,10 @@
 
         <RadioGroup
             android:id="@+id/radioGroup"
-            android:layout_width="152dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
             android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="@id/toolbar"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -61,42 +59,68 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
 
-                <TextView
-                    android:id="@+id/textView2"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/latestOrder"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/notosans_regular"
-                    android:includeFontPadding="false"
-                    android:text="@string/latestOrder"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="24dp"
+                    android:paddingVertical="14dp"
+                    android:paddingEnd="7dp"
+                    android:onClick="@{() -> viewModel.setSortBy(`addedAtDesc`)}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent" >
 
-                <RadioButton
-                    android:id="@+id/radioButton"
-                    android:layout_width="17dp"
-                    android:layout_height="17dp"
-                    android:layout_gravity="center"
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosans_regular"
+                        android:includeFontPadding="false"
+                        android:text="@string/latestOrder"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:onClick="@{() -> viewModel.setSortBy(`addedAtDesc`)}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                    android:layout_marginStart="9.5dp"
-                    android:background="@drawable/selector_radiobutton"
+                    <RadioButton
+                        android:id="@+id/radioButton"
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
+                        android:layout_gravity="center"
 
-                    android:button="@null"
+                        android:layout_marginStart="9.5dp"
+                        android:background="@drawable/selector_radiobutton"
 
-                    android:onClick="@{() -> viewModel.setSortBy(`addedAtDesc`)}"
-                    app:field="@{`addedAtDesc`}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textView2"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:sortBy="@{viewModel.mateListState.sortBy}" />
+                        android:button="@null"
+
+                        android:onClick="@{() -> viewModel.setSortBy(`addedAtDesc`)}"
+                        app:field="@{`addedAtDesc`}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView2"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:sortBy="@{viewModel.mateListState.sortBy}" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="7dp"
+                android:paddingVertical="14dp"
+                android:paddingEnd="7dp"
+                android:onClick="@{() -> viewModel.setSortBy(`addedAtAsc`)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/latestOrder"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="17.5dp"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
                     android:text="@string/pastOrder"
@@ -104,7 +128,7 @@
 
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/radioButton"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <RadioButton
@@ -124,6 +148,10 @@
                     app:layout_constraintStart_toEndOf="@+id/textView3"
                     app:layout_constraintTop_toTopOf="parent"
                     app:sortBy="@{viewModel.mateListState.sortBy}" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
