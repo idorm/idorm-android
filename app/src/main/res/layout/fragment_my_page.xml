@@ -80,7 +80,6 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="123dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +87,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingBottom="123dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout17"
@@ -239,6 +239,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout18"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="24dp"
@@ -247,8 +248,10 @@
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout17">
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout17"
+                    app:layout_constraintVertical_bias="0.0">
 
                     <TextView
                         android:id="@+id/communityTitle"
@@ -368,22 +371,18 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="24dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24dp"
-                    app:layout_constraintBottom_toTopOf="@+id/constraintLayout17"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_character_mypage"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
