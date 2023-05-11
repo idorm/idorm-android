@@ -33,13 +33,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_marginTop="80dp"
-            android:fontFamily="@font/notosans_bold"
+            android:layout_marginTop="64dp"
+            android:fontFamily="@font/notosans_medium"
 
             android:includeFontPadding="false"
             android:text="@string/welcomeText"
             android:textColor="@color/iDorm_gray_400"
-            android:textSize="16sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/welcome" />
@@ -66,8 +66,8 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button3"
 
-            android:layout_width="match_parent"
-            android:layout_height="53dp"
+            android:layout_width="205dp"
+            android:layout_height="44dp"
             android:layout_marginHorizontal="21.5dp"
 
             android:layout_marginTop="64dp"
@@ -77,7 +77,7 @@
             android:includeFontPadding="false"
             android:text="@string/loginToContinueInteraction"
             android:textColor="@color/white"
-            android:textSize="14sp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/welcomeText2" />
