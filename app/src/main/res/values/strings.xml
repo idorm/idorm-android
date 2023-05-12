@@ -26,6 +26,7 @@
     <string name="EnterAuthCodeInteraction">인증번호 입력</string>
     <string name="checkPostInteraction">본문 확인</string>
     <string name="initializationInteraction">선택 초기화</string>
+    <string name="initializationInputInteraction">입력 초기화</string>
     <string name="registerInteraction">입력 완료</string>
     <string name="filterDoneInteraction">필터링 완료</string>
 
@@ -66,8 +67,10 @@
     <string name="dorm">기숙사</string>
     <string name="secondDormInteraction">2기숙사</string>
     <string name="thirdDormIntercation">3기숙사</string>
-    <string name="LetMeKnowBaseInfoForMatching">룸메이트 매칭을 위한 기본정보를 알려주세요!</string>
+    <string name="letMeKnowBaseInfoForMatching">룸메이트 매칭을 위한 기본정보를 알려주세요!</string>
     <string name="noMoreRoomMates">더 볼 수 있는 매칭 이미지가 없어요. \n 필터를 새롭게 조정해보세요.</string>
+    <string name="selectDislikeFactor">불호요소가 있는 내 습관을 미리 알려주세요.</string>
+
 
     <string name="gender">성별</string>
     <string name="man">남성</string>
