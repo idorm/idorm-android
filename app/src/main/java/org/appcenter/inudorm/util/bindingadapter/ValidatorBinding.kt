@@ -21,10 +21,10 @@ import org.appcenter.inudorm.util.passwordValidator
 
 object ValidatorBinding {
 
-    private fun View.isSecondPWFieldFocused(): Boolean {
+    private fun View.isFirstPwFieldFocuesd(): Boolean {
         val focusedView = rootView.findFocus()
         return focusedView is TextInputEditText
-                && focusedView.id == rootView.findViewById<TextInputEditText>(R.id.passwordCheckField).id
+                && focusedView.id == rootView.findViewById<TextInputEditText>(R.id.passwordField).id
     }
 
 
@@ -54,6 +54,7 @@ object ValidatorBinding {
                 " "
             } else null
         }
+        // focus가 가있으면
 
         if (editText?.hasFocus() == false) {
             if (passwordValidator(pwState.password))
@@ -68,15 +69,48 @@ object ValidatorBinding {
     @JvmStatic
     @BindingAdapter("passwordLengthValidator")
     fun TextView.passwordLengthValidator(pwState: PasswordState) {
-        if (isSecondPWFieldFocused()) {
-            if (pwState.password.length in 8..15) {
+        // 비밀번호 길이 위반
+        if (pwState.password.length in 8..15) {
+            if (isFirstPwFieldFocuesd())
                 setTextColor(resources.getColor(R.color.iDorm_blue, null))
-            } else {
-                setTextColor(resources.getColor(R.color.iDorm_red, null))
-            }
-        } else setTextColor(resources.getColor(R.color.iDorm_gray_400, null))
+            else setTextColor(resources.getColor(R.color.iDorm_gray_200, null))
+        } else {
+            if (isFirstPwFieldFocuesd()) setTextColor(
+                resources.getColor(
+                    R.color.iDorm_gray_200,
+                    null
+                )
+            ) else if (!isFirstPwFieldFocuesd() && pwState.password.isNotEmpty())
+                setTextColor(
+                    resources.getColor(
+                        R.color.iDorm_red,
+                        null
+                    )
+                )
+        }
     }
 
+    @JvmStatic
+    @BindingAdapter("passwordCharactersValidator")
+    fun TextView.passwordValidator(pwState: PasswordState) {
+        if (passwordCharacterValidator(pwState.password)) {
+            if (isFirstPwFieldFocuesd()) {
+                setTextColor(resources.getColor(R.color.iDorm_blue, null))
+            } else {
+                setTextColor(resources.getColor(R.color.iDorm_gray_400, null))
+            }
+        } else if (!isFirstPwFieldFocuesd() && pwState.password.isNotEmpty()) setTextColor(
+            resources.getColor(
+                R.color.iDorm_red,
+                null
+            )
+        )
+    }
+
+
+    /**
+     * 인증번호 Validator
+     */
     @JvmStatic
     @BindingAdapter(value = ["value", "sizeRange"], requireAll = true)
     fun TextView.lengthValidator(value: String, sizeRange: String) {
@@ -90,6 +124,7 @@ object ValidatorBinding {
             }
         }
     }
+
 
     @JvmStatic
     @BindingAdapter("noSpaceValidator")
@@ -110,17 +145,6 @@ object ValidatorBinding {
         else setTextColor(resources.getColor(R.color.iDorm_red, null))
     }
 
-    @JvmStatic
-    @BindingAdapter("passwordCharactersValidator")
-    fun TextView.passwordValidator(pwState: PasswordState) {
-        if (isSecondPWFieldFocused()) {
-            if (passwordCharacterValidator(pwState.password)) {
-                setTextColor(resources.getColor(R.color.iDorm_blue, null))
-            } else {
-                setTextColor(resources.getColor(R.color.iDorm_red, null))
-            }
-        } else setTextColor(resources.getColor(R.color.iDorm_gray_400, null))
-    }
 
     @JvmStatic
     @BindingAdapter(value = ["textCount", "maxSize"], requireAll = true)
@@ -136,7 +160,6 @@ object ValidatorBinding {
         text = span
 
     }
-
 
 
 }
