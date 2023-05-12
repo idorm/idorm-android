@@ -4,7 +4,7 @@
 룸메이트 매칭, idorm과 함께해요.
 
 ## Project Setup
-따로 할 것은 없고, Sentry Key 만 local.properties 에 넣어주시면 됩니다. 
+따로 할 것은 없고, Sentry Key와 카카오 SDK 네이티브 앱 key 만 local.properties 에 넣어주시면 됩니다. 
 
 키는 프로젝트 관리자에게 요청하세요.
 
