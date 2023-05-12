@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/notosans_bold"
                     android:includeFontPadding="false"
-                    android:text="@string/LetMeKnowBaseInfoForMatching"
+                    android:text="@string/letMeKnowBaseInfoForMatching"
                     android:textColor="@color/iDorm_gray_300"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -193,6 +193,7 @@
                     app:layout_constraintStart_toStartOf="@+id/divider_2"
                     app:layout_constraintTop_toBottomOf="@+id/divider_2" />
 
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/residencePeriodlabelButtons"
                     android:layout_width="match_parent"
@@ -259,13 +260,27 @@
                     app:layout_constraintStart_toStartOf="@+id/divider_3"
                     app:layout_constraintTop_toBottomOf="@+id/divider_3" />
 
+
+                <TextView
+                    android:id="@+id/msg2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosans_bold"
+                    android:includeFontPadding="false"
+                    android:text="@string/selectDislikeFactor"
+                    android:textColor="@color/iDorm_gray_300"
+                    android:textSize="12sp"
+                    android:layout_marginTop="2dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/habit" />
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/habitlabelButtons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     app:layout_constraintStart_toStartOf="@id/habit"
-                    app:layout_constraintTop_toBottomOf="@id/habit">
+                    app:layout_constraintTop_toBottomOf="@id/msg2">
 
                     <!--choice의 기본 margin값은 8dp입니다.-->
 
@@ -450,22 +465,50 @@
                 android:background="@color/white"
                 android:elevation="10dp"
                 android:paddingHorizontal="24dp"
-                android:paddingTop="16dp">
+                android:paddingBottom="16dp">
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/doneButton"
                     android:layout_width="0dp"
                     android:layout_height="52dp"
                     android:background="@drawable/view_button_round_6"
-                    android:fontFamily="@font/notosans_medium"
 
+                    android:fontFamily="@font/notosans_medium"
                     android:includeFontPadding="false"
                     android:text="@string/doneInteraction"
                     android:textColor="@color/white"
                     android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintWidth_percent="0.3" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@id/initializationButton"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:background="@drawable/view_button_round_6_gray_100"
+
+                    android:fontFamily="@font/notosans_medium"
+                    android:includeFontPadding="false"
+                    android:text="@string/initializationInputInteraction"
+
+                    android:textColor="@color/iDorm_gray_400"
+                    android:textSize="16sp"
+                    android:theme="@style/Widget.DesignSystem.MaterialButton.withIcon"
+
+                    app:backgroundTint="@color/iDorm_gray_100"
+                    app:cornerRadius="6dp"
+                    app:icon="@drawable/ic_initialization"
+                    app:iconGravity="textStart"
+
+                    app:iconTint="@color/iDorm_gray_400"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+
+                    app:layout_constraintWidth_percent="0.49"/>
+
+                <!--
+
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/skipButton"
@@ -480,7 +523,8 @@
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintWidth_percent="0.6" />
+                    app:layout_constraintWidth_percent="0.49" />
+                -->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
