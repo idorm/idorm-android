@@ -143,7 +143,14 @@ class MatchingViewModel : ViewModel() {
     fun addLikedMate(id: Int) {
         viewModelScope.launch {
             val params = MutateFavoriteRequestDto(id, true)
-
+            _userMutationEvent.emit(
+                UserMutationEvent.AddLikedMatchingInfo(
+                    Mutation(
+                        params,
+                        State.Loading()
+                    )
+                )
+            )
             _userMutationEvent.emit(
                 UserMutationEvent.AddLikedMatchingInfo(
                     Mutation(
@@ -163,6 +170,14 @@ class MatchingViewModel : ViewModel() {
                 UserMutationEvent.DeleteLikedMatchingInfo(
                     Mutation(
                         params,
+                        State.Loading()
+                    )
+                )
+            )
+            _userMutationEvent.emit(
+                UserMutationEvent.DeleteLikedMatchingInfo(
+                    Mutation(
+                        params,
                         DeleteLikeOrDislikeMatchingInfo().run(params)
                     )
                 )
@@ -173,6 +188,14 @@ class MatchingViewModel : ViewModel() {
     fun addDislikedMate(id: Int) {
         viewModelScope.launch {
             val params = MutateFavoriteRequestDto(id, false)
+            _userMutationEvent.emit(
+                UserMutationEvent.AddDislikedMatchingInfo(
+                    Mutation(
+                        params,
+                        State.Loading()
+                    )
+                )
+            )
             _userMutationEvent.emit(
                 UserMutationEvent.AddDislikedMatchingInfo(
                     Mutation(
@@ -191,6 +214,14 @@ class MatchingViewModel : ViewModel() {
                 UserMutationEvent.DeleteDislikedMatchingInfo(
                     Mutation(
                         params,
+                        State.Loading()
+                    )
+                )
+            )
+            _userMutationEvent.emit(
+                UserMutationEvent.DeleteDislikedMatchingInfo(
+                    Mutation(
+                        params,
                         DeleteLikeOrDislikeMatchingInfo().run(params)
                     )
                 )
@@ -201,6 +232,14 @@ class MatchingViewModel : ViewModel() {
     fun reportMatchingInfo(id: Int, reason: String, reasonType: String, reportType: Content) {
         viewModelScope.launch {
             val params = ReportRequestDto(id, reason, reasonType, reportType)
+            _userMutationEvent.emit(
+                UserMutationEvent.ReportMatchingInfo(
+                    Mutation(
+                        params,
+                        State.Loading()
+                    )
+                )
+            )
             _userMutationEvent.emit(
                 UserMutationEvent.ReportMatchingInfo(
                     Mutation(params, Report().run(params))

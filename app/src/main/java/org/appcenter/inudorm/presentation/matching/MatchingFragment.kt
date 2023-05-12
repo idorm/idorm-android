@@ -21,6 +21,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.yuyakaido.android.cardstackview.*
+import io.sentry.Hint
+import io.sentry.Sentry
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.App
@@ -41,7 +43,8 @@ import org.appcenter.inudorm.presentation.onboard.BaseInfoPurpose
 import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.util.*
 import org.appcenter.inudorm.util.WindowUtil.setStatusBarColor
-import java.util.Stack
+import java.util.*
+import kotlin.collections.ArrayList
 
 const val FILTER_RESULT_CODE = 1226
 
@@ -315,14 +318,23 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
 
         binding.backButton.setOnClickListener {
             if (layoutManager.topPosition > 0) {
-                when (mutationEventStack.pop()) {
-                    is UserMutationEvent.AddDislikedMatchingInfo -> {
-                        viewModel.deleteDislikedMate(getCurrentItem(1).memberId)
+                try {
+                    when (mutationEventStack.pop()) {
+                        is UserMutationEvent.AddDislikedMatchingInfo -> {
+                            viewModel.deleteDislikedMate(getCurrentItem(1).memberId)
+                        }
+                        is UserMutationEvent.AddLikedMatchingInfo -> {
+                            viewModel.deleteLikedMate(getCurrentItem(1).memberId)
+                        }
+                        else -> {}
                     }
-                    is UserMutationEvent.AddLikedMatchingInfo -> {
-                        viewModel.deleteLikedMate(getCurrentItem(1).memberId)
+                } catch (e: EmptyStackException) {
+                    viewModel.getMates(LoadMode.Update, size = 10)
+                    e.printStackTrace()
+                    Sentry.withScope {
+                        it.setExtra("reason", "백버튼 너무 빠르게 눌러서 스택 비워짐;")
+                        Sentry.captureException(e)
                     }
-                    else -> {}
                 }
             } else Toast.makeText(
                 this@MatchingFragment.requireContext(),

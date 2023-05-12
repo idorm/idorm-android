@@ -17,7 +17,8 @@ class BoardProfile(context: Context, attrs: AttributeSet) : LinearLayout(context
     var nickname: String? = null
         set(value) {
             if (initialized)
-                findViewById<TextView>(R.id.nickname).text = value
+                findViewById<TextView>(R.id.nickname).text =
+                    if (value.isNullOrEmpty()) "탈퇴한 회원" else value
             field = value
         }
     var timeElapsed: String? = null
@@ -52,7 +53,9 @@ class BoardProfile(context: Context, attrs: AttributeSet) : LinearLayout(context
 
         val nicknameView = findViewById<TextView>(R.id.nickname)
         val timeElapsedView = findViewById<TextView>(R.id.timeElapsed)
-        nicknameView.text = nickname
+        if (nickname.isNullOrEmpty())
+            nicknameView.text = "탈퇴한 회원"
+        else nicknameView.text = nickname
         if (!timeElapsed.isNullOrEmpty())
             timeElapsedView.text = getElapsedTime(timeElapsed!!)
     }

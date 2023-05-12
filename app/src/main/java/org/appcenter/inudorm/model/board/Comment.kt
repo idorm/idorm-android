@@ -23,7 +23,7 @@ data class Comment(
             JsonDeserializer { json, typeOfT, context ->
                 val jsonObject = json?.asJsonObject ?: return@JsonDeserializer null
                 val nicknameJsonElement = jsonObject.get("nickname")
-                if (nicknameJsonElement == null || nicknameJsonElement.isJsonNull)
+                if (nicknameJsonElement == null || nicknameJsonElement.isJsonNull || nicknameJsonElement.asString.isNullOrEmpty())
                     jsonObject.addProperty("nickname", "탈퇴한 회원")
                 return@JsonDeserializer Gson().fromJson(jsonObject, Comment::class.java)
             }

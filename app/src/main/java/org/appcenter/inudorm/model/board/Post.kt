@@ -6,6 +6,7 @@ import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
 import com.google.gson.annotations.SerializedName
+import io.sentry.Sentry
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.WriteWith
 import org.appcenter.inudorm.model.Dorm
@@ -36,7 +37,7 @@ data class Post(
             JsonDeserializer { json, typeOfT, context ->
                 val jsonObject = json?.asJsonObject ?: return@JsonDeserializer null
                 val nicknameJsonElement = jsonObject.get("nickname")
-                if (nicknameJsonElement == null || nicknameJsonElement.isJsonNull)
+                if (nicknameJsonElement == null || nicknameJsonElement.isJsonNull || nicknameJsonElement.asString.isNullOrEmpty())
                     jsonObject.addProperty("nickname", "탈퇴한 회원")
                 return@JsonDeserializer Gson().fromJson(jsonObject, Post::class.java)
             }

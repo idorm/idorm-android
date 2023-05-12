@@ -59,7 +59,14 @@ class PostDetailActivity : LoadingActivity(), OnSnackBarCallListener {
 
     fun writeComment() {
         imm.hideSoftInputFromWindow(binding.commentInput.windowToken, 0)
-        viewModel.writeComment()
+        val commentLength = viewModel.commentState.value.content.length
+        if (commentLength in 1..50) { // Todo: SQL Injection Prevent
+            viewModel.writeComment()
+        } else {
+            OkDialog("댓글 내용은 1~50자로 입력해주세요.", onOk = {
+                binding.commentInput.setText(binding.commentInput.text?.substring(0, 50))
+            }, cancelable = false).show(this)
+        }
     }
 
     private fun goBackAndRefresh() {
@@ -363,8 +370,10 @@ class PostDetailActivity : LoadingActivity(), OnSnackBarCallListener {
                         "share" -> {
                             val templateId = 93479L
                             val post = viewModel.postDetailState.value.data!!
-                            val defaultProfileImage = "https://idorm-admin.s3.ap-northeast-2.amazonaws.com/profileImage.png"
-                            val defaultThumbnailImage = "https://idorm-admin.s3.ap-northeast-2.amazonaws.com/nadomi.png"
+                            val defaultProfileImage =
+                                "https://idorm-admin.s3.ap-northeast-2.amazonaws.com/profileImage.png"
+                            val defaultThumbnailImage =
+                                "https://idorm-admin.s3.ap-northeast-2.amazonaws.com/nadomi.png"
                             val photo =
                                 if (post.postPhotos == null || post.postPhotos.size < 1) defaultThumbnailImage
                                 else post.postPhotos[0].photoUrl

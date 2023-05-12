@@ -1,6 +1,7 @@
 package org.appcenter.inudorm.networking
 
 import android.content.Context
+import android.content.Intent
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
@@ -15,6 +16,7 @@ import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.net.ssl.SSLHandshakeException
+import kotlin.system.exitProcess
 
 object UIErrorHandler {
     /**
@@ -49,6 +51,14 @@ object UIErrorHandler {
                 if (error.error == ErrorCode.UNAUTHORIZED_MEMBER) {
                     CoroutineScope(Dispatchers.IO).launch {
                         prefsRepository.signOut()
+                        // Todo: context가 Activity인지 Fragment인지 판별 불가한 관계로 앱 무조건 재시작.
+                        //      추후 판별을 통해 모든 네비게이션 스택을 제거 후 LoginActivity로 이동 필요.
+                        val packageManager = context.packageManager
+                        val intent = packageManager.getLaunchIntentForPackage(context.packageName)
+                        val componentName = intent!!.component
+                        val mainIntent = Intent.makeRestartActivityTask(componentName)
+                        context.startActivity(mainIntent)
+                        exitProcess(0)
                     }
                 }
                 if (handleIDormError == null)
