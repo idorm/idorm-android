@@ -36,6 +36,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+
+
                 app:menu="@menu/post_detail_menu"
                 app:titleTextColor="@color/black">
 
@@ -348,15 +350,16 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:theme="@style/Widget.DesignSystem.TextInputEditText.Line"
                     android:id="@+id/commentInput"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5sp"
+                    android:layout_marginStart="8.5sp"
                     android:background="@drawable/view_edit_text_pill_gray_100"
                     android:hint="@string/enterCommentHint"
                     android:onTextChanged="@{viewModel::setCommentInput}"
                     android:paddingVertical="10sp"
-                    android:paddingLeft="10sp"
+                    android:paddingLeft="15sp"
                     android:paddingRight="35sp"
                     android:text="@{viewModel.commentState.content}"
                     android:textSize="12sp"
