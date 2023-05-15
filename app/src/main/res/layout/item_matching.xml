@@ -152,7 +152,7 @@
                         android:layout_height="wrap_content"
                         android:clipToPadding="true"
                         app:chipSpacingHorizontal="7dp"
-                        app:chipSpacingVertical="4dp"
+                        app:chipSpacingVertical="3dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
