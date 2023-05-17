@@ -55,6 +55,8 @@
         <item name="chipStrokeColor">@color/white</item>
         <item name="chipStrokeWidth">3dp</item>
 
+        <item name="android:letterSpacing">0.01</item>
+
         <item name="android:textColor">@color/black</item>
         <item name="fontFamily">@font/notosans_medium</item>
         <item name="android:textSize">14sp</item>
@@ -63,6 +65,9 @@
         <item name="chipMinHeight">29dp</item>
         <item name="textStartPadding">4dp</item>
         <item name="textEndPadding">4dp</item>
+
+        <item name="android:clickable">false</item>
+        <item name="rippleColor">@android:color/transparent</item>
     </style>
 
     <!--item_matching outlined chip 선택2-->
@@ -82,6 +87,9 @@
         <item name="chipMinHeight">29dp</item>
         <item name="textStartPadding">4dp</item>
         <item name="textEndPadding">4dp</item>
+
+        <item name="android:clickable">false</item>
+        <item name="rippleColor">@android:color/transparent</item>
     </style>
 
     <style name="ThemeOverlay.MyApp.Chip.Choice" parent="">
