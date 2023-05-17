@@ -6,22 +6,26 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Point
 import android.net.Uri
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
+import android.view.Display
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.view.marginTop
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.yuyakaido.android.cardstackview.*
-import io.sentry.Hint
 import io.sentry.Sentry
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.launch
@@ -44,7 +48,7 @@ import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.util.*
 import org.appcenter.inudorm.util.WindowUtil.setStatusBarColor
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 const val FILTER_RESULT_CODE = 1226
 
@@ -164,6 +168,10 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
                 R.color.iDorm_blue
             )
         )
+
+
+        setFloatBtnMargin()
+
         return binding.root
     }
 
@@ -176,6 +184,26 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
             )
         )
         setupFilter()
+    }
+
+    private fun setFloatBtnMargin(){
+        val display = requireActivity().windowManager.defaultDisplay
+        val outMetrics = DisplayMetrics()
+        display.getMetrics(outMetrics)
+
+        val density = resources.displayMetrics.density
+        val dpHeight = outMetrics.heightPixels / density
+        val floatBtnMargin = (((dpHeight - 22 -24 - 485 - 64 - 66) / 3.5) * density).toInt()
+
+        val layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            (70*density).toInt(),
+        )
+
+        binding.stackViewControl.layoutParams = layoutParams
+
+        layoutParams.setMargins(0,floatBtnMargin,0, floatBtnMargin)
+        layoutParams.gravity = 17
     }
 
     private val userMutationCollector = FlowCollector<UserMutationEvent?> { event ->

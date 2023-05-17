@@ -88,8 +88,7 @@
             android:id="@+id/matching"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/iDorm_matching_screen"
-            android:visibility="visible">
+            android:background="@color/iDorm_matching_screen">
 
             <!-- 상단 아크모양 View. ConstraintLayout은 코드 상 위에 있는게 제일 아래에 깔립니다.-->
             <io.github.florent37.shapeofview.shapes.ArcView
@@ -193,7 +192,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginVertical="0dp"
                     android:elevation="10dp"
                     android:layout_gravity="center"
@@ -206,25 +205,25 @@
                         android:id="@+id/cardStackView"
                         matchingState="@{matchingViewModel.matchingState}"
                         android:layout_width="match_parent"
-                        android:layout_height="470sp"
-
+                        android:layout_height="485dp"
                         android:layout_marginVertical="0dp"
                         android:elevation="10dp"
-                        tools:listitem="@layout/item_matching" />
+                        tools:listitem="@layout/item_matching"/>
 
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/stackViewControl"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
+                        android:layout_height="64dp"
                         android:layout_gravity="center"
-                        android:layout_weight="1">
+                        android:layout_marginVertical="0dp">
 
                         <com.google.android.material.floatingactionbutton.FloatingActionButton
                             android:id="@+id/dislikeButton"
                             android:layout_width="54dp"
                             android:layout_height="54dp"
-                            android:layout_marginHorizontal="20dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="18dp"
                             android:backgroundTint="@color/white"
                             android:enabled="@{!matchingViewModel.matchingState.loading &amp;&amp; matchingViewModel.matchingState.error == null}"
                             app:borderWidth="0dp"
@@ -281,7 +280,7 @@
                             android:id="@+id/likeButton"
                             android:layout_width="54dp"
                             android:layout_height="54dp"
-                            android:layout_marginEnd="18dp"
+                            android:layout_marginEnd="20dp"
                             android:backgroundTint="@color/white"
                             android:enabled="@{!matchingViewModel.matchingState.loading &amp;&amp; matchingViewModel.matchingState.error == null}"
                             app:borderWidth="0dp"
