@@ -101,8 +101,8 @@ class BaseInformationFragment : Fragment() {
             binding.snoring.isChecked = onboardInfo.isSnoring
             binding.grinding.isChecked = onboardInfo.isGrinding
             binding.smoking.isChecked = onboardInfo.isSmoking
-            binding.snoring.isChecked = onboardInfo.isSnoring
             binding.eatingInside.isChecked = onboardInfo.isAllowedFood
+            binding.wearEarphones.isChecked = !onboardInfo.isWearEarphones
             binding.age1.setText(onboardInfo.age.toString()[0].toString())
             binding.age2.setText(onboardInfo.age.toString()[1].toString())
             (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[0].answer = onboardInfo.wakeupTime
@@ -165,7 +165,7 @@ class BaseInformationFragment : Fragment() {
             val isGrinding = binding.grinding.isChecked
             val isSmoking = binding.smoking.isChecked
             val isAllowedFood = binding.eatingInside.isChecked
-            val isWearEarphones = binding.wearEarphones.isChecked
+            val isWearEarphones = !binding.wearEarphones.isChecked
             val age = (binding.age1.text.toString() + binding.age2.text.toString()).toInt()
             val wakeupTime = (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[0].answer
             val cleanUpStatus = (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[1].answer
