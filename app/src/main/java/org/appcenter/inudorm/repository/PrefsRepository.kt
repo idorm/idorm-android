@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.map
 import org.appcenter.inudorm.App
 import org.appcenter.inudorm.Prefs
 import org.appcenter.inudorm.model.OnboardInfo
+import org.appcenter.inudorm.networking.IDormError
 import org.appcenter.inudorm.repository.PrefsRepository.PreferenceKeys.MATCHING_INFO
 import org.appcenter.inudorm.repository.PrefsRepository.PreferenceKeys.TOKEN
 import java.io.IOException
@@ -47,7 +48,7 @@ class PrefsRepository(private val context: Context) {
         mapMatchingInfo(it)
     }
 
-    suspend fun setMatchingInfo(matchingInfo: OnboardInfo) = context.dataStore.edit {prefs ->
+    suspend fun setMatchingInfo(matchingInfo: OnboardInfo) = context.dataStore.edit { prefs ->
         prefs[MATCHING_INFO] = App.gson.toJson(matchingInfo)
     }
 
@@ -55,14 +56,19 @@ class PrefsRepository(private val context: Context) {
         preferences[TOKEN] = token ?: ""
     }
 
-    suspend fun signOut(){
-        App.userRepository.signOut()
+    suspend fun signOut() {
+        try {
+            App.userRepository.signOut()
+        } catch (_: IDormError) {
+            // 무시
+        }
         context.dataStore.edit { preferences ->
             preferences[TOKEN] = ""
             App.token = null
         }
 
     }
+
     private fun mapPrefs(prefs: Preferences): Prefs {
         val user = mapUserPrefs(prefs)
         val matchingInfo = mapMatchingInfo(prefs)
