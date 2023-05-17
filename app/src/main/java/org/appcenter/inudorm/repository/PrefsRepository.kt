@@ -55,11 +55,14 @@ class PrefsRepository(private val context: Context) {
         preferences[TOKEN] = token ?: ""
     }
 
-    suspend fun signOut() = context.dataStore.edit { preferences ->
-        preferences[TOKEN] = ""
-        App.token = null
-    }
+    suspend fun signOut(){
+        App.userRepository.signOut()
+        context.dataStore.edit { preferences ->
+            preferences[TOKEN] = ""
+            App.token = null
+        }
 
+    }
     private fun mapPrefs(prefs: Preferences): Prefs {
         val user = mapUserPrefs(prefs)
         val matchingInfo = mapMatchingInfo(prefs)

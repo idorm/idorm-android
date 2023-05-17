@@ -371,9 +371,9 @@ class PostDetailActivity : LoadingActivity(), OnSnackBarCallListener {
                             val templateId = 93479L
                             val post = viewModel.postDetailState.value.data!!
                             val defaultProfileImage =
-                                "https://idorm-admin.s3.ap-northeast-2.amazonaws.com/profileImage.png"
+                                "https://idorm-static.s3.ap-northeast-2.amazonaws.com/profileImage.png"
                             val defaultThumbnailImage =
-                                "https://idorm-admin.s3.ap-northeast-2.amazonaws.com/nadomi.png"
+                                "https://idorm-static.s3.ap-northeast-2.amazonaws.com/nadomi.png"
                             val photo =
                                 if (post.postPhotos == null || post.postPhotos.size < 1) defaultThumbnailImage
                                 else post.postPhotos[0].photoUrl

@@ -86,4 +86,8 @@ class UserRepository {
         return RetrofitInstance.service.deleteProfilePhoto();
     }
 
+    suspend fun signOut() {
+        return RetrofitInstance.service.signOut();
+    }
+
 }

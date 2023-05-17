@@ -85,6 +85,7 @@ interface MemberService {
     suspend fun updateProfilePhoto(@Part file: MultipartBody.Part)
     @DELETE("member/profile-photo")
     suspend fun deleteProfilePhoto()
-
+    @DELETE("member/fcm")
+    suspend fun signOut()
 
 }
