@@ -26,6 +26,10 @@
                 android:id="@+id/deletedComment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
+                android:fontFamily="@font/notosans_medium"
+                android:textSize="14sp"
+                android:textColor="@color/iDorm_gray_400"
                 android:text="삭제된 댓글입니다." />
 
             <LinearLayout
@@ -37,9 +41,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="105dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginHorizontal="24dp"
-                    android:layout_marginVertical="16dp">
+                    android:layout_marginTop="16dp">
 
                     <org.appcenter.inudorm.presentation.component.BoardProfile
                         android:id="@+id/writer"
@@ -63,23 +67,28 @@
 
                         android:textColor="@color/iDorm_gray_400"
                         android:textSize="14sp"
+
+                        android:layout_marginStart="53dp"
                         app:layout_constraintStart_toStartOf="@+id/writer"
-                        app:layout_constraintTop_toBottomOf="@+id/writer" />
+                        app:layout_constraintTop_toBottomOf="@+id/writer"
+                        tools:text="댓글 내용 댓글 내용 댓글 내용용"/>
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/viewPost"
-                        android:layout_width="wrap_content"
-
+                        android:layout_width="67dp"
                         android:layout_height="30dp"
-                        android:layout_margin="3sp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/view_button_round_10_gray_100"
-                        android:fontFamily="@font/notosans_regular"
+                        android:layout_marginStart="53dp"
 
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="16dp"
+                        android:background="@drawable/view_button_round_4_gray_100"
+                        android:fontFamily="@font/notosans_regular"
                         android:includeFontPadding="false"
+
                         android:text="본문 확인"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/writer"
                         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -95,7 +104,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="10dp"
             android:background="@color/iDorm_gray_200" />
     </LinearLayout>
 </layout>

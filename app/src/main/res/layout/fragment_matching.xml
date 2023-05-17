@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/graphic"
@@ -88,7 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/iDorm_matching_screen"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <!-- 상단 아크모양 View. ConstraintLayout은 코드 상 위에 있는게 제일 아래에 깔립니다.-->
             <io.github.florent37.shapeofview.shapes.ArcView
@@ -128,17 +128,22 @@
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/refreshButton"
-                        style="@style/Widget.DesignSystem.Chip.FlatBox"
+                        style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice3"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="24dp"
                         android:layout_gravity="center"
-                        android:textSize="12sp"
                         android:fontFamily="@font/notosans_bold"
                         android:includeFontPadding="false"
-                        android:textColor="@color/iDorm_blue"
                         android:onClick="@{() -> matchingViewModel.refresh()}"
-                        android:paddingHorizontal="10dp"
-                        android:text="@string/refreshInteraction" />
+                        android:text="@string/refreshInteraction"
+                        android:textColor="@color/iDorm_blue"
+                        android:textSize="12sp"
+                        app:chipEndPadding="0dp"
+                        app:chipStartPadding="0dp"
+                        app:closeIconEndPadding="0dp"
+                        app:closeIconStartPadding="0dp"
+                        app:textEndPadding="10dp"
+                        app:textStartPadding="10dp" />
 
                     <ImageButton
                         android:id="@+id/openFilterButton"

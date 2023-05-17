@@ -25,7 +25,10 @@
                 android:id="@+id/deletedComment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="삭제된 댓글입니다." />
+                android:fontFamily="@font/notosans_medium"
+                android:textSize="14sp"
+                android:textColor="@color/iDorm_gray_400"
+                android:text="삭제된 댓글입니다."/>
 
             <LinearLayout
                 android:id="@+id/validComment"
@@ -69,16 +72,17 @@
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/notosans_medium"
                         android:includeFontPadding="false"
-                        android:text="@{comment.content}"
+                        android:lineSpacingExtra="-3sp"
 
+                        android:paddingStart="52dp"
+                        android:paddingRight="11dp"
+                        android:text="@{comment.content}"
                         android:textColor="@color/iDorm_gray_400"
                         android:textSize="14sp"
-                        android:paddingRight="11dp"
-                        android:paddingStart="52dp"
                         app:layout_constraintStart_toStartOf="@+id/writer"
                         app:layout_constraintTop_toBottomOf="@+id/writer"
 
-                        tools:text="이건 댓글 댓글 내용 댓글 내용 댓글 내용 댓글 내용 댓글  댓글 내용 댓글 내용 댓글 내용 댓글 내용 댓글  댓글 내용 댓글 내용 댓글 내용 댓글 내용 댓글  "/>
+                        tools:text="이건 댓글 댓글 내용 댓글 내용 댓글 내용 댓글 내용 댓글  댓글 내용 댓글 내용 댓글 내용 댓글 내용 댓글  댓글 내용 댓글 내용 댓글 내용 댓글 내용 댓글  " />
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/writeSubComment"

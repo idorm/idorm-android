@@ -141,7 +141,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout6"
                     android:layout_width="match_parent"
-                    android:layout_height="66dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -149,8 +149,10 @@
 
                     <com.google.android.material.chip.ChipGroup
                         android:layout_width="match_parent"
-                        android:layout_height="66dp"
+                        android:layout_height="wrap_content"
                         android:clipToPadding="true"
+                        app:chipSpacingHorizontal="7dp"
+                        app:chipSpacingVertical="3dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">

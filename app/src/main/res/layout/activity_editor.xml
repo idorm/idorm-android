@@ -75,31 +75,51 @@
                 android:textColorHint="@color/iDorm_gray_200"
                 android:textSize="20sp"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/imageView"
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginBottom="10sp"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                app:boardImages="@{viewModel.editorState.images}"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_board_image" />
+                android:layout_height="wrap_content">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:theme="@style/Widget.DesignSystem.TextInputEditText.Line"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:fontFamily="@font/notosans_medium"
-                android:gravity="top"
-                android:hint="@string/contentHint"
-                android:includeFontPadding="false"
-                android:padding="3sp"
-                android:text="@={viewModel.content}"
-                android:layout_marginTop="12sp"
-                android:textColorHint="@color/iDorm_gray_200"
-                android:textSize="16sp" />
+                android:layout_height="0dp">
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    app:boardImages="@{viewModel.editorState.images}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:listitem="@layout/item_board_image" />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:fontFamily="@font/notosans_medium"
+                    android:gravity="top"
+                    android:hint="@string/contentHint"
+                    android:includeFontPadding="false"
+                    android:padding="3sp"
+                    android:text="@={viewModel.content}"
+                    android:textColorHint="@color/iDorm_gray_200"
+                    android:textSize="16sp"
+                    android:theme="@style/Widget.DesignSystem.TextInputEditText.Line"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+
 
         </LinearLayout>
 
