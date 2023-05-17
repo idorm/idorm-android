@@ -69,6 +69,10 @@ class RoomMateAdapter(
         viewHolder.viewBinding.more.setOnClickListener {
             onMoreClicked(_dataSet[position])
         }
+
+        viewHolder.viewBinding.card.setOnClickListener {
+            onMoreClicked(_dataSet[position])
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
