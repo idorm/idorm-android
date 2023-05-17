@@ -13,6 +13,9 @@ import kotlinx.coroutines.launch
 import org.appcenter.inudorm.LoadingActivity
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentEmailPromptBinding
+import org.appcenter.inudorm.networking.UIErrorHandler
+import org.appcenter.inudorm.presentation.LoadingFragment
+import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.util.State
 import org.appcenter.inudorm.util.eventHandler
 
@@ -21,7 +24,7 @@ enum class EmailPromptPurpose {
     FindPass
 }
 
-class EmailPromptFragment : Fragment() {
+class EmailPromptFragment : LoadingFragment() {
 
     private lateinit var viewModel: EmailPromptViewModel
 
@@ -61,8 +64,25 @@ class EmailPromptFragment : Fragment() {
     }
 
 
+    val prefsRepository by lazy {
+        PrefsRepository(requireContext())
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        lifecycleScope.launch {
+            viewModel.userState.collect {
+                setLoadingState(it.isLoading())
+                if (it is State.Error)
+                    UIErrorHandler.handle(
+                        this@EmailPromptFragment.requireContext(),
+                        prefsRepository,
+                        it.error
+                    )
+            }
+        }
+
         lifecycleScope.launch {
             viewModel.eventFlow.collect {
                 eventHandler(requireContext(), it)
@@ -70,8 +90,13 @@ class EmailPromptFragment : Fragment() {
         }
         lifecycleScope.launch {
             viewModel.emailResultState.collect {
-                (this@EmailPromptFragment.requireActivity() as LoadingActivity).setLoadingState(it.isLoading())
+                setLoadingState(it.isLoading())
             }
         }
+        val purpose = getPurposeFromBundle()
+        if (purpose == EmailPromptPurpose.FindPass)
+            viewModel.getUser()
+
+
     }
 }

@@ -9,8 +9,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.appcenter.inudorm.model.User
 import org.appcenter.inudorm.networking.ErrorCode
 import org.appcenter.inudorm.networking.IDormError
+import org.appcenter.inudorm.usecase.LoginRefresh
 import org.appcenter.inudorm.usecase.SendAuthCode
 import org.appcenter.inudorm.usecase.SendAuthCodeParams
 import org.appcenter.inudorm.util.DialogButton
@@ -26,8 +28,28 @@ class EmailPromptViewModel(private val purpose: EmailPromptPurpose) : ViewModelW
     val emailResultState: StateFlow<State<Boolean>>
         get() = _emailResultState
 
+    private val _userState: MutableStateFlow<State<User>> = MutableStateFlow(State.Initial())
+    val userState: StateFlow<State<User>>
+        get() = _userState
+
+    fun getUser() {
+        viewModelScope.launch {
+            _userState.emit(State.Loading())
+            _userState.emit(kotlin.runCatching { State.Success(LoginRefresh().run(null)) }
+                .getOrElse { State.Error(it) })
+        }
+    }
+
     fun submit() {
         val mail = email.value!!
+        if (purpose == EmailPromptPurpose.FindPass) {
+            if (userState.value is State.Success) {
+                if ((userState.value as State.Success<User>).data?.email != email.value) {
+                    showToast("회원의 이메일과 일치하지 않아요.");
+                    return
+                }
+            }
+        }
         if (emailValidator(mail)) { // 올바른 메일인지 체크좀 할게요..
             viewModelScope.launch {
                 _emailResultState.update {
@@ -58,7 +80,7 @@ class EmailPromptViewModel(private val purpose: EmailPromptPurpose) : ViewModelW
                         }
 
                     }
-                    showToast(e.message ?: "알 수 없는 오류입니다.")
+                    showToast(e.message ?: "알 수 없는 오류입니다..")
                     _emailResultState.update {
                         State.Error(e)
                     }

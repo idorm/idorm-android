@@ -56,9 +56,3 @@ class Login(private val prefsRepository: PrefsRepository) :
 
 }
 
-class LoginRefresh : UseCase<Nothing?, User>() {
-    override suspend fun onExecute(params: Nothing?): User {
-        return userRepository.loginRefresh()
-    }
-
-}
