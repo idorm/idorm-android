@@ -2,12 +2,26 @@ package org.appcenter.inudorm.presentation.matching
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import org.appcenter.inudorm.model.RoomMateFilter
 
-class FilterViewModel(initialFilter: RoomMateFilter) : ViewModel() {
+class FilterViewModel(private val initialFilter: RoomMateFilter) : ViewModel() {
     private val _filterState = MutableStateFlow(initialFilter)
-    val filterState = _filterState
+    val filterState: StateFlow<RoomMateFilter>
+        get() = _filterState
+
+    fun clear() {
+        viewModelScope.launch {
+            _filterState.update {
+                initialFilter
+            }
+        }
+    }
+
 }
 
 class FilterViewModelFactory(private val initialFilter: RoomMateFilter) :

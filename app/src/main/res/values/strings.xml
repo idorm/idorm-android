@@ -117,7 +117,7 @@
     <string name="snoringCardText">코골이 없음</string>
     <string name="grindingCardText">이갈이 없음</string>
     <string name="smokingCardText">흡연 안 함</string>
-    <string name="eatingInsideCardText">실내 음식 불가능</string>
+    <string name="eatingInsideCardText">실내 음식 섭취 안함</string>
     <string name="wearEarphonesCardText">이어폰 착용 가능</string>
 
     <string name="wakeUpTimeCardText">기상시간⠀</string>

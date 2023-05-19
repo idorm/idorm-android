@@ -63,7 +63,7 @@ enum class Taste(
     val _name: String,
     val isFit: BooleanStrings
 ) {
-    AllowFood(R.id.eatingInside, "isAllowedFood", "실내 음식", BooleanStrings.Possibility),
+    AllowFood(R.id.eatingInside, "isAllowedFood", "실내 음식 섭취", BooleanStrings.Act),
     Grinding(R.id.grinding, "isGrinding", "이갈이", BooleanStrings.Existence),
     Smoking(R.id.smoking, "isSmoking", "흡연", BooleanStrings.Act),
     Snoring(R.id.snoring, "isSnoring", "코골이", BooleanStrings.Existence),

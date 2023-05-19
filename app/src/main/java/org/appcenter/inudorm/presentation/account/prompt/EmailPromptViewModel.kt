@@ -39,7 +39,6 @@ class EmailPromptViewModel(private val purpose: EmailPromptPurpose) : ViewModelW
                 .getOrElse { State.Error(it) })
         }
     }
-
     fun submit() {
         val mail = email.value!!
         if (purpose == EmailPromptPurpose.FindPass) {

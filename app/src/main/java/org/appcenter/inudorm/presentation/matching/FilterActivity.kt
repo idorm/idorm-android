@@ -73,21 +73,6 @@ class FilterActivity : AppCompatActivity() {
                 ageFrom.text = checkSeekVal(leftValue)
                 ageTo.text = checkSeekVal(rightValue)
 
-                //현재 seekBar 퍼센트 계산
-                var leftPercent = (leftValue.toInt() - 20) * 5 * 0.01
-                var rightPercent = (rightValue.toInt() - 20) * 5 * 0.01
-
-                /*
-                var leftPos = ageDualSeekbar.width * leftPercent
-                var rigthPos = ageDualSeekbar.width * rightPercent
-
-                ageValLeft?.x = leftPos.toInt().toFloat()
-                ageValRight?.x = rigthPos.toInt().toFloat()
-
-                var x =ageDualSeekbar.x
-                Log.d(TAG, "onRangeChanged: $rigthPos, $rightPercent")
-                */
-
             }
 
             override fun onStartTrackingTouch(view: RangeSeekBar?, isLeft: Boolean) {
