@@ -347,7 +347,6 @@
             app:layout_constraintStart_toStartOf="@+id/textView10"
             app:layout_constraintTop_toBottomOf="@+id/textView10"
 
-
             app:rsb_gravity="bottom"
             app:rsb_max="40"
             app:rsb_min="20"
@@ -431,6 +430,7 @@
             android:textColor="@color/iDorm_gray_400"
             android:textSize="16sp"
             android:theme="@style/Widget.DesignSystem.MaterialButton.withIcon"
+            android:onClick="@{() -> filterViewModel.clear()}"
 
             app:backgroundTint="@color/iDorm_gray_100"
             app:cornerRadius="6dp"

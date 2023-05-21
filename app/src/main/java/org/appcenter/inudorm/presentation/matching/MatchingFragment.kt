@@ -273,6 +273,7 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
         lifecycleScope.launch {
             viewModel.matchingState.collect {
                 // Todo: ⚠️ 네트워크 오류로 퉁치지 말고 꼭!! 상황별 에러 대응하게 처리할 것!!!
+                setLoadingState(it.isLoading)
                 if (it.error != null) {
                     UIErrorHandler.handle(requireContext(), prefsRepository, it.error!!) { err ->
                         when (err.error) {

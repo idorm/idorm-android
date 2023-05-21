@@ -80,7 +80,7 @@ object MatchingBinding {
             val blue = ContextCompat.getColor(context, R.color.iDorm_blue)
             val booleanText = if (have) taste?.isFit?.trueText else taste?.isFit?.falseText
             val alteredHave =
-                if (feature == "isWearEarphones" || feature == "isAllowedFood") !have else have
+                if (feature == "isWearEarphones" ) !have else have
             val booleanColor = if (alteredHave) red else blue
 
             text = buildCardText(taste?._name!!, booleanText!!, booleanColor, true)
