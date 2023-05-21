@@ -71,7 +71,7 @@ class PopularPostAdapter(
 
         layoutParams.setMargins(0,0,24,0)
         if(position == 0) layoutParams.setMargins(72, 0,24,0)
-        if(position == _dataSet.size -1)  layoutParams.setMargins(0, 0,72,0)
+        if(position != 0 && position == _dataSet.size -1)  layoutParams.setMargins(0, 0,72,0)
     }
 
 }
