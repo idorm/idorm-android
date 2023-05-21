@@ -110,8 +110,9 @@
             <LinearLayout
                 android:id="@+id/controls"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:orientation="vertical"
+                android:gravity="center"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout

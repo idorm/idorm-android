@@ -193,7 +193,7 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
 
         val density = resources.displayMetrics.density
         val dpHeight = outMetrics.heightPixels / density
-        val floatBtnMargin = (((dpHeight - 22 -24 - 485 - 64 - 66) / 3.5) * density).toInt()
+        val floatBtnMargin = (((dpHeight - 22 -30 - 485 - 64 - 66) / 3.5) * density).toInt()
 
         val layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT,

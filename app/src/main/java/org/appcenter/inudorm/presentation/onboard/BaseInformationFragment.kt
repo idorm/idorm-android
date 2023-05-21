@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
     import org.appcenter.inudorm.databinding.FragmentBaseInformationBinding
+import org.appcenter.inudorm.databinding.ItemQuestionListBinding
 import org.appcenter.inudorm.model.*
 import org.appcenter.inudorm.networking.UIErrorHandler
 import org.appcenter.inudorm.presentation.adapter.OnboardRVAdapter
@@ -168,17 +169,10 @@ class BaseInformationFragment : Fragment() {
             binding.wearEarphones.isChecked = false
             binding.age1.setText("")
             binding.age2.setText("")
-            //IDormLogger.d(this, )
 
-            var a = (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[0].answer
-            a=""
-            (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[1].answer = ""
-            (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[2].answer = ""
-            (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[3].answer = ""
-            (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[4].answer = ""
-            (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[5].answer = ""
 
-            IDormLogger.d(this, a + "먼지")
+            (binding.baseInfoRecycler.adapter as OnboardRVAdapter).binding.onboardField.setText("")
+
         }
         binding.doneButton.setOnClickListener {
             val dormCategory = Dorm.fromElementId(binding.dormGroup.checkedChipId)!!
