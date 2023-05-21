@@ -53,8 +53,8 @@ enum class BooleanStrings(
 ) {
     Existence("있음", "없음"),
     Act("함", "안함"),
-    Possibility("가능", "불가능"),
-    Wearability("착용 가능", "착용 불가능")
+    Possibility("섭취 함", "섭취 안 함"),
+    Wearability("착용 함", "착용 안 함")
 }
 
 enum class Taste(
