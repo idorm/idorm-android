@@ -34,6 +34,8 @@ class EmailPromptViewModel(private val purpose: EmailPromptPurpose) : ViewModelW
 
     fun getUser() {
         viewModelScope.launch {
+            if (_userState.value is State.Loading) return@launch
+
             _userState.emit(State.Loading())
             _userState.emit(kotlin.runCatching { State.Success(LoginRefresh().run(null)) }
                 .getOrElse { State.Error(it) })

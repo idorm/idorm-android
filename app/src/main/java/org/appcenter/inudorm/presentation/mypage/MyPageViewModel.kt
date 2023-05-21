@@ -11,6 +11,7 @@ import org.appcenter.inudorm.model.User
 import org.appcenter.inudorm.usecase.GetMatchingInfo
 import org.appcenter.inudorm.usecase.LoginRefresh
 import org.appcenter.inudorm.usecase.SetMatchingInfoVisibility
+import org.appcenter.inudorm.util.State
 
 data class MyPageState(
     val myInfo: Result<User?>?,
@@ -50,6 +51,7 @@ class MyPageViewModel : ViewModel() {
 
     fun toggleMatchingInfoVisibility() {
         viewModelScope.launch {
+
             _myPageMutation.emit(
                 UserMutationResult.ToggleMatchingInfoVisibility(
                     loading = true,

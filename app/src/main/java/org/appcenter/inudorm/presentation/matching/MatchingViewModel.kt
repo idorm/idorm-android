@@ -102,6 +102,7 @@ class MatchingViewModel : ViewModel() {
         filter: RoomMateFilter = _matchingState.value.filter,
         size: Int,
     ) {
+        if (_matchingState.value.isLoading) return
         _matchingState.update {
             it.copy(
                 isLoading = true,
@@ -143,6 +144,7 @@ class MatchingViewModel : ViewModel() {
     fun addLikedMate(id: Int) {
         viewModelScope.launch {
             val params = MutateFavoriteRequestDto(id, true)
+            if (_userMutationEvent.value?.mutation?.state is State.Loading) return@launch
             _userMutationEvent.emit(
                 UserMutationEvent.AddLikedMatchingInfo(
                     Mutation(
@@ -159,6 +161,7 @@ class MatchingViewModel : ViewModel() {
                     )
                 )
             )
+
         }
     }
 
@@ -166,6 +169,8 @@ class MatchingViewModel : ViewModel() {
         viewModelScope.launch {
 
             val params = MutateFavoriteRequestDto(id, true)
+            if (_userMutationEvent.value?.mutation?.state is State.Loading) return@launch
+
             _userMutationEvent.emit(
                 UserMutationEvent.DeleteLikedMatchingInfo(
                     Mutation(
@@ -182,12 +187,14 @@ class MatchingViewModel : ViewModel() {
                     )
                 )
             )
+
         }
     }
 
     fun addDislikedMate(id: Int) {
         viewModelScope.launch {
             val params = MutateFavoriteRequestDto(id, false)
+            if (_userMutationEvent.value?.mutation?.state is State.Loading) return@launch
             _userMutationEvent.emit(
                 UserMutationEvent.AddDislikedMatchingInfo(
                     Mutation(
@@ -204,12 +211,14 @@ class MatchingViewModel : ViewModel() {
                     )
                 )
             )
+
         }
     }
 
     fun deleteDislikedMate(id: Int) {
         viewModelScope.launch {
             val params = MutateFavoriteRequestDto(id, false)
+            if (_userMutationEvent.value?.mutation?.state is State.Loading) return@launch
             _userMutationEvent.emit(
                 UserMutationEvent.DeleteDislikedMatchingInfo(
                     Mutation(
@@ -232,6 +241,7 @@ class MatchingViewModel : ViewModel() {
     fun reportMatchingInfo(id: Int, reason: String, reasonType: String, reportType: Content) {
         viewModelScope.launch {
             val params = ReportRequestDto(id, reason, reasonType, reportType)
+            if (_userMutationEvent.value?.mutation?.state is State.Loading) return@launch
             _userMutationEvent.emit(
                 UserMutationEvent.ReportMatchingInfo(
                     Mutation(
@@ -245,11 +255,13 @@ class MatchingViewModel : ViewModel() {
                     Mutation(params, Report().run(params))
                 )
             )
+
         }
     }
 
     fun setMatchingInfoVisibility(isMatchingInfoPublic: Boolean) {
         viewModelScope.launch {
+            if (_userMutationEvent.value?.mutation?.state is State.Loading) return@launch
             _userMutationEvent.emit(
                 UserMutationEvent.SetMatchingInfoVisibility(
                     Mutation(
@@ -264,6 +276,8 @@ class MatchingViewModel : ViewModel() {
                 )
             }
             getMates(LoadMode.Update, size = 10)
+
+
         }
     }
 }

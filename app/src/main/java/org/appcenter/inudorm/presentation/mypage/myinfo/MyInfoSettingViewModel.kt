@@ -32,6 +32,7 @@ class MyInfoSettingViewModel : ViewModel() {
 
     fun getUser() {
         viewModelScope.launch {
+            if (_myPageState.value.loading) return@launch
             _myPageState.update {
                 it.copy(
                     loading = true
@@ -43,6 +44,16 @@ class MyInfoSettingViewModel : ViewModel() {
 
     fun updateProfilePhoto(photo: Photo?) {
         viewModelScope.launch {
+            if (_myInfoMutationEvent.value?.mutation?.state is State.Loading) return@launch
+
+            _myInfoMutationEvent.emit(
+                MyInfoMutationEvent.UpdateProfilePhoto(
+                    Mutation(
+                        photo,
+                        State.Loading()
+                    )
+                )
+            )
             _myInfoMutationEvent.emit(
                 MyInfoMutationEvent.UpdateProfilePhoto(
                     Mutation(photo, UpdateProfilePhoto().run(photo))
@@ -53,6 +64,16 @@ class MyInfoSettingViewModel : ViewModel() {
 
     fun deleteProfilePhoto() {
         viewModelScope.launch {
+            if (_myInfoMutationEvent.value?.mutation?.state is State.Loading) return@launch
+
+            _myInfoMutationEvent.emit(
+                MyInfoMutationEvent.DeleteProfilePhoto(
+                    Mutation(
+                        null,
+                        State.Loading()
+                    )
+                )
+            )
             _myInfoMutationEvent.emit(
                 MyInfoMutationEvent.DeleteProfilePhoto(
                     Mutation(null, DeleteProfilePhoto().run(null))

@@ -107,6 +107,7 @@ class PostDetailViewModel : ViewModel() {
             it.copy(content = "")
         }
         viewModelScope.launch {
+            if (_commentWriteResult.value is State.Loading) return@launch
             _commentWriteResult.emit(State.Loading)
             val state =
                 WriteComment().run(
@@ -123,6 +124,7 @@ class PostDetailViewModel : ViewModel() {
 
     fun deletePost() {
         viewModelScope.launch {
+            if (_postDeleteResult.value is State.Loading) return@launch
             _postDeleteResult.emit(State.Loading)
             val state = DeletePost().run(postDetailState.value.data?.postId!!)
             _postDeleteResult.emit(state)
@@ -131,6 +133,8 @@ class PostDetailViewModel : ViewModel() {
 
     fun deleteComment(commentId: Int, postId: Int) {
         viewModelScope.launch {
+            if (_commentDeleteResult.value is State.Loading) return@launch
+
             _commentDeleteResult.emit(State.Loading)
             val state = DeleteComment().run(DeleteComment.Param(commentId, postId))
             _commentDeleteResult.emit(state)
@@ -139,6 +143,7 @@ class PostDetailViewModel : ViewModel() {
 
     fun report(id: Int, contentType: Content, reasonType: String, reason: String) {
         viewModelScope.launch {
+            if (_commentReportResult.value is org.appcenter.inudorm.util.State.Loading) return@launch
             _commentReportResult.emit(org.appcenter.inudorm.util.State.Loading())
             val state = Report().run(
                 ReportRequestDto(

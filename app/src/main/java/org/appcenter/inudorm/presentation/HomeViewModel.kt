@@ -24,6 +24,7 @@ class HomeViewModel : ViewModel() {
     // Todo: 단순 fetching: loading -> fetch -> success
     fun getTopPosts() {
         viewModelScope.launch {
+            if (_topPostState.value is State.Loading) return@launch
             _topPostState.emit(State.Loading())
             val dorm = kotlin.runCatching {
                 GetMatchingInfo().run(null).dormCategory
@@ -42,6 +43,8 @@ class HomeViewModel : ViewModel() {
 
     fun getCalendars() {
         viewModelScope.launch {
+            if (_calendarState.value is State.Loading) return@launch
+
             _calendarState.emit(State.Loading())
             _calendarState.emit(
                 GetCalendars().run(null)
