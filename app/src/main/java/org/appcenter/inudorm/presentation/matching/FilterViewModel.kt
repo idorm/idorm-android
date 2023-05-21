@@ -10,17 +10,17 @@ import kotlinx.coroutines.launch
 import org.appcenter.inudorm.model.RoomMateFilter
 
 class FilterViewModel(private val initialFilter: RoomMateFilter) : ViewModel() {
-    private val _filterState = MutableStateFlow(initialFilter)
-    val filterState: StateFlow<RoomMateFilter>
-        get() = _filterState
+    val filterState: MutableStateFlow<RoomMateFilter> = MutableStateFlow(initialFilter)
 
     fun clear() {
         viewModelScope.launch {
-            _filterState.update {
+            filterState.update {
                 initialFilter
             }
+
         }
     }
+
 
 }
 

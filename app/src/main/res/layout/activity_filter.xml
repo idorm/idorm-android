@@ -75,10 +75,9 @@
             <!--choice의 기본 margin값은 8dp입니다.-->
 
             <com.google.android.material.chip.ChipGroup
-                selectedDorm="@={filterViewModel.filterState.dormCategory}"
+                android:id="@+id/selectedDorm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:checkedChip="@id/firstDorm"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -152,11 +151,10 @@
             <!--choice의 기본 margin값은 8dp입니다.-->
 
             <com.google.android.material.chip.ChipGroup
-                selectedJoinPeriod="@={filterViewModel.filterState.joinPeriod}"
+                android:id="@+id/joinPeriod"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
-                app:checkedChip="@id/sixteenWeeks"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -236,6 +234,7 @@
             <!--choice의 기본 margin값은 8dp입니다.-->
 
             <com.google.android.material.chip.ChipGroup
+                android:id="@+id/disallowedFeatures"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -243,7 +242,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                selectedValues="@={filterViewModel.filterState.disAllowedFeatures}"
                 >
 
                 <com.google.android.material.chip.Chip

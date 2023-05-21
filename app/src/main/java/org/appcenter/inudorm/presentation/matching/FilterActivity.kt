@@ -7,8 +7,11 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.jaygoo.widget.OnRangeChangedListener
 import com.jaygoo.widget.RangeSeekBar
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityFilterBinding
 import org.appcenter.inudorm.model.Dorm
@@ -28,12 +31,6 @@ val defaultFilter =
 
 class FilterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFilterBinding
-
-    /*override fun onBackPressed() {
-        submit(viewModel.filterState.value)
-        super.onBackPressed()
-    }*/
-
     private fun submit(filter: RoomMateFilter) {
         // disallowedFeatures를 변경.
 
@@ -49,30 +46,57 @@ class FilterActivity : AppCompatActivity() {
         finish()
     }
 
+    private fun bind(it: RoomMateFilter) {
+        binding.ageRangeSeekbar.setProgress(it.minAge.toFloat(), it.maxAge.toFloat())
+        binding.ageFrom.text = checkSeekVal(it.minAge.toFloat())
+        binding.ageTo.text = checkSeekVal(it.maxAge.toFloat())
+
+        binding.selectedDorm.apply {
+            check(it.dormCategory.elementId)
+
+        }
+        binding.joinPeriod.apply {
+            check(it.joinPeriod.elementId)
+        }
+
+        binding.disallowedFeatures.clearCheck()
+        for (disAllowedFeature in it.disAllowedFeatures) {
+            binding.disallowedFeatures.check(disAllowedFeature)
+        }
+
+    }
+
     private fun initSeekbar() {
-        val ageRangeSeekbar = binding.ageRangeSeekbar
-        ageRangeSeekbar.setProgress(20f, 40f)
-        var valueFrom = ageRangeSeekbar.leftSeekBar.progress
-        var valueTo = ageRangeSeekbar.rightSeekBar.progress
+        binding.selectedDorm.setOnCheckedStateChangeListener { view, checkedIds ->
+            viewModel.filterState.update {
+                it.copy(dormCategory = Dorm.fromElementId(checkedIds[0]) ?: Dorm.DORM1)
+            }
+        }
+        binding.joinPeriod.setOnCheckedStateChangeListener { view, checkedIds ->
+            viewModel.filterState.update {
+                it.copy(joinPeriod = JoinPeriod.fromElementId(checkedIds[0]) ?: JoinPeriod.WEEK16)
+            }
+        }
+        binding.disallowedFeatures.setOnCheckedStateChangeListener { view, checkedIds ->
+            viewModel.filterState.update {
+                it.copy(disAllowedFeatures = view.checkedChipIds)
+            }
+        }
 
-        val ageFrom = binding.ageFrom
-        val ageTo = binding.ageTo
-
-
-        ageFrom.text = checkSeekVal(valueFrom)
-        ageTo.text = checkSeekVal(valueTo)
-
-        ageRangeSeekbar.setOnRangeChangedListener(object : OnRangeChangedListener {
+        binding.ageRangeSeekbar.setOnRangeChangedListener(object : OnRangeChangedListener {
             override fun onRangeChanged(
                 view: RangeSeekBar?,
                 leftValue: Float,
                 rightValue: Float,
-                isFromUser: Boolean
+                isFromUser: Boolean,
             ) {
-
-                ageFrom.text = checkSeekVal(leftValue)
-                ageTo.text = checkSeekVal(rightValue)
-
+                if (isFromUser)
+                    viewModel.filterState.update {
+                        it.copy(
+                            minAge = leftValue.toInt(),
+                            maxAge = rightValue.toInt()
+                        )
+                    }
             }
 
             override fun onStartTrackingTouch(view: RangeSeekBar?, isLeft: Boolean) {
@@ -116,6 +140,14 @@ class FilterActivity : AppCompatActivity() {
         }
         setSupportActionBar(binding.toolbar)
         supportActionBar?.title = ""
+
+        lifecycleScope.launch {
+            viewModel.filterState.collect {
+                bind(it)
+            }
+        }
+
+        viewModel.filterState.update { filter }
 
         initSeekbar()
         binding.filterDoneButton.setOnClickListener {
