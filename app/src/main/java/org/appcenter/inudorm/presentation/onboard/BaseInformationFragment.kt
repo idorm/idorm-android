@@ -157,6 +157,29 @@ class BaseInformationFragment : Fragment() {
                 }
             }
         })
+        binding.initializationButton.setOnClickListener {
+            binding.dormGroup.check(binding.firstDorm.id)
+            binding.genderGroup.check(binding.man.id)
+            binding.joinPeriodGroup.check(binding.sixteenWeeks.id)
+            binding.snoring.isChecked = false
+            binding.grinding.isChecked = false
+            binding.smoking.isChecked = false
+            binding.eatingInside.isChecked = false
+            binding.wearEarphones.isChecked = false
+            binding.age1.setText("")
+            binding.age2.setText("")
+            //IDormLogger.d(this, )
+
+            var a = (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[0].answer
+            a=""
+            (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[1].answer = ""
+            (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[2].answer = ""
+            (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[3].answer = ""
+            (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[4].answer = ""
+            (binding.baseInfoRecycler.adapter as OnboardRVAdapter).dataSet[5].answer = ""
+
+            IDormLogger.d(this, a + "먼지")
+        }
         binding.doneButton.setOnClickListener {
             val dormCategory = Dorm.fromElementId(binding.dormGroup.checkedChipId)!!
             val gender = Gender.fromElementId(binding.genderGroup.checkedChipId)!!
