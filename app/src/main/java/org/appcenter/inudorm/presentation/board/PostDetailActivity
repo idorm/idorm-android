@@ -64,7 +64,8 @@ class PostDetailActivity : LoadingActivity(), OnSnackBarCallListener {
             viewModel.writeComment()
         } else {
             OkDialog("댓글 내용은 1~50자로 입력해주세요.", onOk = {
-                binding.commentInput.setText(binding.commentInput.text?.substring(0, 50))
+                if (commentLength > 50)
+                    binding.commentInput.setText(binding.commentInput.text?.substring(0, 50))
             }, cancelable = false).show(this)
         }
     }
