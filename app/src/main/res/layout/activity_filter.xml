@@ -29,9 +29,8 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:titleTextColor="@color/black"
             app:menu="@menu/single_close"
-            >
+            app:titleTextColor="@color/black">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -241,8 +240,7 @@
                 android:layout_marginEnd="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                >
+                app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/snoring"
@@ -411,7 +409,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
 
-            app:layout_constraintWidth_percent="0.35"/>
+            app:layout_constraintWidth_percent="0.35" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@id/initializationButton"
@@ -423,12 +421,12 @@
 
             android:fontFamily="@font/notosans_medium"
             android:includeFontPadding="false"
-            android:text="@string/initializationInteraction"
+            android:onClick="@{() -> filterViewModel.clear()}"
 
+            android:text="@string/initializationInteraction"
             android:textColor="@color/iDorm_gray_400"
             android:textSize="16sp"
             android:theme="@style/Widget.DesignSystem.MaterialButton.withIcon"
-            android:onClick="@{() -> filterViewModel.clear()}"
 
             app:backgroundTint="@color/iDorm_gray_100"
             app:cornerRadius="6dp"
@@ -439,7 +437,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
 
-            app:layout_constraintWidth_percent="0.46"/>
+            app:layout_constraintWidth_percent="0.46" />
 
         <!--
         <androidx.appcompat.widget.AppCompatButton
@@ -462,8 +460,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintWidth_percent="0.5" />
         -->
-
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

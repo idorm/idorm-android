@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.google.android.material.R.id.snackbar_text
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -16,6 +17,8 @@ import org.appcenter.inudorm.databinding.ActivityMainBinding
 import org.appcenter.inudorm.presentation.board.BoardFragment
 import org.appcenter.inudorm.presentation.matching.MatchingFragment
 import org.appcenter.inudorm.presentation.mypage.MyPageFragment
+import kotlin.reflect.KClass
+import kotlin.reflect.jvm.internal.impl.load.java.structure.JavaClass
 
 const val UPDATE_REQ_CODE = 34843
 
