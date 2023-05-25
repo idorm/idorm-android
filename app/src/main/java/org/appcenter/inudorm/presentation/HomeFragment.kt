@@ -25,6 +25,7 @@ import org.appcenter.inudorm.presentation.adapter.PopularPostAdapter
 import org.appcenter.inudorm.presentation.board.BoardFragment
 import org.appcenter.inudorm.presentation.board.PostDetailActivity
 import org.appcenter.inudorm.presentation.board.WritePostActivity
+import org.appcenter.inudorm.presentation.matching.MatchingFragment
 import org.appcenter.inudorm.presentation.onboard.BaseInfoPurpose
 import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.util.State
@@ -123,10 +124,10 @@ class HomeFragment : LoadingFragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this.requireActivity()
         binding.startMatching.setOnClickListener {
-            // 매칭 정보 상태에 따라 분기
-            val intent = Intent(requireContext(), OnboardActivity::class.java)
-            intent.putExtra("purpose", BaseInfoPurpose.Create)
-            startActivity(intent)
+            parentFragmentManager.beginTransaction()
+                .add(R.id.container, MatchingFragment())
+                .remove(this)
+                .commit()
         }
 
         lifecycleScope.launch {

@@ -77,8 +77,8 @@
     <string name="woman">여성</string>
 
     <string name="residencePeriod">입사 기간</string>
-    <string name="sixteenWeeks">16주</string>
-    <string name="twentyFourWeeks">24주</string>
+    <string name="sixteenWeeks">짧은 기간</string>
+    <string name="twentyFourWeeks">긴 기간</string>
 
     <string name="habit">내 습관</string>
     <string name="snoring">코골이</string>
@@ -106,8 +106,8 @@
     <!--item matching-->
     <string name="dormCardNum">3</string>
     <string name="dormCardText">기숙사</string>
-    <string name="periodCardText">24</string>
-    <string name="periodUnitCardText">주</string>
+    <string name="periodCardText">긴 </string>
+    <string name="periodUnitCardText">기간</string>
 
     <string name="genderCardText">성별</string>
     <string name="ageCardText">24</string>
