@@ -171,7 +171,7 @@ class BaseInformationFragment : Fragment() {
             binding.age2.setText("")
 
 
-            (binding.baseInfoRecycler.adapter as OnboardRVAdapter).binding.onboardField.setText("")
+            initBind()
 
         }
         binding.doneButton.setOnClickListener {
