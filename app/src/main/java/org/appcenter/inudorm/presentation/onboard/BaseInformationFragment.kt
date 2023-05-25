@@ -243,6 +243,13 @@ class BaseInformationFragment : Fragment() {
                                             cancelable = false
                                         ).show(requireContext())
                                     }
+                                    ErrorCode.MBTI_CHARACTER_INVALID -> {
+                                        OkDialog(
+                                            e.error.message,
+                                            onOk = {  },
+                                            cancelable = false
+                                        ).show(requireContext())
+                                    }
                                 else -> {
                                     OkDialog(getString(R.string.unknownError)).show(requireContext())
                                 }
