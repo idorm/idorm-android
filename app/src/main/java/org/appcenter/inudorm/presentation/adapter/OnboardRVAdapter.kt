@@ -52,7 +52,7 @@ class OnboardRVAdapter(private val _dataSet: ArrayList<OnboardQuestion>, context
         holder.view.onboardField.addTextChangedListener {
             _dataSet[position].answer = it.toString()
             binding.currentLen.text = ((it ?: "").length.toString())
-            //if(position == 4) MbtiValidator(holder, it.toString())
+            if(position == 4) MbtiValidator(holder, it.toString())
             validator(holder, it.toString().length)
 
         }
