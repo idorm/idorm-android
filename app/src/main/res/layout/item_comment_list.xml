@@ -81,6 +81,8 @@
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="@+id/writer"
                         app:layout_constraintTop_toBottomOf="@+id/writer"
+                        android:linksClickable="true"
+                        android:autoLink="web"
 
                         tools:text="이건 댓글 댓글 내용 댓글 내용 댓글 내용 댓글 내용 댓글  댓글 내용 댓글 내용 댓글 내용 댓글 내용 댓글  댓글 내용 댓글 내용 댓글 내용 댓글 내용 댓글  " />
 

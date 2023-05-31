@@ -42,7 +42,7 @@
     <string name="welcomeText2">로그인 후 인천대학교 기숙사 룸메이트 매칭을 위한 \n 기본 정보를 알려주세요.</string>
 
     <!-- CodeSentFragment -->
-    <string name="EmailSentText">지금 이메일로 인증번호를 보내드렸어요.🕊</string>
+    <string name="EmailSentText">지금 이메일로 인증번호를 보내드렸어요.🕊 \n 메일이 오지 않았으면 스팸함을 확인해주세요.</string>
 
 
     <!--codePromptFragment-->

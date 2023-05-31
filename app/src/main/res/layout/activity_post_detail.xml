@@ -102,6 +102,8 @@
                                 android:text="@{viewModel.postDetailState.data.content}"
                                 android:textColor="@color/black"
                                 android:textSize="14sp"
+                                android:linksClickable="true"
+                                android:autoLink="web"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/title"
                                 android:layout_marginTop="12sp"

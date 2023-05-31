@@ -21,8 +21,8 @@ android {
         applicationId "org.appcenter.inudorm"
         minSdk 23
         targetSdk 33
-        versionCode 10
-        versionName "1.0"
+        versionCode 12
+        versionName "1.0.2"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

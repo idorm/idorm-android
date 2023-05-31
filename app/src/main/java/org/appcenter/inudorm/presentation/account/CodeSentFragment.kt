@@ -1,12 +1,17 @@
 package org.appcenter.inudorm.presentation.account
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.getColor
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import org.appcenter.inudorm.OnPromptDoneListener
@@ -22,7 +27,7 @@ class CodeSentFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_code_sent, container, false)
@@ -39,6 +44,14 @@ class CodeSentFragment : Fragment() {
             val bundle = Bundle()
             (context as OnPromptDoneListener).onPromptDone(bundle)
         }
+        val spannable = SpannableStringBuilder(getString(R.string.EmailSentText))
+        spannable.setSpan(
+            ForegroundColorSpan(getColor(requireContext(), R.color.iDorm_red)),
+            38, // start
+            41, // end
+            Spannable.SPAN_EXCLUSIVE_INCLUSIVE
+        )
+        binding.emailSentText.setText(spannable)
     }
 
     private fun openWebMail() {
