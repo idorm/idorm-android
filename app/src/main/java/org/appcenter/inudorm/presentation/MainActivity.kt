@@ -15,6 +15,7 @@ import org.appcenter.inudorm.OnSnackBarCallListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ActivityMainBinding
 import org.appcenter.inudorm.presentation.board.BoardFragment
+import org.appcenter.inudorm.presentation.calendar.CalendarFragment
 import org.appcenter.inudorm.presentation.matching.MatchingFragment
 import org.appcenter.inudorm.presentation.mypage.MyPageFragment
 import kotlin.reflect.KClass
@@ -54,10 +55,10 @@ class MainActivity : BottomNavigationView.OnNavigationItemSelectedListener, OnSn
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.container, BoardFragment()).commit()
             }
-//            R.id.calendar -> {
-//                supportFragmentManager.beginTransaction()
-//                    .replace(R.id.container, CalendarFragment()).commit()
-//            }
+            R.id.calendar -> {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.container, CalendarFragment()).commit()
+            }
             R.id.mypage -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.container, MyPageFragment()).commit()
