@@ -16,14 +16,14 @@
             android:layout_height="match_parent"
             android:background="@color/iDorm_matching_screen"
 
-            android:padding="24sp"
-
             tools:context=".presentation.calendar.CalendarFragment">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
+                android:background="@color/iDorm_gray_100"
 
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -32,10 +32,14 @@
                     android:id="@+id/teamProfileRecycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/iDorm_matching_screen"
+                    android:background="@color/iDorm_gray_100"
 
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+                    android:paddingStart="14sp"
+                    android:paddingTop="18sp"
+                    android:paddingBottom="14sp"
 
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -50,9 +54,35 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_more"
 
+                    android:paddingRight="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/inviteButton"
+                    style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/notosans_bold"
+                    android:includeFontPadding="false"
+                    android:text="@string/inviteTeam"
+                    android:textColor="@color/iDorm_blue"
+                    android:textSize="12sp"
+                    app:chipEndPadding="0dp"
+                    app:chipStartPadding="0dp"
+                    app:closeIconEndPadding="0dp"
+                    app:closeIconStartPadding="0dp"
+
+                    android:visibility="gone"
+
+                    android:layout_marginRight="24sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/teamProfileRecycler"
+                    app:layout_constraintEnd_toEndOf="@+id/teamProfileRecycler"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:textEndPadding="10dp"
+                    app:textStartPadding="10dp" />
 
 
 
@@ -82,6 +112,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16sp"
+
+                android:paddingHorizontal="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout19">
@@ -137,6 +169,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16sp"
+
+                android:paddingHorizontal="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout20">
@@ -147,7 +181,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
-                    android:text="@string/UnivCalendarSchedule"
+                    android:text="@string/univCalendarSchedule"
                     android:textColor="@color/iDorm_gray_400"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="parent"
