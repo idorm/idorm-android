@@ -222,7 +222,8 @@
 
 
     <!-- CanlendarFragment -->
-    <string name="myTeamCalendar">우리방 일정</string>
+    <string name="myTeamCalendarSchedule">우리방 일정</string>
+    <string name="UnivCalendarSchedule">기숙사 일정</string>
 
     <!-- Todo: Not categorized texts!! -->
     <string name="postViolence">idorm의 커뮤니티 가이드라인에 위배되는 게시글</string>
