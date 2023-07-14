@@ -12,6 +12,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/teamCalendarParent"
+
+        android:layout_marginBottom="6sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -82,7 +84,7 @@
             android:layout_marginTop="2sp"
             app:layout_constraintStart_toStartOf="@id/date"
             app:layout_constraintTop_toBottomOf="@id/date"
-            tools:text="인천대학교 정주대학 2.0 프로그램 시험운영 및 설명운 조사 가나다라마바사" />
+            tools:text="우리 방 청소(다들 늦지 마셈)" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/checkButton"
