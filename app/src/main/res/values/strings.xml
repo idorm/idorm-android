@@ -220,6 +220,10 @@
     <!--OnboardActivity-->
     <string name="skipInteraction">정보 입력 건너뛰기</string>
 
+
+    <!-- CanlendarFragment -->
+    <string name="myTeamCalendar">우리방 일정</string>
+
     <!-- Todo: Not categorized texts!! -->
     <string name="postViolence">idorm의 커뮤니티 가이드라인에 위배되는 게시글</string>
     <string name="changePasswordCompleted">닉네임 변경이 완료되었습니다. 변경된 비밀번호로 다시 로그인해주세요.</string>
