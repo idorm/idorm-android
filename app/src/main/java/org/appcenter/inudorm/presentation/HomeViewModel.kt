@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import org.appcenter.inudorm.model.Calendar
+import org.appcenter.inudorm.model.Schedule
 import org.appcenter.inudorm.model.Dorm
 import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.usecase.*
@@ -17,9 +17,9 @@ class HomeViewModel : ViewModel() {
     val topPostState: StateFlow<State<ArrayList<Post>>>
         get() = _topPostState
 
-    private val _calendarState = MutableStateFlow<State<ArrayList<Calendar>>>(State.Initial())
-    val calendarState: StateFlow<State<ArrayList<Calendar>>>
-        get() = _calendarState
+    private val _scheduleState = MutableStateFlow<State<ArrayList<Schedule>>>(State.Initial())
+    val scheduleState: StateFlow<State<ArrayList<Schedule>>>
+        get() = _scheduleState
 
     // Todo: 단순 fetching: loading -> fetch -> success
     fun getTopPosts() {
@@ -43,11 +43,11 @@ class HomeViewModel : ViewModel() {
 
     fun getCalendars() {
         viewModelScope.launch {
-            if (_calendarState.value is State.Loading) return@launch
+            if (_scheduleState.value is State.Loading) return@launch
 
-            _calendarState.emit(State.Loading())
-            _calendarState.emit(
-                GetCalendars().run(null)
+            _scheduleState.emit(State.Loading())
+            _scheduleState.emit(
+                GetCalendars().run(null) as State<ArrayList<Schedule>>
             )
         }
     }

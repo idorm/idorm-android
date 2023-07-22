@@ -1,6 +1,6 @@
 package org.appcenter.inudorm.model
 
-data class TeamCalendar(
+data class TeamSchedule(
     override val calendarId: Long,
     override val startDate: String?,
     override val endDate: String?,
@@ -11,7 +11,7 @@ data class TeamCalendar(
     val targets: ArrayList<TeamProfile>,
     val isSleepover: Boolean,
     val title: String
-) : CalendarData(
+) : ScheduleData(
     calendarId,
     startDate,
     endDate,

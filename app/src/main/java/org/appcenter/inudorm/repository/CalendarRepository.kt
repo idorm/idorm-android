@@ -1,27 +1,38 @@
 package org.appcenter.inudorm.repository
 
-import okhttp3.MediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
-import org.appcenter.inudorm.model.Calendar
-import org.appcenter.inudorm.model.CalendarsRequestDto
-import org.appcenter.inudorm.model.Dorm
-import org.appcenter.inudorm.model.ReportRequestDto
-import org.appcenter.inudorm.model.board.Comment
-import org.appcenter.inudorm.model.board.Post
-import org.appcenter.inudorm.model.board.PostEditDto
-import org.appcenter.inudorm.model.board.WriteCommentDto
+import org.appcenter.inudorm.model.*
 import org.appcenter.inudorm.networking.RetrofitInstance
-import retrofit2.Retrofit
-import retrofit2.http.GET
 
 class CalendarRepository {
-    suspend fun getCalendars(body: CalendarsRequestDto): ArrayList<Calendar> {
+    suspend fun getSchedules(body: SchedulesRequestDto): ArrayList<Schedule> {
         return RetrofitInstance.service.getCalendars(body)
     }
 
+    suspend fun getTeamSchedule(teamScheduleId: Long): TeamSchedule {
+        return RetrofitInstance.service.getTeamCalendar(teamScheduleId)
+    }
 
+    suspend fun editTeamSchedule(body: ScheduleUpdateDto): TeamSchedule {
+        return RetrofitInstance.service.editTeamSchedule(body)
+    }
+
+    suspend fun createTeamSchedule(body: ScheduleUpdateDto): TeamSchedule {
+        return RetrofitInstance.service.createTeamSchedule(body)
+    }
+
+    suspend fun deleteTeamSchedule(teamScheduleId: Long): TeamSchedule {
+        return RetrofitInstance.service.deleteTeamSchedule(teamScheduleId)
+    }
+
+    suspend fun editSleepOverSchedule(body: SleepOverUpdateDto): TeamSchedule {
+        return RetrofitInstance.service.editSleepOverSchedule(body)
+    }
+
+    suspend fun createSleepOverSchedule(body: SleepOverUpdateDto): TeamSchedule {
+        return RetrofitInstance.service.createSleepOverSchedule(body)
+    }
+
+    suspend fun getMonthlyTeamSchedules(body: SchedulesRequestDto) : ArrayList<TeamSchedule> {
+        return RetrofitInstance.service.getMonthlyTeamCalendars(body)
+    }
 }

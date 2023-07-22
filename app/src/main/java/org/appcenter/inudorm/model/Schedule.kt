@@ -1,6 +1,6 @@
 package org.appcenter.inudorm.model
 
-open class CalendarData(
+open class ScheduleData(
     open val calendarId: Long,
     open val startDate: String?,
     open val endDate: String?,
@@ -10,7 +10,7 @@ open class CalendarData(
     open val url: String?,
 )
 
-data class Calendar(
+data class Schedule(
     override val calendarId: Long,
     override val startDate: String?,
     override val endDate: String?,
@@ -22,7 +22,7 @@ data class Calendar(
     val isDorm2Yn: Boolean,
     val isDorm3Yn: Boolean,
     val location: String?,
-) : CalendarData(
+) : ScheduleData(
     calendarId,
     startDate,
     endDate,

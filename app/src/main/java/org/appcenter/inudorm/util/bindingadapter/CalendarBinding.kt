@@ -5,16 +5,11 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
-import org.appcenter.inudorm.model.Calendar
-import org.appcenter.inudorm.model.board.Post
+import org.appcenter.inudorm.model.Schedule
 import org.appcenter.inudorm.presentation.adapter.CalendarAdapter
-import org.appcenter.inudorm.presentation.adapter.PopularPostAdapter
 import org.appcenter.inudorm.util.State
 import org.joda.time.LocalDateTime
 import org.joda.time.format.DateTimeFormat
-import org.joda.time.format.DateTimeFormatter
-import org.joda.time.format.DateTimeFormatterBuilder
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.ArrayList
 
@@ -61,7 +56,7 @@ object CalendarBinding {
 
     @JvmStatic
     @BindingAdapter("calendarState")
-    fun RecyclerView.bindCalendarState(state: State<ArrayList<Calendar>>) {
+    fun RecyclerView.bindCalendarState(state: State<ArrayList<Schedule>>) {
         if (state !is State.Initial)
             if (adapter is CalendarAdapter && !state.isLoading() && state is State.Success) {
                 val a = adapter as CalendarAdapter

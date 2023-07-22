@@ -1,6 +1,6 @@
 package org.appcenter.inudorm.model
 
-data class CalendarUpdateDto(
+data class ScheduleUpdateDto(
     val calendarId: Long?,
     val startDate: String?,
     val endDate: String?,

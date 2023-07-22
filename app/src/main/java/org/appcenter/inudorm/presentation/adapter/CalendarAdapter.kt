@@ -7,17 +7,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.ItemCalendarBinding
-import org.appcenter.inudorm.databinding.ItemPostListBinding
-import org.appcenter.inudorm.model.Calendar
-import org.appcenter.inudorm.model.board.Post
+import org.appcenter.inudorm.model.Schedule
 
 class CalendarAdapter(
-    private var _dataSet: ArrayList<Calendar>,
-    private val onClicked: (Calendar) -> Unit,
+    private var _dataSet: ArrayList<Schedule>,
+    private val onClicked: (Schedule) -> Unit,
 ) :
     RecyclerView.Adapter<CalendarAdapter.ViewHolder>() {
 
-    var dataSet: ArrayList<Calendar>
+    var dataSet: ArrayList<Schedule>
         get() = _dataSet
         set(value) {
             _dataSet = value
@@ -25,7 +23,7 @@ class CalendarAdapter(
 
     inner class ViewHolder(
         var viewBinding: ItemCalendarBinding,
-        onClicked: (Calendar) -> Unit,
+        onClicked: (Schedule) -> Unit,
     ) :
         RecyclerView.ViewHolder(viewBinding.root) {}
 

@@ -1,33 +1,30 @@
 package org.appcenter.inudorm.networking.service
 
-import okhttp3.RequestBody
 import org.appcenter.inudorm.model.*
-import retrofit2.Response
 import retrofit2.http.*
-import java.lang.reflect.Member
 
 interface CalendarService {
     @POST("member/calendars")
-    suspend fun getCalendars(@Body body: CalendarsRequestDto): ArrayList<Calendar>
+    suspend fun getCalendars(@Body body: SchedulesRequestDto): ArrayList<Schedule>
 
     @GET("member/team/calendar")
-    suspend fun getTeamCalendar(@Query("teamCalendarId") teamCalendarId: Long): TeamCalendar
+    suspend fun getTeamCalendar(@Query("teamCalendarId") teamScheduleId: Long): TeamSchedule
 
     @PUT("member/team/calendar")
-    suspend fun editTeamCalendar(@Body body: CalendarUpdateDto): TeamCalendar
+    suspend fun editTeamSchedule(@Body body: ScheduleUpdateDto): TeamSchedule
 
     @POST("member/team/calendar")
-    suspend fun createTeamCalendar(@Body body: CalendarUpdateDto): TeamCalendar
+    suspend fun createTeamSchedule(@Body body: ScheduleUpdateDto): TeamSchedule
 
     @DELETE("member/team/calendar")
-    suspend fun deleteTeamCalendar(@Query("teamCalendarId") teamCalendarId: Long): TeamCalendar
+    suspend fun deleteTeamSchedule(@Query("teamCalendarId") teamScheduleId: Long): TeamSchedule
 
     @PUT("member/team/calendar/sleepover")
-    suspend fun editSleepOverCalendar(@Body body: SleepOverUpdateDto): TeamCalendar
+    suspend fun editSleepOverSchedule(@Body body: SleepOverUpdateDto): TeamSchedule
 
     @POST("member/team/calendar/sleepover")
-    suspend fun createSleepOverCalendar(@Body body: SleepOverUpdateDto): TeamCalendar
+    suspend fun createSleepOverSchedule(@Body body: SleepOverUpdateDto): TeamSchedule
 
     @POST("member/team/calendars")
-    suspend fun getMonthlyTeamCalendars(@Body body: MonthlyTeamCalendarRequestDto)
+    suspend fun getMonthlyTeamCalendars(@Body body: SchedulesRequestDto) : ArrayList<TeamSchedule>
 }
