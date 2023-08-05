@@ -6,16 +6,16 @@
     <data>
 
         <variable
-            name="teamCalendar"
-            type="org.appcenter.inudorm.model.TeamCalendar" />
+            name="teamSchedule"
+            type="org.appcenter.inudorm.model.TeamSchedule" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/teamCalendarParent"
 
-        android:layout_marginBottom="6sp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6sp">
 
         <ImageView
             android:id="@+id/dot"
@@ -27,7 +27,7 @@
             app:layout_constraintCircleRadius="50sp"
             app:layout_constraintEnd_toStartOf="@id/date"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/date"/>
+            app:layout_constraintTop_toTopOf="@id/date" />
 
 
         <LinearLayout
@@ -39,12 +39,12 @@
             app:layout_constraintTop_toTopOf="@id/dot">
 
             <TextView
-                date="@{teamCalendar.startDate}"
+                date="@{teamSchedule.startDate}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
                 android:fontFamily="@font/notosans_medium"
                 android:includeFontPadding="false"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 tools:text="12월 13일" />
 
@@ -52,19 +52,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" ~ "
-                android:textSize="12sp"
                 android:fontFamily="@font/notosans_medium"
                 android:includeFontPadding="false"
-                android:textColor="@color/black" />
+                android:text=" ~ "
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
             <TextView
-                date="@{teamCalendar.endDate}"
+                date="@{teamSchedule.endDate}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
                 android:fontFamily="@font/notosans_medium"
                 android:includeFontPadding="false"
+                android:textColor="@color/black"
                 android:textSize="12sp"
                 tools:text="12월 13일" />
         </LinearLayout>
@@ -73,15 +73,15 @@
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15sp"
+            android:layout_marginTop="2sp"
+            android:layout_marginEnd="24sp"
             android:fontFamily="@font/notosans_regular"
             android:includeFontPadding="false"
-            android:text="@{teamCalendar.content}"
+            android:paddingRight="40sp"
+            android:text="@{teamSchedule.content}"
             android:textColor="@color/iDorm_gray_300"
             android:textSize="12sp"
-            android:paddingRight="40sp"
-            android:layout_marginStart="15sp"
-            android:layout_marginEnd="24sp"
-            android:layout_marginTop="2sp"
             app:layout_constraintStart_toStartOf="@id/date"
             app:layout_constraintTop_toBottomOf="@id/date"
             tools:text="우리 방 청소(다들 늦지 마셈)" />
@@ -91,15 +91,12 @@
             android:layout_width="24dp"
 
             android:layout_height="24dp"
+            android:layout_marginTop="12sp"
             android:background="@drawable/ic_right_arrow"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.886"
-            android:layout_marginTop="12sp"
             app:layout_constraintStart_toEndOf="@+id/content"
             app:layout_constraintTop_toTopOf="@+id/date" />
-
-
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

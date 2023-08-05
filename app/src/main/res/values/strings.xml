@@ -299,4 +299,16 @@
         <item>MATCHINGINFO</item>
         <item>ETC</item>
     </string-array>
+
+    <string name="saturday"><font color="#FF6868">토</font></string>
+    <string name="sunday"><font color="#FF6868">일</font></string>
+    <array name="weekdays_custom">
+        <item>월</item>
+        <item>화</item>
+        <item>수</item>
+        <item>목</item>
+        <item>금</item>
+        <item>@string/saturday</item>
+        <item>@string/sunday</item>
+    </array>
 </resources>
