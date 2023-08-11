@@ -7,7 +7,7 @@
 
         <variable
             name="calendar"
-            type="org.appcenter.inudorm.model.Calendar" />
+            type="org.appcenter.inudorm.model.Schedule" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

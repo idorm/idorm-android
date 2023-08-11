@@ -4,241 +4,179 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="org.appcenter.inudorm.presentation.calendar.CalendarViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="90sp"
-            android:backgroundTint="@color/iDorm_blue"
-            android:fontFamily="@font/notosans_bold"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:letterSpacing="0.02"
-            android:elevation="6dp"
-            android:text="@string/registerSchedule"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-
-            app:icon="@drawable/ic_write"
-            app:iconGravity="textStart"
-            app:iconPadding="6dp"
-            app:iconSize="18sp"
-            app:iconTint="@color/white"
-
-
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.core.widget.NestedScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:background="@color/iDorm_matching_screen"
+
+            android:padding="24sp"
+
+            tools:context=".presentation.calendar.CalendarFragment">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout7"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/iDorm_matching_screen"
+                android:layout_height="wrap_content"
 
-                tools:context=".presentation.calendar.CalendarFragment">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout7"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/teamProfileRecycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/iDorm_matching_screen"
 
-                    android:background="@color/iDorm_gray_100"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
 
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/teamProfileRecycler"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/iDorm_gray_100"
-
-                        android:orientation="horizontal"
-                        android:paddingStart="14sp"
-
-                        android:paddingTop="18sp"
-                        android:paddingBottom="14sp"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-
-                        tools:itemCount="4"
-                        tools:listitem="@layout/item_team_profile" />
-
-                    <ImageView
-                        android:id="@+id/more"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingRight="14sp"
-
-                        android:src="@drawable/ic_more"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/inviteButton"
-                        style="@style/Widget.DesignSystem.Chip.OutlinedBox.Choice3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="24dp"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="24sp"
-                        android:fontFamily="@font/notosans_bold"
-                        android:includeFontPadding="false"
-                        android:text="@string/inviteTeam"
-                        android:textColor="@color/iDorm_blue"
-                        android:textSize="12sp"
-                        android:visibility="gone"
-                        app:chipEndPadding="0dp"
-                        app:chipStartPadding="0dp"
-
-                        app:closeIconEndPadding="0dp"
-
-                        app:closeIconStartPadding="0dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/teamProfileRecycler"
-                        app:layout_constraintEnd_toEndOf="@+id/teamProfileRecycler"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:textEndPadding="10dp"
-                        app:textStartPadding="10dp" />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout19"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
+                    app:layout_constraintTop_toTopOf="parent"
 
-                    <CalendarView
-                        android:id="@+id/calendarView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                    tools:itemCount="4"
+                    tools:listitem="@layout/item_team_profile" />
 
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout20"
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/more"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16sp"
+                    android:src="@drawable/ic_more"
 
-                    android:paddingHorizontal="24sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout19">
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/notosans_regular"
-                        android:includeFontPadding="false"
-                        android:text="@string/myTeamCalendarSchedule"
-                        android:textColor="@color/iDorm_gray_400"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="13sp"
-
-                        android:background="@drawable/view_round_stroke"
-                        android:paddingStart="26sp"
-                        android:paddingTop="14sp"
-                        android:paddingEnd="19sp"
-                        android:paddingBottom="16sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView">
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/teamCalendarRecycler"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/iDorm_matching_screen"
-
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-
-                            tools:itemCount="2"
-                            tools:listitem="@layout/item_team_calendar" />
-
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16sp"
-
-                    android:paddingHorizontal="24sp"
-                    android:layout_marginBottom="68sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout20">
-
-                    <TextView
-                        android:id="@+id/textView8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/notosans_regular"
-                        android:includeFontPadding="false"
-                        android:text="@string/univCalendarSchedule"
-                        android:textColor="@color/iDorm_gray_400"
-                        android:textSize="12sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/officialEvents"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginVertical="12sp"
-                        android:orientation="vertical"
-                        android:overScrollMode="never"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView8"
-                        tools:listitem="@layout/item_calendar" />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.core.widget.NestedScrollView>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout19"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
+
+                <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                    android:id="@+id/calendarView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:mcv_selectionColor="#00F"
+                    app:mcv_showOtherDates="all"
+                    app:mcv_weekDayLabels="@array/weekdays_custom"
+                    app:selectedDay="@={viewModel.selectedDay}"
+                    />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout19">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="@string/myTeamCalendarSchedule"
+                    android:textColor="@color/iDorm_gray_400"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13sp"
+
+                    android:background="@drawable/view_round_stroke"
+                    android:paddingStart="26sp"
+                    android:paddingTop="14sp"
+                    android:paddingEnd="19sp"
+                    android:paddingBottom="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/teamCalendarRecycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/iDorm_matching_screen"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+
+                        tools:itemCount="2"
+                        tools:listitem="@layout/item_team_calendar" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout20">
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosans_regular"
+                    android:includeFontPadding="false"
+                    android:text="@string/UnivCalendarSchedule"
+                    android:textColor="@color/iDorm_gray_400"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/officialEvents"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginVertical="12sp"
+                    android:orientation="vertical"
+                    android:overScrollMode="never"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView8"
+                    tools:listitem="@layout/item_calendar" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </layout>

@@ -8,25 +8,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.FlowCollector
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentHomeBinding
-import org.appcenter.inudorm.model.Calendar
+import org.appcenter.inudorm.model.Schedule
 import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.networking.UIErrorHandler
-import org.appcenter.inudorm.presentation.account.OnboardActivity
 import org.appcenter.inudorm.presentation.adapter.CalendarAdapter
 import org.appcenter.inudorm.presentation.adapter.PopularPostAdapter
 import org.appcenter.inudorm.presentation.board.BoardFragment
 import org.appcenter.inudorm.presentation.board.PostDetailActivity
 import org.appcenter.inudorm.presentation.board.WritePostActivity
 import org.appcenter.inudorm.presentation.matching.MatchingFragment
-import org.appcenter.inudorm.presentation.onboard.BaseInfoPurpose
 import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.util.State
 import org.appcenter.inudorm.util.WindowUtil.setStatusBarColor
@@ -82,7 +78,7 @@ class HomeFragment : LoadingFragment() {
             else -> {}
         }
     }
-    private val calendarCollector = FlowCollector<State<ArrayList<Calendar>>> { state ->
+    private val scheduleCollector = FlowCollector<State<ArrayList<Schedule>>> { state ->
         setLoadingState(state.isLoading())
         when (state) {
             is State.Error -> {
@@ -134,7 +130,7 @@ class HomeFragment : LoadingFragment() {
             viewModel.topPostState.collect(topPostsCollector)
         }
         lifecycleScope.launch {
-            viewModel.calendarState.collect(calendarCollector)
+            viewModel.scheduleState.collect(scheduleCollector)
         }
     }
 

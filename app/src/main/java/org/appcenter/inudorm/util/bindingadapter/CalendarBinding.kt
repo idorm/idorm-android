@@ -3,18 +3,20 @@ package org.appcenter.inudorm.util.bindingadapter
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
+import androidx.databinding.InverseBindingListener
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
-import org.appcenter.inudorm.model.Calendar
-import org.appcenter.inudorm.model.board.Post
+import com.google.android.material.chip.ChipGroup
+import com.prolificinteractive.materialcalendarview.CalendarDay
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView
+import org.appcenter.inudorm.model.Schedule
 import org.appcenter.inudorm.presentation.adapter.CalendarAdapter
-import org.appcenter.inudorm.presentation.adapter.PopularPostAdapter
+import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.State
 import org.joda.time.LocalDateTime
+import org.joda.time.LocalDate
 import org.joda.time.format.DateTimeFormat
-import org.joda.time.format.DateTimeFormatter
-import org.joda.time.format.DateTimeFormatterBuilder
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.ArrayList
 
@@ -61,7 +63,7 @@ object CalendarBinding {
 
     @JvmStatic
     @BindingAdapter("calendarState")
-    fun RecyclerView.bindCalendarState(state: State<ArrayList<Calendar>>) {
+    fun RecyclerView.bindCalendarState(state: State<ArrayList<Schedule>>) {
         if (state !is State.Initial)
             if (adapter is CalendarAdapter && !state.isLoading() && state is State.Success) {
                 val a = adapter as CalendarAdapter
@@ -75,6 +77,39 @@ object CalendarBinding {
     @BindingAdapter("dormVisibility")
     fun Chip.dormVisibility(visible: Boolean?) {
         visibility = if (visible == true) View.VISIBLE else View.GONE
+    }
+
+
+    @JvmStatic
+    @BindingAdapter("selectedDay")
+    fun MaterialCalendarView.bindSelectedDay(selectedDay: Int?) {
+        if (selectedDay != null) {
+            // FIXME: currentDate 가 현재 시스템 날짜인지 선택된 날짜인지 탭 형태로 넘긴 달 페이지인지 모름
+            val date = this.currentDate
+
+            // Todo: 현재 방식은 currentDate에 의존적임.
+            IDormLogger.i(this, selectedDay.toString())
+            this.selectedDate = CalendarDay.from(date.year, date.month, selectedDay)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["android:onDateChanged"], requireAll = false)
+    fun MaterialCalendarView.onSelectDay(attrChanged: InverseBindingListener?) {
+        IDormLogger.i(this, "date change listener setted")
+        setOnDateChangedListener { widget, date, selected ->
+            attrChanged?.onChange()
+        }
+    }
+
+    @JvmStatic
+    @InverseBindingAdapter(attribute = "selectedDay", event = "android:onDateChanged")
+    fun MaterialCalendarView.getSelectedDay(): Int {
+        IDormLogger.i(this, "${selectedDate?.year}/${selectedDate?.month}/${selectedDate?.day}")
+        return selectedDate?.day ?: 1
+//        return if (selectedDate != null)
+//            LocalDate.parse("${selectedDate?.year}/${selectedDate?.month}/${selectedDate?.day}")
+//        else LocalDate.now()
     }
 
 
