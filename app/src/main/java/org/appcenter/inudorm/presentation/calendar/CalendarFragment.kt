@@ -15,7 +15,11 @@ import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentCalendarBinding
 import org.appcenter.inudorm.model.TeamProfile
 import org.appcenter.inudorm.presentation.adapter.TeamProfileAdapter
+import org.appcenter.inudorm.usecase.getCalendarDateFormat
 import org.appcenter.inudorm.util.IDormLogger
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.Date
 
 val mateColors = listOf(
     R.color.iDorm_purple,
@@ -75,7 +79,7 @@ class CalendarFragment : Fragment() {
 
         binding.calendarView.addDecorators(
             TodayDecorator(todayBackground!!),
-            SelectDecorator(selectedBackground!!),
+//            SelectDecorator(selectedBackground!!),
         )
         binding.calendarView.setTitleFormatter {
             "${it.month}월"
@@ -85,11 +89,14 @@ class CalendarFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(CalendarViewModel::class.java)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = this.requireActivity()
+        binding.viewModel = viewModel
         binding.calendarView.setOnDateChangedListener(viewModel.onDateChanged)
         viewModel.selectedDay.observe(binding.lifecycleOwner!!) {
             IDormLogger.i(this, it.toString())
         }
+//        viewModel.getSchedules(getCalendarDateFormat.format(date))
+        viewModel.getSchedules("2023-04")
 
     }
 
