@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="teamSchedule"
+            type="org.appcenter.inudorm.model.TeamSchedule" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/teamCalendarParent"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6sp">
+
+
+        <LinearLayout
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                date="@{teamSchedule.startDate}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosans_medium"
+                android:includeFontPadding="false"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                tools:text="12월 13일" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosans_medium"
+                android:includeFontPadding="false"
+                android:text=" ~ "
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <TextView
+                date="@{teamSchedule.endDate}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/notosans_medium"
+                android:includeFontPadding="false"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                tools:text="12월 13일" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
+            android:paddingRight="40sp"
+            android:text="@{teamSchedule.content}"
+            android:textColor="@color/iDorm_gray_300"
+            android:textSize="12sp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/date"
+            tools:text="외박" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/checkButton"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:background="@drawable/ic_right_arrow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

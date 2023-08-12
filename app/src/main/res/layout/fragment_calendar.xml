@@ -19,6 +19,7 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/registerSchedule"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="90sp"
@@ -27,10 +28,6 @@
                 android:gravity="center"
                 android:includeFontPadding="false"
                 android:letterSpacing="0.02"
-                android:paddingStart="18dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="18dp"
-                android:paddingBottom="10dp"
                 android:text="@string/registerSchedule"
                 android:textColor="@color/white"
                 android:textSize="16sp"
@@ -40,6 +37,40 @@
                 app:iconSize="18sp"
                 app:iconTint="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/registerTeamSchedule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16sp"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/notosans_bold"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.02"
+                android:text="@string/registerTeamSchedule"
+                android:textColor="@color/iDorm_blue"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/registerSchedule"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/registerSleepover"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16sp"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/notosans_bold"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.02"
+                android:text="@string/registerSleepover"
+                android:textColor="@color/iDorm_blue"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/registerTeamSchedule"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
