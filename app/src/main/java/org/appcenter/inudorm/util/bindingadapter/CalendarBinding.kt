@@ -110,10 +110,11 @@ object CalendarBinding {
 
     @JvmStatic
     @BindingAdapter("schedules")
-    fun MaterialCalendarView.bindSchedules(_state: State<List<TeamSchedule>>) {
+    fun MaterialCalendarView.bindSchedules(_state: State<List<TeamSchedule>>?) {
         // 팀원 별로 데코레이터를 달아줘야함.
         // 스케쥴 별 -> 팀원 별로 변환 필요
         // Todo: 에러/로딩 처리
+        if (_state == null) return
         if (_state is State.Loading) return
         if (_state is State.Error) return
         val memberToScheduleMap = mutableMapOf<Int, List<TeamSchedule>>()
@@ -132,7 +133,7 @@ object CalendarBinding {
                 CalendarDay.from(date.year, date.monthValue, date.dayOfMonth)
             }
             EventDecorator(
-                mateColors[it.key + 1],
+                mateColors[it.key],
                 dates
             )
         }

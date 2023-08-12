@@ -33,7 +33,7 @@ import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.OkDialog
 import org.appcenter.inudorm.util.WindowUtil.setStatusBarColor
 
-class MyPageFragment : LoadingFragment() {
+class MyPageFragment : Fragment() {
 
     companion object {
         fun newInstance() = MyPageFragment()

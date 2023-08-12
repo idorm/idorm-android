@@ -7,11 +7,12 @@ import org.appcenter.inudorm.model.SchedulesRequestDto
 import org.joda.time.LocalDateTime
 import java.text.SimpleDateFormat
 
+val getCalendarDateFormat = SimpleDateFormat("yyyy-MM")
+
 class GetCalendars : ResultUseCase<Nothing?, ArrayList<ScheduleData>>() {
     override suspend fun onExecute(params: Nothing?): ArrayList<ScheduleData> {
         val date = LocalDateTime.now().toDate()
-        val format = SimpleDateFormat("yyyy-MM")
-        val yearMonth = format.format(date)
+        val yearMonth = getCalendarDateFormat.format(date)
         val param = SchedulesRequestDto(yearMonth)
         val officialSchedules = calendarRepository.getSchedules(param)
         val teamSchedules = calendarRepository.getMonthlyTeamSchedules(param)
