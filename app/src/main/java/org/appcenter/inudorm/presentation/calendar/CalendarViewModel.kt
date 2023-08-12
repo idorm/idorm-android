@@ -32,7 +32,7 @@ class CalendarViewModel : ViewModel() {
     val schedules: MutableStateFlow<State<List<TeamSchedule>>> =
         MutableStateFlow(State.Initial())
 
-    fun getSchedules() {
+    fun _getSchedules() {
         // Todo: Get Schedules
 //        schedules.emit()
     }
