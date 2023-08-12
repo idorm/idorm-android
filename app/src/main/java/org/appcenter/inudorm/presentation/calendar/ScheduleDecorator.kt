@@ -26,7 +26,7 @@ class EventDecorator(private val color: Int, dates: Collection<CalendarDay>?) :
     }
 }
 
-class TodayDecorator(private val color: Int, private val backgroundDrawable: Drawable) :
+class TodayDecorator(private val backgroundDrawable: Drawable) :
     DayViewDecorator {
     override fun shouldDecorate(day: CalendarDay): Boolean {
         return LocalDate.of(day.year, day.month, day.day) == LocalDate.now()
@@ -35,4 +35,15 @@ class TodayDecorator(private val color: Int, private val backgroundDrawable: Dra
     override fun decorate(view: DayViewFacade) {
         view.setBackgroundDrawable(backgroundDrawable)
     }
+}
+
+class SelectDecorator(private val backgroundDrawable: Drawable) : DayViewDecorator {
+    override fun shouldDecorate(day: CalendarDay?): Boolean {
+        return true
+    }
+
+    override fun decorate(view: DayViewFacade?) {
+        view?.setSelectionDrawable(backgroundDrawable)
+    }
+
 }

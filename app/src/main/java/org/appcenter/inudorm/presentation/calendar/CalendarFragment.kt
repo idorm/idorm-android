@@ -62,13 +62,16 @@ class CalendarFragment : Fragment() {
             teamProfileRecycler.adapter = adapter
         }
 
-        val todayBackground = getDrawable(this.requireActivity(), R.drawable.ic_alram_dot)
+        val todayBackground = getDrawable(this.requireActivity(), R.drawable.ic_today)
+        val selectedBackground =
+            getDrawable(this.requireActivity(), R.drawable.selector_calendar_custom)
         binding.calendarView.addDecorators(
             EventDecorator(
                 R.color.iDorm_blue,
                 listOf(CalendarDay.today())
             ),
-            TodayDecorator(R.color.iDorm_gray_200, todayBackground!!)
+            TodayDecorator(todayBackground!!),
+            SelectDecorator(selectedBackground!!),
         )
         binding.calendarView.setTitleFormatter {
             "${it.month}월"
