@@ -9,7 +9,43 @@
             type="org.appcenter.inudorm.presentation.calendar.CalendarViewModel" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="90sp"
+                android:backgroundTint="@color/iDorm_blue"
+                android:fontFamily="@font/notosans_bold"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.02"
+                android:paddingStart="18dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="18dp"
+                android:paddingBottom="10dp"
+                android:text="@string/registerSchedule"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:icon="@drawable/ic_write"
+                app:iconGravity="textStart"
+                app:iconPadding="6dp"
+                app:iconSize="18sp"
+                app:iconTint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+                <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -22,6 +58,8 @@
 
             tools:context=".presentation.calendar.CalendarFragment">
 
+
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout7"
                 android:layout_width="match_parent"
@@ -29,6 +67,8 @@
 
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
+
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/teamProfileRecycler"
@@ -63,6 +103,7 @@
                 android:id="@+id/constraintLayout19"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
@@ -79,6 +120,7 @@
                     app:mcv_weekDayLabels="@array/weekdays_custom"
                     app:selectedDay="@={viewModel.selectedDay}"
                     />
+
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -153,7 +195,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/notosans_regular"
                     android:includeFontPadding="false"
-                    android:text="@string/UnivCalendarSchedule"
+                    android:text="@string/univCalendarSchedule"
                     android:textColor="@color/iDorm_gray_400"
                     android:textSize="12sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -178,5 +220,9 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
 
 </layout>
