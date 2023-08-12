@@ -234,6 +234,7 @@
     <string name="startDate">시작</string>
     <string name="endDate">종료</string>
     <string name="scheduleTarget">일정 참여자</string>
+    <string name="deleteSchedule">일정 삭제</string>
 
 
     <!-- Todo: Not categorized texts!! -->

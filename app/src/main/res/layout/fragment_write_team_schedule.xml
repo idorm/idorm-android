@@ -21,8 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fillViewport="true"
-            android:paddingBottom="60dp">
+            android:fillViewport="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -151,11 +150,13 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout27"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="24sp"
                     android:layout_marginTop="24sp"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout25">
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout25"
+                    tools:layout_editor_absoluteX="24dp">
 
                     <TextView
                         android:id="@+id/scheduleTarget"
@@ -170,8 +171,11 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout26"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+
+                        android:layout_marginTop="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/scheduleTarget">
@@ -189,12 +193,12 @@
                             android:id="@+id/teamProfileRecycler"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@color/iDorm_matching_screen"
-
-                            android:orientation="horizontal"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-
                             android:layout_marginStart="16sp"
+
+                            android:background="@color/iDorm_matching_screen"
+                            android:orientation="horizontal"
+
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/imageView7"
                             app:layout_constraintTop_toTopOf="parent"
@@ -205,11 +209,44 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/materialDivider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1sp"
+                    android:layout_marginHorizontal="24sp"
+                    app:dividerColor="@color/iDorm_gray_200"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout27" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="24sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/materialDivider2">
+
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="24sp"
+                        android:layout_height="24sp"
+                        android:src="@drawable/ic_pencil_stroke"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <org.appcenter.inudorm.presentation.LinedEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="40sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView9"
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 
 
@@ -256,7 +293,7 @@
 
                     android:fontFamily="@font/notosans_medium"
                     android:includeFontPadding="false"
-                    android:text="@string/initializationInputInteraction"
+                    android:text="@string/deleteSchedule"
 
                     android:textColor="@color/iDorm_gray_400"
                     android:textSize="16sp"
@@ -264,14 +301,12 @@
 
                     app:backgroundTint="@color/iDorm_gray_100"
                     app:cornerRadius="6dp"
-                    app:icon="@drawable/ic_initialization"
-                    app:iconGravity="textStart"
 
                     app:iconTint="@color/iDorm_gray_400"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
 
-                    app:layout_constraintWidth_percent="0.49"/>
+                    app:layout_constraintWidth_percent="0.40"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
