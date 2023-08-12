@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.getDrawable
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -61,12 +62,13 @@ class CalendarFragment : Fragment() {
             teamProfileRecycler.adapter = adapter
         }
 
+        val todayBackground = getDrawable(this.requireActivity(), R.drawable.ic_alram_dot)
         binding.calendarView.addDecorators(
             EventDecorator(
                 R.color.iDorm_blue,
                 listOf(CalendarDay.today())
             ),
-            TodayDecorator(R.color.iDorm_gray_200)
+            TodayDecorator(R.color.iDorm_gray_200, todayBackground!!)
         )
         binding.calendarView.setTitleFormatter {
             "${it.month}월"

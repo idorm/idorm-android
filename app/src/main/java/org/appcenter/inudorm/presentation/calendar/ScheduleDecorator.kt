@@ -1,9 +1,11 @@
 package org.appcenter.inudorm.presentation.calendar
 
+import android.graphics.drawable.Drawable
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
 import com.prolificinteractive.materialcalendarview.spans.DotSpan
+import org.appcenter.inudorm.R
 import java.time.LocalDate
 
 
@@ -24,13 +26,13 @@ class EventDecorator(private val color: Int, dates: Collection<CalendarDay>?) :
     }
 }
 
-class TodayDecorator(private val color: Int) :
+class TodayDecorator(private val color: Int, private val backgroundDrawable: Drawable) :
     DayViewDecorator {
     override fun shouldDecorate(day: CalendarDay): Boolean {
         return LocalDate.of(day.year, day.month, day.day) == LocalDate.now()
     }
 
     override fun decorate(view: DayViewFacade) {
-        view.addSpan(DotSpan(2f, color))
+        view.setBackgroundDrawable(backgroundDrawable)
     }
 }

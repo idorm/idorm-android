@@ -13,6 +13,7 @@ import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.Response
 import okhttp3.ResponseBody
+import okhttp3.ResponseBody.Companion.toResponseBody
 import org.appcenter.inudorm.App
 import org.appcenter.inudorm.model.ErrorResponse
 import org.appcenter.inudorm.util.IDormLogger
@@ -88,11 +89,12 @@ class ResponseInterceptor : Interceptor {
                         ?: throw IOException("${response.code} 에러 발생.")
 
                 val emptyList = App.gson.toJson(listOf<Any>())
-                if (result.status == 404) return response.newBuilder()
+                val newResponse = response.newBuilder()
                     .code(200)
-                    .body(ResponseBody.create("application/json".toMediaTypeOrNull(), emptyList))
+                    .body(emptyList.toResponseBody("application/json".toMediaTypeOrNull()))
                     .build()
 
+                if (result.status != null) return newResponse
                 IDormLogger.e(
                     this,
                     " ${result.code} |  ${result.code.asEnumOrDefault<ErrorCode>(null)}"
