@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?><!-- Todo: Not prettified. not Frames. -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="baseInfoViewModel"
+            type="org.appcenter.inudorm.presentation.onboard.BaseInformationViewModel" />
+    </data>
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".presentation.onboard.BaseInformationFragment">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fillViewport="true"
+            android:paddingBottom="60dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/backBtn"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/ic_left_arrow"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginStart="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/notosans_medium"
+                    android:includeFontPadding="false"
+                    android:text="@string/teamScheduleName"
+                    android:textColor="@color/iDorm_gray_300"
+                    android:textSize="24sp"
+                    android:layout_marginTop="24sp"
+                    app:layout_constraintStart_toStartOf="@+id/backBtn"
+                    app:layout_constraintTop_toBottomOf="@+id/backBtn" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout24"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24sp"
+                    android:layout_marginTop="30sp"
+                    android:layout_marginEnd="28sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView">
+
+                    <TextView
+                        android:id="@+id/start"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosans_medium"
+                        android:includeFontPadding="false"
+                        android:text="@string/startDate"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/startDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosans_medium"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="03월 22일 (목)" />
+
+                    <TextView
+                        android:id="@+id/startTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosans_medium"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/iDorm_gray_300"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="@+id/startDate"
+                        app:layout_constraintTop_toBottomOf="@+id/startDate"
+                        tools:text="오전 12시" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout25"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24sp"
+                    android:layout_marginTop="18sp"
+                    android:layout_marginEnd="28sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout24">
+
+                    <TextView
+                        android:id="@+id/end"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosans_medium"
+                        android:includeFontPadding="false"
+                        android:text="@string/endDate"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/endDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosans_medium"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="03월 22일 (목)" />
+
+                    <TextView
+                        android:id="@+id/endTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosans_medium"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/iDorm_gray_300"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="@+id/endDate"
+                        app:layout_constraintTop_toBottomOf="@+id/endDate"
+                        tools:text="오전 12시" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="24sp"
+                    android:layout_marginTop="24sp"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout25">
+
+                    <TextView
+                        android:id="@+id/scheduleTarget"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosans_medium"
+                        android:includeFontPadding="false"
+                        android:text="@string/scheduleTarget"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/scheduleTarget">
+
+                        <ImageView
+                            android:id="@+id/imageView7"
+                            android:layout_width="24sp"
+                            android:layout_height="24sp"
+                            android:src="@drawable/ic_person_stroke"
+                            app:layout_constraintBottom_toBottomOf="@+id/teamProfileRecycler"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/teamProfileRecycler" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/teamProfileRecycler"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/iDorm_matching_screen"
+
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+                            android:layout_marginStart="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/imageView7"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:itemCount="4"
+                            tools:listitem="@layout/item_team_profile" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout16"
+                android:layout_width="match_parent"
+                android:layout_height="84dp"
+                android:background="@color/white"
+                android:elevation="10dp"
+                android:paddingHorizontal="24dp"
+                android:paddingBottom="16dp">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/doneButton"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:background="@drawable/view_button_round_6"
+
+                    android:fontFamily="@font/notosans_medium"
+                    android:includeFontPadding="false"
+                    android:text="@string/doneInteraction"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintWidth_percent="0.3" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@id/initializationButton"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:background="@drawable/view_button_round_6_gray_100"
+
+                    android:fontFamily="@font/notosans_medium"
+                    android:includeFontPadding="false"
+                    android:text="@string/initializationInputInteraction"
+
+                    android:textColor="@color/iDorm_gray_400"
+                    android:textSize="16sp"
+                    android:theme="@style/Widget.DesignSystem.MaterialButton.withIcon"
+
+                    app:backgroundTint="@color/iDorm_gray_100"
+                    app:cornerRadius="6dp"
+                    app:icon="@drawable/ic_initialization"
+                    app:iconGravity="textStart"
+
+                    app:iconTint="@color/iDorm_gray_400"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+
+                    app:layout_constraintWidth_percent="0.49"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

@@ -229,6 +229,13 @@
     <string name="registerTeamSchedule">우리방 일정</string>
     <string name="registerSleepover">외박 일정</string>
 
+    <!--writeTeamSchedule -->
+    <string name="teamScheduleName">우리방 일정 이름</string>
+    <string name="startDate">시작</string>
+    <string name="endDate">종료</string>
+    <string name="scheduleTarget">일정 참여자</string>
+
+
     <!-- Todo: Not categorized texts!! -->
     <string name="postViolence">idorm의 커뮤니티 가이드라인에 위배되는 게시글</string>
     <string name="changePasswordCompleted">닉네임 변경이 완료되었습니다. 변경된 비밀번호로 다시 로그인해주세요.</string>
