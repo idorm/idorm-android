@@ -17,6 +17,13 @@ import org.appcenter.inudorm.model.TeamProfile
 import org.appcenter.inudorm.presentation.adapter.TeamProfileAdapter
 import org.appcenter.inudorm.util.IDormLogger
 
+val mateColors = listOf(
+    R.color.iDorm_purple,
+    R.color.iDorm_yellow3,
+    R.color.iDorm_green2,
+    R.color.iDorm_pink
+)
+
 class CalendarFragment : Fragment() {
 
     companion object {
@@ -65,11 +72,8 @@ class CalendarFragment : Fragment() {
         val todayBackground = getDrawable(this.requireActivity(), R.drawable.ic_today)
         val selectedBackground =
             getDrawable(this.requireActivity(), R.drawable.selector_calendar_custom)
+
         binding.calendarView.addDecorators(
-            EventDecorator(
-                R.color.iDorm_blue,
-                listOf(CalendarDay.today())
-            ),
             TodayDecorator(todayBackground!!),
             SelectDecorator(selectedBackground!!),
         )
@@ -86,6 +90,7 @@ class CalendarFragment : Fragment() {
         viewModel.selectedDay.observe(binding.lifecycleOwner!!) {
             IDormLogger.i(this, it.toString())
         }
+
     }
 
 }

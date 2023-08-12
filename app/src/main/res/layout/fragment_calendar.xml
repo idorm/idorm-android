@@ -145,6 +145,7 @@
                                 app:mcv_showOtherDates="all"
                                 app:mcv_weekDayLabels="@array/weekdays_custom"
                                 app:selectedDay="@{viewModel.selectedDay}"
+                                app:schedules="@{viewModel.schedules}"
                                 />
 
 

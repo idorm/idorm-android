@@ -13,8 +13,12 @@ import com.google.android.material.chip.Chip
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
+import org.appcenter.inudorm.R
 import org.appcenter.inudorm.model.Schedule
+import org.appcenter.inudorm.model.TeamSchedule
 import org.appcenter.inudorm.presentation.adapter.CalendarAdapter
+import org.appcenter.inudorm.presentation.calendar.EventDecorator
+import org.appcenter.inudorm.presentation.calendar.mateColors
 import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.State
 import java.text.SimpleDateFormat
@@ -102,6 +106,37 @@ object CalendarBinding {
             this.setOnDateChangedListener(listener)
 
         }
+    }
+
+    @JvmStatic
+    @BindingAdapter("schedules")
+    fun MaterialCalendarView.bindSchedules(_state: State<List<TeamSchedule>>) {
+        // 팀원 별로 데코레이터를 달아줘야함.
+        // 스케쥴 별 -> 팀원 별로 변환 필요
+        // Todo: 에러/로딩 처리
+        if (_state is State.Loading) return
+        if (_state is State.Error) return
+        val memberToScheduleMap = mutableMapOf<Int, List<TeamSchedule>>()
+        val state = (_state as State.Success)
+        state.data?.forEach { schedule ->
+            schedule.targets.forEach { profile ->
+                memberToScheduleMap.merge(profile.order!!, listOf(schedule)) { prev, curr ->
+                    prev + curr
+                }
+            }
+        }
+
+        val decorators = memberToScheduleMap.map {
+            val dates = it.value.map { schedule ->
+                val date = LocalDate.parse(schedule.startDate)
+                CalendarDay.from(date.year, date.monthValue, date.dayOfMonth)
+            }
+            EventDecorator(
+                mateColors[it.key + 1],
+                dates
+            )
+        }
+        this.addDecorators(decorators)
     }
 
 

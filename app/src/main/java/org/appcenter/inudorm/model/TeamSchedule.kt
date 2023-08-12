@@ -8,7 +8,7 @@ data class TeamSchedule(
     override val endTime: String?,
     override val content: String?,
     override val url: String?,
-    val targets: ArrayList<TeamProfile>,
+    val targets: List<TeamProfile>,
     val isSleepover: Boolean,
     val title: String
 ) : ScheduleData(

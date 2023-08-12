@@ -6,7 +6,12 @@ import androidx.lifecycle.ViewModel
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
+import kotlinx.coroutines.flow.MutableStateFlow
+import org.appcenter.inudorm.model.Schedule
+import org.appcenter.inudorm.model.TeamProfile
+import org.appcenter.inudorm.model.TeamSchedule
 import org.appcenter.inudorm.util.IDormLogger
+import org.appcenter.inudorm.util.State
 import java.time.LocalDate
 
 
@@ -23,6 +28,14 @@ class CalendarViewModel : ViewModel() {
             }
         }
 
+
+    val schedules: MutableStateFlow<State<List<TeamSchedule>>> =
+        MutableStateFlow(State.Initial())
+
+    fun getSchedules() {
+        // Todo: Get Schedules
+//        schedules.emit()
+    }
 
 
 //    fun onDateChanged(widget: MaterialCalendarView, date: CalendarDay, selected: Boolean) {
