@@ -16,36 +16,25 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10sp"
         android:background="@drawable/view_round_stroke"
-        android:padding="22sp">
-
-        <ImageView
-            android:id="@+id/dot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12sp"
-            android:background="@drawable/ic_circle_idorm_blue"
-            android:orientation="vertical"
-            app:layout_constraintCircleRadius="50sp"
-            app:layout_constraintEnd_toStartOf="@id/date"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/date"/>
+        android:paddingStart="32sp"
+        android:paddingVertical="22sp"
+        android:paddingEnd="24sp">
 
 
         <LinearLayout
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="12sp"
-            app:layout_constraintStart_toEndOf="@id/dot"
-            app:layout_constraintTop_toTopOf="@id/dot">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 date="@{calendar.startDate}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
+                android:textColor="@color/black"
                 android:textSize="14sp"
                 tools:text="12월 13일" />
 
@@ -53,51 +42,45 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" ~ "
-                android:textSize="14sp"
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
-                android:textColor="@color/black" />
+                android:text=" ~ "
+                android:textColor="@color/black"
+                android:textSize="14sp" />
 
             <TextView
                 date="@{calendar.endDate}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
                 android:fontFamily="@font/notosans_regular"
                 android:includeFontPadding="false"
+                android:textColor="@color/black"
                 android:textSize="14sp"
                 tools:text="12월 13일" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/content"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="2sp"
             android:fontFamily="@font/notosans_regular"
             android:includeFontPadding="false"
+            android:paddingRight="24sp"
             android:text="@{calendar.content}"
             android:textColor="@color/black"
             android:textSize="14sp"
-            android:paddingRight="40sp"
-            android:layout_marginTop="2sp"
             app:layout_constraintStart_toStartOf="@id/date"
             app:layout_constraintTop_toBottomOf="@id/date"
-            android:layout_marginStart="15sp"
-            android:layout_marginEnd="24sp"
-            tools:text="인천대학교 정주대학 2.0 프로그램 시험운영 및 설명운 조사 가나다라마바사" />
+            tools:text="인천대학교 정주대학 2.0 프로그램 시험운영 및 설명운영 및 조사 가나다라마바사" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/checkButton"
             android:layout_width="24dp"
-
             android:layout_height="24dp"
             android:background="@drawable/ic_right_arrow"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.886"
-            android:layout_marginTop="12sp"
-            app:layout_constraintStart_toEndOf="@+id/content"
-            app:layout_constraintTop_toTopOf="@+id/date" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/hasCalendar"
