@@ -19,7 +19,7 @@ android {
 
     defaultConfig {
         applicationId "org.appcenter.inudorm"
-        minSdk 23
+        minSdk 26
         targetSdk 33
         versionCode 12
         versionName "1.0.2"

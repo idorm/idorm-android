@@ -3,21 +3,23 @@ package org.appcenter.inudorm.util.bindingadapter
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.databinding.BindingMethod
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
+import androidx.databinding.InverseBindingMethod
+import androidx.databinding.InverseBindingMethods
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
 import org.appcenter.inudorm.model.Schedule
 import org.appcenter.inudorm.presentation.adapter.CalendarAdapter
 import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.State
-import org.joda.time.LocalDateTime
-import org.joda.time.LocalDate
-import org.joda.time.format.DateTimeFormat
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.util.ArrayList
 
 object CalendarBinding {
@@ -30,8 +32,7 @@ object CalendarBinding {
         try {
 
             val date =
-                LocalDateTime.parse(stringDate, DateTimeFormat.forPattern("yyyy-MM-dd"))
-                    .toDate()
+                SimpleDateFormat("yyyy-MM-dd").parse(stringDate)
             val format = SimpleDateFormat("MM월 dd일")
             text = format.format(date)
 
@@ -79,37 +80,28 @@ object CalendarBinding {
         visibility = if (visible == true) View.VISIBLE else View.GONE
     }
 
-
     @JvmStatic
     @BindingAdapter("selectedDay")
     fun MaterialCalendarView.bindSelectedDay(selectedDay: Int?) {
         if (selectedDay != null) {
-            // FIXME: currentDate 가 현재 시스템 날짜인지 선택된 날짜인지 탭 형태로 넘긴 달 페이지인지 모름
-            val date = this.currentDate
-
-            // Todo: 현재 방식은 currentDate에 의존적임.
-            IDormLogger.i(this, selectedDay.toString())
-            this.selectedDate = CalendarDay.from(date.year, date.month, selectedDay)
+            val currentDate = LocalDate.now()
+            val calendarDay = CalendarDay.from(
+                selectedDate?.year ?: currentDate.monthValue,
+                selectedDate?.month ?: currentDate.dayOfMonth,
+                selectedDay
+            )
+            this.selectedDate = calendarDay
         }
     }
 
     @JvmStatic
-    @BindingAdapter(value = ["android:onDateChanged"], requireAll = false)
-    fun MaterialCalendarView.onSelectDay(attrChanged: InverseBindingListener?) {
-        IDormLogger.i(this, "date change listener setted")
-        setOnDateChangedListener { widget, date, selected ->
-            attrChanged?.onChange()
-        }
-    }
+    @BindingAdapter("onDateSelected")
+    fun MaterialCalendarView.bindListener(listener: OnDateSelectedListener?) {
+        if (listener != null) {
+            IDormLogger.i(this, "binding adapter! ")
+            this.setOnDateChangedListener(listener)
 
-    @JvmStatic
-    @InverseBindingAdapter(attribute = "selectedDay", event = "android:onDateChanged")
-    fun MaterialCalendarView.getSelectedDay(): Int {
-        IDormLogger.i(this, "${selectedDate?.year}/${selectedDate?.month}/${selectedDate?.day}")
-        return selectedDate?.day ?: 1
-//        return if (selectedDate != null)
-//            LocalDate.parse("${selectedDate?.year}/${selectedDate?.month}/${selectedDate?.day}")
-//        else LocalDate.now()
+        }
     }
 
 

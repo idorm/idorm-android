@@ -61,29 +61,26 @@ class CalendarFragment : Fragment() {
             teamProfileRecycler.adapter = adapter
         }
 
-        binding.calendarView.addDecorator(
+        binding.calendarView.addDecorators(
             EventDecorator(
                 R.color.iDorm_blue,
                 listOf(CalendarDay.today())
-            )
+            ),
+            TodayDecorator(R.color.iDorm_gray_200)
         )
         binding.calendarView.setTitleFormatter {
             "${it.month}월"
         }
-
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(CalendarViewModel::class.java)
         binding.lifecycleOwner = this
+        binding.calendarView.setOnDateChangedListener(viewModel.onDateChanged)
         viewModel.selectedDay.observe(binding.lifecycleOwner!!) {
             IDormLogger.i(this, it.toString())
         }
-        binding.calendarView.setOnDateLongClickListener { widget, date ->
-            IDormLogger.i(this, viewModel.selectedDay.value?.toString() ?: "")
-        }
-        // TODO: Use the ViewModel
     }
 
 }
