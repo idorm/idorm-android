@@ -1,12 +1,19 @@
 package org.appcenter.inudorm.model
 
-open class ScheduleData(
+abstract class ScheduleData(
+    @Transient
     open val calendarId: Long,
+    @Transient
     open val startDate: String?,
+    @Transient
     open val endDate: String?,
+    @Transient
     open val startTime: String?,
+    @Transient
     open val endTime: String?,
+    @Transient
     open val content: String?,
+    @Transient
     open val url: String?,
 )
 

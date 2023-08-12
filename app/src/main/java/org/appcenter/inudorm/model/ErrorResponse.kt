@@ -6,5 +6,7 @@ data class ErrorResponse(
     @SerializedName("responseCode")
     val code: String,
     val error: String,
+    val status: Int,
     @SerializedName("responseMessage")
-    val message: String)
+    val message: String,
+)

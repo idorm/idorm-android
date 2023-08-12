@@ -86,6 +86,13 @@ class ResponseInterceptor : Interceptor {
                         type
                     ) // parsed ResponseWrapper
                         ?: throw IOException("${response.code} 에러 발생.")
+
+                val emptyList = App.gson.toJson(listOf<Any>())
+                if (result.status == 404) return response.newBuilder()
+                    .code(200)
+                    .body(ResponseBody.create("application/json".toMediaTypeOrNull(), emptyList))
+                    .build()
+
                 IDormLogger.e(
                     this,
                     " ${result.code} |  ${result.code.asEnumOrDefault<ErrorCode>(null)}"

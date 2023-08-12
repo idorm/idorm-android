@@ -114,7 +114,7 @@
                                 app:mcv_selectionColor="#00F"
                                 app:mcv_showOtherDates="all"
                                 app:mcv_weekDayLabels="@array/weekdays_custom"
-                                app:selectedDay="@={viewModel.selectedDay}"
+                                app:selectedDay="@{viewModel.selectedDay}"
                                 />
 
 
