@@ -37,18 +37,23 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@null"
                     android:fontFamily="@font/notosans_medium"
+                    android:gravity="top"
+                    android:hint="@string/teamScheduleName"
                     android:includeFontPadding="false"
-                    android:text="@string/teamScheduleName"
-                    android:textColor="@color/iDorm_gray_300"
+                    android:textColorHint="@color/iDorm_gray_300"
+                    android:theme="@style/Widget.DesignSystem.TextInputEditText.Line"
                     android:textSize="24sp"
                     android:layout_marginTop="24sp"
                     app:layout_constraintStart_toStartOf="@+id/backBtn"
                     app:layout_constraintTop_toBottomOf="@+id/backBtn" />
+
+
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout24"
