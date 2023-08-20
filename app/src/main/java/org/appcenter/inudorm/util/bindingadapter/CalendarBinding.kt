@@ -10,14 +10,10 @@ import androidx.databinding.InverseBindingMethod
 import androidx.databinding.InverseBindingMethods
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
-import com.prolificinteractive.materialcalendarview.CalendarDay
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView
-import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.model.Schedule
 import org.appcenter.inudorm.model.TeamSchedule
 import org.appcenter.inudorm.presentation.adapter.CalendarAdapter
-import org.appcenter.inudorm.presentation.calendar.EventDecorator
 import org.appcenter.inudorm.presentation.calendar.mateColors
 import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.State
@@ -78,67 +74,69 @@ object CalendarBinding {
             }
     }
 
+
+
     @JvmStatic
     @BindingAdapter("dormVisibility")
     fun Chip.dormVisibility(visible: Boolean?) {
         visibility = if (visible == true) View.VISIBLE else View.GONE
     }
-
-    @JvmStatic
-    @BindingAdapter("selectedDay")
-    fun MaterialCalendarView.bindSelectedDay(selectedDay: Int?) {
-        if (selectedDay != null) {
-            val currentDate = LocalDate.now()
-            val calendarDay = CalendarDay.from(
-                selectedDate?.year ?: currentDate.monthValue,
-                selectedDate?.month ?: currentDate.dayOfMonth,
-                selectedDay
-            )
-            this.selectedDate = calendarDay
-        }
-    }
-
-    @JvmStatic
-    @BindingAdapter("onDateSelected")
-    fun MaterialCalendarView.bindListener(listener: OnDateSelectedListener?) {
-        if (listener != null) {
-            IDormLogger.i(this, "binding adapter! ")
-            this.setOnDateChangedListener(listener)
-
-        }
-    }
-
-    @JvmStatic
-    @BindingAdapter("schedules")
-    fun MaterialCalendarView.bindSchedules(_state: State<List<TeamSchedule>>?) {
-        // 팀원 별로 데코레이터를 달아줘야함.
-        // 스케쥴 별 -> 팀원 별로 변환 필요
-        // Todo: 에러/로딩 처리
-        if (_state == null) return
-        if (_state is State.Loading) return
-        if (_state is State.Error) return
-        val memberToScheduleMap = mutableMapOf<Int, List<TeamSchedule>>()
-        val state = (_state as State.Success)
-        state.data?.forEach { schedule ->
-            schedule.targets.forEach { profile ->
-                memberToScheduleMap.merge(profile.order!!, listOf(schedule)) { prev, curr ->
-                    prev + curr
-                }
-            }
-        }
-
-        val decorators = memberToScheduleMap.map {
-            val dates = it.value.map { schedule ->
-                val date = LocalDate.parse(schedule.startDate)
-                CalendarDay.from(date.year, date.monthValue, date.dayOfMonth)
-            }
-            EventDecorator(
-                mateColors[it.key],
-                dates
-            )
-        }
-        this.addDecorators(decorators)
-    }
+//
+//    @JvmStatic
+//    @BindingAdapter("selectedDay")
+//    fun MaterialCalendarView.bindSelectedDay(selectedDay: Int?) {
+//        if (selectedDay != null) {
+//            val currentDate = LocalDate.now()
+//            val calendarDay = CalendarDay.from(
+//                selectedDate?.year ?: currentDate.year,
+//                selectedDate?.month ?: currentDate.monthValue,
+//                selectedDay
+//            )
+//            this.selectedDate = calendarDay
+//        }
+//    }
+//
+//    @JvmStatic
+//    @BindingAdapter("onDateSelected")
+//    fun MaterialCalendarView.bindListener(listener: OnDateSelectedListener?) {
+//        if (listener != null) {
+//            IDormLogger.i(this, "binding adapter! ")
+//            this.setOnDateChangedListener(listener)
+//
+//        }
+//    }
+//
+//    @JvmStatic
+//    @BindingAdapter("schedules")
+//    fun MaterialCalendarView.bindSchedules(_state: State<List<TeamSchedule>>?) {
+//        // 팀원 별로 데코레이터를 달아줘야함.
+//        // 스케쥴 별 -> 팀원 별로 변환 필요
+//        // Todo: 에러/로딩 처리
+//        if (_state == null) return
+//        if (_state is State.Loading) return
+//        if (_state is State.Error) return
+//        val memberToScheduleMap = mutableMapOf<Int, List<TeamSchedule>>()
+//        val state = (_state as State.Success)
+//        state.data?.forEach { schedule ->
+//            schedule.targets.forEach { profile ->
+//                memberToScheduleMap.merge(profile.order!!, listOf(schedule)) { prev, curr ->
+//                    prev + curr
+//                }
+//            }
+//        }
+//
+//        val decorators = memberToScheduleMap.map {
+//            val dates = it.value.map { schedule ->
+//                val date = LocalDate.parse(schedule.startDate)
+//                CalendarDay.from(date.year, date.monthValue, date.dayOfMonth)
+//            }
+//            EventDecorator(
+//                mateColors[it.key],
+//                dates
+//            )
+//        }
+//        this.addDecorators(decorators)
+//    }
 
 
 }

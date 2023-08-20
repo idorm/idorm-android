@@ -123,7 +123,7 @@ dependencies {
 
     implementation 'de.hdodenhof:circleimageview:3.1.0' // circleImageView
 
-    implementation 'com.github.prolificinteractive:material-calendarview:2.0.0'
-
+//    implementation 'com.github.prolificinteractive:material-calendarview:2.0.0'
+    implementation 'com.kizitonwose.calendar:view:2.3.0'
 
 }

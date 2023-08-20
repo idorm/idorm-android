@@ -4,9 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.prolificinteractive.materialcalendarview.CalendarDay
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView
-import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.model.Schedule
@@ -22,14 +19,7 @@ class CalendarViewModel : ViewModel() {
     private val _selectedDay = MutableLiveData<Int>(LocalDate.now().dayOfMonth)
     val selectedDay: LiveData<Int> get() = _selectedDay
 
-    val onDateChanged =
-        OnDateSelectedListener { _, date, selected ->
-            IDormLogger.i(this, "$selected | ${date.day}")
-            if (selected) {
-                _selectedDay.value = date.day
-                _selectedDay.postValue(date.day)
-            }
-        }
+
 
 
     val schedules: MutableStateFlow<State<List<TeamSchedule>>> =

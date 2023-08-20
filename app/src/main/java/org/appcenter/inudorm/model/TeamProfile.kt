@@ -1,6 +1,6 @@
 package org.appcenter.inudorm.model
 
-class TeamProfile(
+data class TeamProfile(
     val nickname: String?,
     val memberId: Int? = null,
     val order: Int? = null,

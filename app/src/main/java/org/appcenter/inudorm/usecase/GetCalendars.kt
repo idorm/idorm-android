@@ -9,16 +9,16 @@ import java.text.SimpleDateFormat
 
 val getCalendarDateFormat = SimpleDateFormat("yyyy-MM")
 
-class GetCalendars : ResultUseCase<Nothing?, ArrayList<ScheduleData>>() {
-    override suspend fun onExecute(params: Nothing?): ArrayList<ScheduleData> {
+class GetCalendars : ResultUseCase<Nothing?, ArrayList<Schedule>>() {
+    override suspend fun onExecute(params: Nothing?): ArrayList<Schedule> {
         val date = LocalDateTime.now().toDate()
         val yearMonth = getCalendarDateFormat.format(date)
         val param = SchedulesRequestDto(yearMonth)
         val officialSchedules = calendarRepository.getSchedules(param)
-        val teamSchedules = calendarRepository.getMonthlyTeamSchedules(param)
-        val schedules = ArrayList<ScheduleData>()
+//        val teamSchedules = calendarRepository.getMonthlyTeamSchedules(param)
+        val schedules = ArrayList<Schedule>()
         schedules.addAll(officialSchedules)
-        schedules.addAll(teamSchedules)
+//        schedules.addAll(teamSchedules)
         return schedules
 
     }
