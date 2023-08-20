@@ -2,9 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-
     <uses-sdk tools:overrideLibrary="androidx.core.splashscreen" />
-
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -16,7 +14,6 @@
         <package android:name="com.kakao.talk" />
     </queries>
 
-
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -25,13 +22,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.IDorm.White">
+        <activity
+            android:name=".presentation.calendar.WriteTeamScheduleActivity"
+            android:exported="false" />
+
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_notification" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/iDorm_blue" />
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="POST" />
@@ -46,15 +46,17 @@
         </service>
 
         <profileable android:shell="true" />
+
         <meta-data
             android:name="io.sentry.dsn"
             android:value="@string/SENTRY_DSN" />
-        <!-- Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
-           We recommend adjusting this value in production. -->
+        <!--
+ Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+           We recommend adjusting this value in production.
+        -->
         <meta-data
             android:name="io.sentry.traces.sample-rate"
-            android:value="1.0" />
-        <!-- Enable user interaction tracing to capture transactions for various UI events (such as clicks or scrolls). -->
+            android:value="1.0" /> <!-- Enable user interaction tracing to capture transactions for various UI events (such as clicks or scrolls). -->
         <meta-data
             android:name="io.sentry.traces.user-interaction.enable"
             android:value="true" />
@@ -76,45 +78,37 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
-            tools:ignore="LockedOrientationActivity">
-
-        </activity>
-
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".presentation.mypage.matching.DisLikedMateListActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
             tools:ignore="LockedOrientationActivity" />
-
         <activity
             android:name=".presentation.mypage.matching.MyMatchingProfileActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
             tools:ignore="LockedOrientationActivity" />
-
         <activity
             android:name=".presentation.component.ImageViewPager"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
             tools:ignore="LockedOrientationActivity" />
-
         <activity
             android:name=".presentation.account.WithdrawalActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
-            tools:ignore="LockedOrientationActivity"></activity>
-
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".presentation.mypage.myinfo.ChangePasswordActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
             tools:ignore="LockedOrientationActivity" />
-
         <activity
             android:name=".presentation.mypage.NotificationSettingActivity"
             android:exported="true"
@@ -127,23 +121,19 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
-            tools:ignore="LockedOrientationActivity"></activity>
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".presentation.board.WritePostActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
-            tools:ignore="LockedOrientationActivity">
-
-        </activity>
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".presentation.board.EditPostActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
-            tools:ignore="LockedOrientationActivity">
-
-        </activity>
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".presentation.board.PostDetailActivity"
             android:exported="false"
@@ -171,9 +161,7 @@
             android:label="@string/title_activity_onboard"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
-            tools:ignore="LockedOrientationActivity">
-
-        </activity>
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".presentation.account.FindPassActivity"
             android:exported="true"
@@ -200,14 +188,11 @@
                 <data
                     android:host="action"
                     android:scheme="idorm" />
-                <data android:host="kakaolink"
+                <data
+                    android:host="kakaolink"
                     android:scheme="@string/kakaoScheme" />
-
             </intent-filter>
-
-
         </activity>
-
         <activity
             android:name=".presentation.account.WelcomeActivity"
             android:exported="true"
@@ -255,7 +240,6 @@
                 <action android:name="SUBCOMMENT" />
                 <action android:name="TOPPOST" />
             </intent-filter>
-
         </activity>
     </application>
 
