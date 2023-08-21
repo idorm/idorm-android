@@ -196,7 +196,6 @@
                                 tools:itemCount="2"
                                 tools:listitem="@layout/item_team_calendar"
 
-                                app:teamSchedules="@{viewModel.schedules}"
                                 />
 
 
@@ -239,7 +238,6 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView8"
                             tools:listitem="@layout/item_calendar"
-                            app:calendarState="@{viewModel.schedules}"
                             />
 
 

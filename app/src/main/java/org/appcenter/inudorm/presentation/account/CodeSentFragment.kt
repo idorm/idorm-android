@@ -17,10 +17,11 @@ import androidx.fragment.app.Fragment
 import org.appcenter.inudorm.OnPromptDoneListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentCodeSentBinding
+import org.appcenter.inudorm.presentation.LoadingFragment
 import org.appcenter.inudorm.util.CustomDialog
 import org.appcenter.inudorm.util.DialogButton
 
-class CodeSentFragment : Fragment() {
+class CodeSentFragment : LoadingFragment() {
 
     private lateinit var binding: FragmentCodeSentBinding
     private val TAG = "[CodeSentFragment]"
@@ -37,6 +38,7 @@ class CodeSentFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        
         binding.openWebMail.setOnClickListener {
             openWebMail()
         }

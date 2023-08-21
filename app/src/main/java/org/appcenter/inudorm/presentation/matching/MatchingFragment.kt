@@ -186,23 +186,23 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
         setupFilter()
     }
 
-    private fun setFloatBtnMargin(){
+    private fun setFloatBtnMargin() {
         val display = requireActivity().windowManager.defaultDisplay
         val outMetrics = DisplayMetrics()
         display.getMetrics(outMetrics)
 
         val density = resources.displayMetrics.density
         val dpHeight = outMetrics.heightPixels / density
-        val floatBtnMargin = (((dpHeight - 22 -30 - 485 - 64 - 66) / 3.5) * density).toInt()
+        val floatBtnMargin = (((dpHeight - 22 - 30 - 485 - 64 - 66) / 3.5) * density).toInt()
 
         val layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT,
-            (70*density).toInt(),
+            (70 * density).toInt(),
         )
 
         binding.stackViewControl.layoutParams = layoutParams
 
-        layoutParams.setMargins(0,floatBtnMargin,0, floatBtnMargin)
+        layoutParams.setMargins(0, floatBtnMargin, 0, floatBtnMargin)
         layoutParams.gravity = 17
     }
 
@@ -216,6 +216,7 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
                 if (event.mutation.state.isError())
                     binding.cardStackView.rewind()
             }
+
             is UserMutationEvent.AddDislikedMatchingInfo -> {
                 if (event.mutation.state.isSuccess()) {
                     mutationEventStack.push(event)
@@ -223,6 +224,7 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
                 if (event.mutation.state.isError())
                     binding.cardStackView.rewind()
             }
+
             is UserMutationEvent.ReportMatchingInfo -> {
                 if (event.mutation.state.isSuccess())
                     OkDialog("사용자를 신고했어요. 불편을 드려 죄송해요.", onOk = {
@@ -233,12 +235,15 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
                         modalBottomSheet.dismiss()
                     }).show(this@MatchingFragment.requireContext())
             }
+
             is UserMutationEvent.DeleteLikedMatchingInfo -> {
                 if (event.mutation.state.isSuccess()) binding.cardStackView.rewind()
             }
+
             is UserMutationEvent.DeleteDislikedMatchingInfo -> {
                 if (event.mutation.state.isSuccess()) binding.cardStackView.rewind()
             }
+
             else -> {}
         }
     }
@@ -247,6 +252,7 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        
         setupCardStackView()
         setupControlButton()
         binding.matchingViewModel = viewModel
@@ -292,6 +298,7 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
                                         })
                                 ).show(this@MatchingFragment.requireContext())
                             }
+
                             ErrorCode.ILLEGAL_STATEMENT_MATCHINGINFO_NON_PUBLIC -> {
                                 CustomDialog(
                                     "룸메이트 매칭을 위해\n" +
@@ -304,6 +311,7 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
                                     })
                                 ).show(this@MatchingFragment.requireContext())
                             }
+
                             else -> {}
                         }
                     }
@@ -352,9 +360,11 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
                         is UserMutationEvent.AddDislikedMatchingInfo -> {
                             viewModel.deleteDislikedMate(getCurrentItem(1).memberId)
                         }
+
                         is UserMutationEvent.AddLikedMatchingInfo -> {
                             viewModel.deleteLikedMate(getCurrentItem(1).memberId)
                         }
+
                         else -> {}
                     }
                 } catch (e: EmptyStackException) {

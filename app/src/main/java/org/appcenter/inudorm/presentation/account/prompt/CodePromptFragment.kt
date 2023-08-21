@@ -11,10 +11,11 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentCodePromptBinding
+import org.appcenter.inudorm.presentation.LoadingFragment
 import org.appcenter.inudorm.util.eventHandler
 
 
-class CodePromptFragment : Fragment() {
+class CodePromptFragment : LoadingFragment() {
 
     private lateinit var viewModel: CodePromptViewModel
     private lateinit var binding: FragmentCodePromptBinding
@@ -44,7 +45,8 @@ class CodePromptFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.startTimer()
+        
+                viewModel.startTimer()
         lifecycleScope.launch {
             viewModel.eventFlow.collect {
                 eventHandler(requireContext(), it)

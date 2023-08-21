@@ -18,6 +18,7 @@ import org.appcenter.inudorm.databinding.FragmentBoardBinding
 import org.appcenter.inudorm.model.Dorm
 import org.appcenter.inudorm.model.SelectItem
 import org.appcenter.inudorm.presentation.ListBottomSheet
+import org.appcenter.inudorm.presentation.LoadingFragment
 import org.appcenter.inudorm.presentation.adapter.PopularPostAdapter
 import org.appcenter.inudorm.presentation.adapter.PostAdapter
 import org.appcenter.inudorm.presentation.board.PostDetailActivity.Companion.DETAIL_FINISHED
@@ -25,7 +26,7 @@ import org.appcenter.inudorm.presentation.board.WritePostActivity.Companion.EDIT
 import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.WindowUtil.setStatusBarColor
 
-class BoardFragment : Fragment() {
+class BoardFragment : LoadingFragment() {
 
     companion object {
         fun newInstance() = BoardFragment()
@@ -85,7 +86,8 @@ class BoardFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this)[BoardViewModel::class.java]
+        
+                viewModel = ViewModelProvider(this)[BoardViewModel::class.java]
         binding.viewModel = viewModel
         binding.fragment = this
         binding.lifecycleOwner = requireActivity()

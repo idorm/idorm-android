@@ -10,8 +10,9 @@ import androidx.fragment.app.viewModels
 import org.appcenter.inudorm.OnPromptDoneListener
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentNicknamePromptBinding
+import org.appcenter.inudorm.presentation.LoadingFragment
 
-class NickNamePromptFragment : Fragment() {
+class NickNamePromptFragment : LoadingFragment() {
     private val viewModel: NickNamePromptViewModel by viewModels()
     private lateinit var binding: FragmentNicknamePromptBinding
 
@@ -28,7 +29,8 @@ class NickNamePromptFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.continueButton.setOnClickListener {
+        
+                binding.continueButton.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("nickname", viewModel.nickName.value)
             (this@NickNamePromptFragment.requireContext() as OnPromptDoneListener).onPromptDone(
