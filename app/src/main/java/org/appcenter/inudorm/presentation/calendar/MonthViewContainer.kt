@@ -7,6 +7,7 @@ import com.kizitonwose.calendar.view.ViewContainer
 import org.appcenter.inudorm.R
 
 class MonthViewContainer(view: View) : ViewContainer(view) {
+
     val titlesContainer = view as ViewGroup
 
     // With ViewBinding

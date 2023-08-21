@@ -2,24 +2,20 @@ package org.appcenter.inudorm.presentation.calendar
 
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getDrawable
 import androidx.core.view.ViewCompat
 import androidx.core.view.children
-import androidx.core.view.marginStart
-import androidx.core.view.setMargins
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,7 +23,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.CalendarMonth
 import com.kizitonwose.calendar.core.DayPosition
-import com.kizitonwose.calendar.core.WeekDay
 import com.kizitonwose.calendar.core.daysOfWeek
 import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
 import com.kizitonwose.calendar.core.nextMonth
@@ -35,26 +30,20 @@ import com.kizitonwose.calendar.core.previousMonth
 import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.MonthHeaderFooterBinder
 import com.kizitonwose.calendar.view.MonthScrollListener
-import kotlinx.coroutines.flow.collect
+import com.kizitonwose.calendar.view.ViewContainer
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentCalendarBinding
-import org.appcenter.inudorm.model.Member
 import org.appcenter.inudorm.model.TeamProfile
-import org.appcenter.inudorm.model.TeamSchedule
 import org.appcenter.inudorm.presentation.LoadingFragment
 import org.appcenter.inudorm.presentation.adapter.CalendarAdapter
 import org.appcenter.inudorm.presentation.adapter.TeamProfileAdapter
 import org.appcenter.inudorm.presentation.adapter.TeamScheduleAdapter
-import org.appcenter.inudorm.presentation.mypage.matching.MyMatchingProfileActivity
-import org.appcenter.inudorm.usecase.getCalendarDateFormat
 import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.State
-import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.TextStyle
-import java.util.Date
 import java.util.Locale
 
 val mateColors = listOf(
@@ -140,6 +129,8 @@ class CalendarFragment : LoadingFragment() {
         viewModel.getRoomMates()
     }
 
+
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(CalendarViewModel::class.java)
@@ -179,7 +170,6 @@ class CalendarFragment : LoadingFragment() {
                             u.groupBy { member -> member.memberId }.map { entry -> entry.value[0] }
                     }
 
-
                     binding.calendarView.dayBinder = object : MonthDayBinder<DayViewContainer> {
                         // Called only when a new container is needed.
                         override fun create(view: View) = DayViewContainer(view)
@@ -195,16 +185,26 @@ class CalendarFragment : LoadingFragment() {
                                     )
                                 )
                             } else {
-                                if (data.date == LocalDate.now())
-                                    container.view.setBackgroundResource(R.drawable.ic_today)
-                                else
-                                // 아마 RecyclerView를 이용하는 특성상 몇개 캘린더를 재활용하는 형태라서 위에서 setBackgroundResource를 하면 4개월 주기로 다른 날에도 뜸
-                                    container.view.setBackgroundColor(
+                                when (data.date) {
+                                    LocalDate.now() -> container.view.setBackgroundResource(R.drawable.ic_today)
+                                    viewModel.selectedDay.value!! -> {
+                                        container.view.setBackgroundColor(
+                                            ContextCompat.getColor(
+                                                requireContext(),
+                                                R.color.iDorm_blue
+                                            )
+                                        )
+                                    }
+
+                                    else
+                                        // 아마 RecyclerView를 이용하는 특성상 몇개 캘린더를 재활용하는 형태라서 위에서 setBackgroundResource를 하면 4개월 주기로 다른 날에도 뜸
+                                    -> container.view.setBackgroundColor(
                                         ContextCompat.getColor(
                                             requireContext(),
                                             R.color.white
                                         )
                                     )
+                                }
 
                                 val teamProfiles =
                                     dateMap[data.date.toString()]?.sortedBy { profile -> profile.order }
@@ -268,6 +268,7 @@ class CalendarFragment : LoadingFragment() {
                 setLoadingState(it)
             }
         }
+        // Dummy 입니다!!! 무 조 건 데이터 들어오고 나서 새로 바인딩 하는 곳에다가 작업하세요!!
         binding.calendarView.dayBinder = object : MonthDayBinder<DayViewContainer> {
             // Called only when a new container is needed.
             override fun create(view: View) = DayViewContainer(view)
@@ -289,8 +290,10 @@ class CalendarFragment : LoadingFragment() {
                 }
             }
         }
+
         binding.calendarView.monthHeaderBinder =
             object : MonthHeaderFooterBinder<MonthViewContainer> {
+
                 override fun bind(container: MonthViewContainer, data: CalendarMonth) {
                     val prev = container.titlesContainer.findViewById<ImageView>(R.id.prev)
                     val next = container.titlesContainer.findViewById<ImageView>(R.id.next)

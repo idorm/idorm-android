@@ -13,8 +13,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -141,6 +140,7 @@
                             android:id="@+id/calendarView"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:clickable="true"
                             app:cv_dayViewResource="@layout/calendar_day_layout"
                             app:cv_monthHeaderResource="@layout/calendar_day_titles_container"
                             app:layout_constraintEnd_toEndOf="parent"

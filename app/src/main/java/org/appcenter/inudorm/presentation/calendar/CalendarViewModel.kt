@@ -20,8 +20,8 @@ import java.time.LocalDate
 
 
 class CalendarViewModel : ViewModel() {
-    private val _selectedDay = MutableLiveData(LocalDate.now().dayOfMonth)
-    val selectedDay: LiveData<Int> get() = _selectedDay
+    private val _selectedDay = MutableLiveData(LocalDate.now())
+    val selectedDay: LiveData<LocalDate> get() = _selectedDay
 
 
     val schedules: MutableStateFlow<State<List<TeamSchedule>>> =
@@ -37,6 +37,10 @@ class CalendarViewModel : ViewModel() {
         MutableStateFlow(State.Initial())
     val officialSchedules: StateFlow<State<List<Schedule>>>
         get() = _officialSchedules
+
+    fun selectDay(date: LocalDate) {
+        _selectedDay.value = date
+    }
 
     fun getSchedules(date: LocalDate) {
         viewModelScope.launch {
