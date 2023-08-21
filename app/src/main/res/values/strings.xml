@@ -236,6 +236,9 @@
     <string name="scheduleTarget">일정 참여자</string>
     <string name="deleteSchedule">일정 삭제</string>
 
+    <!--writeSleepoverSchedule-->
+    <string name="sleepoverSchedule">외박 일정</string>
+
 
     <!-- Todo: Not categorized texts!! -->
     <string name="postViolence">idorm의 커뮤니티 가이드라인에 위배되는 게시글</string>
