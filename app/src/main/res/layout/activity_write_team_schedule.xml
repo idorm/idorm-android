@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <variable
-            name="baseInfoViewModel"
-            type="org.appcenter.inudorm.presentation.onboard.BaseInformationViewModel" />
+         <variable
+            name="viewModel"
+            type="org.appcenter.inudorm.presentation.calendar.WriteTeamScheduleViewModel" />
     </data>
 
 
@@ -38,7 +37,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/textView"
+                    android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@null"
@@ -48,6 +47,7 @@
                     android:includeFontPadding="false"
                     android:textColorHint="@color/iDorm_gray_300"
                     android:theme="@style/Widget.DesignSystem.TextInputEditText.Line"
+                    android:text=""
                     android:textSize="24sp"
                     android:layout_marginTop="24sp"
                     android:maxLength="14"
@@ -65,7 +65,7 @@
                     android:layout_marginEnd="28sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView">
+                    app:layout_constraintTop_toBottomOf="@+id/title">
 
                     <TextView
                         android:id="@+id/start"
