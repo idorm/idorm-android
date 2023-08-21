@@ -100,13 +100,6 @@ class WriteTeamScheduleActivity : LoadingActivity() {
                                             cancelable = false
                                         ).show(this@WriteTeamScheduleActivity)
                                     }
-                                    ErrorCode.DUPLICATE_MATCHINGINFO -> {
-                                        OkDialog(
-                                            e.error.message,
-                                            onOk = { },
-                                            cancelable = false
-                                        ).show(this@WriteTeamScheduleActivity)
-                                    }
                                     else -> {
                                         OkDialog(getString(R.string.unknownError)).show(
                                             this@WriteTeamScheduleActivity
