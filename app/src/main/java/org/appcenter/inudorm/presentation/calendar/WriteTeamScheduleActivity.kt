@@ -59,8 +59,9 @@ class WriteTeamScheduleActivity : LoadingActivity() {
                 nickname = "슈룹",
                 profilePhotoUrl = null
             ))
-
-
+        binding.deleteButton.setOnClickListener{
+            //ToDo : 일정 삭제 연결
+        }
         binding.doneButton.setOnClickListener{
             val title = binding.title.text.toString()
             val content = binding.content.text.toString()
@@ -146,6 +147,12 @@ class WriteTeamScheduleActivity : LoadingActivity() {
                     }
                 }
             }
+        }
+    }
+
+    private suspend fun initData(purpose: TeamSchedulePurpose){
+        if(purpose == TeamSchedulePurpose.Edit){
+
         }
     }
 

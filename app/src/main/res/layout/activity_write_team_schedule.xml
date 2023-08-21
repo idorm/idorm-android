@@ -199,7 +199,7 @@
                             android:id="@+id/teamProfileRecycler"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16sp"
+                            android:layout_marginStart="20dp"
 
                             android:orientation="horizontal"
 
@@ -207,6 +207,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/imageView7"
                             app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0"
                             tools:itemCount="4"
                             tools:listitem="@layout/item_team_profile" />
 
@@ -293,7 +294,7 @@
                     app:layout_constraintWidth_percent="0.3" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@id/initializationButton"
+                    android:id="@id/deleteButton"
                     android:layout_width="0dp"
                     android:layout_height="52dp"
                     android:background="@drawable/view_button_round_6_gray_100"
