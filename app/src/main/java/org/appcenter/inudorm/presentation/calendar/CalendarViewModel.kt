@@ -11,9 +11,11 @@ import org.appcenter.inudorm.model.RoomMateTeamResponseDto
 import org.appcenter.inudorm.model.Schedule
 import org.appcenter.inudorm.model.TeamProfile
 import org.appcenter.inudorm.model.TeamSchedule
+import org.appcenter.inudorm.model.User
 import org.appcenter.inudorm.usecase.GetCalendars
 import org.appcenter.inudorm.usecase.GetRoomMateTeam
 import org.appcenter.inudorm.usecase.GetTeamSchedules
+import org.appcenter.inudorm.usecase.LoginRefresh
 import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.State
 import java.time.LocalDate
@@ -40,6 +42,20 @@ class CalendarViewModel : ViewModel() {
 
     fun selectDay(date: LocalDate) {
         _selectedDay.value = date
+    }
+
+    private val _userState: MutableStateFlow<State<User>> = MutableStateFlow(State.Initial())
+    val userState: StateFlow<State<User>>
+        get() = _userState
+
+    fun getUser() {
+        viewModelScope.launch {
+            if (_userState.value is State.Loading) return@launch
+
+            _userState.emit(State.Loading())
+            _userState.emit(kotlin.runCatching { State.Success(LoginRefresh().run(null)) }
+                .getOrElse { State.Error(it) })
+        }
     }
 
     fun getSchedules(date: LocalDate) {
