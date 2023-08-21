@@ -35,6 +35,7 @@
             app:layout_constraintTop_toBottomOf="@id/backBtn" />
 
         <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -53,6 +54,16 @@
                 android:text="@string/sleepoverEndDate" />
 
         </com.google.android.material.tabs.TabLayout>
+
+        <com.kizitonwose.calendar.view.CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clickable="true"
+            app:cv_dayViewResource="@layout/calendar_day_layout"
+            app:cv_monthHeaderResource="@layout/calendar_day_titles_container"
+            app:layout_constraintBottom_toTopOf="@+id/doneButton"
+            app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
 
 
         <androidx.appcompat.widget.AppCompatButton
