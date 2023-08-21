@@ -23,6 +23,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.IDorm.White">
         <activity
+            android:name=".presentation.calendar.WriteSleepoverScheduleActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.calendar.WriteTeamScheduleActivity"
             android:exported="false" />
 
@@ -78,7 +81,7 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
-            tools:ignore="LockedOrientationActivity"/>
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".presentation.mypage.matching.DisLikedMateListActivity"
             android:exported="true"
@@ -127,13 +130,13 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
-            tools:ignore="LockedOrientationActivity"/>
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".presentation.board.EditPostActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
-            tools:ignore="LockedOrientationActivity"/>
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".presentation.board.PostDetailActivity"
             android:exported="false"
@@ -161,7 +164,7 @@
             android:label="@string/title_activity_onboard"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.IDorm.White"
-            tools:ignore="LockedOrientationActivity"/>
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".presentation.account.FindPassActivity"
             android:exported="true"
