@@ -1,5 +1,6 @@
 package org.appcenter.inudorm.presentation.calendar
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.net.Uri
@@ -20,6 +21,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.kakao.sdk.common.util.KakaoCustomTabsClient
+import com.kakao.sdk.share.ShareClient
+import com.kakao.sdk.share.WebSharerClient
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.CalendarMonth
 import com.kizitonwose.calendar.core.DayPosition
@@ -34,12 +38,15 @@ import com.kizitonwose.calendar.view.ViewContainer
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentCalendarBinding
+import org.appcenter.inudorm.model.SelectItem
 import org.appcenter.inudorm.model.TeamProfile
+import org.appcenter.inudorm.presentation.ListBottomSheet
 import org.appcenter.inudorm.presentation.LoadingFragment
 import org.appcenter.inudorm.presentation.adapter.CalendarAdapter
 import org.appcenter.inudorm.presentation.adapter.TeamProfileAdapter
 import org.appcenter.inudorm.presentation.adapter.TeamScheduleAdapter
 import org.appcenter.inudorm.util.IDormLogger
+import org.appcenter.inudorm.util.ImageUri
 import org.appcenter.inudorm.util.State
 import java.time.LocalDate
 import java.time.YearMonth
@@ -74,6 +81,84 @@ class CalendarFragment : LoadingFragment() {
         initBind()
 
         return binding.root
+    }
+
+
+    fun openRoomMenu() {
+        ListBottomSheet(
+            arrayListOf(
+                SelectItem("친구 관리", "mateManage"),
+                SelectItem("일정 관리", "scheduleManage"),
+                SelectItem("룸메이트 초대해서 일정 공유하기", "invite"),
+                SelectItem("일정 공유 캘린더 나가기", "leave"),
+            )
+        ) {
+            when (it.value) {
+                "mateManage" -> {
+                    // Todo: Toggle mate manage mode to kick out
+                }
+
+                "scheduleManage" -> {
+                    // Todo: Toggle schedule manage mode to delete schedules
+                }
+
+                "invite" -> {
+                    if (viewModel.userState.value is State.Success) {
+                        val user = (viewModel.userState.value as State.Success).data!!
+                        val templateId = 97215L
+                        val templateArgs = mapOf(
+                            "senderNickNm" to user.nickname,
+                            "userProfile" to (user.profilePhotoUrl ?: ImageUri.defaultProfileImage),
+                            "inviter" to user.memberId.toString()
+                        )
+                        if (ShareClient.instance.isKakaoTalkSharingAvailable(requireContext())) {
+                            // 카카오톡으로 카카오톡 공유 가능
+
+                            ShareClient.instance.shareCustom(
+                                requireContext(),
+                                templateId,
+                                templateArgs = templateArgs
+                            ) { sharingResult, error ->
+                                if (error != null) {
+                                    IDormLogger.e(this, "카카오톡 공유 실패: ${error}")
+                                } else if (sharingResult != null) {
+                                    IDormLogger.i(this, "카카오톡 공유 성공 ${sharingResult.intent}")
+                                    startActivity(sharingResult.intent)
+
+                                    // 카카오톡 공유에 성공했지만 아래 경고 메시지가 존재할 경우 일부 컨텐츠가 정상 동작하지 않을 수 있습니다.
+                                    IDormLogger.d(
+                                        this,
+                                        "Warning Msg: ${sharingResult.warningMsg}"
+                                    )
+                                    IDormLogger.d(
+                                        this,
+                                        "Argument Msg: ${sharingResult.argumentMsg}"
+                                    )
+                                }
+                            }
+                        } else {
+                            val sharerUrl =
+                                WebSharerClient.instance.makeCustomUrl(templateId, templateArgs)
+                            try {
+                                KakaoCustomTabsClient.openWithDefault(requireContext(), sharerUrl)
+                            } catch (e: UnsupportedOperationException) {
+                                // CustomTabsServiceConnection 지원 브라우저가 없을 때 예외처리
+                                try {
+                                    KakaoCustomTabsClient.open(requireContext(), sharerUrl)
+                                } catch (e: ActivityNotFoundException) {
+                                    // 디바이스에 설치된 인터넷 브라우저가 없을 때 예외처리
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+                "leave" -> {
+                    // Todo: Leave
+                }
+            }
+        }
     }
 
     private fun initBind() {
@@ -141,7 +226,7 @@ class CalendarFragment : LoadingFragment() {
         viewModel.selectedDay.observe(binding.lifecycleOwner!!) {
             IDormLogger.i(this, it.toString())
         }
-
+        viewModel.getUser()
         // Todo: 현재 날짜로 변경
         setCurrentMonth(CalendarMonth(YearMonth.now(), arrayListOf()))
         setExtended(false)
@@ -156,6 +241,11 @@ class CalendarFragment : LoadingFragment() {
         binding.registerSleepover.setOnClickListener {
             val intent = Intent(requireContext(), WriteSleepoverScheduleActivity::class.java)
             startActivity(intent)
+        }
+        lifecycleScope.launch {
+            viewModel.userState.collect {
+                setLoadingState(it)
+            }
         }
         lifecycleScope.launch {
             viewModel.schedules.collect {
