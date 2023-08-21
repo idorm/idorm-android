@@ -8,7 +8,7 @@ interface CalendarService {
         const val path = "api/v1"
     }
 
-    @POST("${path}/member/calendars")
+    @POST("member/calendars")
     suspend fun getCalendars(@Body body: SchedulesRequestDto): ArrayList<Schedule>
 
     @GET("${path}/member/team/calendar")

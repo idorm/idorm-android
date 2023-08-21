@@ -10,6 +10,7 @@ import org.appcenter.inudorm.model.Dorm
 import org.appcenter.inudorm.model.board.Post
 import org.appcenter.inudorm.usecase.*
 import org.appcenter.inudorm.util.State
+import java.time.LocalDate
 
 class HomeViewModel : ViewModel() {
 
@@ -47,7 +48,7 @@ class HomeViewModel : ViewModel() {
 
             _scheduleState.emit(State.Loading())
             _scheduleState.emit(
-                GetCalendars().run(null) as State<ArrayList<Schedule>>
+                GetCalendars().run(LocalDate.now()) as State<ArrayList<Schedule>>
             )
         }
     }

@@ -13,7 +13,8 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -83,6 +84,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="90dp"
                     tools:context=".presentation.calendar.CalendarFragment">
 
 
@@ -109,10 +111,9 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
 
-                            tools:itemCount="4"
-                            tools:listitem="@layout/item_team_profile"
                             app:mates="@{viewModel.roomMateTeam}"
-                            />
+                            tools:itemCount="4"
+                            tools:listitem="@layout/item_team_profile" />
 
                         <ImageView
                             android:id="@+id/more"
@@ -189,17 +190,16 @@
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/teamCalendarRecycler"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="0dp"
 
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
 
-                                tools:itemCount="2"
-                                tools:listitem="@layout/item_team_calendar"
-
                                 app:teamSchedules="@{viewModel.schedules}"
-                                />
+                                tools:itemCount="2"
+
+                                tools:listitem="@layout/item_team_calendar" />
 
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -240,8 +240,8 @@
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView8"
-                            tools:listitem="@layout/item_calendar"
-                            />
+                            app:officialSchedules="@{viewModel.officialSchedules}"
+                            tools:listitem="@layout/item_calendar" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -168,7 +168,7 @@ object CalendarBinding {
     @BindingAdapter("teamSchedules")
     fun RecyclerView.bindTeamSchedules(teamSchedules: State<List<TeamSchedule>>?) {
         if (teamSchedules != null && adapter is TeamScheduleAdapter &&
-            teamSchedules is State.Success && teamSchedules.data?.isNotEmpty() == true
+            teamSchedules is State.Success && teamSchedules.data != null
         ) {
             val a = adapter as TeamScheduleAdapter
             a.dataSet.clear()
@@ -176,6 +176,7 @@ object CalendarBinding {
             a.notifyDataSetChanged()
         }
     }
+
     @JvmStatic
     @BindingAdapter("officialSchedules")
     fun RecyclerView.bindOfficialSchedules(officialSchedules: State<List<Schedule>>?) {

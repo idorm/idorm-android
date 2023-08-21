@@ -4,16 +4,16 @@ import org.appcenter.inudorm.App.Companion.calendarRepository
 import org.appcenter.inudorm.model.Schedule
 import org.appcenter.inudorm.model.ScheduleData
 import org.appcenter.inudorm.model.SchedulesRequestDto
-import org.joda.time.LocalDateTime
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.Date
 
 val getCalendarDateFormat = SimpleDateFormat("yyyy-MM")
 
-class GetCalendars : ResultUseCase<Nothing?, ArrayList<Schedule>>() {
-    override suspend fun onExecute(params: Nothing?): ArrayList<Schedule> {
-        val date = LocalDateTime.now().toDate()
-        val yearMonth = getCalendarDateFormat.format(date)
-        val param = SchedulesRequestDto(yearMonth)
+class GetCalendars : ResultUseCase<LocalDate, List<Schedule>>() {
+    override suspend fun onExecute(date: LocalDate): List<Schedule> {
+        val month = date.monthValue.toString().padStart(2, '0')
+        val param = SchedulesRequestDto("${date.year}-${month}")
         val officialSchedules = calendarRepository.getSchedules(param)
 //        val teamSchedules = calendarRepository.getMonthlyTeamSchedules(param)
         val schedules = ArrayList<Schedule>()

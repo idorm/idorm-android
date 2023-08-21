@@ -11,6 +11,7 @@ import org.appcenter.inudorm.model.RoomMateTeamResponseDto
 import org.appcenter.inudorm.model.Schedule
 import org.appcenter.inudorm.model.TeamProfile
 import org.appcenter.inudorm.model.TeamSchedule
+import org.appcenter.inudorm.usecase.GetCalendars
 import org.appcenter.inudorm.usecase.GetRoomMateTeam
 import org.appcenter.inudorm.usecase.GetTeamSchedules
 import org.appcenter.inudorm.util.IDormLogger
@@ -19,7 +20,7 @@ import java.time.LocalDate
 
 
 class CalendarViewModel : ViewModel() {
-    private val _selectedDay = MutableLiveData<Int>(LocalDate.now().dayOfMonth)
+    private val _selectedDay = MutableLiveData(LocalDate.now().dayOfMonth)
     val selectedDay: LiveData<Int> get() = _selectedDay
 
 
@@ -32,11 +33,16 @@ class CalendarViewModel : ViewModel() {
         get() = _roomMateTeam
 
 
-    fun getSchedules(yearMonth: String) {
+    private val _officialSchedules: MutableStateFlow<State<List<Schedule>>> =
+        MutableStateFlow(State.Initial())
+    val officialSchedules: StateFlow<State<List<Schedule>>>
+        get() = _officialSchedules
+
+    fun getSchedules(date: LocalDate) {
         viewModelScope.launch {
             if (schedules.value is State.Loading) return@launch
             schedules.emit(State.Loading())
-            schedules.emit(GetTeamSchedules().run(yearMonth))
+            schedules.emit(GetTeamSchedules().run(date))
         }
     }
 
@@ -45,6 +51,14 @@ class CalendarViewModel : ViewModel() {
             if (roomMateTeam.value is State.Loading) return@launch
             _roomMateTeam.emit(State.Loading())
             _roomMateTeam.emit(GetRoomMateTeam().run(null))
+        }
+    }
+
+    fun getOfficialSchedules(date: LocalDate) {
+        viewModelScope.launch {
+            if (roomMateTeam.value is State.Loading) return@launch
+            _officialSchedules.emit(State.Loading())
+            _officialSchedules.emit(GetCalendars().run(date))
         }
     }
 

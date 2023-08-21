@@ -3,6 +3,7 @@ package org.appcenter.inudorm.presentation.calendar
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -90,19 +91,19 @@ class CalendarFragment : LoadingFragment() {
         //테스트~~ 컬러는 안 해 봤어여~
         teamProfileAdapter = TeamProfileAdapter(arrayListOf())
         teamScheduleAdapter = TeamScheduleAdapter(arrayListOf()) {
-
+            startActivity(Intent(requireContext(), ScheduleDetailActivity::class.java))
         }
         officialScheduleAdapter = CalendarAdapter(arrayListOf()) {
-
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.url)))
         }
 
         binding.teamProfileRecycler.layoutManager =
             LinearLayoutManager(this.context, RecyclerView.HORIZONTAL, false)
 
         binding.teamCalendarRecycler.layoutManager =
-            LinearLayoutManager(this.context, RecyclerView.HORIZONTAL, false)
+            LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
         binding.officialEvents.layoutManager =
-            LinearLayoutManager(this.context, RecyclerView.HORIZONTAL, false)
+            LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
 
         with(binding) {
             teamProfileRecycler.adapter = teamProfileAdapter
@@ -133,10 +134,9 @@ class CalendarFragment : LoadingFragment() {
     }
 
     private fun setCurrentMonth(date: CalendarMonth) {
-        val monthString = date.yearMonth.monthValue.toString().padStart(2, '0')
-        val date = "${date.yearMonth.year}-${monthString}"
-        IDormLogger.i(this, date)
+        val date = LocalDate.of(date.yearMonth.year, date.yearMonth.monthValue, 1)
         viewModel.getSchedules(date)
+        viewModel.getOfficialSchedules(date)
         viewModel.getRoomMates()
     }
 
@@ -165,8 +165,8 @@ class CalendarFragment : LoadingFragment() {
                 /**
                  * yyyy-MM-dd -> TeamProfile[] 인 map. 날짜별 팀 해당하는 팀 멤버를 보관힙니다.
                  */
-                val dateMap = mutableMapOf<String, List<TeamProfile>>()
                 if (it is State.Success) {
+                    val dateMap = mutableMapOf<String, List<TeamProfile>>()
                     it.data?.forEach { schedule ->
                         dateMap.merge(
                             schedule.startDate!!,
@@ -241,8 +241,6 @@ class CalendarFragment : LoadingFragment() {
                                                 mateColors[teamProfile.order!!]
                                             )
                                         )
-
-
                                         setBackgroundResource(
                                             R.drawable.ic_dot_gray_400
                                         )
@@ -260,6 +258,12 @@ class CalendarFragment : LoadingFragment() {
 
         lifecycleScope.launch {
             viewModel.roomMateTeam.collect {
+                setLoadingState(it)
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.officialSchedules.collect {
                 setLoadingState(it)
             }
         }
