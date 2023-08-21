@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
+import org.appcenter.inudorm.util.State
 
 open class LoadingActivity : AppCompatActivity() {
     private val dialog: Dialog by lazy {
@@ -25,6 +26,10 @@ open class LoadingActivity : AppCompatActivity() {
         } else {
             dialog.dismiss()
         }
+    }
+
+    fun setLoadingState(state: State<*>) {
+        setLoadingState(state.isLoading())
     }
 
 }

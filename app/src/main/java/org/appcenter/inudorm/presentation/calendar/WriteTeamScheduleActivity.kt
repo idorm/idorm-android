@@ -6,6 +6,7 @@ import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.LoadingActivity
@@ -15,6 +16,7 @@ import org.appcenter.inudorm.model.TeamProfile
 import org.appcenter.inudorm.model.TeamScheduleReq
 import org.appcenter.inudorm.networking.ErrorCode
 import org.appcenter.inudorm.networking.UIErrorHandler
+import org.appcenter.inudorm.presentation.adapter.TeamProfileAdapter
 import org.appcenter.inudorm.presentation.matching.FILTER_RESULT_CODE
 import org.appcenter.inudorm.presentation.matching.MatchingFragment
 import org.appcenter.inudorm.presentation.mypage.matching.MyMatchingProfileActivity
@@ -38,6 +40,8 @@ class WriteTeamScheduleActivity : LoadingActivity() {
     private val prefsRepository by lazy {
         PrefsRepository(this)
     }
+
+    var roomMateTeam = arrayListOf<TeamProfile>()
     private val calendarRepository by lazy {
         CalendarRepository()
     }
@@ -53,19 +57,38 @@ class WriteTeamScheduleActivity : LoadingActivity() {
             viewModelStore,
             TeamScheduleViewModelFactory(purpose)
         )[WriteTeamScheduleViewModel::class.java]
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
+        binding.teamProfileRecycler.adapter = TeamProfileAdapter(arrayListOf(), true)
 
+        lifecycleScope.launch {
+            viewModel.roomMateTeam.collect {
+                setLoadingState(it)
+                if (it is State.Success) {
+                    roomMateTeam.clear()
+                    roomMateTeam.addAll(it.data?.members?.map { member ->
+                        member.copy(
+                            hasInvitedToSchedule = false
+                        )
+                    }!!)
+                }
+            }
+        }
 
-        val teamProfile : List<TeamProfile> = mutableListOf(
+        viewModel.getRoomMates()
+
+        val teamProfile: List<TeamProfile> = mutableListOf(
             TeamProfile(
                 order = 1,
                 memberId = 12,
                 nickname = "슈룹",
                 profilePhotoUrl = null
-            ))
-        binding.deleteButton.setOnClickListener{
+            )
+        )
+        binding.deleteButton.setOnClickListener {
             //ToDo : 일정 삭제 연결
         }
-        binding.doneButton.setOnClickListener{
+        binding.doneButton.setOnClickListener {
             val title = binding.title.text.toString()
             val content = binding.content.text.toString()
             viewModel.submit(
@@ -75,80 +98,90 @@ class WriteTeamScheduleActivity : LoadingActivity() {
                     endTime = "16:00:00",
                     startDate = "2023-08-27",
                     startTime = "15:00:00",
-                    targets = teamProfile,
+                    targets = (binding.teamProfileRecycler.adapter as TeamProfileAdapter).dataSet
+                        .filter { it.hasInvitedToSchedule == true }
+                        .map { it.memberId!! },
                     title = title
-
                 )
             )
         }
 
+
+
         lifecycleScope.launch {
-            viewModel.teamScheduleMutationEvent.collect(){
-                when(it) {
-                    is TeamScheduleMutationEvent.CreateTeamSchedule -> {
-                        if (it.mutation.state.isSuccess()) {
-                            OkDialog("일정이 등록되었습니다.", onOk = {
-                                val intent = Intent(applicationContext, CalendarFragment::class.java)
-                                startActivity(intent)
-                            })
-                        }
-                        if (it.mutation.state.isError()) {
-                            UIErrorHandler.handle(
-                                this@WriteTeamScheduleActivity,
-                                prefsRepository,
-                                (it.mutation.state as State.Error).error
-                            ) { e ->
-                                when (e.error) {
-                                    ErrorCode.FIELD_REQUIRED -> {
-                                        OkDialog(
-                                            e.error.message,
-                                            onOk = { },
-                                            cancelable = false
-                                        ).show(this@WriteTeamScheduleActivity)
-                                    }
-                                    else -> {
-                                        OkDialog(getString(R.string.unknownError)).show(
-                                            this@WriteTeamScheduleActivity
-                                        )
+            viewModel.teamScheduleMutationEvent.collect() {
+                if (roomMateTeam.isNotEmpty())
+                    when (it) {
+                        is TeamScheduleMutationEvent.CreateTeamSchedule -> {
+                            if (it.mutation.state.isSuccess()) {
+                                OkDialog("일정이 등록되었습니다.", onOk = {
+                                    val intent =
+                                        Intent(applicationContext, CalendarFragment::class.java)
+                                    startActivity(intent)
+                                })
+                            }
+                            if (it.mutation.state.isError()) {
+                                UIErrorHandler.handle(
+                                    this@WriteTeamScheduleActivity,
+                                    prefsRepository,
+                                    (it.mutation.state as State.Error).error
+                                ) { e ->
+                                    when (e.error) {
+                                        ErrorCode.FIELD_REQUIRED -> {
+                                            OkDialog(
+                                                e.error.message,
+                                                onOk = { },
+                                                cancelable = false
+                                            ).show(this@WriteTeamScheduleActivity)
+                                        }
+
+                                        else -> {
+                                            OkDialog(getString(R.string.unknownError)).show(
+                                                this@WriteTeamScheduleActivity
+                                            )
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
-                    is TeamScheduleMutationEvent.EditTeamSchedule -> {
-                        if(it.mutation.state.isSuccess()){
-                            OkDialog("일정이 수정되었습니다.", onOk = {
-                                val intent = Intent(applicationContext, CalendarFragment::class.java)
-                                startActivity(intent)
-                            })
-                        }
-                        if (it.mutation.state.isError()) {
-                            UIErrorHandler.handle(
-                                this@WriteTeamScheduleActivity,
-                                prefsRepository,
-                                (it.mutation.state as State.Error).error
-                            ) { e ->
-                                when (e.error) {
-                                    ErrorCode.FIELD_REQUIRED -> {
-                                        OkDialog(
-                                            e.error.message,
-                                            onOk = { },
-                                            cancelable = false
-                                        ).show(this@WriteTeamScheduleActivity)
-                                    }
-                                    else -> {
-                                        OkDialog(getString(R.string.unknownError)).show(
-                                            this@WriteTeamScheduleActivity
-                                        )
+
+                        is TeamScheduleMutationEvent.EditTeamSchedule -> {
+                            if (it.mutation.state.isSuccess()) {
+                                OkDialog("일정이 수정되었습니다.", onOk = {
+                                    val intent =
+                                        Intent(applicationContext, CalendarFragment::class.java)
+                                    startActivity(intent)
+                                })
+                            }
+                            if (it.mutation.state.isError()) {
+                                UIErrorHandler.handle(
+                                    this@WriteTeamScheduleActivity,
+                                    prefsRepository,
+                                    (it.mutation.state as State.Error).error
+                                ) { e ->
+                                    when (e.error) {
+                                        ErrorCode.FIELD_REQUIRED -> {
+                                            OkDialog(
+                                                e.error.message,
+                                                onOk = { },
+                                                cancelable = false
+                                            ).show(this@WriteTeamScheduleActivity)
+                                        }
+
+                                        else -> {
+                                            OkDialog(getString(R.string.unknownError)).show(
+                                                this@WriteTeamScheduleActivity
+                                            )
+                                        }
                                     }
                                 }
                             }
                         }
+
+                        else -> {
+                            OkDialog("알 수 없는 에러가 발생했습니다.")
+                        }
                     }
-                    else -> {
-                        OkDialog("알 수 없는 에러가 발생했습니다.")
-                    }
-                }
             }
         }
     }
