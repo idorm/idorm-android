@@ -1,5 +1,6 @@
 package org.appcenter.inudorm.presentation.calendar
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -39,6 +40,7 @@ import org.appcenter.inudorm.model.Member
 import org.appcenter.inudorm.model.TeamProfile
 import org.appcenter.inudorm.presentation.LoadingFragment
 import org.appcenter.inudorm.presentation.adapter.TeamProfileAdapter
+import org.appcenter.inudorm.presentation.mypage.matching.MyMatchingProfileActivity
 import org.appcenter.inudorm.usecase.getCalendarDateFormat
 import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.State
@@ -128,6 +130,10 @@ class CalendarFragment : LoadingFragment() {
         setExtended(false)
         binding.registerSchedule.setOnClickListener {
             toggleExtended()
+        }
+        binding.registerTeamSchedule.setOnClickListener {
+            val intent = Intent(requireContext(), WriteTeamScheduleActivity::class.java)
+            startActivity(intent)
         }
         lifecycleScope.launch {
             viewModel.schedules.collect {
