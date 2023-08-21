@@ -157,6 +157,7 @@ class CalendarFragment : LoadingFragment() {
         }
         binding.registerTeamSchedule.setOnClickListener {
             val intent = Intent(requireContext(), WriteTeamScheduleActivity::class.java)
+            intent.putExtra("purpose", TeamSchedulePurpose.Create)
             startActivity(intent)
         }
         lifecycleScope.launch {

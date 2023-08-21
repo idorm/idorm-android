@@ -1,5 +1,6 @@
 package org.appcenter.inudorm.networking.service
 
+import okhttp3.RequestBody
 import org.appcenter.inudorm.model.*
 import retrofit2.http.*
 
@@ -15,10 +16,10 @@ interface CalendarService {
     suspend fun getTeamCalendar(@Query("teamCalendarId") teamScheduleId: Long): TeamSchedule
 
     @PUT("${path}/member/team/calendar")
-    suspend fun editTeamSchedule(@Body body: ScheduleUpdateDto): TeamSchedule
+    suspend fun editTeamSchedule(@Body body: RequestBody): TeamScheduleReq
 
     @POST("${path}/member/team/calendar")
-    suspend fun createTeamSchedule(@Body body: ScheduleUpdateDto): TeamSchedule
+    suspend fun createTeamSchedule(@Body body: RequestBody): TeamScheduleReq
 
     @DELETE("${path}/member/team/calendar")
     suspend fun deleteTeamSchedule(@Query("teamCalendarId") teamScheduleId: Long): TeamSchedule

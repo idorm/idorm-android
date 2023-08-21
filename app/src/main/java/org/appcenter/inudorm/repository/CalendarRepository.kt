@@ -1,7 +1,10 @@
 package org.appcenter.inudorm.repository
 
+import org.appcenter.inudorm.App
 import org.appcenter.inudorm.model.*
 import org.appcenter.inudorm.networking.RetrofitInstance
+import org.appcenter.inudorm.networking.createJsonRequestBody
+import org.appcenter.inudorm.usecase.TeamScheduleParams
 
 class CalendarRepository {
     suspend fun getSchedules(body: SchedulesRequestDto): ArrayList<Schedule> {
@@ -12,12 +15,14 @@ class CalendarRepository {
         return RetrofitInstance.service.getTeamCalendar(teamScheduleId)
     }
 
-    suspend fun editTeamSchedule(body: ScheduleUpdateDto): TeamSchedule {
-        return RetrofitInstance.service.editTeamSchedule(body)
+    suspend fun createTeamSchedule(params: TeamScheduleParams): TeamScheduleReq {
+        val str = App.gson.toJson(params.teamSchedule)
+        return RetrofitInstance.service.createTeamSchedule(createJsonRequestBody(str))
     }
 
-    suspend fun createTeamSchedule(body: ScheduleUpdateDto): TeamSchedule {
-        return RetrofitInstance.service.createTeamSchedule(body)
+    suspend fun editTeamSchedule(params: TeamScheduleParams): TeamScheduleReq {
+        val str = App.gson.toJson(params.teamSchedule)
+        return RetrofitInstance.service.createTeamSchedule(createJsonRequestBody(str))
     }
 
     suspend fun deleteTeamSchedule(teamScheduleId: Long): TeamSchedule {
