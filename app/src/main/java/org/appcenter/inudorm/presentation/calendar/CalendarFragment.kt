@@ -160,6 +160,10 @@ class CalendarFragment : LoadingFragment() {
             intent.putExtra("purpose", TeamSchedulePurpose.Create)
             startActivity(intent)
         }
+        binding.registerSleepover.setOnClickListener {
+            val intent = Intent(requireContext(), WriteSleepoverScheduleActivity::class.java)
+            startActivity(intent)
+        }
         lifecycleScope.launch {
             viewModel.schedules.collect {
                 setLoadingState(it)

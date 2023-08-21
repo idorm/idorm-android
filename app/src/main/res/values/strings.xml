@@ -238,6 +238,8 @@
 
     <!--writeSleepoverSchedule-->
     <string name="sleepoverSchedule">외박 일정</string>
+    <string name="sleepoverStartDate">시작</string>
+    <string name="sleepoverEndDate">종료</string>
 
 
     <!-- Todo: Not categorized texts!! -->
