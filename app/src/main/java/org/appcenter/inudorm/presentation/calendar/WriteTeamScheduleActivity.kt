@@ -62,15 +62,17 @@ class WriteTeamScheduleActivity : LoadingActivity() {
 
 
         binding.doneButton.setOnClickListener{
+            val title = binding.title.text.toString()
+            val content = binding.content.text.toString()
             viewModel.submit(
                 TeamScheduleReq(
-                    content = "방 청소만 하는게 아니라 화장실거울까지!",
+                    content = content,
                     endDate = "2023-08-27",
                     endTime = "16:00:00",
                     startDate = "2023-08-27",
                     startTime = "15:00:00",
                     targets = teamProfile,
-                    title = "청소"
+                    title = title
 
                 )
             )
@@ -82,6 +84,36 @@ class WriteTeamScheduleActivity : LoadingActivity() {
                     is TeamScheduleMutationEvent.CreateTeamSchedule -> {
                         if (it.mutation.state.isSuccess()) {
                             OkDialog("일정이 등록되었습니다.", onOk = {
+                                val intent = Intent(applicationContext, CalendarFragment::class.java)
+                                startActivity(intent)
+                            })
+                        }
+                        if (it.mutation.state.isError()) {
+                            UIErrorHandler.handle(
+                                this@WriteTeamScheduleActivity,
+                                prefsRepository,
+                                (it.mutation.state as State.Error).error
+                            ) { e ->
+                                when (e.error) {
+                                    ErrorCode.FIELD_REQUIRED -> {
+                                        OkDialog(
+                                            e.error.message,
+                                            onOk = { },
+                                            cancelable = false
+                                        ).show(this@WriteTeamScheduleActivity)
+                                    }
+                                    else -> {
+                                        OkDialog(getString(R.string.unknownError)).show(
+                                            this@WriteTeamScheduleActivity
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    is TeamScheduleMutationEvent.EditTeamSchedule -> {
+                        if(it.mutation.state.isSuccess()){
+                            OkDialog("일정이 수정되었습니다.", onOk = {
                                 val intent = Intent(applicationContext, CalendarFragment::class.java)
                                 startActivity(intent)
                             })

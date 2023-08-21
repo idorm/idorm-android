@@ -245,6 +245,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <org.appcenter.inudorm.presentation.LinedEditText
+                        android:id="@+id/content"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="40sp"

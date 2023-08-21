@@ -88,7 +88,6 @@ class CalendarFragment : LoadingFragment() {
     }
 
     private fun initBind() {
-        //테스트~~ 컬러는 안 해 봤어여~
         teamProfileAdapter = TeamProfileAdapter(arrayListOf())
         teamScheduleAdapter = TeamScheduleAdapter(arrayListOf()) {
             startActivity(Intent(requireContext(), ScheduleDetailActivity::class.java))
