@@ -18,6 +18,7 @@ import org.appcenter.inudorm.networking.UIErrorHandler
 import org.appcenter.inudorm.presentation.matching.FILTER_RESULT_CODE
 import org.appcenter.inudorm.presentation.matching.MatchingFragment
 import org.appcenter.inudorm.presentation.mypage.matching.MyMatchingProfileActivity
+import org.appcenter.inudorm.repository.CalendarRepository
 import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.OkDialog
@@ -37,14 +38,16 @@ class WriteTeamScheduleActivity : LoadingActivity() {
     private val prefsRepository by lazy {
         PrefsRepository(this)
     }
-
-
+    private val calendarRepository by lazy {
+        CalendarRepository()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_write_team_schedule)
 
         val purpose = intent.getSerializableExtra("purpose") as TeamSchedulePurpose
+        val teamCalendarId = intent.getIntExtra("id", 0)
 
         viewModel = ViewModelProvider(
             viewModelStore,
@@ -150,9 +153,9 @@ class WriteTeamScheduleActivity : LoadingActivity() {
         }
     }
 
-    private suspend fun initData(purpose: TeamSchedulePurpose){
+    private suspend fun initData(purpose: TeamSchedulePurpose, teamCalendarId : Long){
         if(purpose == TeamSchedulePurpose.Edit){
-
+            val teamScheduleData = calendarRepository.getTeamSchedule(teamCalendarId)
         }
     }
 
