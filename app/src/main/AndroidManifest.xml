@@ -144,11 +144,6 @@
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".presentation.calendar.ScheduleDetailActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
             android:name=".presentation.mypage.matching.LikedMateListActivity"
             android:exported="false"
             android:screenOrientation="portrait"
