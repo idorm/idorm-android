@@ -70,8 +70,6 @@ class EmailPromptFragment : LoadingFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        
-        
         lifecycleScope.launch {
             viewModel.userState.collect {
                 setLoadingState(it.isLoading())

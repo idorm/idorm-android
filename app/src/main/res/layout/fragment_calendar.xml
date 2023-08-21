@@ -110,7 +110,9 @@
                             app:layout_constraintTop_toTopOf="parent"
 
                             tools:itemCount="4"
-                            tools:listitem="@layout/item_team_profile" />
+                            tools:listitem="@layout/item_team_profile"
+                            app:mates="@{viewModel.roomMateTeam}"
+                            />
 
                         <ImageView
                             android:id="@+id/more"

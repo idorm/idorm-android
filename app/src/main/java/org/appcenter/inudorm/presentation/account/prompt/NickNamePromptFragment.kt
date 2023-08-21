@@ -18,7 +18,7 @@ class NickNamePromptFragment : LoadingFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_nickname_prompt, container, false)
@@ -29,8 +29,7 @@ class NickNamePromptFragment : LoadingFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        
-                binding.continueButton.setOnClickListener {
+        binding.continueButton.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("nickname", viewModel.nickName.value)
             (this@NickNamePromptFragment.requireContext() as OnPromptDoneListener).onPromptDone(

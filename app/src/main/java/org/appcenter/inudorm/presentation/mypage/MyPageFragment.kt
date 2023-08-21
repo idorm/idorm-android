@@ -85,8 +85,7 @@ class MyPageFragment : LoadingFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        
-                viewModel = ViewModelProvider(this).get(MyPageViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MyPageViewModel::class.java)
         binding.viewModel = viewModel
         binding.fragment = this
         binding.lifecycleOwner = requireActivity()

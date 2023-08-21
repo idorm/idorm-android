@@ -33,6 +33,7 @@ class App : Application() {
         val matchingInfoRepository = MatchingInfoRepository()
         val communityRepository = CommunityRepository()
         val calendarRepository = CalendarRepository()
+        val roomMateTeamRepository = RoomMateTeamRepository()
     }
 
     override fun onCreate() {

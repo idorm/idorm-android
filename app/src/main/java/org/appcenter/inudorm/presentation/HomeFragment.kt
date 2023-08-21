@@ -106,7 +106,6 @@ class HomeFragment : LoadingFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         binding.popularPosts.adapter = PopularPostAdapter(ArrayList()) {

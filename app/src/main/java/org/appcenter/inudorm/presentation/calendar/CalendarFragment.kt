@@ -31,6 +31,7 @@ import com.kizitonwose.calendar.core.nextMonth
 import com.kizitonwose.calendar.core.previousMonth
 import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.MonthHeaderFooterBinder
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentCalendarBinding
@@ -78,20 +79,7 @@ class CalendarFragment : LoadingFragment() {
 
     private fun initBind() {
         //테스트~~ 컬러는 안 해 봤어여~
-
-        val nickName1 = TeamProfile("나도미")
-        val nickName2 = TeamProfile("나도미나도미")
-        val nickName3 = TeamProfile("나도미나도")
-        val nickName4 = TeamProfile("나도미나")
-
-        val list = arrayListOf(
-            nickName1,
-            nickName2,
-            nickName3,
-            nickName4
-        )
-
-        adapter = TeamProfileAdapter(list)
+        adapter = TeamProfileAdapter(arrayListOf())
 
         binding.teamProfileRecycler.layoutManager =
             LinearLayoutManager(this.context, RecyclerView.HORIZONTAL, false)
@@ -99,11 +87,6 @@ class CalendarFragment : LoadingFragment() {
         with(binding) {
             teamProfileRecycler.adapter = adapter
         }
-
-        val todayBackground = getDrawable(this.requireActivity(), R.drawable.ic_today)
-        val selectedBackground =
-            getDrawable(this.requireActivity(), R.drawable.selector_calendar_custom)
-
     }
 
     private var menuExtended = false
@@ -127,10 +110,10 @@ class CalendarFragment : LoadingFragment() {
         setExtended(!menuExtended)
     }
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        
-                viewModel = ViewModelProvider(this).get(CalendarViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(CalendarViewModel::class.java)
         binding.lifecycleOwner = this.requireActivity()
         binding.viewModel = viewModel
         viewModel.selectedDay.observe(binding.lifecycleOwner!!) {
@@ -140,6 +123,7 @@ class CalendarFragment : LoadingFragment() {
         // Todo: 현재 날짜로 변경
 //        viewModel.getSchedules(getCalendarDateFormat.format(date))
         viewModel.getSchedules("2023-04")
+        viewModel.getRoomMates()
 
         setExtended(false)
         binding.registerSchedule.setOnClickListener {
@@ -147,7 +131,7 @@ class CalendarFragment : LoadingFragment() {
         }
         lifecycleScope.launch {
             viewModel.schedules.collect {
-
+                setLoadingState(it)
                 /**
                  * yyyy-MM-dd -> TeamProfile[] 인 map. 날짜별 팀 해당하는 팀 멤버를 보관힙니다.
                  */
@@ -241,6 +225,12 @@ class CalendarFragment : LoadingFragment() {
                         }
                     }
                 }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.roomMateTeam.collect {
+                setLoadingState(it)
             }
         }
         binding.calendarView.dayBinder = object : MonthDayBinder<DayViewContainer> {

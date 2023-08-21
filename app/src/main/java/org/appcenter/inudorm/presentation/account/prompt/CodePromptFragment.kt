@@ -23,7 +23,7 @@ class CodePromptFragment : LoadingFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_code_prompt, container, false)
@@ -45,8 +45,7 @@ class CodePromptFragment : LoadingFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        
-                viewModel.startTimer()
+        viewModel.startTimer()
         lifecycleScope.launch {
             viewModel.eventFlow.collect {
                 eventHandler(requireContext(), it)

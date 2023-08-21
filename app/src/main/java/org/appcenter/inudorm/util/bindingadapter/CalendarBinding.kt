@@ -2,6 +2,7 @@ package org.appcenter.inudorm.util.bindingadapter
 
 import android.view.View
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.databinding.BindingMethod
 import androidx.databinding.InverseBindingAdapter
@@ -10,10 +11,15 @@ import androidx.databinding.InverseBindingMethod
 import androidx.databinding.InverseBindingMethods
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
+import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.coroutines.flow.StateFlow
 import org.appcenter.inudorm.R
+import org.appcenter.inudorm.model.RoomMateTeamResponseDto
 import org.appcenter.inudorm.model.Schedule
+import org.appcenter.inudorm.model.TeamProfile
 import org.appcenter.inudorm.model.TeamSchedule
 import org.appcenter.inudorm.presentation.adapter.CalendarAdapter
+import org.appcenter.inudorm.presentation.adapter.TeamProfileAdapter
 import org.appcenter.inudorm.presentation.calendar.mateColors
 import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.State
@@ -75,13 +81,13 @@ object CalendarBinding {
     }
 
 
-
     @JvmStatic
     @BindingAdapter("dormVisibility")
     fun Chip.dormVisibility(visible: Boolean?) {
         visibility = if (visible == true) View.VISIBLE else View.GONE
     }
-//
+
+    //
 //    @JvmStatic
 //    @BindingAdapter("selectedDay")
 //    fun MaterialCalendarView.bindSelectedDay(selectedDay: Int?) {
@@ -137,6 +143,24 @@ object CalendarBinding {
 //        }
 //        this.addDecorators(decorators)
 //    }
+    @JvmStatic
+    @BindingAdapter("mates")
+    fun RecyclerView.bindMateList(mateListState: State<RoomMateTeamResponseDto>?) {
+        if (mateListState != null && adapter is TeamProfileAdapter &&
+            mateListState is State.Success && !mateListState.data?.members.isNullOrEmpty()
+        ) {
+            val a = adapter as TeamProfileAdapter
+            a.dataSet.clear()
+            a.dataSet.addAll(mateListState.data?.members ?: arrayListOf())
+            a.notifyDataSetChanged()
+        }
+    }
 
+    @JvmStatic
+    @BindingAdapter("profileOrder")
+    fun CircleImageView.bindProfileOrder(teamOrder: Int?) {
+        if (teamOrder != null)
+            this.borderColor = ContextCompat.getColor(context, mateColors[teamOrder])
+    }
 
 }
