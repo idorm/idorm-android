@@ -20,6 +20,7 @@ import org.appcenter.inudorm.model.TeamProfile
 import org.appcenter.inudorm.model.TeamSchedule
 import org.appcenter.inudorm.presentation.adapter.CalendarAdapter
 import org.appcenter.inudorm.presentation.adapter.TeamProfileAdapter
+import org.appcenter.inudorm.presentation.adapter.TeamScheduleAdapter
 import org.appcenter.inudorm.presentation.calendar.mateColors
 import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.State
@@ -161,6 +162,31 @@ object CalendarBinding {
     fun CircleImageView.bindProfileOrder(teamOrder: Int?) {
         if (teamOrder != null)
             this.borderColor = ContextCompat.getColor(context, mateColors[teamOrder])
+    }
+
+    @JvmStatic
+    @BindingAdapter("teamSchedules")
+    fun RecyclerView.bindTeamSchedules(teamSchedules: State<List<TeamSchedule>>?) {
+        if (teamSchedules != null && adapter is TeamScheduleAdapter &&
+            teamSchedules is State.Success && teamSchedules.data?.isNotEmpty() == true
+        ) {
+            val a = adapter as TeamScheduleAdapter
+            a.dataSet.clear()
+            a.dataSet.addAll(teamSchedules.data)
+            a.notifyDataSetChanged()
+        }
+    }
+    @JvmStatic
+    @BindingAdapter("officialSchedules")
+    fun RecyclerView.bindOfficialSchedules(officialSchedules: State<List<Schedule>>?) {
+        if (officialSchedules != null && adapter is CalendarAdapter &&
+            officialSchedules is State.Success && officialSchedules.data?.isNotEmpty() == true
+        ) {
+            val a = adapter as CalendarAdapter
+            a.dataSet.clear()
+            a.dataSet.addAll(officialSchedules.data)
+            a.notifyDataSetChanged()
+        }
     }
 
 }

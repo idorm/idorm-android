@@ -26,20 +26,25 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.CalendarMonth
 import com.kizitonwose.calendar.core.DayPosition
+import com.kizitonwose.calendar.core.WeekDay
 import com.kizitonwose.calendar.core.daysOfWeek
 import com.kizitonwose.calendar.core.firstDayOfWeekFromLocale
 import com.kizitonwose.calendar.core.nextMonth
 import com.kizitonwose.calendar.core.previousMonth
 import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.MonthHeaderFooterBinder
+import com.kizitonwose.calendar.view.MonthScrollListener
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentCalendarBinding
 import org.appcenter.inudorm.model.Member
 import org.appcenter.inudorm.model.TeamProfile
+import org.appcenter.inudorm.model.TeamSchedule
 import org.appcenter.inudorm.presentation.LoadingFragment
+import org.appcenter.inudorm.presentation.adapter.CalendarAdapter
 import org.appcenter.inudorm.presentation.adapter.TeamProfileAdapter
+import org.appcenter.inudorm.presentation.adapter.TeamScheduleAdapter
 import org.appcenter.inudorm.presentation.mypage.matching.MyMatchingProfileActivity
 import org.appcenter.inudorm.usecase.getCalendarDateFormat
 import org.appcenter.inudorm.util.IDormLogger
@@ -66,7 +71,9 @@ class CalendarFragment : LoadingFragment() {
 
     private lateinit var viewModel: CalendarViewModel
     private lateinit var binding: FragmentCalendarBinding
-    lateinit var adapter: TeamProfileAdapter
+    private lateinit var teamProfileAdapter: TeamProfileAdapter
+    private lateinit var teamScheduleAdapter: TeamScheduleAdapter
+    private lateinit var officialScheduleAdapter: CalendarAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -81,13 +88,26 @@ class CalendarFragment : LoadingFragment() {
 
     private fun initBind() {
         //테스트~~ 컬러는 안 해 봤어여~
-        adapter = TeamProfileAdapter(arrayListOf())
+        teamProfileAdapter = TeamProfileAdapter(arrayListOf())
+        teamScheduleAdapter = TeamScheduleAdapter(arrayListOf()) {
+
+        }
+        officialScheduleAdapter = CalendarAdapter(arrayListOf()) {
+
+        }
 
         binding.teamProfileRecycler.layoutManager =
             LinearLayoutManager(this.context, RecyclerView.HORIZONTAL, false)
 
+        binding.teamCalendarRecycler.layoutManager =
+            LinearLayoutManager(this.context, RecyclerView.HORIZONTAL, false)
+        binding.officialEvents.layoutManager =
+            LinearLayoutManager(this.context, RecyclerView.HORIZONTAL, false)
+
         with(binding) {
-            teamProfileRecycler.adapter = adapter
+            teamProfileRecycler.adapter = teamProfileAdapter
+            teamCalendarRecycler.adapter = teamScheduleAdapter
+            officialEvents.adapter = officialScheduleAdapter
         }
     }
 
@@ -112,6 +132,13 @@ class CalendarFragment : LoadingFragment() {
         setExtended(!menuExtended)
     }
 
+    private fun setCurrentMonth(date: CalendarMonth) {
+        val monthString = date.yearMonth.monthValue.toString().padStart(2, '0')
+        val date = "${date.yearMonth.year}-${monthString}"
+        IDormLogger.i(this, date)
+        viewModel.getSchedules(date)
+        viewModel.getRoomMates()
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -123,10 +150,7 @@ class CalendarFragment : LoadingFragment() {
         }
 
         // Todo: 현재 날짜로 변경
-//        viewModel.getSchedules(getCalendarDateFormat.format(date))
-        viewModel.getSchedules("2023-04")
-        viewModel.getRoomMates()
-
+        setCurrentMonth(CalendarMonth(YearMonth.now(), arrayListOf()))
         setExtended(false)
         binding.registerSchedule.setOnClickListener {
             toggleExtended()
@@ -271,7 +295,6 @@ class CalendarFragment : LoadingFragment() {
 
                     prev.setOnClickListener {
                         binding.calendarView.scrollToMonth(data.yearMonth.previousMonth)
-
                     }
                     next.setOnClickListener {
                         binding.calendarView.scrollToMonth(data.yearMonth.nextMonth)
@@ -306,6 +329,11 @@ class CalendarFragment : LoadingFragment() {
         val firstDayOfWeek = firstDayOfWeekFromLocale() // Available from the library
         binding.calendarView.setup(startMonth, endMonth, firstDayOfWeek)
         binding.calendarView.scrollToMonth(currentMonth)
+        binding.calendarView.monthScrollListener = object : MonthScrollListener {
+            override fun invoke(month: CalendarMonth) {
+                setCurrentMonth(month)
+            }
+        }
 
 
     }

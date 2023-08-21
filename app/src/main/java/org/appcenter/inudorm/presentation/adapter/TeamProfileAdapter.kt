@@ -10,7 +10,7 @@ import org.appcenter.inudorm.model.TeamProfile
 
 
 class TeamProfileAdapter(
-    private var _dataSet: ArrayList<TeamProfile>
+    private var _dataSet: ArrayList<TeamProfile>,
 ) :
     RecyclerView.Adapter<TeamProfileAdapter.TeamProfileViewHolder>() {
 
@@ -22,9 +22,9 @@ class TeamProfileAdapter(
         }
 
     inner class TeamProfileViewHolder(
-        var viewBinding: ItemTeamProfileBinding
+        var viewBinding: ItemTeamProfileBinding,
 
-    ) : RecyclerView.ViewHolder(viewBinding.root) { }
+        ) : RecyclerView.ViewHolder(viewBinding.root) {}
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): TeamProfileViewHolder {
 
@@ -39,9 +39,7 @@ class TeamProfileAdapter(
     }
 
     override fun onBindViewHolder(viewHolder: TeamProfileViewHolder, position: Int) {
-
         viewHolder.viewBinding.teamProfile = _dataSet[position]
-
     }
 
     override fun getItemCount() = dataSet.size

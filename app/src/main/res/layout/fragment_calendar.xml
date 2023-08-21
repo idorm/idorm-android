@@ -198,6 +198,7 @@
                                 tools:itemCount="2"
                                 tools:listitem="@layout/item_team_calendar"
 
+                                app:teamSchedules="@{viewModel.schedules}"
                                 />
 
 
