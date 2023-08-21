@@ -77,26 +77,20 @@ class WriteTeamScheduleActivity : LoadingActivity() {
 
         viewModel.getRoomMates()
 
-        val teamProfile: List<TeamProfile> = mutableListOf(
-            TeamProfile(
-                order = 1,
-                memberId = 12,
-                nickname = "슈룹",
-                profilePhotoUrl = null
-            )
-        )
+
         binding.deleteButton.setOnClickListener {
             //ToDo : 일정 삭제 연결
         }
+
         binding.doneButton.setOnClickListener {
             val title = binding.title.text.toString()
             val content = binding.content.text.toString()
             viewModel.submit(
                 TeamScheduleReq(
                     content = content,
-                    endDate = "2023-08-27",
+                    endDate = "2023-08-20",
                     endTime = "16:00:00",
-                    startDate = "2023-08-27",
+                    startDate = "2023-08-20",
                     startTime = "15:00:00",
                     targets = (binding.teamProfileRecycler.adapter as TeamProfileAdapter).dataSet
                         .filter { it.hasInvitedToSchedule == true }
@@ -114,11 +108,7 @@ class WriteTeamScheduleActivity : LoadingActivity() {
                     when (it) {
                         is TeamScheduleMutationEvent.CreateTeamSchedule -> {
                             if (it.mutation.state.isSuccess()) {
-                                OkDialog("일정이 등록되었습니다.", onOk = {
-                                    val intent =
-                                        Intent(applicationContext, CalendarFragment::class.java)
-                                    startActivity(intent)
-                                })
+                                finish()
                             }
                             if (it.mutation.state.isError()) {
                                 UIErrorHandler.handle(
@@ -133,12 +123,15 @@ class WriteTeamScheduleActivity : LoadingActivity() {
                                                 onOk = { },
                                                 cancelable = false
                                             ).show(this@WriteTeamScheduleActivity)
+
                                         }
 
                                         else -> {
-                                            OkDialog(getString(R.string.unknownError)).show(
-                                                this@WriteTeamScheduleActivity
-                                            )
+                                            OkDialog(
+                                                e.error.message,
+                                                onOk = { },
+                                                cancelable = false
+                                            ).show(this@WriteTeamScheduleActivity)
                                         }
                                     }
                                 }
@@ -169,9 +162,11 @@ class WriteTeamScheduleActivity : LoadingActivity() {
                                         }
 
                                         else -> {
-                                            OkDialog(getString(R.string.unknownError)).show(
-                                                this@WriteTeamScheduleActivity
-                                            )
+                                            OkDialog(
+                                                e.error.message,
+                                                onOk = { },
+                                                cancelable = false
+                                            ).show(this@WriteTeamScheduleActivity)
                                         }
                                     }
                                 }
@@ -189,6 +184,10 @@ class WriteTeamScheduleActivity : LoadingActivity() {
     private suspend fun initData(purpose: TeamSchedulePurpose, teamCalendarId : Long){
         if(purpose == TeamSchedulePurpose.Edit){
             val teamScheduleData = calendarRepository.getTeamSchedule(teamCalendarId)
+            binding.title.setText(binding.title.text)
+            binding.content.setText(binding.content.text)
+            IDormLogger.i(this, binding.endDate.toString()+"눌러짐")
+
         }
     }
 

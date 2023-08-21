@@ -15,12 +15,12 @@ class CalendarRepository {
         return RetrofitInstance.service.getTeamCalendar(teamScheduleId)
     }
 
-    suspend fun createTeamSchedule(params: TeamScheduleParams): TeamScheduleReq {
+    suspend fun createTeamSchedule(params: TeamScheduleParams): TeamSchedule {
         val str = App.gson.toJson(params.teamSchedule)
         return RetrofitInstance.service.createTeamSchedule(createJsonRequestBody(str))
     }
 
-    suspend fun editTeamSchedule(params: TeamScheduleParams): TeamScheduleReq {
+    suspend fun editTeamSchedule(params: TeamScheduleParams): TeamSchedule {
         val str = App.gson.toJson(params.teamSchedule)
         return RetrofitInstance.service.createTeamSchedule(createJsonRequestBody(str))
     }

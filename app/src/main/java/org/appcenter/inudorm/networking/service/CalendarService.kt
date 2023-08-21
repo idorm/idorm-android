@@ -16,10 +16,10 @@ interface CalendarService {
     suspend fun getTeamCalendar(@Query("teamCalendarId") teamCalendarId: Long) : TeamSchedule
 
     @PUT("${path}/member/team/calendar")
-    suspend fun editTeamSchedule(@Body body: RequestBody): TeamScheduleReq
+    suspend fun editTeamSchedule(@Body body: RequestBody): TeamSchedule
 
     @POST("${path}/member/team/calendar")
-    suspend fun createTeamSchedule(@Body body: RequestBody): TeamScheduleReq
+    suspend fun createTeamSchedule(@Body body: RequestBody): TeamSchedule
 
     @DELETE("${path}/member/team/calendar")
     suspend fun deleteTeamSchedule(@Query("teamCalendarId") teamScheduleId: Long): TeamSchedule
