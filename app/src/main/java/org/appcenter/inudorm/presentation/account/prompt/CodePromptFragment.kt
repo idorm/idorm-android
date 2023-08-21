@@ -45,7 +45,7 @@ class CodePromptFragment : LoadingFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setLoadingState(false)
+        
                 viewModel.startTimer()
         lifecycleScope.launch {
             viewModel.eventFlow.collect {

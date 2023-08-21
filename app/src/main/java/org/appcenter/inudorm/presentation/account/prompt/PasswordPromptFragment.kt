@@ -33,7 +33,6 @@ class PasswordPromptFragment : LoadingFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setLoadingState(false)
         lifecycleScope.launch {
             viewModel.eventFlow.collect {
                 eventHandler(requireContext(), it)

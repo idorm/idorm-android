@@ -29,7 +29,7 @@ class NickNamePromptFragment : LoadingFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setLoadingState(false)
+        
                 binding.continueButton.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("nickname", viewModel.nickName.value)

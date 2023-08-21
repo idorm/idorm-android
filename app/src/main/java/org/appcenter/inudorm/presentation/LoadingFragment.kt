@@ -1,6 +1,7 @@
 package org.appcenter.inudorm.presentation
 
 import android.app.Dialog
+import android.os.Bundle
 import android.widget.ProgressBar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -12,4 +13,8 @@ open class LoadingFragment : Fragment() {
         (this@LoadingFragment.requireActivity() as MainActivity).setLoadingState(loading)
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        
+    }
 }

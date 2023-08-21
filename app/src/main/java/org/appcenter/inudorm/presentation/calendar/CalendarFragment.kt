@@ -129,7 +129,7 @@ class CalendarFragment : LoadingFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setLoadingState(false)
+        
                 viewModel = ViewModelProvider(this).get(CalendarViewModel::class.java)
         binding.lifecycleOwner = this.requireActivity()
         binding.viewModel = viewModel

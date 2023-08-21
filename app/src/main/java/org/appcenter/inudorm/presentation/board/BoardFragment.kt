@@ -86,7 +86,7 @@ class BoardFragment : LoadingFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setLoadingState(false)
+        
                 viewModel = ViewModelProvider(this)[BoardViewModel::class.java]
         binding.viewModel = viewModel
         binding.fragment = this

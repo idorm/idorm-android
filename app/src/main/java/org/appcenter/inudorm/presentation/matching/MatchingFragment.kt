@@ -252,7 +252,7 @@ class MatchingFragment : LoadingFragment(), CardStackListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setLoadingState(false)
+        
         setupCardStackView()
         setupControlButton()
         binding.matchingViewModel = viewModel

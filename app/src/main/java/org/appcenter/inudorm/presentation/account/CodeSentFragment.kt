@@ -38,7 +38,7 @@ class CodeSentFragment : LoadingFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setLoadingState(false)
+        
         binding.openWebMail.setOnClickListener {
             openWebMail()
         }

@@ -26,7 +26,7 @@ class AdditionalInformationFragment : LoadingFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setLoadingState(false)
+        
                 viewModel = ViewModelProvider(this).get(AdditionalInformationViewModel::class.java)
         // TODO: Use the ViewModel
     }
