@@ -105,6 +105,27 @@ class CalendarFragment : Fragment() {
 
     }
 
+    private var menuExtended = false
+
+    private fun setExtended(extended: Boolean) {
+        if (extended) {
+            binding.registerSleepover.show()
+            binding.registerTeamSchedule.show()
+            binding.registerSleepover.visibility = View.VISIBLE
+            binding.registerTeamSchedule.visibility = View.VISIBLE
+        } else {
+            binding.registerSleepover.hide()
+            binding.registerTeamSchedule.hide()
+            binding.registerSleepover.visibility = View.GONE
+            binding.registerTeamSchedule.visibility = View.GONE
+        }
+        menuExtended = extended
+    }
+
+    private fun toggleExtended() {
+        setExtended(!menuExtended)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(CalendarViewModel::class.java)
@@ -118,6 +139,10 @@ class CalendarFragment : Fragment() {
 //        viewModel.getSchedules(getCalendarDateFormat.format(date))
         viewModel.getSchedules("2023-04")
 
+        setExtended(false)
+        binding.registerSchedule.setOnClickListener {
+            toggleExtended()
+        }
         lifecycleScope.launch {
             viewModel.schedules.collect {
 
