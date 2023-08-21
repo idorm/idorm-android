@@ -5,5 +5,5 @@ data class TeamProfile(
     val memberId: Int? = null,
     val order: Int? = null,
     val profilePhotoUrl: String? = null,
-    val hasInvitedToSchedule: Boolean? = null,
+    var hasInvitedToSchedule: Boolean? = null,
 )

@@ -77,9 +77,9 @@ class CalendarFragment : LoadingFragment() {
     }
 
     private fun initBind() {
-        teamProfileAdapter = TeamProfileAdapter(arrayListOf())
+        teamProfileAdapter = TeamProfileAdapter(arrayListOf(), false)
         teamScheduleAdapter = TeamScheduleAdapter(arrayListOf()) {
-            startActivity(Intent(requireContext(), ScheduleDetailActivity::class.java))
+            startActivity(Intent(requireContext(), WriteTeamScheduleActivity::class.java))
         }
         officialScheduleAdapter = CalendarAdapter(arrayListOf()) {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.url)))
@@ -90,6 +90,7 @@ class CalendarFragment : LoadingFragment() {
 
         binding.teamCalendarRecycler.layoutManager =
             LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
+
         binding.officialEvents.layoutManager =
             LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
 
@@ -127,7 +128,6 @@ class CalendarFragment : LoadingFragment() {
         viewModel.getOfficialSchedules(date)
         viewModel.getRoomMates()
     }
-
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

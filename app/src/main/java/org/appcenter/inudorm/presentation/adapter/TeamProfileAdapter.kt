@@ -12,6 +12,7 @@ import org.appcenter.inudorm.model.TeamProfile
 
 class TeamProfileAdapter(
     private var _dataSet: ArrayList<TeamProfile>,
+    val isCheckable: Boolean,
 ) :
     RecyclerView.Adapter<TeamProfileAdapter.TeamProfileViewHolder>() {
 
@@ -42,8 +43,16 @@ class TeamProfileAdapter(
     override fun onBindViewHolder(viewHolder: TeamProfileViewHolder, position: Int) {
         viewHolder.viewBinding.teamProfile = _dataSet[position]
         _dataSet[position].let {
-            if (it.hasInvitedToSchedule != null)
+            if (isCheckable == true)
                 viewHolder.viewBinding.radioButton2.visibility = View.VISIBLE
+            viewHolder.viewBinding.radioButton2.isChecked =
+                _dataSet[position].hasInvitedToSchedule == true
+
+            viewHolder.viewBinding.root.setOnClickListener {
+                _dataSet[position] =
+                    _dataSet[position].apply { hasInvitedToSchedule = hasInvitedToSchedule != true }
+                notifyItemChanged(position)
+            }
         }
     }
 

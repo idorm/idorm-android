@@ -148,11 +148,11 @@ object CalendarBinding {
     @BindingAdapter("mates")
     fun RecyclerView.bindMateList(mateListState: State<RoomMateTeamResponseDto>?) {
         if (mateListState != null && adapter is TeamProfileAdapter &&
-            mateListState is State.Success && !mateListState.data?.members.isNullOrEmpty()
+            mateListState is State.Success && mateListState.data?.members != null
         ) {
             val a = adapter as TeamProfileAdapter
             a.dataSet.clear()
-            a.dataSet.addAll(mateListState.data?.members ?: arrayListOf())
+            a.dataSet.addAll(mateListState.data?.members)
             a.notifyDataSetChanged()
         }
     }
