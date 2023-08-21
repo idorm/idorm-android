@@ -10,7 +10,7 @@ import org.appcenter.inudorm.model.RoomMateTeamResponseDto
 import org.appcenter.inudorm.model.TeamScheduleReq
 import org.appcenter.inudorm.presentation.onboard.BaseInfoState
 import org.appcenter.inudorm.usecase.GetRoomMateTeam
-import org.appcenter.inudorm.usecase.TeamSchedule
+import org.appcenter.inudorm.usecase.ModifyTeamSchedule
 import org.appcenter.inudorm.usecase.TeamScheduleParams
 import org.appcenter.inudorm.util.State
 
@@ -51,7 +51,7 @@ class WriteTeamScheduleViewModel(private val purpose: TeamSchedulePurpose) : Vie
         viewModelScope.launch {
             _teamScheduleMutationEvent.emit(
                 TeamScheduleMutationEvent.CreateTeamSchedule(
-                TeamMutation(teamScheduleParams, TeamSchedule().run(TeamScheduleParams(purpose, teamScheduleReq)))
+                TeamMutation(teamScheduleParams, ModifyTeamSchedule().run(teamScheduleParams))
             ))
         }
     }
