@@ -2,47 +2,83 @@
 
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="teamProfile"
             type="org.appcenter.inudorm.model.TeamProfile" />
 
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/profile"
-        android:layout_width="68sp"
+        android:layout_width="48dp"
         android:layout_height="wrap_content"
-        android:paddingEnd="20sp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginEnd="20dp"
+        >
 
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profileImage"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/imageArea"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/ic_profile_my_page"
-            app:civ_border_width="3dp"
-            app:profileOrder="@{teamProfile.order}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
 
-            android:layout_gravity="center" />
+            >
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileImage"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_profile_my_page"
+                app:civ_border_width="3dp"
+                app:imageUrl="@{teamProfile.profilePhotoUrl}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:profileOrder="@{teamProfile.order}" />
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_gravity="center"
+                android:background="@drawable/selector_radiobutton"
+                android:button="@null"
+
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/profileImage"
+                app:layout_constraintEnd_toEndOf="@+id/profileImage" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/nickname"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
             android:fontFamily="@font/notosans_regular"
             android:includeFontPadding="false"
             android:text="@{teamProfile.nickname}"
             android:textAlignment="center"
             android:textColor="@color/iDorm_gray_400"
+
             android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageArea"
+            tools:text="나도미나도미나도나" />
 
-            android:layout_gravity="center"
-            android:layout_marginTop="8dp"
-            />
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

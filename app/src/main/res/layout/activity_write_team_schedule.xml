@@ -201,7 +201,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16sp"
 
-                            android:background="@color/iDorm_matching_screen"
                             android:orientation="horizontal"
 
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

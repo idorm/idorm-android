@@ -1,6 +1,7 @@
 package org.appcenter.inudorm.presentation.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -40,6 +41,10 @@ class TeamProfileAdapter(
 
     override fun onBindViewHolder(viewHolder: TeamProfileViewHolder, position: Int) {
         viewHolder.viewBinding.teamProfile = _dataSet[position]
+        _dataSet[position].let {
+            if (it.hasInvitedToSchedule != null)
+                viewHolder.viewBinding.radioButton2.visibility = View.VISIBLE
+        }
     }
 
     override fun getItemCount() = dataSet.size
