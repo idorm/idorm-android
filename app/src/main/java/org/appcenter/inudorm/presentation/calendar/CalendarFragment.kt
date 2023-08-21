@@ -79,7 +79,10 @@ class CalendarFragment : LoadingFragment() {
     private fun initBind() {
         teamProfileAdapter = TeamProfileAdapter(arrayListOf())
         teamScheduleAdapter = TeamScheduleAdapter(arrayListOf()) {
-            startActivity(Intent(requireContext(), ScheduleDetailActivity::class.java))
+            val intent = Intent(requireContext(), WriteTeamScheduleActivity::class.java)
+            intent.putExtra("purpose", TeamSchedulePurpose.Edit)
+            intent.putExtra("teamCalendarId", it.teamCalendarId)
+            startActivity(intent)
         }
         officialScheduleAdapter = CalendarAdapter(arrayListOf()) {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.url)))
