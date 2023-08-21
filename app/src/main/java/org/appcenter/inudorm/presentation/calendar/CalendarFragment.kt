@@ -36,6 +36,7 @@ import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentCalendarBinding
 import org.appcenter.inudorm.model.Member
 import org.appcenter.inudorm.model.TeamProfile
+import org.appcenter.inudorm.presentation.LoadingFragment
 import org.appcenter.inudorm.presentation.adapter.TeamProfileAdapter
 import org.appcenter.inudorm.usecase.getCalendarDateFormat
 import org.appcenter.inudorm.util.IDormLogger
@@ -54,7 +55,7 @@ val mateColors = listOf(
     R.color.iDorm_pink
 )
 
-class CalendarFragment : Fragment() {
+class CalendarFragment : LoadingFragment() {
 
     companion object {
         fun newInstance() = CalendarFragment()
@@ -128,7 +129,8 @@ class CalendarFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(CalendarViewModel::class.java)
+        setLoadingState(false)
+                viewModel = ViewModelProvider(this).get(CalendarViewModel::class.java)
         binding.lifecycleOwner = this.requireActivity()
         binding.viewModel = viewModel
         viewModel.selectedDay.observe(binding.lifecycleOwner!!) {

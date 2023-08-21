@@ -14,12 +14,10 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentMyPageBinding
-import org.appcenter.inudorm.networking.ErrorCode
 import org.appcenter.inudorm.networking.UIErrorHandler
 import org.appcenter.inudorm.presentation.LoadingFragment
 import org.appcenter.inudorm.presentation.MainActivity
 import org.appcenter.inudorm.presentation.mypage.community.CommentListActivity
-import org.appcenter.inudorm.presentation.mypage.community.PostListActivity
 import org.appcenter.inudorm.presentation.mypage.community.liked_post_list.LikedPostListActivity
 import org.appcenter.inudorm.presentation.mypage.community.wrote_post_list.WrotePostListActivity
 import org.appcenter.inudorm.presentation.mypage.matching.DisLikedMateListActivity
@@ -33,7 +31,7 @@ import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.OkDialog
 import org.appcenter.inudorm.util.WindowUtil.setStatusBarColor
 
-class MyPageFragment : Fragment() {
+class MyPageFragment : LoadingFragment() {
 
     companion object {
         fun newInstance() = MyPageFragment()
@@ -87,7 +85,8 @@ class MyPageFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MyPageViewModel::class.java)
+        setLoadingState(false)
+                viewModel = ViewModelProvider(this).get(MyPageViewModel::class.java)
         binding.viewModel = viewModel
         binding.fragment = this
         binding.lifecycleOwner = requireActivity()
@@ -97,7 +96,9 @@ class MyPageFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.myPageState.collect {
-                (this@MyPageFragment.requireActivity() as MainActivity).setLoadingState(
+                if (it.myInfo?.isError() == true || it.matchingInfo?.isError() == true)
+                    this@MyPageFragment.setLoadingState(false)
+                this@MyPageFragment.setLoadingState(
                     it.myInfo?.loading == true || it.matchingInfo?.loading == true
                 )
                 IDormLogger.i(this@MyPageFragment, "state changed: $it")

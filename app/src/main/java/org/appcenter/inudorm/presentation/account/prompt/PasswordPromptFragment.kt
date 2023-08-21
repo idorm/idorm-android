@@ -12,16 +12,17 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentPasswordPromptBinding
+import org.appcenter.inudorm.presentation.LoadingFragment
 import org.appcenter.inudorm.util.eventHandler
 
-class PasswordPromptFragment : Fragment() {
+class PasswordPromptFragment : LoadingFragment() {
 
     private val viewModel: PasswordPromptViewModel by viewModels()
     private lateinit var binding: FragmentPasswordPromptBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_password_prompt, container, false)
@@ -32,6 +33,7 @@ class PasswordPromptFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        setLoadingState(false)
         lifecycleScope.launch {
             viewModel.eventFlow.collect {
                 eventHandler(requireContext(), it)

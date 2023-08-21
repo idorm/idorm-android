@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import org.appcenter.inudorm.R
+import org.appcenter.inudorm.presentation.LoadingFragment
 
-class AdditionalInformationFragment : Fragment() {
+class AdditionalInformationFragment : LoadingFragment() {
 
     companion object {
         fun newInstance() = AdditionalInformationFragment()
@@ -25,7 +26,8 @@ class AdditionalInformationFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(AdditionalInformationViewModel::class.java)
+        setLoadingState(false)
+                viewModel = ViewModelProvider(this).get(AdditionalInformationViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
