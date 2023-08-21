@@ -37,8 +37,17 @@ class MainActivity : BottomNavigationView.OnNavigationItemSelectedListener, OnSn
         binding.mainViewModel = mainViewModel
         binding.bottomNavigation.setOnNavigationItemSelectedListener(this)
 
+        val dest = intent.getStringExtra("dest")
+        var fragment: Fragment = HomeFragment()
+        if (dest == "CalendarFragment") {
+            fragment = CalendarFragment()
+            val bundle = Bundle()
+            bundle.putString("inviter", intent.getStringExtra("inviter"))
+            fragment.arguments = bundle
+        }
+
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, HomeFragment()).commit()
+            .replace(R.id.container, fragment).commit()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -47,18 +56,22 @@ class MainActivity : BottomNavigationView.OnNavigationItemSelectedListener, OnSn
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.container, HomeFragment()).commit()
             }
+
             R.id.matching -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.container, MatchingFragment()).commit()
             }
+
             R.id.community -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.container, BoardFragment()).commit()
             }
+
             R.id.calendar -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.container, CalendarFragment()).commit()
             }
+
             R.id.mypage -> {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.container, MyPageFragment()).commit()

@@ -36,17 +36,24 @@ import com.kizitonwose.calendar.view.MonthHeaderFooterBinder
 import com.kizitonwose.calendar.view.MonthScrollListener
 import com.kizitonwose.calendar.view.ViewContainer
 import kotlinx.coroutines.launch
+import org.appcenter.inudorm.App
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentCalendarBinding
 import org.appcenter.inudorm.model.SelectItem
 import org.appcenter.inudorm.model.TeamProfile
 import org.appcenter.inudorm.presentation.ListBottomSheet
 import org.appcenter.inudorm.presentation.LoadingFragment
+import org.appcenter.inudorm.presentation.account.LoginActivity
 import org.appcenter.inudorm.presentation.adapter.CalendarAdapter
 import org.appcenter.inudorm.presentation.adapter.TeamProfileAdapter
 import org.appcenter.inudorm.presentation.adapter.TeamScheduleAdapter
+import org.appcenter.inudorm.repository.PrefsRepository
+import org.appcenter.inudorm.usecase.AcceptInvitation
+import org.appcenter.inudorm.usecase.LoginRefresh
+import org.appcenter.inudorm.util.CustomDialog
 import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.ImageUri
+import org.appcenter.inudorm.util.OkDialog
 import org.appcenter.inudorm.util.State
 import java.time.LocalDate
 import java.time.YearMonth
@@ -227,217 +234,237 @@ class CalendarFragment : LoadingFragment() {
             IDormLogger.i(this, it.toString())
         }
         viewModel.getUser()
-        // Todo: 현재 날짜로 변경
-        setCurrentMonth(CalendarMonth(YearMonth.now(), arrayListOf()))
-        setExtended(false)
-        binding.registerSchedule.setOnClickListener {
-            toggleExtended()
-        }
-        binding.registerTeamSchedule.setOnClickListener {
-            val intent = Intent(requireContext(), WriteTeamScheduleActivity::class.java)
-            intent.putExtra("purpose", TeamSchedulePurpose.Create)
-            startActivity(intent)
-        }
-        binding.registerSleepover.setOnClickListener {
-            val intent = Intent(requireContext(), WriteSleepoverScheduleActivity::class.java)
-            startActivity(intent)
-        }
+
+        val inviter = arguments?.getString("inviter")
         lifecycleScope.launch {
-            viewModel.userState.collect {
-                setLoadingState(it)
+            if (!inviter.isNullOrEmpty()) {
+
+                val memberId = kotlin.runCatching {
+                    LoginRefresh().run(null).memberId
+                }.onFailure {
+                    PrefsRepository(requireContext()).signOut()
+                    startActivity(Intent(requireContext(), LoginActivity::class.java))
+                    requireActivity().finish()
+                }.getOrNull()
+                if (memberId != null)
+                    if (AcceptInvitation().run(memberId).isSuccess()) {
+                        OkDialog("초대가 수락되었습니다.").show(requireContext())
+                    }
             }
-        }
-        lifecycleScope.launch {
-            viewModel.schedules.collect {
-                setLoadingState(it)
-                /**
-                 * yyyy-MM-dd -> TeamProfile[] 인 map. 날짜별 팀 해당하는 팀 멤버를 보관힙니다.
-                 */
-                if (it is State.Success) {
-                    val dateMap = mutableMapOf<String, List<TeamProfile>>()
-                    it.data?.forEach { schedule ->
-                        dateMap.merge(
-                            schedule.startDate!!,
-                            schedule.targets
-                        ) { prev, curr -> prev + curr }
-                    }
-                    dateMap.forEach { (t, u) ->
-                        dateMap[t] =
-                            u.groupBy { member -> member.memberId }.map { entry -> entry.value[0] }
-                    }
 
-                    binding.calendarView.dayBinder = object : MonthDayBinder<DayViewContainer> {
-                        // Called only when a new container is needed.
-                        override fun create(view: View) = DayViewContainer(view)
+            // Todo: 현재 날짜로 변경
+            setCurrentMonth(CalendarMonth(YearMonth.now(), arrayListOf()))
+            setExtended(false)
+            binding.registerSchedule.setOnClickListener {
+                toggleExtended()
+            }
+            binding.registerTeamSchedule.setOnClickListener {
+                val intent = Intent(requireContext(), WriteTeamScheduleActivity::class.java)
+                intent.putExtra("purpose", TeamSchedulePurpose.Create)
+                startActivity(intent)
+            }
+            binding.registerSleepover.setOnClickListener {
+                val intent = Intent(requireContext(), WriteSleepoverScheduleActivity::class.java)
+                startActivity(intent)
+            }
+            lifecycleScope.launch {
+                viewModel.userState.collect {
+                    setLoadingState(it)
+                }
+            }
+            lifecycleScope.launch {
+                viewModel.schedules.collect {
+                    setLoadingState(it)
+                    /**
+                     * yyyy-MM-dd -> TeamProfile[] 인 map. 날짜별 팀 해당하는 팀 멤버를 보관힙니다.
+                     */
+                    if (it is State.Success) {
+                        val dateMap = mutableMapOf<String, List<TeamProfile>>()
+                        it.data?.forEach { schedule ->
+                            dateMap.merge(
+                                schedule.startDate!!,
+                                schedule.targets
+                            ) { prev, curr -> prev + curr }
+                        }
+                        dateMap.forEach { (t, u) ->
+                            dateMap[t] =
+                                u.groupBy { member -> member.memberId }.map { entry -> entry.value[0] }
+                        }
 
-                        // Called every time we need to reuse a container.
-                        override fun bind(container: DayViewContainer, data: CalendarDay) {
-                            container.textView.text = data.date.dayOfMonth.toString()
-                            if (data.position != DayPosition.MonthDate) {
-                                container.textView.setTextColor(
-                                    ContextCompat.getColor(
-                                        requireContext(),
-                                        R.color.iDorm_gray_200
-                                    )
-                                )
-                            } else {
-                                when (data.date) {
-                                    LocalDate.now() -> container.view.setBackgroundResource(R.drawable.ic_today)
-                                    viewModel.selectedDay.value!! -> {
-                                        container.view.setBackgroundColor(
-                                            ContextCompat.getColor(
-                                                requireContext(),
-                                                R.color.iDorm_blue
-                                            )
-                                        )
-                                    }
+                        binding.calendarView.dayBinder = object : MonthDayBinder<DayViewContainer> {
+                            // Called only when a new container is needed.
+                            override fun create(view: View) = DayViewContainer(view)
 
-                                    else
-                                        // 아마 RecyclerView를 이용하는 특성상 몇개 캘린더를 재활용하는 형태라서 위에서 setBackgroundResource를 하면 4개월 주기로 다른 날에도 뜸
-                                    -> container.view.setBackgroundColor(
+                            // Called every time we need to reuse a container.
+                            override fun bind(container: DayViewContainer, data: CalendarDay) {
+                                container.textView.text = data.date.dayOfMonth.toString()
+                                if (data.position != DayPosition.MonthDate) {
+                                    container.textView.setTextColor(
                                         ContextCompat.getColor(
                                             requireContext(),
-                                            R.color.white
+                                            R.color.iDorm_gray_200
                                         )
                                     )
-                                }
+                                } else {
+                                    when (data.date) {
+                                        LocalDate.now() -> container.view.setBackgroundResource(R.drawable.ic_today)
+                                        viewModel.selectedDay.value!! -> {
+                                            container.view.setBackgroundColor(
+                                                ContextCompat.getColor(
+                                                    requireContext(),
+                                                    R.color.iDorm_blue
+                                                )
+                                            )
+                                        }
 
-                                val teamProfiles =
-                                    dateMap[data.date.toString()]?.sortedBy { profile -> profile.order }
-
-                                if (teamProfiles.isNullOrEmpty()) return
-                                val layout = LinearLayout(requireContext())
-                                layout.apply {
-                                    val lp = LinearLayout.LayoutParams(
-                                        ViewGroup.LayoutParams.MATCH_PARENT,
-                                        ViewGroup.LayoutParams.MATCH_PARENT
-                                    )
-                                    layoutParams = lp
-                                    id = ViewCompat.generateViewId()
-                                    gravity = Gravity.BOTTOM
-                                    setHorizontalGravity(Gravity.CENTER_HORIZONTAL)
-
-                                }
-                                (container.view as ViewGroup).apply {
-                                    addView(layout)
-                                }
-
-
-                                teamProfiles.forEach { teamProfile ->
-                                    val dot = LinearLayout(requireContext())
-                                    dot.apply {
-                                        val lp = LinearLayout.LayoutParams(
-                                            20, 20
-                                        )
-                                        lp.setMargins(3, 0, 3, 10)
-                                        layoutParams = lp
-                                        id = ViewCompat.generateViewId()
-                                        backgroundTintList = ColorStateList.valueOf(
+                                        else
+                                            // 아마 RecyclerView를 이용하는 특성상 몇개 캘린더를 재활용하는 형태라서 위에서 setBackgroundResource를 하면 4개월 주기로 다른 날에도 뜸
+                                        -> container.view.setBackgroundColor(
                                             ContextCompat.getColor(
                                                 requireContext(),
-                                                mateColors[teamProfile.order!!]
+                                                R.color.white
                                             )
-                                        )
-                                        setBackgroundResource(
-                                            R.drawable.ic_dot_gray_400
                                         )
                                     }
 
-                                    layout.addView(dot)
+                                    val teamProfiles =
+                                        dateMap[data.date.toString()]?.sortedBy { profile -> profile.order }
 
+                                    if (teamProfiles.isNullOrEmpty()) return
+                                    val layout = LinearLayout(requireContext())
+                                    layout.apply {
+                                        val lp = LinearLayout.LayoutParams(
+                                            ViewGroup.LayoutParams.MATCH_PARENT,
+                                            ViewGroup.LayoutParams.MATCH_PARENT
+                                        )
+                                        layoutParams = lp
+                                        id = ViewCompat.generateViewId()
+                                        gravity = Gravity.BOTTOM
+                                        setHorizontalGravity(Gravity.CENTER_HORIZONTAL)
+
+                                    }
+                                    (container.view as ViewGroup).apply {
+                                        addView(layout)
+                                    }
+
+
+                                    teamProfiles.forEach { teamProfile ->
+                                        val dot = LinearLayout(requireContext())
+                                        dot.apply {
+                                            val lp = LinearLayout.LayoutParams(
+                                                20, 20
+                                            )
+                                            lp.setMargins(3, 0, 3, 10)
+                                            layoutParams = lp
+                                            id = ViewCompat.generateViewId()
+                                            backgroundTintList = ColorStateList.valueOf(
+                                                ContextCompat.getColor(
+                                                    requireContext(),
+                                                    mateColors[teamProfile.order!!]
+                                                )
+                                            )
+                                            setBackgroundResource(
+                                                R.drawable.ic_dot_gray_400
+                                            )
+                                        }
+
+                                        layout.addView(dot)
+
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
-        }
 
-        lifecycleScope.launch {
-            viewModel.roomMateTeam.collect {
-                setLoadingState(it)
+            lifecycleScope.launch {
+                viewModel.roomMateTeam.collect {
+                    setLoadingState(it)
+                }
             }
-        }
 
-        lifecycleScope.launch {
-            viewModel.officialSchedules.collect {
-                setLoadingState(it)
+            lifecycleScope.launch {
+                viewModel.officialSchedules.collect {
+                    setLoadingState(it)
+                }
             }
-        }
-        // Dummy 입니다!!! 무 조 건 데이터 들어오고 나서 새로 바인딩 하는 곳에다가 작업하세요!!
-        binding.calendarView.dayBinder = object : MonthDayBinder<DayViewContainer> {
-            // Called only when a new container is needed.
-            override fun create(view: View) = DayViewContainer(view)
+            // Dummy 입니다!!! 무 조 건 데이터 들어오고 나서 새로 바인딩 하는 곳에다가 작업하세요!!
+            binding.calendarView.dayBinder = object : MonthDayBinder<DayViewContainer> {
+                // Called only when a new container is needed.
+                override fun create(view: View) = DayViewContainer(view)
 
-            // Called every time we need to reuse a container.
-            override fun bind(container: DayViewContainer, data: CalendarDay) {
-                container.textView.text = data.date.dayOfMonth.toString()
-                if (data.position != DayPosition.MonthDate) {
-                    container.textView.setTextColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.iDorm_gray_200
+                // Called every time we need to reuse a container.
+                override fun bind(container: DayViewContainer, data: CalendarDay) {
+                    container.textView.text = data.date.dayOfMonth.toString()
+                    if (data.position != DayPosition.MonthDate) {
+                        container.textView.setTextColor(
+                            ContextCompat.getColor(
+                                requireContext(),
+                                R.color.iDorm_gray_200
+                            )
                         )
-                    )
-                } else when (data.date) {
-                    LocalDate.now() -> {
-                        container.view.setBackgroundResource(R.drawable.ic_today)
-                    }
-                }
-            }
-        }
-
-        binding.calendarView.monthHeaderBinder =
-            object : MonthHeaderFooterBinder<MonthViewContainer> {
-
-                override fun bind(container: MonthViewContainer, data: CalendarMonth) {
-                    val prev = container.titlesContainer.findViewById<ImageView>(R.id.prev)
-                    val next = container.titlesContainer.findViewById<ImageView>(R.id.next)
-                    val monthTitle =
-                        container.titlesContainer.findViewById<TextView>(R.id.monthTitle)
-
-                    prev.setOnClickListener {
-                        binding.calendarView.scrollToMonth(data.yearMonth.previousMonth)
-                    }
-                    next.setOnClickListener {
-                        binding.calendarView.scrollToMonth(data.yearMonth.nextMonth)
-                    }
-                    monthTitle.text = "${data.yearMonth.monthValue}월"
-
-                    container.titlesContainer.findViewById<LinearLayout>(R.id.weekDayTitlesContainer).children
-                        .map { it as TextView }
-                        .forEachIndexed { index, textView ->
-                            val dayOfWeek = daysOfWeek()[index]
-                            val title =
-                                dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.KOREA)
-                            textView.text = title
-                            if (index % 6 == 0)
-                                textView.setTextColor(
-                                    ContextCompat.getColor(
-                                        requireContext(),
-                                        R.color.iDorm_red
-                                    )
-                                )
+                    } else when (data.date) {
+                        LocalDate.now() -> {
+                            container.view.setBackgroundResource(R.drawable.ic_today)
                         }
+                    }
+                }
+            }
+
+            binding.calendarView.monthHeaderBinder =
+                object : MonthHeaderFooterBinder<MonthViewContainer> {
+
+                    override fun bind(container: MonthViewContainer, data: CalendarMonth) {
+                        val prev = container.titlesContainer.findViewById<ImageView>(R.id.prev)
+                        val next = container.titlesContainer.findViewById<ImageView>(R.id.next)
+                        val monthTitle =
+                            container.titlesContainer.findViewById<TextView>(R.id.monthTitle)
+
+                        prev.setOnClickListener {
+                            binding.calendarView.scrollToMonth(data.yearMonth.previousMonth)
+                        }
+                        next.setOnClickListener {
+                            binding.calendarView.scrollToMonth(data.yearMonth.nextMonth)
+                        }
+                        monthTitle.text = "${data.yearMonth.monthValue}월"
+
+                        container.titlesContainer.findViewById<LinearLayout>(R.id.weekDayTitlesContainer).children
+                            .map { it as TextView }
+                            .forEachIndexed { index, textView ->
+                                val dayOfWeek = daysOfWeek()[index]
+                                val title =
+                                    dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.KOREA)
+                                textView.text = title
+                                if (index % 6 == 0)
+                                    textView.setTextColor(
+                                        ContextCompat.getColor(
+                                            requireContext(),
+                                            R.color.iDorm_red
+                                        )
+                                    )
+                            }
+                    }
+
+                    override fun create(view: View): MonthViewContainer = MonthViewContainer(view)
+
+
                 }
 
-                override fun create(view: View): MonthViewContainer = MonthViewContainer(view)
-
-
+            val currentMonth = YearMonth.now()
+            val startMonth = currentMonth.minusMonths(100)  // Adjust as needed
+            val endMonth = currentMonth.plusMonths(100)  // Adjust as needed
+            val firstDayOfWeek = firstDayOfWeekFromLocale() // Available from the library
+            binding.calendarView.setup(startMonth, endMonth, firstDayOfWeek)
+            binding.calendarView.scrollToMonth(currentMonth)
+            binding.calendarView.monthScrollListener = object : MonthScrollListener {
+                override fun invoke(month: CalendarMonth) {
+                    setCurrentMonth(month)
+                }
             }
 
-        val currentMonth = YearMonth.now()
-        val startMonth = currentMonth.minusMonths(100)  // Adjust as needed
-        val endMonth = currentMonth.plusMonths(100)  // Adjust as needed
-        val firstDayOfWeek = firstDayOfWeekFromLocale() // Available from the library
-        binding.calendarView.setup(startMonth, endMonth, firstDayOfWeek)
-        binding.calendarView.scrollToMonth(currentMonth)
-        binding.calendarView.monthScrollListener = object : MonthScrollListener {
-            override fun invoke(month: CalendarMonth) {
-                setCurrentMonth(month)
-            }
+
         }
-
 
     }
 

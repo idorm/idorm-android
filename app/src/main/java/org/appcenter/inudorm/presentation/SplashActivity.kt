@@ -38,6 +38,7 @@ import org.appcenter.inudorm.presentation.account.LoginActivity
 import org.appcenter.inudorm.presentation.account.onError
 import org.appcenter.inudorm.presentation.account.onExpectedError
 import org.appcenter.inudorm.presentation.board.PostDetailActivity
+import org.appcenter.inudorm.presentation.calendar.CalendarFragment
 import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.usecase.LoginRefresh
 import org.appcenter.inudorm.util.IDormLogger
@@ -185,12 +186,14 @@ class SplashActivity : AppCompatActivity() {
                         restartApplication()
                     }).show(this)
                 }
+
                 RESULT_CANCELED -> {
                     OkDialog("업데이트 후 이용하시기 바랍니다.", onOk = {
                         finish()
                         exitProcess(0)
                     }).show(this)
                 }
+
                 ActivityResult.RESULT_IN_APP_UPDATE_FAILED -> {
                     OkDialog("업데이트에 실패했습니다. 앱을 재실행합니다.", onOk = {
                         restartApplication()
@@ -209,7 +212,8 @@ class SplashActivity : AppCompatActivity() {
         }
         val path = uri.getQueryParameter("path")
         val contentId = uri.getQueryParameter("contentId")
-        if (path.isNullOrEmpty() || contentId.isNullOrEmpty()) {
+        val inviter = uri.getQueryParameter("inviter")
+        if (path.isNullOrEmpty()) {
             handleFallback()
             return
         }
@@ -217,8 +221,24 @@ class SplashActivity : AppCompatActivity() {
         IDormLogger.d(this, "$path |  $contentId")
         when (path) {
             "post" -> {
+                if (contentId.isNullOrEmpty()) {
+                    handleFallback()
+                    return
+                }
                 val intent = Intent(this, PostDetailActivity::class.java)
                 intent.putExtra("id", contentId.toIntOrNull())
+                moveWithMainStack(intent)
+            }
+
+            "invite" -> {
+                if (inviter.isNullOrEmpty()) {
+                    handleFallback()
+                    return
+                }
+                val intent = Intent(this, MainActivity::class.java)
+
+                intent.putExtra("inviter", inviter.toIntOrNull())
+                intent.putExtra("dest", "CalendarFragment")
                 moveWithMainStack(intent)
             }
         }
