@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
+import com.google.android.material.tabs.TabLayout
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.CalendarMonth
 import com.kizitonwose.calendar.core.DayPosition
@@ -35,12 +36,37 @@ class WriteSleepoverScheduleActivity : LoadingActivity() {
         DataBindingUtil.setContentView(this, R.layout.activity_write_sleepover_schedule)
     }
 
+
     var selectedDay: LocalDate = LocalDate.now()
+    var selectedTab : String = ""
+
     fun dateClicked(date: LocalDate) {
         binding.calendarView.notifyDateChanged(selectedDay)
         selectedDay = date
         binding.calendarView.notifyDateChanged(date)
     }
+
+    private fun setupTabLayout() {
+
+        val selectedPosition = binding.tabLayout.selectedTabPosition
+        selectedTab = binding.tabLayout.getTabAt(selectedPosition)?.text.toString()
+
+        binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+                // Write code to handle tab reselect
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                // Write code to handle tab reselect
+            }
+        })
+    }
+
+
 
     private fun bindCalendar() {
         class DayViewContainer(view: View) : ViewContainer(view) {
@@ -54,6 +80,12 @@ class WriteSleepoverScheduleActivity : LoadingActivity() {
                         dateClicked(date = day.date)
                 }
             }
+        }
+
+        binding.doneButton.setOnClickListener {
+            selectedTab = binding.tabLayout.selectedTabPosition.toString()
+            IDormLogger.d(this, "선택된 tab "+selectedTab)
+            println(selectedDay.toString()+"완료 버튼")
         }
 
         binding.calendarView.dayBinder = object : MonthDayBinder<DayViewContainer> {
@@ -152,5 +184,6 @@ class WriteSleepoverScheduleActivity : LoadingActivity() {
         setContentView(R.layout.activity_write_sleepover_schedule)
 
         bindCalendar()
+        setupTabLayout()
     }
 }

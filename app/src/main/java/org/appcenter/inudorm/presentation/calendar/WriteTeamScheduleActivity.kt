@@ -206,7 +206,6 @@ class WriteTeamScheduleActivity : LoadingActivity() {
                         }
 
                         is TeamScheduleMutationEvent.EditTeamSchedule -> {
-                            println("일정 수정하러 들어옴")
                             if (it.mutation.state.isSuccess()) {
                                 OkDialog("일정이 수정되었습니다.", onOk = {
                                     val intent =
