@@ -88,6 +88,7 @@ class WriteTeamScheduleActivity : LoadingActivity() {
                         binding.startTime.text = changeTime(it.data?.startTime.toString())
                         binding.endDate.text = endDate?.substring(5 until 7) + "월" + endDate?.substring(8 until 10) + "일"
                         binding.endTime.text = changeTime(it.data?.endTime.toString())
+
                     }
                     if(it is State.Error){
                         UIErrorHandler.handle(
@@ -129,6 +130,7 @@ class WriteTeamScheduleActivity : LoadingActivity() {
         binding.doneButton.setOnClickListener {
             val title = binding.title.text.toString()
             val content = binding.content.text.toString()
+
             viewModel.submit(
                 TeamScheduleReq(
                     content = content,
@@ -184,6 +186,7 @@ class WriteTeamScheduleActivity : LoadingActivity() {
                         }
 
                         is TeamScheduleMutationEvent.EditTeamSchedule -> {
+                            println("일정 수정하러 들어옴")
                             if (it.mutation.state.isSuccess()) {
                                 OkDialog("일정이 수정되었습니다.", onOk = {
                                     val intent =
