@@ -121,7 +121,9 @@ class WriteTeamScheduleActivity : LoadingActivity() {
 
         viewModel.getTeamSchedule(teamCalendarId)
 
-
+        binding.backBtn.setOnClickListener{
+            finish()
+        }
 
         binding.deleteButton.setOnClickListener {
             //ToDo : 일정 삭제 연결
