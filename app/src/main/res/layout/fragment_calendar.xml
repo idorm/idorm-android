@@ -119,11 +119,37 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_more"
-
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/end"
+                            android:layout_width="50dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/view_button_round_12"
+                            android:fontFamily="@font/notosans_bold"
+                            android:includeFontPadding="false"
+                            android:text="완료"
+                            android:textColor="@color/white"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/invite"
+                            android:layout_width="100dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/view_button_round_12_white"
+                            android:fontFamily="@font/notosans_bold"
+                            android:includeFontPadding="false"
+                            android:text="룸메이트 초대"
+                            android:textColor="@color/iDorm_blue"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -190,15 +216,15 @@
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/teamCalendarRecycler"
                                 android:layout_width="match_parent"
-                                android:layout_height="0dp"
+                                android:layout_height="wrap_content"
 
+                                app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
+
                                 app:layout_constraintTop_toTopOf="parent"
 
                                 app:teamSchedules="@{viewModel.schedules}"
-                                tools:itemCount="2"
-
                                 tools:listitem="@layout/item_team_calendar" />
 
 

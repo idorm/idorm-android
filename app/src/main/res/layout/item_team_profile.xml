@@ -17,9 +17,8 @@
         android:id="@+id/profile"
         android:layout_width="48dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginEnd="20dp"
-        >
+        android:orientation="vertical">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,9 +42,30 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
 
-
                 app:layout_constraintTop_toTopOf="parent"
                 app:profileOrder="@{teamProfile.order}" />
+
+            <LinearLayout
+                android:id="@+id/profileImage_overlay"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_profile_overlay"
+                android:gravity="center"
+
+                android:orientation="horizontal"
+                android:src="@drawable/ic_profile_my_page"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_trash_can"
+                    app:tint="@color/white" />
+            </LinearLayout>
 
             <RadioButton
                 android:id="@+id/radioButton2"

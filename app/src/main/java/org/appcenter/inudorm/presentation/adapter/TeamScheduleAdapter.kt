@@ -22,8 +22,9 @@ import org.appcenter.inudorm.util.IDormLogger
 class TeamScheduleAdapter(
     private var _dataSet: ArrayList<TeamSchedule>,
     private val onClicked: (TeamSchedule) -> Unit,
+    private val onDelete: ((Int) -> Unit)? = null,
 ) :
-    RecyclerView.Adapter<TeamScheduleAdapter.ViewHolder>() {
+    RecyclerView.Adapter<TeamScheduleAdapter.ViewHolder>(), ManageableItemAdapter {
 
     var dataSet: ArrayList<TeamSchedule>
         get() = _dataSet
@@ -90,13 +91,28 @@ class TeamScheduleAdapter(
                     }
                     viewHolder.viewBinding.linearLayoutCompat.addView(dot)
                 }
-        }
-        viewHolder.viewBinding.checkButton.setOnClickListener {
-            onClicked(_dataSet[position])
+            viewHolder.viewBinding.root.setOnClickListener {
+                onClicked(_dataSet[position])
+            }
+            viewHolder.viewBinding.checkButton.setBackgroundResource(if (isManageModeEnabled) R.drawable.ic_trash_can else R.drawable.ic_right_arrow)
+            viewHolder.viewBinding.checkButton.setOnClickListener { _ ->
+                if (isManageModeEnabled) {
+                    // Todo: set removable
+                    onDelete?.invoke(it.teamCalendarId.toInt())
+                } else {
+                    onClicked(_dataSet[position])
+                }
+            }
         }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = dataSet.size
+    private var isManageModeEnabled: Boolean = false
+    override fun setManageMode(enabled: Boolean) {
+        isManageModeEnabled = enabled
+        notifyDataSetChanged()
+
+    }
 
 }

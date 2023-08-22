@@ -7,12 +7,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.children
@@ -34,9 +34,7 @@ import com.kizitonwose.calendar.core.previousMonth
 import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.MonthHeaderFooterBinder
 import com.kizitonwose.calendar.view.MonthScrollListener
-import com.kizitonwose.calendar.view.ViewContainer
 import kotlinx.coroutines.launch
-import org.appcenter.inudorm.App
 import org.appcenter.inudorm.R
 import org.appcenter.inudorm.databinding.FragmentCalendarBinding
 import org.appcenter.inudorm.model.SelectItem
@@ -50,9 +48,13 @@ import org.appcenter.inudorm.presentation.adapter.TeamScheduleAdapter
 import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.usecase.AcceptInvitation
 import org.appcenter.inudorm.usecase.LoginRefresh
+import org.appcenter.inudorm.util.ButtonType
 import org.appcenter.inudorm.util.CustomDialog
+import org.appcenter.inudorm.util.DialogButton
 import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.ImageUri
+import org.appcenter.inudorm.util.KakaoShare
+import org.appcenter.inudorm.util.OkCancelDialog
 import org.appcenter.inudorm.util.OkDialog
 import org.appcenter.inudorm.util.State
 import java.time.LocalDate
@@ -86,12 +88,25 @@ class CalendarFragment : LoadingFragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_calendar, container, false)
 
         initBind()
-
+        binding.more.setOnClickListener {
+            openRoomMenu()
+        }
+        binding.end.setOnClickListener {
+            setManageMode(false)
+        }
         return binding.root
     }
 
+    private fun setManageMode(enabled: Boolean) {
+        binding.more.visibility = if (enabled) View.GONE else View.VISIBLE
+        binding.end.visibility = if (enabled) View.VISIBLE else View.GONE
+        if (!enabled) {
+            teamScheduleAdapter.setManageMode(false)
+            teamProfileAdapter.setManageMode(false)
+        }
+    }
 
-    fun openRoomMenu() {
+    private fun openRoomMenu() {
         ListBottomSheet(
             arrayListOf(
                 SelectItem("친구 관리", "mateManage"),
@@ -103,78 +118,77 @@ class CalendarFragment : LoadingFragment() {
             when (it.value) {
                 "mateManage" -> {
                     // Todo: Toggle mate manage mode to kick out
+                    setManageMode(true)
+                    teamProfileAdapter.setManageMode(true)
                 }
 
                 "scheduleManage" -> {
                     // Todo: Toggle schedule manage mode to delete schedules
+                    setManageMode(true)
+                    teamScheduleAdapter.setManageMode(true)
                 }
 
                 "invite" -> {
+                    if ((viewModel.roomMateTeam.value as State.Success).data?.members?.size == 4) {
+                        OkDialog("룸메이트는 최대 4명까지 일정을 공유할 수 있습니다.").show(requireContext())
+                        return@ListBottomSheet
+                    }
                     if (viewModel.userState.value is State.Success) {
-                        val user = (viewModel.userState.value as State.Success).data!!
-                        val templateId = 97215L
-                        val templateArgs = mapOf(
-                            "senderNickNm" to user.nickname,
-                            "userProfile" to (user.profilePhotoUrl ?: ImageUri.defaultProfileImage),
-                            "inviter" to user.memberId.toString()
-                        )
-                        if (ShareClient.instance.isKakaoTalkSharingAvailable(requireContext())) {
-                            // 카카오톡으로 카카오톡 공유 가능
-
-                            ShareClient.instance.shareCustom(
-                                requireContext(),
-                                templateId,
-                                templateArgs = templateArgs
-                            ) { sharingResult, error ->
-                                if (error != null) {
-                                    IDormLogger.e(this, "카카오톡 공유 실패: ${error}")
-                                } else if (sharingResult != null) {
-                                    IDormLogger.i(this, "카카오톡 공유 성공 ${sharingResult.intent}")
-                                    startActivity(sharingResult.intent)
-
-                                    // 카카오톡 공유에 성공했지만 아래 경고 메시지가 존재할 경우 일부 컨텐츠가 정상 동작하지 않을 수 있습니다.
-                                    IDormLogger.d(
-                                        this,
-                                        "Warning Msg: ${sharingResult.warningMsg}"
+                        CustomDialog(
+                            text = "룸메이트 초대 링크를 보내시겠습니까?",
+                            positiveButton = DialogButton(
+                                "카카오톡으로 이동",
+                                icon = R.drawable.ic_kakaotalk_logo,
+                                onClick = {
+                                    val user = (viewModel.userState.value as State.Success).data!!
+                                    val templateId = 97215L
+                                    val templateArgs = mapOf(
+                                        "senderNickNm" to user.nickname,
+                                        "userProfile" to (user.profilePhotoUrl
+                                            ?: ImageUri.defaultProfileImage),
+                                        "inviter" to user.memberId.toString()
                                     )
-                                    IDormLogger.d(
-                                        this,
-                                        "Argument Msg: ${sharingResult.argumentMsg}"
-                                    )
-                                }
-                            }
-                        } else {
-                            val sharerUrl =
-                                WebSharerClient.instance.makeCustomUrl(templateId, templateArgs)
-                            try {
-                                KakaoCustomTabsClient.openWithDefault(requireContext(), sharerUrl)
-                            } catch (e: UnsupportedOperationException) {
-                                // CustomTabsServiceConnection 지원 브라우저가 없을 때 예외처리
-                                try {
-                                    KakaoCustomTabsClient.open(requireContext(), sharerUrl)
-                                } catch (e: ActivityNotFoundException) {
-                                    // 디바이스에 설치된 인터넷 브라우저가 없을 때 예외처리
-                                }
-                            }
-                        }
+                                    KakaoShare.share(requireContext(), templateId, templateArgs)
+                                },
+                                buttonType = ButtonType.Filled
+                            )
+                        ).show(requireContext())
+
 
                     }
                 }
 
                 "leave" -> {
-                    // Todo: Leave
+                    OkCancelDialog("일정 공유 캘린더에서 나갈 시 데이터가 모두 사라집니다.", onOk = {
+                        // Todo: Leave
+
+                    }).show(requireContext())
                 }
             }
-        }
+        }.show(childFragmentManager, "TAG")
     }
 
     private fun initBind() {
-        teamProfileAdapter = TeamProfileAdapter(arrayListOf(), false)
-        teamScheduleAdapter = TeamScheduleAdapter(arrayListOf()) {
+        teamProfileAdapter = TeamProfileAdapter(arrayListOf(), false) {
+            OkCancelDialog(
+                "룸메이트 목록에서 삭제하시겠습니까?",
+                onOk = {
+                    // Todo: delete
+                },
+            ).show(requireContext())
+        }
+        teamScheduleAdapter = TeamScheduleAdapter(arrayListOf(), {
             val intent = Intent(requireContext(), WriteTeamScheduleActivity::class.java)
             intent.putExtra("purpose", TeamSchedulePurpose.Edit)
             intent.putExtra("teamCalendarId", it.teamCalendarId)
             startActivity(intent)
+        }) {
+            OkCancelDialog(
+                "일정을 삭제하시겠습니까?",
+                onOk = {
+                    // Todo: delete
+                },
+            ).show(requireContext())
         }
         officialScheduleAdapter = CalendarAdapter(arrayListOf()) {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.url)))
@@ -235,21 +249,31 @@ class CalendarFragment : LoadingFragment() {
         }
         viewModel.getUser()
 
-        val inviter = arguments?.getString("inviter")
+        val inviter = arguments?.getInt("inviter")
+        IDormLogger.i(this, "초대자 id: $inviter 입니다!")
         lifecycleScope.launch {
-            if (!inviter.isNullOrEmpty()) {
-
+            if (inviter != null) {
+                setLoadingState(true)
                 val memberId = kotlin.runCatching {
                     LoginRefresh().run(null).memberId
                 }.onFailure {
                     PrefsRepository(requireContext()).signOut()
+                    setLoadingState(false)
                     startActivity(Intent(requireContext(), LoginActivity::class.java))
                     requireActivity().finish()
                 }.getOrNull()
-                if (memberId != null)
-                    if (AcceptInvitation().run(memberId).isSuccess()) {
+                if (memberId != null) {
+                    val result = AcceptInvitation().run(memberId)
+                    setLoadingState(false)
+                    if (result.isSuccess()) {
                         OkDialog("초대가 수락되었습니다.").show(requireContext())
+                    } else if (result.isError()) {
+                        OkDialog((result as State.Error).error.message ?: "알 수 없는 오류입니다.").show(
+                            requireContext()
+                        )
                     }
+                }
+
             }
 
             // Todo: 현재 날짜로 변경
@@ -288,7 +312,8 @@ class CalendarFragment : LoadingFragment() {
                         }
                         dateMap.forEach { (t, u) ->
                             dateMap[t] =
-                                u.groupBy { member -> member.memberId }.map { entry -> entry.value[0] }
+                                u.groupBy { member -> member.memberId }
+                                    .map { entry -> entry.value[0] }
                         }
 
                         binding.calendarView.dayBinder = object : MonthDayBinder<DayViewContainer> {
@@ -378,8 +403,13 @@ class CalendarFragment : LoadingFragment() {
                 }
             }
 
+
+
             lifecycleScope.launch {
                 viewModel.roomMateTeam.collect {
+                    if (it is State.Success && it.data?.members?.size == 1) {
+                        binding.invite.visibility = View.VISIBLE
+                    }
                     setLoadingState(it)
                 }
             }

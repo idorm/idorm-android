@@ -18,6 +18,7 @@ import org.appcenter.inudorm.presentation.board.BoardFragment
 import org.appcenter.inudorm.presentation.calendar.CalendarFragment
 import org.appcenter.inudorm.presentation.matching.MatchingFragment
 import org.appcenter.inudorm.presentation.mypage.MyPageFragment
+import org.appcenter.inudorm.util.IDormLogger
 import kotlin.reflect.KClass
 import kotlin.reflect.jvm.internal.impl.load.java.structure.JavaClass
 
@@ -42,8 +43,10 @@ class MainActivity : BottomNavigationView.OnNavigationItemSelectedListener, OnSn
         if (dest == "CalendarFragment") {
             fragment = CalendarFragment()
             val bundle = Bundle()
-            bundle.putString("inviter", intent.getStringExtra("inviter"))
+            bundle.putInt("inviter", intent.getIntExtra("inviter", -999))
+            IDormLogger.i(this, "inviter from intent: ${intent.getIntExtra("inviter", -999)}")
             fragment.arguments = bundle
+            binding.bottomNavigation.selectedItemId = R.id.calendar
         }
 
         supportFragmentManager.beginTransaction()

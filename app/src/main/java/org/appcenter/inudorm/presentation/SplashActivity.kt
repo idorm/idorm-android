@@ -230,13 +230,14 @@ class SplashActivity : AppCompatActivity() {
                 moveWithMainStack(intent)
             }
 
-            "invite" -> {
+            "team" -> {
                 if (inviter.isNullOrEmpty()) {
                     handleFallback()
                     return
                 }
                 val intent = Intent(this, MainActivity::class.java)
 
+                IDormLogger.i(this, "inviter from intent: $inviter")
                 intent.putExtra("inviter", inviter.toIntOrNull())
                 intent.putExtra("dest", "CalendarFragment")
                 moveWithMainStack(intent)

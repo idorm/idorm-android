@@ -23,7 +23,6 @@ class CalendarAdapter(
 
     inner class ViewHolder(
         var viewBinding: ItemCalendarBinding,
-        onClicked: (Schedule) -> Unit,
     ) :
         RecyclerView.ViewHolder(viewBinding.root) {}
 
@@ -38,9 +37,7 @@ class CalendarAdapter(
             false
         )
 
-        return ViewHolder(binding) {
-            onClicked(it)
-        }
+        return ViewHolder(binding)
     }
 
     // Replace the contents of a view (invoked by the layout manager)

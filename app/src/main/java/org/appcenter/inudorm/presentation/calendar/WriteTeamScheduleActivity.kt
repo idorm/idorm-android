@@ -33,7 +33,7 @@ enum class TeamSchedulePurpose {
 
 class WriteTeamScheduleActivity : LoadingActivity() {
 
-    private lateinit var viewModel : WriteTeamScheduleViewModel
+    private lateinit var viewModel: WriteTeamScheduleViewModel
     private val binding: ActivityWriteTeamScheduleBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_write_team_schedule)
     }
@@ -181,12 +181,12 @@ class WriteTeamScheduleActivity : LoadingActivity() {
         }
     }
 
-    private suspend fun initData(purpose: TeamSchedulePurpose, teamCalendarId : Long){
-        if(purpose == TeamSchedulePurpose.Edit){
+    private suspend fun initData(purpose: TeamSchedulePurpose, teamCalendarId: Long) {
+        if (purpose == TeamSchedulePurpose.Edit) {
             val teamScheduleData = calendarRepository.getTeamSchedule(teamCalendarId)
             binding.title.setText(binding.title.text)
             binding.content.setText(binding.content.text)
-            IDormLogger.i(this, binding.endDate.toString()+"눌러짐")
+            IDormLogger.i(this, binding.endDate.toString() + "눌러짐")
 
         }
     }
