@@ -28,7 +28,7 @@ class LinedEditText(context: Context?, attrs: AttributeSet?) :
         val paint = mPaint
         var baseline = getLineBounds(0, r)
 
-        for (i in 0 until count) {
+        for (i in 0 until count - 1) {
             canvas.drawLine(
                 r.left.toFloat(), (baseline+15).toFloat(),
                 r.right.toFloat(), (baseline+15).toFloat(), paint

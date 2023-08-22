@@ -161,7 +161,7 @@ object CalendarBinding {
     @JvmStatic
     @BindingAdapter("profileOrder")
     fun CircleImageView.bindProfileOrder(teamOrder: Int?) {
-        if (teamOrder != null)
+        if (teamOrder != null && teamOrder != -999)
             this.borderColor = ContextCompat.getColor(context, mateColors[teamOrder])
     }
 

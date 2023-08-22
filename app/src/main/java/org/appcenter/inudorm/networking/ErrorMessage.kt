@@ -101,7 +101,10 @@ enum class ErrorCode(val error: String, val message: String) {
     POSTPHOTO_NOT_FOUND(StatusCode.NOT_FOUND.name, "등록된 게시글 사진이 없습니다."),
     MEMBERPHOTO_NOT_FOUND(StatusCode.NOT_FOUND.name, "등록된 프로필 사진이 없습니다."),
     LIKED_NOT_FOUND(StatusCode.NOT_FOUND.name, "등록된 공감이 없습니다."),
-    CALENDAR_NOT_FOUND(StatusCode.NOT_FOUND.name, "등록된 일정 정보가 없습니다."),
+    CALENDAR_NOT_FOUND(StatusCode.NOT_FOUND.name, "등록된 공식 일정이 없습니다."),
+    TEAM_NOT_FOUND(StatusCode.NOT_FOUND.name, "등록된 팀이 없습니다."),
+    TEAMMEMBER_NOT_FOUND(StatusCode.NOT_FOUND.name, "등록되지 않은 팀 회원이 있습니다."),
+    TEAMCALENDAR_NOT_FOUND(StatusCode.NOT_FOUND.name, "등록된 팀 일정이 없습니다."),
 
     DELETED_POST(StatusCode.NOT_FOUND.name, "삭제된 게시글 입니다."),
     DELETED_COMMENT(StatusCode.NOT_FOUND.name, "삭제된 댓글 입니다."),
