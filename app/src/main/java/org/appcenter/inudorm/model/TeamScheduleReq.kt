@@ -8,4 +8,5 @@ data class TeamScheduleReq(
     val endTime: String?,
     val targets: List<Int>,
     val title: String,
+    val teamCalendarId : Int?
 )

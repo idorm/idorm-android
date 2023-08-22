@@ -22,7 +22,7 @@ class CalendarRepository {
 
     suspend fun editTeamSchedule(params: TeamScheduleParams): TeamSchedule {
         val str = App.gson.toJson(params.teamSchedule)
-        return RetrofitInstance.service.createTeamSchedule(createJsonRequestBody(str))
+        return RetrofitInstance.service.editTeamSchedule(createJsonRequestBody(str))
     }
 
     suspend fun deleteTeamSchedule(teamScheduleId: Long) {

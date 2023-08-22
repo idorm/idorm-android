@@ -143,7 +143,8 @@ class WriteTeamScheduleActivity : LoadingActivity() {
                     targets = (binding.teamProfileRecycler.adapter as TeamProfileAdapter).dataSet
                         .filter { it.hasInvitedToSchedule == true }
                         .map { it.memberId!! },
-                    title = title
+                    title = title,
+                    teamCalendarId = teamCalendarId
                 )
             )
         }
