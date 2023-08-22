@@ -271,7 +271,7 @@ class CalendarFragment : LoadingFragment() {
                     requireActivity().finish()
                 }.getOrNull()
                 if (memberId != null) {
-                    val result = AcceptInvitation().run(memberId)
+                    val result = AcceptInvitation().run(inviter)
                     setLoadingState(false)
                     if (result.isSuccess()) {
                         OkDialog("초대가 수락되었습니다.").show(requireContext())
