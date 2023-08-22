@@ -48,6 +48,7 @@ import org.appcenter.inudorm.presentation.adapter.TeamScheduleAdapter
 import org.appcenter.inudorm.presentation.matching.RoomMutationEvent
 import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.usecase.AcceptInvitation
+import org.appcenter.inudorm.usecase.ConfirmTeamDeleted
 import org.appcenter.inudorm.usecase.LoginRefresh
 import org.appcenter.inudorm.util.ButtonType
 import org.appcenter.inudorm.util.CustomDialog
@@ -420,10 +421,13 @@ class CalendarFragment : LoadingFragment() {
 
             lifecycleScope.launch {
                 viewModel.roomMateTeam.collect {
+                    setLoadingState(it)
                     if (it is State.Success && it.data?.members?.size == 1) {
                         binding.invite.visibility = View.VISIBLE
+                        if (it.data.isNeedToConfirmDeleted)
+                            if (ConfirmTeamDeleted().run(null).isSuccess())
+                                setCurrentMonth(currentMonth)
                     }
-                    setLoadingState(it)
                 }
             }
 

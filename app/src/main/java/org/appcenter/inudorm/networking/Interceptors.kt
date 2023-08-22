@@ -56,7 +56,7 @@ class ResponseInterceptor : Interceptor {
         val rawJsonResponse: String? = response.body?.string()
         IDormLogger.i(
             this,
-            "${
+            "${request.method} | ${
                 request.url.encodedPath
             } response:\n${rawJsonResponse}\n-----------------------\n"
         )

@@ -74,7 +74,7 @@
             android:fontFamily="@font/notosans_regular"
             android:includeFontPadding="false"
             android:paddingRight="40sp"
-            android:text="@{teamSchedule.content}"
+            android:text="@{teamSchedule.title}"
             android:textColor="@color/iDorm_gray_300"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"

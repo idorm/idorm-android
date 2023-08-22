@@ -63,7 +63,7 @@ class TeamScheduleAdapter(
             if (it.startDate.isNullOrEmpty() && it.endDate.isNullOrEmpty()) {
                 viewHolder.viewBinding.date.visibility = View.GONE
             }
-            if (it.content.isNullOrEmpty()) viewHolder.viewBinding.content.visibility = View.GONE
+            if (it.title.isNullOrEmpty()) viewHolder.viewBinding.content.visibility = View.GONE
             viewHolder.viewBinding.executePendingBindings()
             val teamProfiles = it.targets
             val context = viewHolder.itemView.context
