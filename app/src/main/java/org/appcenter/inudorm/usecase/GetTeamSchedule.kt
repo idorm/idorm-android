@@ -1,11 +1,12 @@
 package org.appcenter.inudorm.usecase
 
-import org.appcenter.inudorm.App
+import org.appcenter.inudorm.App.Companion.calendarRepository
+import org.appcenter.inudorm.model.TeamSchedule
 
 
-class GetTeamSchedule : ResultUseCase<Long, org.appcenter.inudorm.model.TeamSchedule>() {
-    override suspend fun onExecute(params: Long): org.appcenter.inudorm.model.TeamSchedule {
-        return App.calendarRepository.getTeamSchedule(params)
+class GetTeamSchedule : ResultUseCase<Int, TeamSchedule>() {
+    override suspend fun onExecute(params: Int): TeamSchedule {
+        return calendarRepository.getTeamSchedule(params)
     }
 }
 

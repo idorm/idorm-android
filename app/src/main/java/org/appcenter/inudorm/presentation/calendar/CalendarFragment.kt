@@ -185,7 +185,7 @@ class CalendarFragment : LoadingFragment() {
         teamScheduleAdapter = TeamScheduleAdapter(arrayListOf(), {
             val intent = Intent(requireContext(), WriteTeamScheduleActivity::class.java)
             intent.putExtra("purpose", TeamSchedulePurpose.Edit)
-            intent.putExtra("teamCalendarId", it.teamCalendarId)
+            intent.putExtra("teamCalendarId", it.teamCalendarId.toInt())
             startActivity(intent)
         }) {
             OkCancelDialog(

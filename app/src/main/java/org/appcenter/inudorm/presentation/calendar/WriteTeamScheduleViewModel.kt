@@ -7,14 +7,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.model.RoomMateTeamResponseDto
+import org.appcenter.inudorm.model.TeamSchedule
 import org.appcenter.inudorm.model.TeamScheduleReq
 import org.appcenter.inudorm.presentation.onboard.BaseInfoState
-import org.appcenter.inudorm.usecase.GetRoomMateTeam
-import org.appcenter.inudorm.usecase.ModifyTeamSchedule
-import org.appcenter.inudorm.usecase.TeamScheduleParams
+import org.appcenter.inudorm.usecase.*
 import org.appcenter.inudorm.util.State
-
-
+import java.time.LocalDate
 
 
 sealed class TeamMutationEvent(open val mutation: TeamMutation<*, *>)
@@ -27,15 +25,15 @@ class WriteTeamScheduleViewModel(private val purpose: TeamSchedulePurpose) : Vie
     val teamScheduleMutationEvent: StateFlow<TeamScheduleMutationEvent?>
         get() = _teamScheduleMutationEvent
 
-    private val _baseInfoState: MutableStateFlow<BaseInfoState> = MutableStateFlow(
-        BaseInfoState()
-    )
-
-
     private val _roomMateTeam: MutableStateFlow<State<RoomMateTeamResponseDto>> =
         MutableStateFlow(State.Initial())
     val roomMateTeam: StateFlow<State<RoomMateTeamResponseDto>>
         get() = _roomMateTeam
+
+    private val _teamSchedule: MutableStateFlow<State<TeamSchedule>> =
+        MutableStateFlow(State.Initial())
+    val teamSchedule: StateFlow<State<TeamSchedule>>
+        get() = _teamSchedule
 
 
     fun getRoomMates() {
@@ -43,6 +41,14 @@ class WriteTeamScheduleViewModel(private val purpose: TeamSchedulePurpose) : Vie
             if (roomMateTeam.value is State.Loading) return@launch
             _roomMateTeam.emit(State.Loading())
             _roomMateTeam.emit(GetRoomMateTeam().run(null))
+        }
+    }
+
+    fun getTeamSchedule(teamCalendarId : Int) {
+        viewModelScope.launch() {
+            if (teamSchedule.value is State.Loading) return@launch
+            _teamSchedule.emit(State.Loading())
+            _teamSchedule.emit(GetTeamSchedule().run(teamCalendarId))
         }
     }
 

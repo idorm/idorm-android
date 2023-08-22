@@ -11,7 +11,7 @@ class CalendarRepository {
         return RetrofitInstance.service.getCalendars(body)
     }
 
-    suspend fun getTeamSchedule(teamScheduleId: Long): TeamSchedule {
+    suspend fun getTeamSchedule(teamScheduleId: Int): TeamSchedule {
         return RetrofitInstance.service.getTeamCalendar(teamScheduleId)
     }
 

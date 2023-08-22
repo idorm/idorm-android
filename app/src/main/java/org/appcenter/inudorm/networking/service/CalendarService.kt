@@ -13,7 +13,7 @@ interface CalendarService {
     suspend fun getCalendars(@Body body: SchedulesRequestDto): ArrayList<Schedule>
 
     @GET("${path}/member/team/calendar")
-    suspend fun getTeamCalendar(@Query("teamCalendarId") teamCalendarId: Long): TeamSchedule
+    suspend fun getTeamCalendar(@Query("teamCalendarId") teamCalendarId: Int): TeamSchedule
 
     @PUT("${path}/member/team/calendar")
     suspend fun editTeamSchedule(@Body body: RequestBody): TeamSchedule
