@@ -16,6 +16,7 @@ import org.appcenter.inudorm.networking.ErrorCode
 import org.appcenter.inudorm.networking.UIErrorHandler
 import org.appcenter.inudorm.presentation.adapter.TeamProfileAdapter
 import org.appcenter.inudorm.repository.PrefsRepository
+import org.appcenter.inudorm.usecase.DeleteSchedule
 import org.appcenter.inudorm.util.*
 import java.util.*
 
@@ -126,7 +127,23 @@ class WriteTeamScheduleActivity : LoadingActivity() {
         }
 
         binding.deleteButton.setOnClickListener {
-            //ToDo : 일정 삭제 연결
+            if(purpose == TeamSchedulePurpose.Create) {
+                OkDialog(
+                    "일정 작성을 중단하시겠습니까?\n작성 중인 일정은 저장되지 않습니다.",
+                    onOk = {
+                        finish()},
+                    cancelable = true
+                ).show(this@WriteTeamScheduleActivity)
+            } else {
+                OkDialog(
+                    "일정을 삭제하시겠습니까?",
+                    onOk = {
+                        viewModel.delete(teamCalendarId)
+                        finish()},
+                    cancelable = true
+                ).show(this@WriteTeamScheduleActivity)
+            }
+
         }
 
         binding.doneButton.setOnClickListener {

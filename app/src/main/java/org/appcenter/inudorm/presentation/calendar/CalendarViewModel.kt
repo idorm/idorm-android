@@ -9,26 +9,18 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.appcenter.inudorm.model.RoomMateTeamResponseDto
 import org.appcenter.inudorm.model.Schedule
-import org.appcenter.inudorm.model.TeamProfile
 import org.appcenter.inudorm.model.TeamSchedule
 import org.appcenter.inudorm.model.User
 import org.appcenter.inudorm.presentation.matching.Mutation
-import org.appcenter.inudorm.presentation.matching.MutationEvent
-import org.appcenter.inudorm.presentation.matching.MyInfoMutationEvent
 import org.appcenter.inudorm.presentation.matching.RoomMutationEvent
 import org.appcenter.inudorm.usecase.DeleteMate
-import org.appcenter.inudorm.usecase.DeleteProfilePhoto
 import org.appcenter.inudorm.usecase.DeleteSchedule
 import org.appcenter.inudorm.usecase.GetCalendars
 import org.appcenter.inudorm.usecase.GetRoomMateTeam
-import org.appcenter.inudorm.usecase.GetRoomMates
 import org.appcenter.inudorm.usecase.GetTeamSchedules
 import org.appcenter.inudorm.usecase.LoginRefresh
-import org.appcenter.inudorm.usecase.ResultUseCase
-import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.State
 import java.time.LocalDate
-import kotlin.reflect.KFunction1
 
 
 class CalendarViewModel : ViewModel() {

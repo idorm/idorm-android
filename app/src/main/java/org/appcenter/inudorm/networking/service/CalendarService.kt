@@ -22,7 +22,7 @@ interface CalendarService {
     suspend fun createTeamSchedule(@Body body: RequestBody): TeamSchedule
 
     @DELETE("${path}/member/team/calendar")
-    suspend fun deleteTeamSchedule(@Query("teamCalendarId") teamScheduleId: Long)
+    suspend fun deleteTeamSchedule(@Query("teamCalendarId") teamScheduleId: Int)
 
     @PUT("${path}/member/team/calendar/sleepover")
     suspend fun editSleepOverSchedule(@Body body: SleepOverUpdateDto): TeamSchedule

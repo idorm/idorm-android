@@ -52,6 +52,7 @@ class WriteTeamScheduleViewModel(private val purpose: TeamSchedulePurpose) : Vie
         }
     }
 
+
     fun submit(teamScheduleReq: TeamScheduleReq ){
         val teamScheduleParams = TeamScheduleParams(purpose, teamScheduleReq)
         viewModelScope.launch {
@@ -59,6 +60,12 @@ class WriteTeamScheduleViewModel(private val purpose: TeamSchedulePurpose) : Vie
                 TeamScheduleMutationEvent.CreateTeamSchedule(
                 TeamMutation(teamScheduleParams, ModifyTeamSchedule().run(teamScheduleParams))
             ))
+        }
+    }
+
+    fun delete(teamCalendarId : Int){
+        viewModelScope.launch {
+            DeleteSchedule().run(teamCalendarId)
         }
     }
 

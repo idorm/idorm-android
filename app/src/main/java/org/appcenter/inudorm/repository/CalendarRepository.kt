@@ -25,7 +25,7 @@ class CalendarRepository {
         return RetrofitInstance.service.editTeamSchedule(createJsonRequestBody(str))
     }
 
-    suspend fun deleteTeamSchedule(teamScheduleId: Long) {
+    suspend fun deleteTeamSchedule(teamScheduleId: Int) {
         return RetrofitInstance.service.deleteTeamSchedule(teamScheduleId)
     }
 
