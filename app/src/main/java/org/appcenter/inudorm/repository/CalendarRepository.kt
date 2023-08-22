@@ -25,7 +25,7 @@ class CalendarRepository {
         return RetrofitInstance.service.createTeamSchedule(createJsonRequestBody(str))
     }
 
-    suspend fun deleteTeamSchedule(teamScheduleId: Long): TeamSchedule {
+    suspend fun deleteTeamSchedule(teamScheduleId: Long) {
         return RetrofitInstance.service.deleteTeamSchedule(teamScheduleId)
     }
 
@@ -37,7 +37,7 @@ class CalendarRepository {
         return RetrofitInstance.service.createSleepOverSchedule(body)
     }
 
-    suspend fun getMonthlyTeamSchedules(body: SchedulesRequestDto) : ArrayList<TeamSchedule> {
+    suspend fun getMonthlyTeamSchedules(body: SchedulesRequestDto): ArrayList<TeamSchedule> {
         return RetrofitInstance.service.getMonthlyTeamCalendars(body)
     }
 }

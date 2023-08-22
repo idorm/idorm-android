@@ -151,6 +151,7 @@ object CalendarBinding {
             mateListState is State.Success && mateListState.data?.members != null
         ) {
             val a = adapter as TeamProfileAdapter
+            a.setManageMode(false)
             a.dataSet.clear()
             a.dataSet.addAll(mateListState.data?.members)
             a.notifyDataSetChanged()
@@ -171,6 +172,7 @@ object CalendarBinding {
             teamSchedules is State.Success && teamSchedules.data != null
         ) {
             val a = adapter as TeamScheduleAdapter
+            a.setManageMode(false)
             a.dataSet.clear()
             a.dataSet.addAll(teamSchedules.data)
             a.notifyDataSetChanged()

@@ -12,13 +12,23 @@ import org.appcenter.inudorm.model.Schedule
 import org.appcenter.inudorm.model.TeamProfile
 import org.appcenter.inudorm.model.TeamSchedule
 import org.appcenter.inudorm.model.User
+import org.appcenter.inudorm.presentation.matching.Mutation
+import org.appcenter.inudorm.presentation.matching.MutationEvent
+import org.appcenter.inudorm.presentation.matching.MyInfoMutationEvent
+import org.appcenter.inudorm.presentation.matching.RoomMutationEvent
+import org.appcenter.inudorm.usecase.DeleteMate
+import org.appcenter.inudorm.usecase.DeleteProfilePhoto
+import org.appcenter.inudorm.usecase.DeleteSchedule
 import org.appcenter.inudorm.usecase.GetCalendars
 import org.appcenter.inudorm.usecase.GetRoomMateTeam
+import org.appcenter.inudorm.usecase.GetRoomMates
 import org.appcenter.inudorm.usecase.GetTeamSchedules
 import org.appcenter.inudorm.usecase.LoginRefresh
+import org.appcenter.inudorm.usecase.ResultUseCase
 import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.State
 import java.time.LocalDate
+import kotlin.reflect.KFunction1
 
 
 class CalendarViewModel : ViewModel() {
@@ -82,6 +92,75 @@ class CalendarViewModel : ViewModel() {
         }
     }
 
+    private val _roomMutationEvent: MutableStateFlow<RoomMutationEvent?> =
+        MutableStateFlow(null)
+    val roomMutationEvent: StateFlow<RoomMutationEvent?>
+        get() = _roomMutationEvent
+
+
+    fun deleteMate(memberId: Int) {
+        viewModelScope.launch {
+            if (_roomMutationEvent.value?.mutation?.state is State.Loading) return@launch
+
+            _roomMutationEvent.emit(
+                RoomMutationEvent.DeleteMate(
+                    Mutation(
+                        memberId,
+                        State.Loading()
+                    )
+                )
+            )
+            _roomMutationEvent.emit(
+                RoomMutationEvent.DeleteMate(
+                    Mutation(memberId, DeleteMate().run(memberId))
+                )
+            )
+        }
+    }
+
+    fun deleteSchedule(scheduleId: Int) {
+        viewModelScope.launch {
+            if (_roomMutationEvent.value?.mutation?.state is State.Loading) return@launch
+
+            _roomMutationEvent.emit(
+                RoomMutationEvent.DeleteSchedule(
+                    Mutation(
+                        scheduleId,
+                        State.Loading()
+                    )
+                )
+            )
+            _roomMutationEvent.emit(
+                RoomMutationEvent.DeleteSchedule(
+                    Mutation(scheduleId, DeleteSchedule().run(scheduleId))
+                )
+            )
+        }
+    }
+
+    fun leave() {
+        viewModelScope.launch {
+            if (userState.value !is State.Success) return@launch
+            if (_roomMutationEvent.value?.mutation?.state is State.Loading) return@launch
+
+            _roomMutationEvent.emit(
+                RoomMutationEvent.Leave(
+                    Mutation(
+                        null,
+                        State.Loading()
+                    )
+                )
+            )
+            _roomMutationEvent.emit(
+                RoomMutationEvent.Leave(
+                    Mutation(
+                        null,
+                        DeleteMate().run((userState.value as State.Success<User>).data?.memberId!!)
+                    )
+                )
+            )
+        }
+    }
 
 //    fun onDateChanged(widget: MaterialCalendarView, date: CalendarDay, selected: Boolean) {
 //        IDormLogger.i(this, "${selected} | ${date.day}")

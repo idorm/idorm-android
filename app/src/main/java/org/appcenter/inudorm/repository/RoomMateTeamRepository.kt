@@ -25,6 +25,7 @@ class RoomMateTeamRepository {
         return RetrofitInstance.service.kickRoomMateMember(memberId)
     }
 
+
     /**
      * 최후의 남은 팀원 1명이 팀 폭발했음을 확인했을 때 해당 API를 요청해주세요.
      */

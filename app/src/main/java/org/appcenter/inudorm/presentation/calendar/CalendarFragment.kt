@@ -45,6 +45,7 @@ import org.appcenter.inudorm.presentation.account.LoginActivity
 import org.appcenter.inudorm.presentation.adapter.CalendarAdapter
 import org.appcenter.inudorm.presentation.adapter.TeamProfileAdapter
 import org.appcenter.inudorm.presentation.adapter.TeamScheduleAdapter
+import org.appcenter.inudorm.presentation.matching.RoomMutationEvent
 import org.appcenter.inudorm.repository.PrefsRepository
 import org.appcenter.inudorm.usecase.AcceptInvitation
 import org.appcenter.inudorm.usecase.LoginRefresh
@@ -106,6 +107,30 @@ class CalendarFragment : LoadingFragment() {
         }
     }
 
+    private fun invite() {
+        if (viewModel.userState.value is State.Success) {
+            CustomDialog(
+                text = "룸메이트 초대 링크를 보내시겠습니까?",
+                positiveButton = DialogButton(
+                    "카카오톡으로 이동",
+                    icon = R.drawable.ic_kakaotalk_logo,
+                    onClick = {
+                        val user = (viewModel.userState.value as State.Success).data!!
+                        val templateId = 97215L
+                        val templateArgs = mapOf(
+                            "senderNickNm" to user.nickname,
+                            "userProfile" to (user.profilePhotoUrl
+                                ?: ImageUri.defaultProfileImage),
+                            "inviter" to user.memberId.toString()
+                        )
+                        KakaoShare.share(requireContext(), templateId, templateArgs)
+                    },
+                    buttonType = ButtonType.Filled
+                )
+            ).show(requireContext())
+        }
+    }
+
     private fun openRoomMenu() {
         ListBottomSheet(
             arrayListOf(
@@ -133,35 +158,13 @@ class CalendarFragment : LoadingFragment() {
                         OkDialog("룸메이트는 최대 4명까지 일정을 공유할 수 있습니다.").show(requireContext())
                         return@ListBottomSheet
                     }
-                    if (viewModel.userState.value is State.Success) {
-                        CustomDialog(
-                            text = "룸메이트 초대 링크를 보내시겠습니까?",
-                            positiveButton = DialogButton(
-                                "카카오톡으로 이동",
-                                icon = R.drawable.ic_kakaotalk_logo,
-                                onClick = {
-                                    val user = (viewModel.userState.value as State.Success).data!!
-                                    val templateId = 97215L
-                                    val templateArgs = mapOf(
-                                        "senderNickNm" to user.nickname,
-                                        "userProfile" to (user.profilePhotoUrl
-                                            ?: ImageUri.defaultProfileImage),
-                                        "inviter" to user.memberId.toString()
-                                    )
-                                    KakaoShare.share(requireContext(), templateId, templateArgs)
-                                },
-                                buttonType = ButtonType.Filled
-                            )
-                        ).show(requireContext())
-
-
-                    }
+                    invite()
                 }
 
                 "leave" -> {
                     OkCancelDialog("일정 공유 캘린더에서 나갈 시 데이터가 모두 사라집니다.", onOk = {
                         // Todo: Leave
-
+                        viewModel.leave()
                     }).show(requireContext())
                 }
             }
@@ -174,6 +177,7 @@ class CalendarFragment : LoadingFragment() {
                 "룸메이트 목록에서 삭제하시겠습니까?",
                 onOk = {
                     // Todo: delete
+                    viewModel.deleteMate(it)
                 },
             ).show(requireContext())
         }
@@ -187,6 +191,7 @@ class CalendarFragment : LoadingFragment() {
                 "일정을 삭제하시겠습니까?",
                 onOk = {
                     // Todo: delete
+                    viewModel.deleteSchedule(it)
                 },
             ).show(requireContext())
         }
@@ -231,7 +236,10 @@ class CalendarFragment : LoadingFragment() {
         setExtended(!menuExtended)
     }
 
+    private var currentMonth = CalendarMonth(YearMonth.now(), arrayListOf())
+
     private fun setCurrentMonth(date: CalendarMonth) {
+        currentMonth = date
         val date = LocalDate.of(date.yearMonth.year, date.yearMonth.monthValue, 1)
         viewModel.getSchedules(date)
         viewModel.getOfficialSchedules(date)
@@ -291,6 +299,11 @@ class CalendarFragment : LoadingFragment() {
                 val intent = Intent(requireContext(), WriteSleepoverScheduleActivity::class.java)
                 startActivity(intent)
             }
+            binding.invite.setOnClickListener {
+                invite()
+
+            }
+
             lifecycleScope.launch {
                 viewModel.userState.collect {
                     setLoadingState(it)
@@ -419,6 +432,33 @@ class CalendarFragment : LoadingFragment() {
                     setLoadingState(it)
                 }
             }
+
+            lifecycleScope.launch {
+                viewModel.roomMutationEvent.collect {
+                    setLoadingState(it == null || it.mutation.state.isLoading())
+                    if (it == null) return@collect
+                    when (it) {
+                        is RoomMutationEvent.DeleteMate -> {
+                            OkDialog("사용자를 삭제했어요.", onOk = {
+                                setCurrentMonth(currentMonth)
+                            }).show(requireContext())
+                        }
+
+                        is RoomMutationEvent.DeleteSchedule -> {
+                            OkDialog("일정을 삭제했어요.", onOk = {
+                                setCurrentMonth(currentMonth)
+                            }).show(requireContext())
+                        }
+
+                        is RoomMutationEvent.Leave -> {
+                            OkDialog("방에서 나갔어요.", onOk = {
+                                setCurrentMonth(currentMonth)
+                            }).show(requireContext())
+                        }
+                    }
+                }
+            }
+
             // Dummy 입니다!!! 무 조 건 데이터 들어오고 나서 새로 바인딩 하는 곳에다가 작업하세요!!
             binding.calendarView.dayBinder = object : MonthDayBinder<DayViewContainer> {
                 // Called only when a new container is needed.
