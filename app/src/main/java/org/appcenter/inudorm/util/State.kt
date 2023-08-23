@@ -10,13 +10,16 @@ import kotlin.reflect.full.primaryConstructor
 
 sealed class State<T> {
     class Initial<T> : State<T>()
-    data class Success<T>(val data: T?) : State<T>()
+    data class Success<T>(override val data: T?) : State<T>()
     class Loading<T> : State<T>()
     data class Error<T>(val error: Throwable) : State<T>()
 
     fun isLoading() = this is Loading
     fun isError() = this is Error
     fun isSuccess() = this is Success
+
+    open val data: T?
+        get() = if (this is State.Success) (this as State.Success).data else null
 
     companion object {
         suspend fun <P, R> fetch(

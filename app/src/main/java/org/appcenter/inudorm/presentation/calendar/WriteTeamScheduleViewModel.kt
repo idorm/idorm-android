@@ -11,6 +11,7 @@ import org.appcenter.inudorm.model.TeamSchedule
 import org.appcenter.inudorm.model.TeamScheduleReq
 import org.appcenter.inudorm.presentation.onboard.BaseInfoState
 import org.appcenter.inudorm.usecase.*
+import org.appcenter.inudorm.util.IDormLogger
 import org.appcenter.inudorm.util.State
 import java.time.LocalDate
 
@@ -21,7 +22,8 @@ data class TeamMutation<P, R>(val request: P, val state: State<R>)
 
 
 class WriteTeamScheduleViewModel(private val purpose: TeamSchedulePurpose) : ViewModel() {
-    private val _teamScheduleMutationEvent: MutableStateFlow<TeamScheduleMutationEvent?> = MutableStateFlow(null)
+    private val _teamScheduleMutationEvent: MutableStateFlow<TeamScheduleMutationEvent?> =
+        MutableStateFlow(null)
     val teamScheduleMutationEvent: StateFlow<TeamScheduleMutationEvent?>
         get() = _teamScheduleMutationEvent
 
@@ -36,34 +38,55 @@ class WriteTeamScheduleViewModel(private val purpose: TeamSchedulePurpose) : Vie
         get() = _teamSchedule
 
 
-    fun getRoomMates() {
-        viewModelScope.launch {
-            if (roomMateTeam.value is State.Loading) return@launch
+    private suspend fun getRoomMates() {
+        if (roomMateTeam.value is State.Loading)
             _roomMateTeam.emit(State.Loading())
-            _roomMateTeam.emit(GetRoomMateTeam().run(null))
+
+        val targets = _teamSchedule.value.data?.targets
+        _roomMateTeam.emit(
+            GetRoomMateTeam().run(null) {
+                it.copy(
+                    members = it.members.map { profile ->
+                        val target =
+                            targets?.find { target -> target.memberId == profile.memberId }
+
+                        if (purpose == TeamSchedulePurpose.Create)
+                            profile.copy(hasInvitedToSchedule = false)
+                        else profile.copy(hasInvitedToSchedule = target != null)
+
+                    }
+                )
+            }
+        )
+    }
+
+    fun loadInitialPage(teamCalendarId: Int) {
+        viewModelScope.launch {
+            // 동기적으로 수행합니다.
+            getTeamSchedule(teamCalendarId)
+            getRoomMates()
         }
     }
 
-    fun getTeamSchedule(teamCalendarId : Int) {
-        viewModelScope.launch() {
-            if (teamSchedule.value is State.Loading) return@launch
+    private suspend fun getTeamSchedule(teamCalendarId: Int) {
+        if (teamSchedule.value is State.Loading)
             _teamSchedule.emit(State.Loading())
-            _teamSchedule.emit(GetTeamSchedule().run(teamCalendarId))
-        }
+        _teamSchedule.emit(GetTeamSchedule().run(teamCalendarId))
     }
 
 
-    fun submit(teamScheduleReq: TeamScheduleReq ){
+    fun submit(teamScheduleReq: TeamScheduleReq) {
         val teamScheduleParams = TeamScheduleParams(purpose, teamScheduleReq)
         viewModelScope.launch {
             _teamScheduleMutationEvent.emit(
                 TeamScheduleMutationEvent.CreateTeamSchedule(
-                TeamMutation(teamScheduleParams, ModifyTeamSchedule().run(teamScheduleParams))
-            ))
+                    TeamMutation(teamScheduleParams, ModifyTeamSchedule().run(teamScheduleParams))
+                )
+            )
         }
     }
 
-    fun delete(teamCalendarId : Int){
+    fun delete(teamCalendarId: Int) {
         viewModelScope.launch {
             DeleteSchedule().run(teamCalendarId)
         }

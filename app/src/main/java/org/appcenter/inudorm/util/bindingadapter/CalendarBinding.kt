@@ -148,12 +148,12 @@ object CalendarBinding {
     @BindingAdapter("mates")
     fun RecyclerView.bindMateList(mateListState: State<RoomMateTeamResponseDto>?) {
         if (mateListState != null && adapter is TeamProfileAdapter &&
-            mateListState is State.Success && mateListState.data?.members != null
+            mateListState is State.Success
         ) {
             val a = adapter as TeamProfileAdapter
             a.setManageMode(false)
             a.dataSet.clear()
-            a.dataSet.addAll(mateListState.data?.members)
+            a.dataSet.addAll(mateListState.data?.members!!)
             a.notifyDataSetChanged()
         }
     }
@@ -168,13 +168,14 @@ object CalendarBinding {
     @JvmStatic
     @BindingAdapter("teamSchedules")
     fun RecyclerView.bindTeamSchedules(teamSchedules: State<List<TeamSchedule>>?) {
-        if (teamSchedules != null && adapter is TeamScheduleAdapter &&
-            teamSchedules is State.Success && teamSchedules.data != null
+        if (teamSchedules != null
+            && adapter is TeamScheduleAdapter
+            && teamSchedules.isSuccess()
         ) {
             val a = adapter as TeamScheduleAdapter
             a.setManageMode(false)
             a.dataSet.clear()
-            a.dataSet.addAll(teamSchedules.data)
+            a.dataSet.addAll(teamSchedules.data!!)
             a.notifyDataSetChanged()
         }
     }
@@ -183,11 +184,11 @@ object CalendarBinding {
     @BindingAdapter("officialSchedules")
     fun RecyclerView.bindOfficialSchedules(officialSchedules: State<List<Schedule>>?) {
         if (officialSchedules != null && adapter is CalendarAdapter &&
-            officialSchedules is State.Success && officialSchedules.data?.isNotEmpty() == true
+            officialSchedules.isSuccess()
         ) {
             val a = adapter as CalendarAdapter
             a.dataSet.clear()
-            a.dataSet.addAll(officialSchedules.data)
+            a.dataSet.addAll(officialSchedules.data!!)
             a.notifyDataSetChanged()
         }
     }

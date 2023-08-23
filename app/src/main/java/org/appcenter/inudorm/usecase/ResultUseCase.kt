@@ -9,10 +9,16 @@ abstract class ResultUseCase<P, R> {
     abstract suspend fun onExecute(params: P): R
 
     suspend fun run(params: P): State<R> {
+        return run(params, null)
+    }
+
+    suspend fun run(params: P, mapper: ((R) -> R)? = null): State<R> {
         try {
             IDormLogger.d(this, "Running UseCase $this with following params: $params")
             return kotlin.runCatching {
-                State.Success(onExecute(params))
+                State.Success(
+                    if (mapper == null) onExecute(params) else mapper(onExecute(params))
+                )
             }.getOrElse {
                 Sentry.captureException(it)
                 IDormLogger.e(

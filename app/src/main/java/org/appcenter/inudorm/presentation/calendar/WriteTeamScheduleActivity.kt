@@ -35,8 +35,6 @@ class WriteTeamScheduleActivity : LoadingActivity() {
         PrefsRepository(this)
     }
 
-    var roomMateTeam = arrayListOf<TeamProfile>()
-
 
 
     @SuppressLint("SetTextI18n")
@@ -45,7 +43,7 @@ class WriteTeamScheduleActivity : LoadingActivity() {
         setContentView(R.layout.activity_write_team_schedule)
 
         val purpose = intent.getSerializableExtra("purpose") as TeamSchedulePurpose
-        val teamCalendarId = intent.getIntExtra("teamCalendarId",0)
+        val teamCalendarId = intent.getIntExtra("teamCalendarId", 0)
 
 
         viewModel = ViewModelProvider(
@@ -60,38 +58,33 @@ class WriteTeamScheduleActivity : LoadingActivity() {
             viewModel.roomMateTeam.collect {
                 setLoadingState(it)
                 if (it is State.Success) {
-                    roomMateTeam.clear()
-                    roomMateTeam.addAll(it.data?.members?.map { member ->
-                        member.copy(
-                            hasInvitedToSchedule = false
-                        )
-                    }!!)
+
                 }
             }
         }
 
-        viewModel.getRoomMates()
 
         //팀 조회
         lifecycleScope.launch {
-            if(purpose == TeamSchedulePurpose.Edit){
+            if (purpose == TeamSchedulePurpose.Edit) {
                 viewModel.teamSchedule.collect {
                     setLoadingState(it)
-                    if(it is State.Success){
+                    if (it is State.Success) {
                         IDormLogger.i(this, "팀일정 조회 성공")
                         val startDate = it.data?.startDate
                         val endDate = it.data?.startDate
 
-
                         binding.title.setText(it.data?.title)
                         binding.content.setText(it.data?.content)
-                        binding.startDate.text = startDate?.substring(5 until 7) + "월" + startDate?.substring(8 until 10) + "일"
+                        binding.startDate.text =
+                            startDate?.substring(5 until 7) + "월" + startDate?.substring(8 until 10) + "일"
                         binding.startTime.text = changeTime(it.data?.startTime.toString())
-                        binding.endDate.text = endDate?.substring(5 until 7) + "월" + endDate?.substring(8 until 10) + "일"
+                        binding.endDate.text =
+                            endDate?.substring(5 until 7) + "월" + endDate?.substring(8 until 10) + "일"
                         binding.endTime.text = changeTime(it.data?.endTime.toString())
 
                     }
-                    if(it is State.Error){
+                    if (it is State.Error) {
                         UIErrorHandler.handle(
                             this@WriteTeamScheduleActivity,
                             prefsRepository,
@@ -101,15 +94,14 @@ class WriteTeamScheduleActivity : LoadingActivity() {
                                 ErrorCode.FIELD_REQUIRED -> {
                                     OkDialog(
                                         e.error.message,
-                                        onOk = { },
                                         cancelable = false
                                     ).show(this@WriteTeamScheduleActivity)
 
                                 }
+
                                 else -> {
                                     OkDialog(
                                         e.error.message,
-                                        onOk = { },
                                         cancelable = false
                                     ).show(this@WriteTeamScheduleActivity)
                                 }
@@ -120,18 +112,20 @@ class WriteTeamScheduleActivity : LoadingActivity() {
             }
         }
 
-        viewModel.getTeamSchedule(teamCalendarId)
+        viewModel.loadInitialPage(teamCalendarId)
 
-        binding.backBtn.setOnClickListener{
+
+        binding.backBtn.setOnClickListener {
             finish()
         }
 
         binding.deleteButton.setOnClickListener {
-            if(purpose == TeamSchedulePurpose.Create) {
+            if (purpose == TeamSchedulePurpose.Create) {
                 OkDialog(
                     "일정 작성을 중단하시겠습니까?\n작성 중인 일정은 저장되지 않습니다.",
                     onOk = {
-                        finish()},
+                        finish()
+                    },
                     cancelable = true
                 ).show(this@WriteTeamScheduleActivity)
             } else {
@@ -139,7 +133,8 @@ class WriteTeamScheduleActivity : LoadingActivity() {
                     "일정을 삭제하시겠습니까?",
                     onOk = {
                         viewModel.delete(teamCalendarId)
-                        finish()},
+                        finish()
+                    },
                     cancelable = true
                 ).show(this@WriteTeamScheduleActivity)
             }
@@ -169,9 +164,10 @@ class WriteTeamScheduleActivity : LoadingActivity() {
 
 
         lifecycleScope.launch {
-            viewModel.teamScheduleMutationEvent.collect() {
-
-                if (roomMateTeam.isNotEmpty())
+            viewModel.teamScheduleMutationEvent.collect {
+                if (viewModel.roomMateTeam.value is State.Success &&
+                    (viewModel.roomMateTeam.value as State.Success).data?.members?.isNotEmpty() == true
+                )
                     when (it) {
                         is TeamScheduleMutationEvent.CreateTeamSchedule -> {
                             if (it.mutation.state.isSuccess()) {
@@ -249,7 +245,7 @@ class WriteTeamScheduleActivity : LoadingActivity() {
     }
 
 
-    private fun changeDateToDay(date : String?): String {
+    private fun changeDateToDay(date: String?): String {
         val cal: Calendar = Calendar.getInstance()
         val dayNum: Int = cal.get(Calendar.DAY_OF_WEEK)
         val dateList = mutableListOf<String>("", "일", "월", "화", "수", "목", "금", "토")
@@ -257,24 +253,23 @@ class WriteTeamScheduleActivity : LoadingActivity() {
         return dateList[dayNum]
     }
 
-    private fun changeTime(time : String) : String {
-        val hourString : String
-        val minutesString : String
+    private fun changeTime(time: String): String {
+        val hourString: String
+        val minutesString: String
         val hour = time.substring(0..1).toInt()
         val minutes = time.substring(3..4).toInt()
-        hourString = if(hour < 10) ("오전 0${hour}시 ")
-                    else if(hour < 12) ("오전 ${hour}시 ")
-                    else if(hour == 12) ("오후 12시 ")
-                    else ("오후 ${hour-12}시 ")
+        hourString = if (hour < 10) ("오전 0${hour}시 ")
+        else if (hour < 12) ("오전 ${hour}시 ")
+        else if (hour == 12) ("오후 12시 ")
+        else ("오후 ${hour - 12}시 ")
 
 
-        minutesString = if(minutes < 10) ("0${minutes}분")
+        minutesString = if (minutes < 10) ("0${minutes}분")
         else ("${minutes}분")
 
 
         return hourString + minutesString
     }
-
 
 
 }
