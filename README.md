@@ -1,4 +1,4 @@
-<img src="https://avatars.githubusercontent.com/u/108882058?s=200&v=4"></img>
+<img src="https://github.com/idorm/idorm-android/assets/103296628/10df1a49-6cff-4253-b908-6c536409d373)"></img>
 
 # idorm
 룸메이트 매칭, idorm과 함께해요.
