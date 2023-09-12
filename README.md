@@ -1,4 +1,31 @@
-<img src="https://github.com/idorm/idorm-android/assets/103296628/10df1a49-6cff-4253-b908-6c536409d373)" width="200" height="200"></img>
+<br>
+<div align="center">
+    <img src="https://github.com/idorm/idorm-android/assets/103296628/9d4d7c9c-f7a8-48f5-8499-2d48220a76b9" width="300"></img><br>
+    <h1>idorm</h1>
+    <h3>인천대학교 기숙사생들을 위한 모든 것</h3>
+    <h5>
+        크롤링 기반 기숙사 공식 일정 알림&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+        카드 스와이핑으로 룸메이트 매칭&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+        룸메이트와 공유 캘린더&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+        기숙사별 커뮤니티
+    </h5>
+    <h5>
+        <a href="https://play.google.com/store/apps/details?id=org.appcenter.inudorm&hl=ko">📲 playstore 다운링크</a>
+        &nbsp<a>|</a>&nbsp
+        <a href="https://apps.apple.com/kr/app/아이돔/id1660001335">📲 appstore 다운링크 </a>
+    </h5>
+</div>
+<br>
+<div>
+
+    
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 # idorm
 룸메이트 매칭, idorm과 함께해요.
