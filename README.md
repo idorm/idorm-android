@@ -14,12 +14,24 @@
         &nbsp<a>|</a>&nbsp
         <a href="https://apps.apple.com/kr/app/아이돔/id1660001335">📲 appstore 다운링크 </a>
     </h5>
-</div>
-<br>
-<div>
+</div><br>
 
-    
-</div>
+
+
+## idorm 기능
+|로그인 이미지| <img src="https://github.com/idorm/idorm-android/assets/103296628/4bde6362-1d75-46c0-b65c-d2eb962a3a07" width="300"></img> |
+| ------------ | ------------- |
+| 자동 로그인 | 어플에서 확인하는 기숙사 공식 일정 |
+
+|<img src="https://github.com/idorm/idorm-android/assets/103296628/b4664e47-f8c6-44cc-9443-c1b67df2140e" width="300"></img>| <img src="https://github.com/idorm/idorm-android/assets/103296628/d9c5350d-a4d4-4f94-8b53-9b04cdbaa9b8" width="300"></img> |
+| ------------ | ------------- |
+| 온보딩을 통한 내 카드 생성 | 필터와 스와이핑으로 룸메이트 매칭  |
+
+|<img src="https://github.com/idorm/idorm-android/assets/103296628/47677acd-abda-48c5-aeae-2960e31b7482" width="300"></img>| <img src="https://github.com/idorm/idorm-android/assets/103296628/5c67abd7-667f-4c34-b189-43aca6bed73f" width="300"></img> |
+| ------------ | ------------- |
+| 기숙사 별로 확인하는 커뮤니티 | 룸메이트와 공유하는 우리 방 캘린더  |
+   
+
 <br>
 <br>
 <br>
